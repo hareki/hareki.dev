@@ -16,6 +16,14 @@ export default defineConfig([
     },
     extends: ['import-x/flat/recommended'],
     rules: {
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'inline-type-imports',
+        },
+      ],
+
       'import-x/no-cycle': 'error',
       'import-x/no-anonymous-default-export': 'error',
       'import-x/default': 'error',
