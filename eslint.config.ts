@@ -1,13 +1,61 @@
 import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import eslintParserAstro from 'astro-eslint-parser';
 import { defineConfig } from 'eslint/config';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
-import eslintParserAstro from 'astro-eslint-parser';
-import { parser as eslintParserTypeScript } from 'typescript-eslint';
+import { importX } from 'eslint-plugin-import-x';
+import globals from 'globals';
+import tseslint, { parser as eslintParserTypeScript } from 'typescript-eslint';
 
 export default defineConfig([
+  {
+    files: ['**/*.{ts,tsx,astro}'],
+    plugins: {
+      // @ts-expect-error null and undefined is effectively the same
+      'import-x': importX,
+    },
+    extends: ['import-x/flat/recommended'],
+    rules: {
+      'import-x/no-cycle': 'error',
+      'import-x/no-anonymous-default-export': 'error',
+      'import-x/default': 'error',
+      'import-x/no-named-as-default-member': 'off',
+      'import-x/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['sibling', 'parent'],
+            'index',
+            'object',
+            'type',
+          ],
+
+          pathGroups: [
+            {
+              pattern: 'react',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '@/**',
+              group: 'internal',
+            },
+          ],
+
+          pathGroupsExcludedImportTypes: ['react'],
+          'newlines-between': 'always',
+
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+    },
+  },
   {
     files: ['**/*.{mjs,ts,tsx,astro}'],
     plugins: { js },
