@@ -6,7 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write .",
+    "lint": "eslint --report-unused-disable-directives",
+    "check-type": "tsc --noEmit",
+    "fix": "pnpm check-type &&pnpm format && pnpm lint --fix"
   },
   "dependencies": {
     "@astrojs/ts-plugin": "^1.10.6",
