@@ -1,3 +1,4 @@
 @import 'tailwindcss';
 
-@import 'utilities.css';
+@import './starwind.css';
+@import './utilities.css';

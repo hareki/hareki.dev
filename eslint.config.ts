@@ -2,13 +2,12 @@ import { fileURLToPath } from 'node:url';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
-import eslintParserAstro from 'astro-eslint-parser';
 import { defineConfig } from 'eslint/config';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
 import { importX } from 'eslint-plugin-import-x';
 import globals from 'globals';
-import tseslint, { parser as eslintParserTypeScript } from 'typescript-eslint';
+import tseslint from 'typescript-eslint';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
@@ -29,6 +28,10 @@ export default defineConfig([
           fixStyle: 'inline-type-imports',
         },
       ],
+
+      // Rules don't with astro eslint parser
+      'import-x/no-unresolved': 'off',
+      'import-x/namespace': 'off',
 
       'import-x/no-cycle': 'error',
       'import-x/no-anonymous-default-export': 'error',
@@ -92,16 +95,6 @@ export default defineConfig([
       'better-tailwindcss/enforce-consistent-important-position': 'warn',
       'better-tailwindcss/enforce-shorthand-classes': 'warn',
       'better-tailwindcss/no-unknown-classes': 'off',
-    },
-  },
-  {
-    files: ['**/*.{astro}'],
-
-    languageOptions: {
-      parser: eslintParserAstro,
-      parserOptions: {
-        parser: eslintParserTypeScript,
-      },
     },
   },
 ]);
