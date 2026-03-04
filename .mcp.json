@@ -5,7 +5,7 @@
       "url": "https://mcp.docs.astro.build/mcp"
     },
     "starwind-ui": {
-      "command": "pnpx",
+      "command": "npx",
       "args": ["-y", "@starwind-ui/mcp"],
       "env": {}
     }
