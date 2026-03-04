@@ -1,0 +1,15 @@
+---
+import { tv } from 'tailwind-variants';
+
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'>;
+
+const { class: className, ...rest } = Astro.props;
+
+export const skeleton = tv({
+  base: 'animate-pulse rounded-md bg-muted',
+});
+---
+
+<div class={skeleton({ class: className })} {...rest} data-slot='skeleton'></div>

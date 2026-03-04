@@ -1,7 +1,6 @@
 import { fileURLToPath } from 'node:url';
 
 import { includeIgnoreFile } from '@eslint/compat';
-import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
@@ -13,6 +12,7 @@ const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
 export default defineConfig([
   includeIgnoreFile(gitignorePath),
+  tseslint.configs.recommended,
   {
     files: ['**/*.{ts,tsx,astro}'],
     plugins: {
@@ -21,6 +21,8 @@ export default defineConfig([
     },
     extends: ['import-x/flat/recommended'],
     rules: {
+      // Starwind UI does a lot of "any" type casting
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {
@@ -75,11 +77,8 @@ export default defineConfig([
   },
   {
     files: ['**/*.{mjs,ts,tsx,astro}'],
-    plugins: { js },
-    extends: ['js/recommended'],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
-  tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   ...eslintPluginAstro.configs['jsx-a11y-strict'],
   {
