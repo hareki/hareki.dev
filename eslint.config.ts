@@ -12,15 +12,38 @@ const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 
 export default defineConfig([
   includeIgnoreFile(gitignorePath),
-  tseslint.configs.recommended,
+  {
+    files: ['**/*.{mjs,ts,tsx,astro}'],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+  },
   {
     files: ['**/*.{ts,tsx,astro}'],
     plugins: {
       // @ts-expect-error null and undefined is effectively the same
       'import-x': importX,
     },
-    extends: ['import-x/flat/recommended'],
+    extends: [
+      tseslint.configs.recommended,
+      'import-x/flat/recommended',
+      ...eslintPluginAstro.configs.recommended,
+      ...eslintPluginAstro.configs['jsx-a11y-strict'],
+      eslintPluginBetterTailwindcss.configs.recommended,
+    ],
+    settings: {
+      // Use espree for JS files so import-x doesn't parse them with the Astro parser
+      'import-x/parsers': {
+        espree: ['.js', '.cjs', '.mjs'],
+      },
+      'better-tailwindcss': {
+        entryPoint: 'src/styles/tailwind/index.css',
+      },
+    },
     rules: {
+      'better-tailwindcss/enforce-consistent-variable-syntax': 'warn',
+      'better-tailwindcss/enforce-consistent-important-position': 'warn',
+      'better-tailwindcss/enforce-shorthand-classes': 'warn',
+      'better-tailwindcss/no-unknown-classes': 'off',
+
       // Starwind UI does a lot of "any" type casting
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/consistent-type-imports': [
@@ -73,27 +96,6 @@ export default defineConfig([
           },
         },
       ],
-    },
-  },
-  {
-    files: ['**/*.{mjs,ts,tsx,astro}'],
-    languageOptions: { globals: { ...globals.browser, ...globals.node } },
-  },
-  ...eslintPluginAstro.configs.recommended,
-  ...eslintPluginAstro.configs['jsx-a11y-strict'],
-  {
-    files: ['**/*.{tsx,astro}'],
-    extends: [eslintPluginBetterTailwindcss.configs.recommended],
-    settings: {
-      'better-tailwindcss': {
-        entryPoint: 'src/styles/tailwind/index.css',
-      },
-    },
-    rules: {
-      'better-tailwindcss/enforce-consistent-variable-syntax': 'warn',
-      'better-tailwindcss/enforce-consistent-important-position': 'warn',
-      'better-tailwindcss/enforce-shorthand-classes': 'warn',
-      'better-tailwindcss/no-unknown-classes': 'off',
     },
   },
 ]);
