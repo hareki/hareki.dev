@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "Astro docs": {
+      "url": "https://mcp.docs.astro.build/mcp",
+      "type": "http"
+    },
+    "Starwind UI": {
+      "command": "npx",
+      "args": ["-y", "@starwind-ui/mcp"],
+      "env": {}
+    }
+  },
+  "inputs": []
+}

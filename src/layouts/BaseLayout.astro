@@ -1,5 +1,4 @@
 ---
-import '@/styles/tailwind/starwind.css';
 import '../styles/tailwind/index.css';
 
 interface Props {
@@ -12,6 +11,29 @@ const baseTitle = 'Hareki';
 <!doctype html>
 <html lang='en'>
   <head>
+    <script is:inline>
+      (function () {
+        const d = document.documentElement;
+        let fl = localStorage.getItem('ctp-flavor');
+        let ac = localStorage.getItem('ctp-accent');
+        const mq = matchMedia('(prefers-color-scheme:dark)');
+
+        function setFlavor(f) {
+          d.className = d.className.replace(/\bctp-flavor-\S+/g, '');
+          d.classList.add('ctp-flavor-' + f);
+        }
+
+        if (!fl) fl = mq.matches ? 'mocha' : 'latte';
+        if (!ac) ac = 'blue';
+        d.classList.add('ctp-flavor-' + fl, 'ctp-accent-' + ac);
+
+        mq.addEventListener('change', function (e) {
+          if (!localStorage.getItem('ctp-flavor')) {
+            setFlavor(e.matches ? 'mocha' : 'latte');
+          }
+        });
+      })();
+    </script>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />

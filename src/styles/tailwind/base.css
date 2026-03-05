@@ -1,0 +1,11 @@
+@layer base {
+  * {
+    @apply border-border outline-outline/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+}
