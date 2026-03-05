@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  company: string;
+  date: string;
+  location: string;
+}
+const { title, company, date, location } = Astro.props;
+---
+
+<div>
+  <h3>{title}</h3>
+  <p>{company}</p>
+  <p>
+    {date} &middot; {location}
+  </p>
+  <ul>
+    <slot />
+  </ul>
+</div>

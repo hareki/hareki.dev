@@ -1,0 +1,19 @@
+---
+import TechItem from './TechItem.astro';
+
+const techs = [
+  { name: 'TypeScript', icon: 'typescript' },
+  { name: 'React', icon: 'react' },
+  { name: 'Next.js', icon: 'nextjs' },
+  { name: 'Astro', icon: 'astro' },
+  { name: 'Node.js', icon: 'nodejs' },
+  { name: 'Tailwind', icon: 'tailwind' },
+];
+---
+
+<section id='tech-stack'>
+  <h2>Tech Stack</h2>
+  <div class='grid grid-cols-3 gap-4'>
+    {techs.map((tech) => <TechItem name={tech.name} icon={tech.icon} />)}
+  </div>
+</section>

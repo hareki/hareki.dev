@@ -1,0 +1,11 @@
+---
+interface Props {
+  name: string;
+  icon: string;
+}
+const { name, icon } = Astro.props;
+---
+
+<div class='flex items-center gap-2' data-icon={icon}>
+  <span>{name}</span>
+</div>
