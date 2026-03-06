@@ -3,7 +3,10 @@
   font-style: normal;
   font-family: Maple Mono;
   font-display: swap;
-  src: url(../assets/fonts/MapleMonoNL-Regular.woff2) format('woff2');
+  src:
+    local('Maple Mono NF Regular'),
+    local('Maple Mono Regular'),
+    url(../assets/fonts/MapleMonoNL-Regular.woff2) format('woff2');
 }
 
 @font-face {
@@ -11,5 +14,8 @@
   font-style: medium;
   font-family: Maple Mono;
   font-display: swap;
-  src: url(../assets/fonts/MapleMonoNL-Bold.woff2) format('woff2');
+  src:
+    local('Maple Mono NF Bold'),
+    local('Maple Mono Bold'),
+    url(../assets/fonts/MapleMonoNL-Bold.woff2) format('woff2');
 }
