@@ -1,5 +1,8 @@
 ---
-import '@/styles/tailwind/index.css';
+import '@/styles/index.css';
+import boldFont from '@/assets/fonts/MapleMonoNL-Bold.woff2';
+import regularFont from '@/assets/fonts/MapleMonoNL-Regular.woff2';
+
 import Footer from './Footer.astro';
 import Header from './Header.astro';
 
@@ -11,7 +14,7 @@ const baseTitle = 'Hareki';
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang='en' class='font-display'>
   <head>
     <script is:inline>
       (function () {
@@ -36,6 +39,8 @@ const baseTitle = 'Hareki';
         });
       })();
     </script>
+    <link href={regularFont} rel='preload' type='font/woff2' as='font' crossorigin />
+    <link href={boldFont} rel='preload' type='font/woff2' as='font' crossorigin />
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />

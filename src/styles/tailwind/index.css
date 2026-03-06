@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
-@import './base.css';
-@import './utilities.css';
-@import './theme.css';
+@import './base';
+@import './utilities';
+@import './theme';
 
 @import 'tw-animate-css';
 @plugin "@tailwindcss/forms";
