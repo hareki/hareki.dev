@@ -42,7 +42,12 @@ export default defineConfig([
       'better-tailwindcss/enforce-consistent-variable-syntax': 'warn',
       'better-tailwindcss/enforce-consistent-important-position': 'warn',
       'better-tailwindcss/enforce-shorthand-classes': 'warn',
-      'better-tailwindcss/no-unknown-classes': 'off',
+      'better-tailwindcss/no-unknown-classes': [
+        'warn',
+        {
+          ignore: ['^starwind'],
+        },
+      ],
 
       // Starwind UI does a lot of "any" type casting
       '@typescript-eslint/no-explicit-any': 'off',
