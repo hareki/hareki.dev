@@ -107,8 +107,8 @@ function getPlacementPosition(
   contentHeight: number,
   sideOffset: number,
 ): Position {
-  let top: number;
-  let left: number;
+  let top = 0;
+  let left = 0;
 
   if (placement.side === 'bottom' || placement.side === 'top') {
     top =

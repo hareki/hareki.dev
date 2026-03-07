@@ -1,4 +1,6 @@
 ---
+import { GITHUB_URL, LINKEDIN_URL, TWITTER_URL } from '@/consts';
+
 interface Props {
   variant: 'full' | 'icons';
 }
@@ -6,13 +8,13 @@ const { variant } = Astro.props;
 ---
 
 <div class='flex items-center gap-4'>
-  <a href='https://github.com/hareki' target='_blank' rel='noopener noreferrer'>
+  <a href={GITHUB_URL} target='_blank' rel='noopener noreferrer'>
     {variant === 'full' ? 'GitHub' : 'GH'}
   </a>
-  <a href='https://linkedin.com/in/hareki' target='_blank' rel='noopener noreferrer'>
+  <a href={LINKEDIN_URL} target='_blank' rel='noopener noreferrer'>
     {variant === 'full' ? 'LinkedIn' : 'LI'}
   </a>
-  <a href='https://x.com/harekidev' target='_blank' rel='noopener noreferrer'>
+  <a href={TWITTER_URL} target='_blank' rel='noopener noreferrer'>
     {variant === 'full' ? 'X / Twitter' : 'X'}
   </a>
 </div>

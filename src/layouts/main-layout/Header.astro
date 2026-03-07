@@ -1,14 +1,109 @@
 ---
-import ThemePanel from '@/components/ThemePanel.astro';
+import GithubIcon from '@tabler/icons/outline/brand-github.svg';
+import LinkedInIcon from '@tabler/icons/outline/brand-linkedin.svg';
+import ResumeIcon from '@tabler/icons/outline/file-cv.svg';
+import MailIcon from '@tabler/icons/outline/mail.svg';
+
+import favicon from '@/assets/favicon.svg';
+import Button from '@/components/starwind/button';
+import Separator from '@/components/starwind/separator';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/starwind/tooltip';
+import ThemeSwitcher from '@/components/ThemeSwitcher.astro';
+import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/consts';
+
+import type { SvgComponent } from 'astro/types';
+
+type HeaderLinkButton = {
+  icon: SvgComponent;
+  label: string;
+  href: string;
+};
+
+const contactLinks: HeaderLinkButton[] = [
+  {
+    icon: GithubIcon,
+    label: 'GitHub',
+    href: GITHUB_URL,
+  },
+
+  {
+    icon: LinkedInIcon,
+    label: 'LinkedIn',
+    href: LINKEDIN_URL,
+  },
+
+  {
+    icon: MailIcon,
+    label: 'Mail',
+    href: EMAIL_URL,
+  },
+];
+
+const siteControls: HeaderLinkButton[] = [
+  {
+    icon: ResumeIcon,
+    label: 'Resume',
+    href: RESUME_URL,
+  },
+];
 ---
 
 <div class='sticky top-0 z-10 bg-background pt-4'>
   <header class='
-    flex items-center justify-between rounded-md bg-surface-0 px-4 py-2
+    flex items-center justify-between rounded-md border border-border px-4
+    py-2.5
   '>
-    <a href='/' class='font-bold'>Hareki</a>
-    <nav class='flex items-center gap-6'>
-      <ThemePanel />
-    </nav>
+    <div class='flex items-center gap-2'>
+      <img src={favicon.src} width='24' height='24' alt='logo' />
+      <a href='/' class='font-bold'>Hareki</a>
+    </div>
+
+    <div class='flex items-center'>
+      <div class='flex items-center gap-1'>
+        {
+          contactLinks.map(({ icon: Icon, label, href }) => (
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  href={href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='ghost'
+                  size='icon-sm'
+                >
+                  <Icon class='size-6' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{label}</TooltipContent>
+            </Tooltip>
+          ))
+        }
+      </div>
+
+      <Separator class='mx-3 h-6' orientation='vertical' />
+
+      <div class='flex items-center gap-1'>
+        {
+          siteControls.map(({ icon: Icon, label, href }) => (
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  href={href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='ghost'
+                  size='icon-sm'
+                >
+                  <Icon class='size-6' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{label}</TooltipContent>
+            </Tooltip>
+          ))
+        }
+
+        <ThemeSwitcher />
+      </div>
+    </div>
   </header>
 </div>

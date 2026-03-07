@@ -1,0 +1,15 @@
+---
+import PaletteIcon from '@tabler/icons/outline/palette.svg';
+
+import Button from '@/components/starwind/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/starwind/tooltip';
+---
+
+<Tooltip>
+  <TooltipTrigger>
+    <Button variant='ghost' size='icon-sm'>
+      <PaletteIcon class='size-6' />
+    </Button>
+  </TooltipTrigger>
+  <TooltipContent>Theme</TooltipContent>
+</Tooltip>

@@ -1,5 +1,6 @@
 ---
 import '@/styles/index.css';
+import favicon from '@/assets/favicon.svg';
 import boldFont from '@/assets/fonts/MapleMonoNL-Bold.woff2';
 import regularFont from '@/assets/fonts/MapleMonoNL-Regular.woff2';
 
@@ -43,8 +44,7 @@ const baseTitle = 'Hareki';
     <link href={boldFont} rel='preload' type='font/woff2' as='font' crossorigin />
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <!-- <link rel='icon' href='/favicon.ico' /> -->
+    <link rel='icon' type='image/svg+xml' href={favicon.src} />
     <meta name='generator' content={Astro.generator} />
     <title>{title ? `${title} | ${baseTitle}` : baseTitle}</title>
   </head>

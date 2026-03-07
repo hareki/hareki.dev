@@ -71,4 +71,6 @@
   --color-surface-0: var(--ctp-surface0);
   --color-surface-1: var(--ctp-surface1);
   --color-surface-2: var(--ctp-surface2);
+
+  --color-footer: var(--ctp-crust);
 }
