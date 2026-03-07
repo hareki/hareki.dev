@@ -14,6 +14,24 @@
     'Segoe UI' /* Windows */, 'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
     sans-serif; /* universal fallback */
 
+  --ease-overshoot: linear(
+    0,
+    0.49 7.4%,
+    0.864 15.3%,
+    1.005 19.4%,
+    1.12 23.7%,
+    1.206 28.1%,
+    1.267 32.8%,
+    1.296 36.4%,
+    1.311 40.2%,
+    1.313 44.2%,
+    1.301 48.6%,
+    1.252 56.9%,
+    1.105 74.4%,
+    1.048 82.5%,
+    1.011 91.1%,
+    1
+  );
   --breakpoint-xs: 30rem;
 
   --color-background: var(--ctp-base);
@@ -22,14 +40,14 @@
   --color-card: var(--ctp-mantle);
   --color-card-foreground: var(--ctp-text);
 
-  --color-popover: var(--ctp-base);
+  --color-popover: var(--ctp-surface0);
   --color-popover-foreground: var(--ctp-text);
 
   --color-primary: var(--ctp-accent);
   --color-primary-foreground: var(--ctp-base);
   --color-primary-accent: var(--ctp-accent);
 
-  --color-secondary: var(--ctp-surface0);
+  --color-secondary: var(--ctp-surface1);
   --color-secondary-foreground: var(--ctp-text);
   --color-secondary-accent: var(--ctp-text);
 

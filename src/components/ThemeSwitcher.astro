@@ -13,20 +13,20 @@ const FLAVORS = [
 ] as const;
 
 const ACCENTS = [
-  'rosewater',
-  'flamingo',
-  'pink',
-  'mauve',
-  'red',
-  'maroon',
-  'peach',
-  'yellow',
-  'green',
-  'teal',
-  'sky',
-  'sapphire',
-  'blue',
-  'lavender',
+  'Rosewater',
+  'Flamingo',
+  'Pink',
+  'Mauve',
+  'Red',
+  'Maroon',
+  'Peach',
+  'Yellow',
+  'Green',
+  'Teal',
+  'Sky',
+  'Sapphire',
+  'Blue',
+  'Lavender',
 ] as const;
 ---
 
@@ -51,15 +51,17 @@ const ACCENTS = [
     </Button>
   </PopoverTrigger>
 
-  <PopoverContent side='bottom' align='end' aria-label='Theme settings'>
+  <PopoverContent side='bottom' align='end' aria-label='Theme settings' class='
+    p-3
+  '>
     <div data-theme-switcher>
-      <span class='text-xs text-muted-foreground'>Flavor</span>
-      <div class='grid grid-cols-2 gap-1.5'>
+      <div class='mb-1 text-xs text-muted-foreground'>Flavor</div>
+      <div class='grid grid-cols-2 gap-2'>
         {
           FLAVORS.map(({ value, label }) => (
             <button
               class='
-                h-8 rounded-md bg-secondary text-sm font-medium
+                h-8 bouncy-click rounded-md bg-secondary text-sm font-medium
                 text-secondary-foreground transition-all
               '
               data-flavor={value}
@@ -70,19 +72,26 @@ const ACCENTS = [
         }
       </div>
 
-      <span class='text-xs text-muted-foreground'>Accent</span>
+      <div class='mt-4 mb-1 text-xs text-muted-foreground'>Accent</div>
       <div class='grid grid-cols-7 place-items-center gap-2'>
         {
-          ACCENTS.map((name) => (
-            <button
-              class='flex-center size-6 rounded-full transition-all'
-              style={`background-color: var(--ctp-${name})`}
-              data-accent={name}
-              title={name}
-            >
-              <CheckIcon class='hidden size-3 text-background' data-check />
-            </button>
-          ))
+          ACCENTS.map((label) => {
+            const value = label.toLowerCase();
+
+            return (
+              <button
+                class='
+                  flex-center size-6 bouncy-click rounded-full transition-all
+                '
+                style={`background-color: var(--ctp-${value})`}
+                data-accent={value}
+                title={label}
+                aria-label={`Select ${label} accent`}
+              >
+                <CheckIcon class='hidden size-3 text-background' data-check />
+              </button>
+            );
+          })
         }
       </div>
     </div>
@@ -143,10 +152,9 @@ const ACCENTS = [
       this.accentButtons.forEach((btn) => {
         const isSelected = btn.dataset.accent === currentAccent;
         btn.classList.toggle('ring-2', isSelected);
-        btn.classList.toggle('ring-offset-2', isSelected);
+        btn.classList.toggle('ring-offset-1', isSelected);
         btn.classList.toggle('ring-offset-background', isSelected);
         btn.classList.toggle('ring-foreground', isSelected);
-        btn.classList.toggle('scale-110', isSelected);
 
         const check = btn.querySelector<HTMLElement>('[data-check]');
         if (check) {
