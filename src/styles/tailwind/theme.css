@@ -4,39 +4,54 @@
   .ctp-flavor-mocha, .ctp-flavor-mocha *
 ));
 
+:root {
+  --radius: 0.625rem;
+}
+
 @theme inline {
   --font-display:
     'Maple Mono', -apple-system /* macOS/iOS Safari */, BlinkMacSystemFont /* macOS Chrome */,
     'Segoe UI' /* Windows */, 'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
     sans-serif; /* universal fallback */
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary-accent: var(--primary-accent);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary-accent: var(--secondary-accent);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-info: var(--info);
-  --color-info-foreground: var(--info-foreground);
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-  --color-warning: var(--warning);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-error: var(--error);
-  --color-error-foreground: var(--error-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-outline: var(--outline);
+  --color-background: var(--ctp-base);
+  --color-foreground: var(--ctp-text);
+
+  --color-card: var(--ctp-mantle);
+  --color-card-foreground: var(--ctp-text);
+
+  --color-popover: var(--ctp-base);
+  --color-popover-foreground: var(--ctp-text);
+
+  --color-primary: var(--ctp-accent);
+  --color-primary-foreground: var(--ctp-base);
+  --color-primary-accent: var(--ctp-accent);
+
+  --color-secondary: var(--ctp-surface0);
+  --color-secondary-foreground: var(--ctp-text);
+  --color-secondary-accent: var(--ctp-text);
+
+  --color-muted: var(--ctp-mantle);
+  --color-muted-foreground: var(--ctp-subtext0);
+
+  --color-accent: var(--ctp-surface0);
+  --color-accent-foreground: var(--ctp-text);
+
+  --color-info: var(--ctp-sky);
+  --color-info-foreground: var(--ctp-base);
+
+  --color-success: var(--ctp-green);
+  --color-success-foreground: var(--ctp-base);
+
+  --color-warning: var(--ctp-yellow);
+  --color-warning-foreground: var(--ctp-base);
+
+  --color-error: var(--ctp-red);
+  --color-error-foreground: var(--ctp-base);
+
+  --color-border: var(--ctp-surface0);
+  --color-input: var(--ctp-surface0);
+  --color-outline: var(--ctp-overlay0);
 
   --radius-xs: calc(var(--radius) - 0.375rem);
   --radius-sm: calc(var(--radius) - 0.25rem);
@@ -56,49 +71,4 @@
   --color-surface-0: var(--ctp-surface0);
   --color-surface-1: var(--ctp-surface1);
   --color-surface-2: var(--ctp-surface2);
-}
-
-:root {
-  --background: var(--ctp-base);
-  --foreground: var(--ctp-text);
-  --card: var(--ctp-mantle);
-  --card-foreground: var(--ctp-text);
-  --popover: var(--ctp-base);
-  --popover-foreground: var(--ctp-text);
-  --primary: var(--ctp-accent);
-  --primary-foreground: var(--ctp-base);
-  --primary-accent: var(--ctp-accent);
-  --secondary: var(--ctp-surface0);
-  --secondary-foreground: var(--ctp-text);
-  --secondary-accent: var(--ctp-text);
-  --muted: var(--ctp-mantle);
-  --muted-foreground: var(--ctp-subtext0);
-  --accent: var(--ctp-surface0);
-  --accent-foreground: var(--ctp-text);
-  --info: var(--ctp-sky);
-  --info-foreground: var(--ctp-base);
-  --success: var(--ctp-green);
-  --success-foreground: var(--ctp-base);
-  --warning: var(--ctp-yellow);
-  --warning-foreground: var(--ctp-base);
-  --error: var(--ctp-red);
-  --error-foreground: var(--ctp-base);
-  --border: var(--ctp-surface0);
-  --input: var(--ctp-surface0);
-  --outline: var(--ctp-overlay0);
-  --radius: 0.625rem;
-}
-
-/* --- Dark overrides (only tokens that differ from light) --- */
-html:is(.ctp-flavor-frappe, .ctp-flavor-macchiato, .ctp-flavor-mocha) {
-  --popover: var(--ctp-surface0);
-  --primary-foreground: var(--ctp-crust);
-  --muted: var(--ctp-surface0);
-  --accent: var(--ctp-surface1);
-  --info-foreground: var(--ctp-crust);
-  --success-foreground: var(--ctp-crust);
-  --warning-foreground: var(--ctp-crust);
-  --error-foreground: var(--ctp-crust);
-  --border: var(--ctp-surface1);
-  --input: var(--ctp-surface1);
 }
