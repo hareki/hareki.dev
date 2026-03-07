@@ -5,9 +5,8 @@ import ResumeIcon from '@tabler/icons/outline/file-cv.svg';
 import MailIcon from '@tabler/icons/outline/mail.svg';
 
 import favicon from '@/assets/favicon.svg';
-import Button from '@/components/starwind/button';
+import HeaderButton from '@/components/HeaderButton.astro';
 import Separator from '@/components/starwind/separator';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/starwind/tooltip';
 import ThemeSwitcher from '@/components/ThemeSwitcher.astro';
 import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/consts';
 
@@ -67,37 +66,8 @@ const siteControls: HeaderLinkButton[] = [
     <div class='flex items-center'>
       <div class='flex items-center gap-1.5'>
         {
-          contactLinks.map(({ icon: Icon, label, href }) => (
-            <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  class='md:hidden'
-                  href={href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  variant='ghost'
-                  size='icon-sm'
-                >
-                  <Icon class='size-6' />
-                </Button>
-
-                <Button
-                  class='
-                    hidden
-                    md:inline-flex
-                  '
-                  href={href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  variant='ghost'
-                  size='sm'
-                >
-                  <Icon class='size-5' />
-                  {label}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent class='md:hidden'>{label}</TooltipContent>
-            </Tooltip>
+          contactLinks.map(({ icon, label, href }) => (
+            <HeaderButton icon={icon} label={label} href={href} target='_blank' rel='noopener noreferrer' />
           ))
         }
       </div>
@@ -106,37 +76,8 @@ const siteControls: HeaderLinkButton[] = [
 
       <div class='flex items-center gap-1.5'>
         {
-          siteControls.map(({ icon: Icon, label, href }) => (
-            <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  class='md:hidden'
-                  href={href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  variant='ghost'
-                  size='icon-sm'
-                >
-                  <Icon class='size-6' />
-                </Button>
-
-                <Button
-                  class='
-                    hidden
-                    md:inline-flex
-                  '
-                  href={href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  variant='ghost'
-                  size='sm'
-                >
-                  <Icon class='size-5' />
-                  {label}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent class='md:hidden'>{label}</TooltipContent>
-            </Tooltip>
+          siteControls.map(({ icon, label, href }) => (
+            <HeaderButton icon={icon} label={label} href={href} target='_blank' rel='noopener noreferrer' />
           ))
         }
 
