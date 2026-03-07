@@ -49,22 +49,29 @@ const siteControls: HeaderLinkButton[] = [
 ---
 
 <div class='sticky top-0 z-10 bg-background pt-4'>
-  <header class='
-    flex items-center justify-between rounded-md border border-border px-4
-    py-2.5
-  '>
+  <header
+    class='
+      flex items-center justify-between rounded-md border border-border px-2
+      py-1.5
+      xs:px-4 xs:py-2.5
+    '
+  >
     <a class='flex items-center gap-2' href='/'>
       <img src={favicon.src} width='28' height='28' alt='Hareki catppuccin logo' />
-      <span class='text-lg font-bold'>Hareki</span>
+      <span class='
+        font-bold
+        xs:text-lg
+      '>Hareki</span>
     </a>
 
     <div class='flex items-center'>
-      <div class='flex items-center gap-1'>
+      <div class='flex items-center gap-1.5'>
         {
           contactLinks.map(({ icon: Icon, label, href }) => (
             <Tooltip>
               <TooltipTrigger>
                 <Button
+                  class='md:hidden'
                   href={href}
                   target='_blank'
                   rel='noopener noreferrer'
@@ -73,21 +80,37 @@ const siteControls: HeaderLinkButton[] = [
                 >
                   <Icon class='size-6' />
                 </Button>
+
+                <Button
+                  class='
+                    hidden
+                    md:inline-flex
+                  '
+                  href={href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='ghost'
+                  size='sm'
+                >
+                  <Icon class='size-5' />
+                  {label}
+                </Button>
               </TooltipTrigger>
-              <TooltipContent>{label}</TooltipContent>
+              <TooltipContent class='md:hidden'>{label}</TooltipContent>
             </Tooltip>
           ))
         }
       </div>
 
-      <Separator class='mx-3 h-6' orientation='vertical' />
+      <Separator class='mx-2.5 h-6' orientation='vertical' />
 
-      <div class='flex items-center gap-1'>
+      <div class='flex items-center gap-1.5'>
         {
           siteControls.map(({ icon: Icon, label, href }) => (
             <Tooltip>
               <TooltipTrigger>
                 <Button
+                  class='md:hidden'
                   href={href}
                   target='_blank'
                   rel='noopener noreferrer'
@@ -96,8 +119,23 @@ const siteControls: HeaderLinkButton[] = [
                 >
                   <Icon class='size-6' />
                 </Button>
+
+                <Button
+                  class='
+                    hidden
+                    md:inline-flex
+                  '
+                  href={href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='ghost'
+                  size='sm'
+                >
+                  <Icon class='size-5' />
+                  {label}
+                </Button>
               </TooltipTrigger>
-              <TooltipContent>{label}</TooltipContent>
+              <TooltipContent class='md:hidden'>{label}</TooltipContent>
             </Tooltip>
           ))
         }

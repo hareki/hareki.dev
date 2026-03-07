@@ -7,9 +7,16 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/starwind/t
 
 <Tooltip>
   <TooltipTrigger>
-    <Button variant='ghost' size='icon-sm'>
+    <Button variant='ghost' size='icon-sm' class='md:hidden'>
       <PaletteIcon class='size-6' />
     </Button>
+    <Button class='
+      hidden
+      md:inline-flex
+    ' variant='ghost' size='sm'>
+      <PaletteIcon class='size-5' />
+      Theme
+    </Button>
   </TooltipTrigger>
-  <TooltipContent>Theme</TooltipContent>
+  <TooltipContent class='md:hidden'>Theme</TooltipContent>
 </Tooltip>

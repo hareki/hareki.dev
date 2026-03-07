@@ -14,6 +14,8 @@
     'Segoe UI' /* Windows */, 'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
     sans-serif; /* universal fallback */
 
+  --breakpoint-xs: 30rem;
+
   --color-background: var(--ctp-base);
   --color-foreground: var(--ctp-text);
 
