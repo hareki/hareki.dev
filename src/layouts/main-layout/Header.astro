@@ -2,14 +2,13 @@
 import ThemePanel from '@/components/ThemePanel.astro';
 ---
 
-<header class='flex items-center justify-between px-6 py-4'>
-  <a href='/' class='font-bold'>Hareki</a>
-  <nav class='flex items-center gap-6'>
-    <a href='#tech-stack'>Tech</a>
-    <a href='#journey'>Journey</a>
-    <a href='#passions'>Passions</a>
-    <!-- Resume button placeholder -->
-    <button>Resume</button>
-    <ThemePanel />
-  </nav>
-</header>
+<div class='sticky top-0 z-10 bg-background pt-4'>
+  <header class='
+    bg-surface-0 flex items-center justify-between rounded-md px-4 py-2
+  '>
+    <a href='/' class='font-bold'>Hareki</a>
+    <nav class='flex items-center gap-6'>
+      <ThemePanel />
+    </nav>
+  </header>
+</div>

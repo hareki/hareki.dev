@@ -14,7 +14,7 @@ const baseTitle = 'Hareki';
 ---
 
 <!doctype html>
-<html lang='en' class='font-display'>
+<html lang='en' class='size-screen font-display'>
   <head>
     <script is:inline>
       (function () {
@@ -49,17 +49,17 @@ const baseTitle = 'Hareki';
     <title>{title ? `${title} | ${baseTitle}` : baseTitle}</title>
   </head>
   <body>
-    <Header />
-    <slot />
-    <Footer />
+    <div
+      class='
+        mx-auto flex h-[200vh] min-h-screen max-w-2xl flex-col px-4 pb-4
+        text-foreground
+      '
+    >
+      <Header />
+      <main class='grow px-4 py-6'>
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

@@ -1,9 +1,12 @@
 ---
 import SocialLinks from '@/components/SocialLinks.astro';
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class='flex items-center justify-between px-6 py-4'>
-  <p>&copy; 2025 Hareki. All rights reserved.</p>
+<footer class='
+  bg-surface-0 flex items-center justify-between rounded-md p-4 py-2
+'>
+  <p>&copy; {currentYear} Hareki</p>
   <div class='flex items-center gap-4'>
     <!-- Stats placeholder -->
     <SocialLinks variant='icons' />
