@@ -1,7 +1,207 @@
 ---
+import CheckIcon from '@tabler/icons/outline/check.svg';
 import PaletteIcon from '@tabler/icons/outline/palette.svg';
 
-import HeaderButton from '@/components/HeaderButton.astro';
+import Button from '@/components/starwind/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/starwind/popover';
+
+const FLAVORS = [
+  { value: 'latte', label: 'Latte' },
+  { value: 'frappe', label: 'Frappé' },
+  { value: 'macchiato', label: 'Macchiato' },
+  { value: 'mocha', label: 'Mocha' },
+] as const;
+
+const ACCENTS = [
+  'rosewater',
+  'flamingo',
+  'pink',
+  'mauve',
+  'red',
+  'maroon',
+  'peach',
+  'yellow',
+  'green',
+  'teal',
+  'sky',
+  'sapphire',
+  'blue',
+  'lavender',
+] as const;
 ---
 
-<HeaderButton icon={PaletteIcon} label='Theme' />
+<Popover>
+  <PopoverTrigger asChild>
+    <Button
+      class='
+        data-[state=open]:bg-primary/10 data-[state=open]:text-primary
+        md:w-auto md:px-3 md:text-sm
+      '
+      variant='ghost'
+      size='icon-sm'
+    >
+      <PaletteIcon class='
+        size-6
+        md:size-5
+      ' />
+      <span class='
+        hidden
+        md:inline
+      '>Theme</span>
+    </Button>
+  </PopoverTrigger>
+
+  <PopoverContent side='bottom' align='end' aria-label='Theme settings'>
+    <div data-theme-switcher>
+      <span class='text-xs text-muted-foreground'>Flavor</span>
+      <div class='grid grid-cols-2 gap-1.5'>
+        {
+          FLAVORS.map(({ value, label }) => (
+            <button
+              class='
+                h-8 rounded-md bg-secondary text-sm font-medium
+                text-secondary-foreground transition-all
+              '
+              data-flavor={value}
+            >
+              {label}
+            </button>
+          ))
+        }
+      </div>
+
+      <span class='text-xs text-muted-foreground'>Accent</span>
+      <div class='grid grid-cols-7 place-items-center gap-2'>
+        {
+          ACCENTS.map((name) => (
+            <button
+              class='flex-center size-6 rounded-full transition-all'
+              style={`background-color: var(--ctp-${name})`}
+              data-accent={name}
+              title={name}
+            >
+              <CheckIcon class='hidden size-3 text-background' data-check />
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </PopoverContent>
+</Popover>
+
+<script>
+  class ThemeSwitcherHandler {
+    private flavorButtons: NodeListOf<HTMLElement>;
+    private accentButtons: NodeListOf<HTMLElement>;
+    private abortController: AbortController;
+
+    constructor(container: HTMLElement) {
+      this.abortController = new AbortController();
+      this.flavorButtons = container.querySelectorAll<HTMLElement>('[data-flavor]');
+      this.accentButtons = container.querySelectorAll<HTMLElement>('[data-accent]');
+      this.setupEvents();
+      this.syncUI();
+    }
+
+    private getCurrentFlavor(): string {
+      const match = document.documentElement.className.match(/ctp-flavor-(\S+)/);
+      return match?.[1] ?? 'mocha';
+    }
+
+    private getCurrentAccent(): string {
+      const match = document.documentElement.className.match(/ctp-accent-(\S+)/);
+      return match?.[1] ?? 'blue';
+    }
+
+    private setFlavor(flavor: string) {
+      const html = document.documentElement;
+      html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
+      html.classList.add(`ctp-flavor-${flavor}`);
+      localStorage.setItem('ctp-flavor', flavor);
+      this.syncUI();
+    }
+
+    private setAccent(accent: string) {
+      const html = document.documentElement;
+      html.className = html.className.replace(/\bctp-accent-\S+/g, '');
+      html.classList.add(`ctp-accent-${accent}`);
+      localStorage.setItem('ctp-accent', accent);
+      this.syncUI();
+    }
+
+    private syncUI() {
+      const currentFlavor = this.getCurrentFlavor();
+      const currentAccent = this.getCurrentAccent();
+
+      this.flavorButtons.forEach((btn) => {
+        const isSelected = btn.dataset.flavor === currentFlavor;
+        btn.classList.toggle('ring-2', isSelected);
+        btn.classList.toggle('ring-primary', isSelected);
+        btn.classList.toggle('text-primary', isSelected);
+      });
+
+      this.accentButtons.forEach((btn) => {
+        const isSelected = btn.dataset.accent === currentAccent;
+        btn.classList.toggle('ring-2', isSelected);
+        btn.classList.toggle('ring-offset-2', isSelected);
+        btn.classList.toggle('ring-offset-background', isSelected);
+        btn.classList.toggle('ring-foreground', isSelected);
+        btn.classList.toggle('scale-110', isSelected);
+
+        const check = btn.querySelector<HTMLElement>('[data-check]');
+        if (check) {
+          check.classList.toggle('hidden', !isSelected);
+        }
+      });
+    }
+
+    private setupEvents() {
+      const signal = this.abortController.signal;
+
+      this.flavorButtons.forEach((btn) => {
+        btn.addEventListener(
+          'click',
+          () => {
+            if (btn.dataset.flavor) {
+              this.setFlavor(btn.dataset.flavor);
+            }
+          },
+          { signal },
+        );
+      });
+
+      this.accentButtons.forEach((btn) => {
+        btn.addEventListener(
+          'click',
+          () => {
+            if (btn.dataset.accent) {
+              this.setAccent(btn.dataset.accent);
+            }
+          },
+          { signal },
+        );
+      });
+    }
+
+    destroy() {
+      this.abortController.abort();
+    }
+  }
+
+  let instances: ThemeSwitcherHandler[] = [];
+
+  const initThemeSwitcher = () => {
+    document.querySelectorAll<HTMLElement>('[data-theme-switcher]').forEach((container) => {
+      instances.push(new ThemeSwitcherHandler(container));
+    });
+  };
+
+  const destroyThemeSwitcher = () => {
+    instances.forEach((instance) => instance.destroy());
+    instances = [];
+  };
+
+  initThemeSwitcher();
+  document.addEventListener('astro:before-swap', destroyThemeSwitcher);
+  document.addEventListener('astro:after-swap', initThemeSwitcher);
+</script>

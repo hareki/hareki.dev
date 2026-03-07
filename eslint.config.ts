@@ -59,6 +59,7 @@ export default defineConfig([
         },
       ],
 
+      curly: 'error',
       // Rules don't with astro eslint parser
       'import-x/no-unresolved': 'off',
       'import-x/namespace': 'off',
