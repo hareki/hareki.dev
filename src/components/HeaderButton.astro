@@ -34,5 +34,6 @@ const { icon: Icon, label, class: className, ...rest } = Astro.props;
       '>{label}</span>
     </Button>
   </TooltipTrigger>
-  <TooltipContent class='@3xl:hidden'>{label}</TooltipContent>
+  <!-- Can't use container query since this component is rendered outside of the container (header) -->
+  <TooltipContent class='md:hidden'>{label}</TooltipContent>
 </Tooltip>

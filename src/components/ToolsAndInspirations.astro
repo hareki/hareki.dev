@@ -29,7 +29,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
 
   <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-3'>
     <div>
-      <div class='mb-1 text-xs text-muted-foreground'>Tools Used</div>
+      <div class='mb-1 text-xs text-muted-foreground'>TOOLS</div>
       <div class='grid gap-1'>
         {
           TOOLS_USED.map(({ name, description, url, favicon }) => (
@@ -41,6 +41,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
                 flex bouncy-click items-center gap-3 rounded-md p-2
                 transition-colors
                 hover:bg-secondary
+                hocus:scale-[102%]
               '
             >
               <img
@@ -59,12 +60,10 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
         }
       </div>
 
-      <div class='mt-5 mb-1 text-xs text-muted-foreground'>
-        Inspirational Sites
-      </div>
+      <div class='mt-6 mb-1 text-xs text-muted-foreground'>INSPIRATIONS</div>
       <div class='grid gap-1'>
         {
-          INSPIRATIONAL_SITES.map(({ name, url, favicon }) => (
+          INSPIRATIONAL_SITES.map(({ name, url, favicon, description }) => (
             <a
               href={url}
               target='_blank'
@@ -73,6 +72,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
                 flex bouncy-click items-center gap-3 rounded-md p-2
                 transition-colors
                 hover:bg-secondary
+                hocus:scale-[102%]
               '
             >
               <img
@@ -80,7 +80,12 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
                 alt=''
                 class='size-8 rounded-full'
               />
-              <div class='text-sm'>{name}</div>
+              <div>
+                <div class='text-sm'>{name}</div>
+                {description && (
+                  <div class='text-xs text-muted-foreground'>{description}</div>
+                )}
+              </div>
             </a>
           ))
         }

@@ -52,6 +52,7 @@
   --color-secondary: var(--ctp-surface1);
   --color-secondary-foreground: var(--ctp-text);
   --color-secondary-accent: var(--ctp-text);
+  --color-secondary-focus: var(--ctp-overlay2);
 
   --color-muted: var(--ctp-mantle);
   --color-muted-foreground: var(--ctp-overlay1);
