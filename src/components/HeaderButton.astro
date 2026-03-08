@@ -20,21 +20,18 @@ const { icon: Icon, label, class: className, ...rest } = Astro.props;
 
 <Tooltip>
   <TooltipTrigger>
+    <!-- Set to size='md' when container size is greater than @3xl, the 2-buttons hack have too many drawbacks and side effects...  -->
     <Button
       variant='ghost'
       size='icon'
-      class={cn('@3xl:hidden', className)}
+      class={cn('@3xl:w-auto @3xl:px-3.5', className)}
       {...rest}
     >
-      <Icon />
-    </Button>
-
-    <Button variant='ghost' class='
-      hidden
-      @3xl:inline-flex
-    ' {...rest}>
-      <Icon />
-      <span>{label}</span>
+      <Icon class='@3xl:size-5' />
+      <span class='
+        hidden
+        @3xl:inline
+      '>{label}</span>
     </Button>
   </TooltipTrigger>
   <TooltipContent class='@3xl:hidden'>{label}</TooltipContent>
