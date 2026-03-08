@@ -8,7 +8,7 @@ import favicon from '@/assets/favicon.svg';
 import HeaderButton from '@/components/HeaderButton.astro';
 import Separator from '@/components/starwind/separator';
 import ThemeSwitcher from '@/components/ThemeSwitcher.astro';
-import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/consts';
+import ContactInformation from '@/data/contact-information';
 
 import type { SvgComponent } from 'astro/types';
 
@@ -17,6 +17,8 @@ type HeaderLinkButton = {
   label: string;
   href: string;
 };
+
+const { GITHUB_URL, LINKEDIN_URL, EMAIL_URL, RESUME_URL } = ContactInformation;
 
 const contactLinks: HeaderLinkButton[] = [
   {

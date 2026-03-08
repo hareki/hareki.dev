@@ -4,6 +4,8 @@
   .ctp-flavor-mocha, .ctp-flavor-mocha *
 ));
 
+@custom-variant hocus (&:hover, &:focus-visible);
+
 :root {
   --radius: 0.625rem;
 }

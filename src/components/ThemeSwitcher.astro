@@ -10,7 +10,6 @@ import {
 } from '@/components/starwind/tooltip';
 
 import HeaderButton from './HeaderButton.astro';
-import Button from './starwind/button';
 
 const FLAVORS = [
   { value: 'latte', label: 'Latte' },
@@ -53,7 +52,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
   <PopoverContent
     side='bottom'
     align='end'
-    aria-label='Theme settings'
+    aria-label='Theme Settings'
     class='p-3'
   >
     <div data-theme-switcher>
@@ -74,7 +73,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
         }
       </div>
 
-      <div class='mt-4 mb-1 text-xs text-muted-foreground'>Accent</div>
+      <div class='mt-5 mb-1 text-xs text-muted-foreground'>Accent</div>
       <div class='grid grid-cols-7 place-items-center gap-3'>
         {
           ACCENTS.map((label, index) => {

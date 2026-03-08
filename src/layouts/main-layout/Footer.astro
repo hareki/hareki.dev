@@ -1,9 +1,9 @@
 ---
 import GitCommitIcon from '@tabler/icons/outline/git-commit.svg';
-import HeartIcon from '@tabler/icons/outline/heart.svg';
 
 import Button from '@/components/starwind/button';
 import Separator from '@/components/starwind/separator';
+import ToolsAndInspirations from '@/components/ToolsAndInspirations.astro';
 
 const currentYear = new Date().getFullYear();
 const lastCommitHash = 'f5edd97';
@@ -20,8 +20,8 @@ const lastCommitHash = 'f5edd97';
     <div
       class='
         flex flex-col items-center
-        @xl:@max-3xl:items-start
-        @3xl:flex-row
+        @xl:@max-4xl:items-start
+        @4xl:flex-row
       '
     >
       <p class='px-4 text-muted-foreground'>
@@ -31,13 +31,10 @@ const lastCommitHash = 'f5edd97';
         orientation='vertical'
         class='
           mx-2 hidden h-6
-          @3xl:block
+          @4xl:block
         '
       />
-      <Button variant='ghost' class='w-fit'>
-        <HeartIcon />
-        <span>Tools & Inspirations</span></Button
-      >
+      <ToolsAndInspirations />
     </div>
 
     <Separator class='
@@ -48,8 +45,8 @@ const lastCommitHash = 'f5edd97';
     <div
       class='
         flex flex-col items-center
-        @xl:@max-3xl:items-end
-        @3xl:flex-row
+        @xl:@max-4xl:items-end
+        @4xl:flex-row
       '
     >
       <p class='px-4 text-muted-foreground'>Updated on 7 Mar 2026</p>
@@ -57,7 +54,7 @@ const lastCommitHash = 'f5edd97';
         orientation='vertical'
         class='
           mx-2 hidden h-6
-          @3xl:block
+          @4xl:block
         '
       />
       <Button

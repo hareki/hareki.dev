@@ -1,0 +1,90 @@
+---
+import HeartIcon from '@tabler/icons/outline/heart.svg';
+
+import {
+  getFaviconSrc,
+  INSPIRATIONAL_SITES,
+  TOOLS_USED,
+} from '@/data/tools-and-inspirations';
+
+import Button from './starwind/button';
+import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
+---
+
+<Popover class='group/popover'>
+  <PopoverTrigger asChild>
+    <Button
+      variant='ghost'
+      class='
+        w-fit
+        group-data-[state=open]/popover:bg-primary/10
+        group-data-[state=open]/popover:text-primary
+        hocus:scale-[102%]
+      '
+    >
+      <HeartIcon />
+      <span>Tools & Inspirations</span></Button
+    >
+  </PopoverTrigger>
+
+  <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-3'>
+    <div>
+      <div class='mb-1 text-xs text-muted-foreground'>Tools Used</div>
+      <div class='grid gap-1'>
+        {
+          TOOLS_USED.map(({ name, description, url, favicon }) => (
+            <a
+              href={url}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='
+                flex bouncy-click items-center gap-3 rounded-md p-2
+                transition-colors
+                hover:bg-secondary
+              '
+            >
+              <img
+                src={getFaviconSrc(favicon)}
+                alt=''
+                class='size-8 rounded-full'
+              />
+              <div>
+                <div class='text-sm'>{name}</div>
+                {description && (
+                  <div class='text-xs text-muted-foreground'>{description}</div>
+                )}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class='mt-5 mb-1 text-xs text-muted-foreground'>
+        Inspirational Sites
+      </div>
+      <div class='grid gap-1'>
+        {
+          INSPIRATIONAL_SITES.map(({ name, url, favicon }) => (
+            <a
+              href={url}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='
+                flex bouncy-click items-center gap-3 rounded-md p-2
+                transition-colors
+                hover:bg-secondary
+              '
+            >
+              <img
+                src={getFaviconSrc(favicon)}
+                alt=''
+                class='size-8 rounded-full'
+              />
+              <div class='text-sm'>{name}</div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </PopoverContent>
+</Popover>
