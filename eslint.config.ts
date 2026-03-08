@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import { defineConfig } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
 import { importX } from 'eslint-plugin-import-x';
@@ -28,6 +29,7 @@ export default defineConfig([
       ...eslintPluginAstro.configs.recommended,
       ...eslintPluginAstro.configs['jsx-a11y-strict'],
       eslintPluginBetterTailwindcss.configs.recommended,
+      eslintConfigPrettier,
     ],
     settings: {
       // Use espree for JS files so import-x doesn't parse them with the Astro parser
@@ -47,6 +49,11 @@ export default defineConfig([
         {
           ignore: ['^starwind'],
         },
+      ],
+      'better-tailwindcss/enforce-consistent-line-wrapping': [
+        'warn',
+        // Matches what we have in .prettierrc
+        { printWidth: 80, lineBreakStyle: 'unix', indent: 2 },
       ],
 
       // Starwind UI does a lot of "any" type casting

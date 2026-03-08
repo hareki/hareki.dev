@@ -10,8 +10,9 @@
 
 @theme inline {
   --font-display:
-    'Maple Mono', -apple-system /* macOS/iOS Safari */, BlinkMacSystemFont /* macOS Chrome */,
-    'Segoe UI' /* Windows */, 'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
+    'Maple Mono', -apple-system /* macOS/iOS Safari */,
+    BlinkMacSystemFont /* macOS Chrome */, 'Segoe UI' /* Windows */,
+    'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
     sans-serif; /* universal fallback */
 
   --ease-overshoot: linear(

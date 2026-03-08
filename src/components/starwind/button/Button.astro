@@ -113,6 +113,10 @@ export const button = tv({
 const Tag = Astro.props.href ? 'a' : 'button';
 ---
 
-<Tag class={button({ variant, size, class: className })} data-slot='button' {...rest}>
+<Tag
+  class={button({ variant, size, class: className })}
+  data-slot='button'
+  {...rest}
+>
   <slot />
 </Tag>

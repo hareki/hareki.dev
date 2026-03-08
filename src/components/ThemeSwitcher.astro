@@ -4,7 +4,11 @@ import PaletteIcon from '@tabler/icons/outline/palette.svg';
 
 import Button from '@/components/starwind/button';
 import { Popover, PopoverContent } from '@/components/starwind/popover';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/starwind/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/starwind/tooltip';
 
 const FLAVORS = [
   { value: 'latte', label: 'Latte' },
@@ -59,9 +63,12 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     <TooltipContent class='md:hidden'>Theme</TooltipContent>
   </Tooltip>
 
-  <PopoverContent side='bottom' align='end' aria-label='Theme settings' class='
-    p-3
-  '>
+  <PopoverContent
+    side='bottom'
+    align='end'
+    aria-label='Theme settings'
+    class='p-3'
+  >
     <div data-theme-switcher>
       <div class='mb-1 text-xs text-muted-foreground'>Flavor</div>
       <div class='grid grid-cols-2 gap-2'>
@@ -106,7 +113,10 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
                     />
                   </button>
                 </TooltipTrigger>
-                <TooltipContent sideOffset={16} side={index < accentMiddleIndex ? 'top' : 'bottom'}>
+                <TooltipContent
+                  sideOffset={16}
+                  side={index < accentMiddleIndex ? 'top' : 'bottom'}
+                >
                   {label}
                 </TooltipContent>
               </Tooltip>
@@ -126,14 +136,17 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
 
     constructor(container: HTMLElement) {
       this.abortController = new AbortController();
-      this.flavorButtons = container.querySelectorAll<HTMLElement>('[data-flavor]');
-      this.accentButtons = container.querySelectorAll<HTMLElement>('[data-accent]');
+      this.flavorButtons =
+        container.querySelectorAll<HTMLElement>('[data-flavor]');
+      this.accentButtons =
+        container.querySelectorAll<HTMLElement>('[data-accent]');
       this.setupEvents();
       this.syncUI();
     }
 
     private getCurrentFlavor(): string | undefined {
-      const match = document.documentElement.className.match(/ctp-flavor-(\S+)/);
+      const match =
+        document.documentElement.className.match(/ctp-flavor-(\S+)/);
       if (match?.[1]) {
         return match[1];
       }
@@ -143,7 +156,8 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     }
 
     private getCurrentAccent(): string | undefined {
-      const match = document.documentElement.className.match(/ctp-accent-(\S+)/);
+      const match =
+        document.documentElement.className.match(/ctp-accent-(\S+)/);
       if (match?.[1]) {
         return match[1];
       }
@@ -229,9 +243,11 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
   let instances: ThemeSwitcherHandler[] = [];
 
   const initThemeSwitcher = () => {
-    document.querySelectorAll<HTMLElement>('[data-theme-switcher]').forEach((container) => {
-      instances.push(new ThemeSwitcherHandler(container));
-    });
+    document
+      .querySelectorAll<HTMLElement>('[data-theme-switcher]')
+      .forEach((container) => {
+        instances.push(new ThemeSwitcherHandler(container));
+      });
   };
 
   const destroyThemeSwitcher = () => {

@@ -1,6 +1,8 @@
 import Popover, { popover } from './Popover.astro';
 import PopoverContent, { popoverContent } from './PopoverContent.astro';
-import PopoverDescription, { popoverDescription } from './PopoverDescription.astro';
+import PopoverDescription, {
+  popoverDescription,
+} from './PopoverDescription.astro';
 import PopoverHeader, { popoverHeader } from './PopoverHeader.astro';
 import PopoverTitle, { popoverTitle } from './PopoverTitle.astro';
 import PopoverTrigger, { popoverTrigger } from './PopoverTrigger.astro';

@@ -62,13 +62,18 @@ function getOppositeAlign(align: FloatingAlign): FloatingAlign {
   }
 }
 
-function getPlacementCandidates(side: FloatingSide, align: FloatingAlign): Placement[] {
+function getPlacementCandidates(
+  side: FloatingSide,
+  align: FloatingAlign,
+): Placement[] {
   const placements: Placement[] = [];
 
   const pushUnique = (candidate: Placement) => {
     if (
       !placements.some(
-        (placement) => placement.side === candidate.side && placement.align === candidate.align,
+        (placement) =>
+          placement.side === candidate.side &&
+          placement.align === candidate.align,
       )
     ) {
       placements.push(candidate);
@@ -149,8 +154,14 @@ function clampPositionToViewport(
   viewportHeight: number,
   viewportPadding: number,
 ): Position {
-  const maxLeft = Math.max(viewportPadding, viewportWidth - contentWidth - viewportPadding);
-  const maxTop = Math.max(viewportPadding, viewportHeight - contentHeight - viewportPadding);
+  const maxLeft = Math.max(
+    viewportPadding,
+    viewportWidth - contentWidth - viewportPadding,
+  );
+  const maxTop = Math.max(
+    viewportPadding,
+    viewportHeight - contentHeight - viewportPadding,
+  );
 
   return {
     left: Math.min(Math.max(viewportPadding, position.left), maxLeft),
@@ -204,7 +215,9 @@ function getCrossAxisShift(
 /**
  * Resolves the best side/alignment placement for floating content.
  */
-export function resolvePlacement(options: ResolvePlacementOptions): ResolvePlacementResult {
+export function resolvePlacement(
+  options: ResolvePlacementOptions,
+): ResolvePlacementResult {
   const {
     side,
     align,
@@ -241,7 +254,13 @@ export function resolvePlacement(options: ResolvePlacementOptions): ResolvePlace
 
   let bestPlacement = candidates[0] ?? preferredPlacement;
   let bestPosition = clampPositionToViewport(
-    getPlacementPosition(bestPlacement, triggerRect, contentWidth, contentHeight, sideOffset),
+    getPlacementPosition(
+      bestPlacement,
+      triggerRect,
+      contentWidth,
+      contentHeight,
+      sideOffset,
+    ),
     contentWidth,
     contentHeight,
     viewportWidth,
@@ -276,14 +295,27 @@ export function resolvePlacement(options: ResolvePlacementOptions): ResolvePlace
       viewportPadding,
     );
 
-    const overflowTotal = overflow.left + overflow.right + overflow.top + overflow.bottom;
-    const mainAxisShift = getMainAxisShift(placement.side, preferredPosition, clampedPosition);
-    const crossAxisShift = getCrossAxisShift(placement.side, preferredPosition, clampedPosition);
+    const overflowTotal =
+      overflow.left + overflow.right + overflow.top + overflow.bottom;
+    const mainAxisShift = getMainAxisShift(
+      placement.side,
+      preferredPosition,
+      clampedPosition,
+    );
+    const crossAxisShift = getCrossAxisShift(
+      placement.side,
+      preferredPosition,
+      clampedPosition,
+    );
 
     const sidePenalty = placement.side === side ? 0 : 32;
     const alignPenalty = placement.align === align ? 0 : 8;
     const score =
-      overflowTotal * 24 + mainAxisShift * 8 + crossAxisShift * 3 + sidePenalty + alignPenalty;
+      overflowTotal * 24 +
+      mainAxisShift * 8 +
+      crossAxisShift * 3 +
+      sidePenalty +
+      alignPenalty;
 
     if (score < bestScore) {
       bestScore = score;
@@ -303,16 +335,21 @@ export function resolvePlacement(options: ResolvePlacementOptions): ResolvePlace
 /**
  * Returns a transform-origin value that matches the resolved placement.
  */
-export function getTransformOrigin(side: FloatingSide, align: FloatingAlign): string {
+export function getTransformOrigin(
+  side: FloatingSide,
+  align: FloatingAlign,
+): string {
   if (side === 'top' || side === 'bottom') {
     const vertical = side === 'bottom' ? 'top' : 'bottom';
-    const horizontal = align === 'start' ? 'left' : align === 'end' ? 'right' : 'center';
+    const horizontal =
+      align === 'start' ? 'left' : align === 'end' ? 'right' : 'center';
 
     return `${horizontal} ${vertical}`;
   }
 
   const horizontal = side === 'right' ? 'left' : 'right';
-  const vertical = align === 'start' ? 'top' : align === 'end' ? 'bottom' : 'center';
+  const vertical =
+    align === 'start' ? 'top' : align === 'end' ? 'bottom' : 'center';
 
   return `${horizontal} ${vertical}`;
 }
