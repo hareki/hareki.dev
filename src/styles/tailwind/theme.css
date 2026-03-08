@@ -53,7 +53,7 @@
   --color-secondary-accent: var(--ctp-text);
 
   --color-muted: var(--ctp-mantle);
-  --color-muted-foreground: var(--ctp-subtext0);
+  --color-muted-foreground: var(--ctp-overlay1);
 
   --color-accent: var(--ctp-surface0);
   --color-accent-foreground: var(--ctp-text);
@@ -81,17 +81,6 @@
   --radius-xl: calc(var(--radius) + 0.25rem);
   --radius-2xl: calc(var(--radius) + 0.5rem);
   --radius-3xl: calc(var(--radius) + 1rem);
-
-  --color-subtext-0: var(--ctp-subtext0);
-  --color-subtext-1: var(--ctp-subtext1);
-
-  --color-overlay-0: var(--ctp-overlay0);
-  --color-overlay-1: var(--ctp-overlay1);
-  --color-overlay-2: var(--ctp-overlay2);
-
-  --color-surface-0: var(--ctp-surface0);
-  --color-surface-1: var(--ctp-surface1);
-  --color-surface-2: var(--ctp-surface2);
 
   --color-footer: var(--ctp-crust);
 }

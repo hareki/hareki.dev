@@ -1,4 +1,6 @@
 ---
+import { cn } from 'tailwind-variants';
+
 import Button from '@/components/starwind/button';
 import {
   Tooltip,
@@ -13,21 +15,27 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'type'> {
   label: string;
 }
 
-const { icon: Icon, label, ...rest } = Astro.props;
+const { icon: Icon, label, class: className, ...rest } = Astro.props;
 ---
 
 <Tooltip>
   <TooltipTrigger>
-    <Button class='max-xs:px-3!' variant='ghost' {...rest}>
-      <Icon class='
-        size-5
-        max-md:size-6
-      ' />
-      <span class='
-        hidden text-base
-        md:inline
-      '>{label}</span>
+    <Button
+      variant='ghost'
+      size='icon'
+      class={cn('@3xl:hidden', className)}
+      {...rest}
+    >
+      <Icon />
+    </Button>
+
+    <Button variant='ghost' class='
+      hidden
+      @3xl:inline-flex
+    ' {...rest}>
+      <Icon />
+      <span>{label}</span>
     </Button>
   </TooltipTrigger>
-  <TooltipContent class='md:hidden'>{label}</TooltipContent>
+  <TooltipContent class='@3xl:hidden'>{label}</TooltipContent>
 </Tooltip>

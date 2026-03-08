@@ -10,6 +10,8 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 
+import HeaderButton from './HeaderButton.astro';
+
 const FLAVORS = [
   { value: 'latte', label: 'Latte' },
   { value: 'frappe', label: 'Frappé' },
@@ -38,29 +40,15 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
 ---
 
 <Popover class='group/popover'>
-  <Tooltip>
-    <TooltipTrigger>
-      <Button
-        class='
-          group-data-[state=open]/popover:bg-primary/10
-          group-data-[state=open]/popover:text-primary
-          max-xs:px-3!
-        '
-        variant='ghost'
-        data-slot='popover-trigger'
-      >
-        <PaletteIcon class='
-          size-5
-          max-md:size-6
-        ' />
-        <span class='
-          hidden
-          md:inline
-        '>Theme</span>
-      </Button>
-    </TooltipTrigger>
-    <TooltipContent class='md:hidden'>Theme</TooltipContent>
-  </Tooltip>
+  <HeaderButton
+    icon={PaletteIcon}
+    label='Theme'
+    data-slot='popover-trigger'
+    class='
+      group-data-[state=open]/popover:bg-primary/10
+      group-data-[state=open]/popover:text-primary
+    '
+  />
 
   <PopoverContent
     side='bottom'
