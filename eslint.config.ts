@@ -53,7 +53,12 @@ export default defineConfig([
       'better-tailwindcss/enforce-consistent-line-wrapping': [
         'warn',
         // Matches what we have in .prettierrc
-        { printWidth: 80, lineBreakStyle: 'unix', indent: 2 },
+        {
+          printWidth: 80,
+          lineBreakStyle: 'unix',
+          indent: 2,
+          strictness: 'loose',
+        },
       ],
 
       // Starwind UI does a lot of "any" type casting
