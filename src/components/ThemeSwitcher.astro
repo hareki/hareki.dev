@@ -3,7 +3,8 @@ import CheckIcon from '@tabler/icons/outline/check.svg';
 import PaletteIcon from '@tabler/icons/outline/palette.svg';
 
 import Button from '@/components/starwind/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/starwind/popover';
+import { Popover, PopoverContent } from '@/components/starwind/popover';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/starwind/tooltip';
 
 const FLAVORS = [
   { value: 'latte', label: 'Latte' },
@@ -28,28 +29,35 @@ const ACCENTS = [
   'Blue',
   'Lavender',
 ] as const;
+
+const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
 ---
 
-<Popover>
-  <PopoverTrigger asChild>
-    <Button
-      class='
-        data-[state=open]:bg-primary/10 data-[state=open]:text-primary
-        md:w-auto md:px-3 md:text-sm
-      '
-      variant='ghost'
-      size='icon-sm'
-    >
-      <PaletteIcon class='
-        size-6
-        md:size-5
-      ' />
-      <span class='
-        hidden
-        md:inline
-      '>Theme</span>
-    </Button>
-  </PopoverTrigger>
+<Popover class='group/popover'>
+  <Tooltip>
+    <TooltipTrigger>
+      <Button
+        class='
+          group-data-[state=open]/popover:bg-primary/10
+          group-data-[state=open]/popover:text-primary
+          md:w-auto md:px-3 md:text-sm
+        '
+        variant='ghost'
+        size='icon-sm'
+        data-slot='popover-trigger'
+      >
+        <PaletteIcon class='
+          size-6
+          md:size-5
+        ' />
+        <span class='
+          hidden
+          md:inline
+        '>Theme</span>
+      </Button>
+    </TooltipTrigger>
+    <TooltipContent class='md:hidden'>Theme</TooltipContent>
+  </Tooltip>
 
   <PopoverContent side='bottom' align='end' aria-label='Theme settings' class='
     p-3
@@ -61,7 +69,7 @@ const ACCENTS = [
           FLAVORS.map(({ value, label }) => (
             <button
               class='
-                h-8 bouncy-click rounded-md bg-secondary text-sm font-medium
+                h-9 bouncy-click rounded-md bg-secondary text-sm font-medium
                 text-secondary-foreground transition-all
               '
               data-flavor={value}
@@ -73,23 +81,30 @@ const ACCENTS = [
       </div>
 
       <div class='mt-4 mb-1 text-xs text-muted-foreground'>Accent</div>
-      <div class='grid grid-cols-7 place-items-center gap-2'>
+      <div class='grid grid-cols-7 place-items-center gap-3'>
         {
-          ACCENTS.map((label) => {
+          ACCENTS.map((label, index) => {
             const value = label.toLowerCase();
 
             return (
-              <button
-                class='
-                  flex-center size-6 bouncy-click rounded-full transition-all
-                '
-                style={`background-color: var(--ctp-${value})`}
-                data-accent={value}
-                title={label}
-                aria-label={`Select ${label} accent`}
-              >
-                <CheckIcon class='hidden size-3 text-background' data-check />
-              </button>
+              <Tooltip>
+                <TooltipTrigger>
+                  <button
+                    class='
+                      flex-center size-7 bouncy-click rounded-full
+                      transition-all
+                    '
+                    style={`background-color: var(--ctp-${value})`}
+                    data-accent={value}
+                    aria-label={`Select ${label} accent`}
+                  >
+                    <CheckIcon class='hidden size-3 text-background' data-check />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={16} side={index < accentMiddleIndex ? 'top' : 'bottom'}>
+                  {label}
+                </TooltipContent>
+              </Tooltip>
             );
           })
         }
