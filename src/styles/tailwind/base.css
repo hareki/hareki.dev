@@ -1,6 +1,6 @@
 @layer base {
   * {
-    @apply border-border outline-outline/50;
+    @apply border-border outline-outline/50 selection:text-primary/85 selection:bg-primary/20;
   }
   body {
     @apply bg-background text-foreground;
