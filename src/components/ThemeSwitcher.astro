@@ -132,14 +132,24 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
       this.syncUI();
     }
 
-    private getCurrentFlavor(): string {
+    private getCurrentFlavor(): string | undefined {
       const match = document.documentElement.className.match(/ctp-flavor-(\S+)/);
-      return match?.[1] ?? 'mocha';
+      if (match?.[1]) {
+        return match[1];
+      }
+
+      console.error(`Flavor class should've been set on startup`);
+      return undefined;
     }
 
-    private getCurrentAccent(): string {
+    private getCurrentAccent(): string | undefined {
       const match = document.documentElement.className.match(/ctp-accent-(\S+)/);
-      return match?.[1] ?? 'blue';
+      if (match?.[1]) {
+        return match[1];
+      }
+
+      console.error(`Accent class should've been set on startup`);
+      return undefined;
     }
 
     private setFlavor(flavor: string) {

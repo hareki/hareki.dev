@@ -19,19 +19,23 @@ const baseTitle = 'Hareki';
   <head>
     <script is:inline>
       (function () {
-        const d = document.documentElement;
-        let fl = localStorage.getItem('ctp-flavor');
-        let ac = localStorage.getItem('ctp-accent');
+        const html = document.documentElement;
+        let flavor = localStorage.getItem('ctp-flavor');
+        let accent = localStorage.getItem('ctp-accent');
         const mq = matchMedia('(prefers-color-scheme:dark)');
 
         function setFlavor(f) {
-          d.className = d.className.replace(/\bctp-flavor-\S+/g, '');
-          d.classList.add('ctp-flavor-' + f);
+          html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
+          html.classList.add('ctp-flavor-' + f);
         }
 
-        if (!fl) fl = mq.matches ? 'mocha' : 'latte';
-        if (!ac) ac = 'blue';
-        d.classList.add('ctp-flavor-' + fl, 'ctp-accent-' + ac);
+        if (!flavor) {
+          flavor = mq.matches ? 'mocha' : 'latte';
+        }
+        if (!accent) {
+          accent = 'blue';
+        }
+        html.classList.add('ctp-flavor-' + flavor, 'ctp-accent-' + accent);
 
         mq.addEventListener('change', function (e) {
           if (!localStorage.getItem('ctp-flavor')) {
