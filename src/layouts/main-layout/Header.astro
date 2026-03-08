@@ -60,6 +60,18 @@ const siteControls: HeaderLinkButton[] = [
         src={favicon.src}
         width='28'
         height='28'
+        class='xs:hidden'
+        alt='Hareki catppuccin logo'
+      />
+
+      <img
+        src={favicon.src}
+        width='32'
+        height='32'
+        class='
+          hidden
+          xs:block
+        '
         alt='Hareki catppuccin logo'
       />
       <span class='
@@ -69,7 +81,7 @@ const siteControls: HeaderLinkButton[] = [
     </a>
 
     <div class='flex items-center'>
-      <div class='flex items-center gap-1.5'>
+      <div class='flex items-center gap-0'>
         {
           contactLinks.map(({ icon, label, href }) => (
             <HeaderButton
@@ -83,9 +95,9 @@ const siteControls: HeaderLinkButton[] = [
         }
       </div>
 
-      <Separator class='mx-2.5 h-6' orientation='vertical' />
+      <Separator class='mx-1.5 h-6' orientation='vertical' />
 
-      <div class='flex items-center gap-1.5'>
+      <div class='flex items-center gap-0'>
         {
           siteControls.map(({ icon, label, href }) => (
             <HeaderButton

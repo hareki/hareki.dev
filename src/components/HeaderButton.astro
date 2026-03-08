@@ -18,13 +18,13 @@ const { icon: Icon, label, ...rest } = Astro.props;
 
 <Tooltip>
   <TooltipTrigger>
-    <Button class='md:w-auto md:px-3' variant='ghost' {...rest}>
+    <Button class='max-xs:px-3!' variant='ghost' {...rest}>
       <Icon class='
-        size-6
-        md:size-5
+        size-5
+        max-md:size-6
       ' />
       <span class='
-        hidden
+        hidden text-base
         md:inline
       '>{label}</span>
     </Button>
