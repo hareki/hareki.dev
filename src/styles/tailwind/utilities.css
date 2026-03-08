@@ -7,5 +7,9 @@
 }
 
 @utility bouncy-click {
-  @apply transition-transform hover:scale-[102%] focus-visible:scale-[102%] active:scale-[98%];
+  @apply hover:scale-[105%] focus-visible:scale-[105%] active:scale-100;
+  transition:
+    scale 0.25s var(--ease-overshoot),
+    background-color 0.25s ease-in-out,
+    color 0.25s ease-in-out !important;
 }

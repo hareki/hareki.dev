@@ -42,7 +42,6 @@
   --color-card-foreground: var(--ctp-text);
 
   --color-popover: var(--ctp-surface0);
-  --color-popover-foreground: var(--ctp-text);
 
   --color-primary: var(--ctp-accent);
   --color-primary-foreground: var(--ctp-base);
