@@ -1,13 +1,42 @@
 ---
-import SocialLinks from '@/components/SocialLinks.astro';
+import GitCommitIcon from '@tabler/icons/outline/git-commit.svg';
+
+import Button from '@/components/starwind/button';
+import Separator from '@/components/starwind/separator';
+
 const currentYear = new Date().getFullYear();
+const lastCommitHash = 'f5edd97';
 ---
 
-<footer class='flex items-center justify-between rounded-md bg-footer p-6 py-3'>
-  <p>&copy; {currentYear} Hareki</p>
-  <div class='flex items-center gap-4'>
-    <!-- Stats placeholder -->
-    <SocialLinks variant='icons' />
-    <!-- Credits button placeholder -->
+<footer
+  class='
+    flex items-center justify-between rounded-md bg-footer px-2 py-1.5
+    xs:px-4 xs:py-2.5
+  '
+>
+  <div class='flex items-center gap-2'>
+    <p>&copy; {currentYear} Hareki</p>
+    <Separator orientation='vertical' class='h-6' />
+
+    <div class='flex items-center gap-4'>Made possible by</div>
+  </div>
+  <div class='flex items-center'>
+    <p>Updated 7 Mar 2026</p>
+    <Separator orientation='vertical' class='h-6' />
+    <Button
+      variant='ghost'
+      href='https://github.com'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='
+        flex items-center
+        hover:text-primary
+      '
+    >
+      <GitCommitIcon />
+      <span>
+        {lastCommitHash}
+      </span>
+    </Button>
   </div>
 </footer>
