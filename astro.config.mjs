@@ -8,6 +8,9 @@ import playformCompress from '@playform/compress';
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      hmr: false,
+    },
   },
 
   integrations: [
