@@ -98,7 +98,12 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
                     data-accent={value}
                     aria-label={`Select ${label} accent`}
                   >
-                    <CheckIcon class='hidden size-3 text-background' data-check />
+                    <CheckIcon
+                      class='
+                        hidden size-4 animate-in text-background zoom-in-50
+                      '
+                      data-check
+                    />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent sideOffset={16} side={index < accentMiddleIndex ? 'top' : 'bottom'}>
