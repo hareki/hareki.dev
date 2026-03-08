@@ -9,35 +9,69 @@ const currentYear = new Date().getFullYear();
 const lastCommitHash = 'f5edd97';
 ---
 
-<footer
-  class='
-    @container flex items-center justify-between rounded-md bg-footer px-2
-    py-1.5
-    xs:px-4 xs:py-2.5
-  '
->
-  <div class='flex items-center'>
-    <p class='pr-4 text-muted-foreground'>&copy; {currentYear} Hareki</p>
-    <Separator orientation='vertical' class='mx-2 h-6' />
-    <Button variant='ghost'>
-      <HeartIcon />
-      <span>Made Possible By</span></Button
+<footer class='@container rounded-md bg-footer'>
+  <div
+    class='
+      flex flex-col items-center justify-between px-2 py-1.5
+      xs:px-4 xs:py-2.5
+      @lg:flex-row
+    '
+  >
+    <div
+      class='
+        flex flex-col items-center
+        @lg:@max-3xl:items-start
+        @3xl:flex-row
+      '
     >
-  </div>
+      <p class='px-4 text-muted-foreground'>
+        &copy; {currentYear} Hareki
+      </p>
+      <Separator
+        orientation='vertical'
+        class='
+          mx-2 hidden h-6
+          @3xl:block
+        '
+      />
+      <Button variant='ghost' class='w-fit'>
+        <HeartIcon />
+        <span>Made Possible By</span></Button
+      >
+    </div>
 
-  <div class='flex items-center'>
-    <p class='pr-4 text-muted-foreground'>Updated 7 Mar 2026</p>
-    <Separator orientation='vertical' class='mx-2 h-6' />
-    <Button
-      variant='ghost'
-      href='https://github.com'
-      target='_blank'
-      rel='noopener noreferrer'
+    <Separator class='
+      mt-2 mb-4.25 w-[80%]
+      @lg:hidden
+    ' />
+
+    <div
+      class='
+        flex flex-col items-center
+        @lg:@max-3xl:items-end
+        @3xl:flex-row
+      '
     >
-      <GitCommitIcon class='rotate-90' />
-      <span>
-        {lastCommitHash}
-      </span>
-    </Button>
+      <p class='px-4 text-muted-foreground'>Updated 7 Mar 2026</p>
+      <Separator
+        orientation='vertical'
+        class='
+          mx-2 hidden h-6
+          @3xl:block
+        '
+      />
+      <Button
+        variant='ghost'
+        class='w-fit'
+        href='https://github.com'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <GitCommitIcon class='rotate-90' />
+        <span>
+          {lastCommitHash}
+        </span>
+      </Button>
+    </div>
   </div>
 </footer>
