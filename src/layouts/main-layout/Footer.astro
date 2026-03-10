@@ -1,6 +1,8 @@
 ---
+import ExternalLinkIcon from '@tabler/icons/outline/arrow-up-right.svg';
 import GitCommitIcon from '@tabler/icons/outline/git-commit.svg';
 
+import NewTabIndicator from '@/components/NewTabIndicator.astro';
 import Button from '@/components/starwind/button';
 import Separator from '@/components/starwind/separator';
 import ToolsAndInspirations from '@/components/ToolsAndInspirations.astro';
@@ -12,8 +14,7 @@ const lastCommitHash = 'f5edd97';
 <footer class='@container rounded-md bg-footer'>
   <div
     class='
-      flex flex-col items-center justify-between px-2 py-1.5
-      xs:px-4 xs:py-2.5
+      flex flex-col items-center justify-between p-2.5
       @xl:flex-row
     '
   >
@@ -24,7 +25,7 @@ const lastCommitHash = 'f5edd97';
         @4xl:flex-row
       '
     >
-      <p class='px-4 text-muted-foreground'>
+      <p class='mx-3.5 text-muted-foreground'>
         &copy; {currentYear} Hareki
       </p>
       <Separator
@@ -49,7 +50,7 @@ const lastCommitHash = 'f5edd97';
         @4xl:flex-row
       '
     >
-      <p class='px-4 text-muted-foreground'>Updated on 7 Mar 2026</p>
+      <p class='mx-3.5 text-muted-foreground'>Updated on 7 Mar 2026</p>
       <Separator
         orientation='vertical'
         class='
@@ -59,7 +60,7 @@ const lastCommitHash = 'f5edd97';
       />
       <Button
         variant='ghost'
-        class='w-fit'
+        class='group relative w-fit'
         href='https://github.com'
         target='_blank'
         rel='noopener noreferrer'
@@ -68,6 +69,8 @@ const lastCommitHash = 'f5edd97';
         <span>
           {lastCommitHash}
         </span>
+
+        <NewTabIndicator />
       </Button>
     </div>
   </div>

@@ -53,11 +53,10 @@ const siteControls: HeaderLinkButton[] = [
   <header
     class='
       @container flex items-center justify-between rounded-md border
-      border-border px-2 py-1.5
-      xs:px-4 xs:py-2.5
+      border-border p-2.5
     '
   >
-    <a class='flex items-center gap-2' href='/'>
+    <a class='ml-3.5 flex items-center gap-2' href='/'>
       <img
         src={favicon.src}
         fetchpriority='high'
@@ -69,12 +68,12 @@ const siteControls: HeaderLinkButton[] = [
       />
 
       <span class='
-        font-bold
+        text-lg font-bold
         @lg:text-xl
       '>Hareki</span>
     </a>
 
-    <div class='flex items-center'>
+    <nav class='flex items-center'>
       <div class='flex items-center gap-1'>
         {
           contactLinks.map(({ icon, label, href }) => (
@@ -106,6 +105,6 @@ const siteControls: HeaderLinkButton[] = [
 
         <ThemeSwitcher />
       </div>
-    </div>
+    </nav>
   </header>
 </div>

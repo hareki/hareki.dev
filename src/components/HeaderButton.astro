@@ -8,14 +8,19 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 
-import type { HTMLAttributes, SvgComponent } from 'astro/types';
+import NewTabIndicator from './NewTabIndicator.astro';
 
-interface Props extends Omit<HTMLAttributes<'a'>, 'type'> {
+import type { ButtonProps } from './starwind/button/Button.astro';
+import type { SvgComponent } from 'astro/types';
+
+interface Props extends ButtonProps {
   icon: SvgComponent;
   label: string;
 }
 
 const { icon: Icon, label, class: className, ...rest } = Astro.props;
+const hasChevron = !!rest.chevron;
+const isOpenInNewTab = rest.href && rest.target === '_blank';
 ---
 
 <Tooltip>
@@ -24,7 +29,12 @@ const { icon: Icon, label, class: className, ...rest } = Astro.props;
     <Button
       variant='ghost'
       size='icon'
-      class={cn('@3xl:w-auto @3xl:px-3.5', className)}
+      class={cn(
+        '@3xl:w-auto @3xl:px-3.5',
+        'group relative',
+        className,
+        hasChevron && 'w-auto px-2.25',
+      )}
       {...rest}
     >
       <Icon class='@3xl:size-5' />
@@ -32,6 +42,7 @@ const { icon: Icon, label, class: className, ...rest } = Astro.props;
         hidden
         @3xl:inline
       '>{label}</span>
+      {isOpenInNewTab && <NewTabIndicator />}
     </Button>
   </TooltipTrigger>
   <!-- Can't use container query since this component is rendered outside of the container (header) -->

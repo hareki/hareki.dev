@@ -1,15 +1,32 @@
 ---
+import ChevronDownIcon from '@tabler/icons/outline/chevron-down.svg';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 import type { HTMLAttributes } from 'astro/types';
 
-interface Props
+type ChevronProps = {
+  orientation: 'up' | 'down';
+  size?: 'md';
+};
+
+export interface ButtonProps
   extends
     HTMLAttributes<'button'>,
     Omit<HTMLAttributes<'a'>, 'type'>,
-    VariantProps<typeof button> {}
+    VariantProps<typeof button> {
+  chevron?: ChevronProps;
+}
 
-const { variant, size, class: className, ...rest } = Astro.props;
+type Props = ButtonProps;
+
+const { variant, size, class: className, chevron, ...rest } = Astro.props;
+
+const chevronClass = tv({
+  variants: {
+    size: { md: 'size-3.5' },
+  },
+  defaultVariants: { size: 'md' },
+});
 
 export const button = tv({
   base: [
@@ -119,4 +136,15 @@ const Tag = Astro.props.href ? 'a' : 'button';
   {...rest}
 >
   <slot />
+  {
+    chevron && (
+      <ChevronDownIcon
+        class={chevronClass({
+          size: chevron.size,
+          // PERF: Save bundle size by reusing icon
+          class: chevron.orientation === 'up' && 'rotate-180',
+        })}
+      />
+    )
+  }
 </Tag>

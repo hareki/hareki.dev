@@ -43,6 +43,9 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
   <HeaderButton
     icon={PaletteIcon}
     label='Theme'
+    chevron={{
+      orientation: 'down',
+    }}
     data-slot='popover-trigger'
     class='
       group-data-[state=open]/popover:bg-primary/10
@@ -57,7 +60,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     class='p-3'
   >
     <div data-theme-switcher>
-      <div class='mb-1 text-xs text-muted-foreground'>FLAVOR</div>
+      <div class='mb-1 text-xs font-bold text-muted-foreground'>FLAVOR</div>
       <div class='grid grid-cols-2 gap-2'>
         {
           FLAVORS.map(({ value, label }) => (
@@ -73,7 +76,11 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
         }
       </div>
 
-      <div class='mt-6 mb-1 text-xs text-muted-foreground'>ACCENT</div>
+      <div
+        class='mt-popup-section mb-1 text-xs font-bold text-muted-foreground'
+      >
+        ACCENT
+      </div>
       <div class='grid grid-cols-7 place-items-center gap-3'>
         {
           ACCENTS.map((label, index) => {
