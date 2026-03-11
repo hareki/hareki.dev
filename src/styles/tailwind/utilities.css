@@ -8,7 +8,7 @@
 
 @utility bouncy-click {
   @apply hocus:scale-[105%] active:scale-100!;
-  --duration: 0.5s;
+  --duration: 0.4s;
 
   transition:
     scale var(--duration) var(--ease-overshoot),
