@@ -51,7 +51,8 @@ export default defineConfig([
         },
       ],
       'better-tailwindcss/enforce-consistent-line-wrapping': [
-        'warn',
+        // Causes so many conflicts with prettier
+        'off',
         // Matches what we have in .prettierrc
         {
           printWidth: 80,

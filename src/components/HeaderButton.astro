@@ -38,10 +38,8 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
       {...rest}
     >
       <Icon class='@3xl:size-5' />
-      <span class='
-        hidden
-        @3xl:inline
-      '>{label}</span>
+      <span class='hidden
+        @3xl:inline'>{label}</span>
       {isOpenInNewTab && <NewTabIndicator />}
     </Button>
   </TooltipTrigger>
