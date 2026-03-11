@@ -56,6 +56,9 @@
   --color-muted: var(--ctp-mantle);
   --color-muted-foreground: var(--ctp-overlay1);
 
+  --color-subtext0-foreground: var(--ctp-subtext0);
+  --color-subtext1-foreground: var(--ctp-subtext1);
+
   --color-accent: var(--ctp-surface0);
   --color-accent-foreground: var(--ctp-text);
 
