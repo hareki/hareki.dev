@@ -1,0 +1,40 @@
+Fix: preserve leading/trailing whitespace in multiline class attributes
+
+prettier-plugin-astro's `printClassNames` collapses all whitespace around
+class attribute values. For single-line values this is fine, but for
+multiline values (used with Tailwind line-wrapping conventions) it strips
+the newlines + indentation that keep each breakpoint group on its own line.
+
+This patch captures the original leading whitespace (e.g. `\n      `) and
+trailing whitespace (e.g. `\n    `) before trimming, then restores them
+after formatting, so the formatted output keeps its intended shape.
+
+diff --git a/dist/index.js b/dist/index.js
+index 6b9f37eac7baa92be5d3a7d6e6054886f99dcac4..844517000e82d99cb471e9af54214c74bd3bc527 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -210,12 +210,23 @@ function trimTextNodeRight(node) {
+     node.value = node.value && node.value.trimEnd();
+ }
+ function printClassNames(value) {
++    // Capture leading/trailing whitespace patterns (e.g. "\n" or "\n  ")
++    const leadingMatch = value.match(/^([\t\f\r ]*\n[\t\f\r ]*)/);
++    const trailingMatch = value.match(/(\n[\t\f\r ]*)$/);
+     const lines = value.trim().split(/[\r\n]+/);
+     const formattedLines = lines.map((line) => {
+         const spaces = line.match(/^\s+/);
+         return (spaces ? spaces[0] : '') + line.trim().split(/\s+/).join(' ');
+     });
+-    return formattedLines.join('\n');
++    let result = formattedLines.join('\n');
++    // Restore original leading/trailing whitespace if present
++    if (leadingMatch) {
++        result = leadingMatch[1] + result;
++    }
++    if (trailingMatch) {
++        result = result + trailingMatch[1];
++    }
++    return result;
+ }
+ function manualDedent(input) {
+     let minTabSize = Infinity;

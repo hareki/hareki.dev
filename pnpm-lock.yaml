@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  prettier-plugin-astro:
+    hash: ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1
+    path: patches/prettier-plugin-astro.patch
+
 importers:
   .:
     dependencies:
@@ -31,7 +36,7 @@ importers:
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.6
-        version: 0.9.6(prettier-plugin-astro@0.14.1)(prettier@3.8.1)(typescript@5.9.3)
+        version: 0.9.6(prettier-plugin-astro@0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1))(prettier@3.8.1)(typescript@5.9.3)
       '@astrojs/ts-plugin':
         specifier: ^1.10.6
         version: 1.10.6
@@ -85,7 +90,7 @@ importers:
         version: 3.8.1
       prettier-plugin-astro:
         specifier: ^0.14.1
-        version: 0.14.1
+        version: 0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1)
       tailwindcss:
         specifier: ^4
         version: 4.2.1
@@ -5969,9 +5974,9 @@ packages:
       }
 
 snapshots:
-  '@astrojs/check@0.9.6(prettier-plugin-astro@0.14.1)(prettier@3.8.1)(typescript@5.9.3)':
+  '@astrojs/check@0.9.6(prettier-plugin-astro@0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1))(prettier@3.8.1)(typescript@5.9.3)':
     dependencies:
-      '@astrojs/language-server': 2.16.3(prettier-plugin-astro@0.14.1)(prettier@3.8.1)(typescript@5.9.3)
+      '@astrojs/language-server': 2.16.3(prettier-plugin-astro@0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1))(prettier@3.8.1)(typescript@5.9.3)
       chokidar: 4.0.3
       kleur: 4.1.5
       typescript: 5.9.3
@@ -5984,7 +5989,7 @@ snapshots:
 
   '@astrojs/internal-helpers@0.7.5': {}
 
-  '@astrojs/language-server@2.16.3(prettier-plugin-astro@0.14.1)(prettier@3.8.1)(typescript@5.9.3)':
+  '@astrojs/language-server@2.16.3(prettier-plugin-astro@0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1))(prettier@3.8.1)(typescript@5.9.3)':
     dependencies:
       '@astrojs/compiler': 2.13.1
       '@astrojs/yaml2ts': 0.2.2
@@ -6006,7 +6011,7 @@ snapshots:
       vscode-uri: 3.1.0
     optionalDependencies:
       prettier: 3.8.1
-      prettier-plugin-astro: 0.14.1
+      prettier-plugin-astro: 0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1)
     transitivePeerDependencies:
       - typescript
 
@@ -8999,7 +9004,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-astro@0.14.1:
+  prettier-plugin-astro@0.14.1(patch_hash=ebb4d902704f77cac10538dba5ffda1d9229622c4ef0322528f92a7802f11ed1):
     dependencies:
       '@astrojs/compiler': 2.13.1
       prettier: 3.8.1
