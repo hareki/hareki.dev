@@ -19,10 +19,12 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
         orientation: 'up',
         size: 'md',
       }}
-      class='w-fit
+      class='
+        w-fit
         group-data-[state=open]/popover:bg-primary/10
         group-data-[state=open]/popover:text-primary
-        hocus:scale-[102%]'
+        hocus:scale-[102%]
+      '
     >
       <HeartIcon />
       <span>Tools & Inspirations</span></Button
@@ -40,21 +42,28 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
               target='_blank'
               rel='noopener noreferrer'
               class='
-                flex bouncy-click items-center gap-3 rounded-md p-2
+                group flex bouncy-click items-center gap-3 rounded-md p-2
                 transition-colors
-                hover:bg-secondary
-                hocus:scale-[102%]
+                hover:bg-primary/10 hover:text-primary
+                hocus:scale-[103%]
               '
             >
               <img
                 src={getFaviconSrc(favicon)}
-                alt=''
+                alt={`${url} favicon`}
                 class='size-8 rounded-full'
               />
               <div>
                 <div class='text-sm'>{name}</div>
                 {description && (
-                  <div class='text-xs text-muted-foreground'>{description}</div>
+                  <div
+                    class='
+                      text-xs text-muted-foreground
+                      group-hover:text-primary/75
+                    '
+                  >
+                    {description}
+                  </div>
                 )}
               </div>
             </a>
@@ -75,10 +84,9 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
               target='_blank'
               rel='noopener noreferrer'
               class='
-                flex bouncy-click items-center gap-3 rounded-md p-2
+                group flex bouncy-click items-center gap-3 rounded-md p-2
                 transition-colors
-                hover:bg-secondary
-                hocus:scale-[102%]
+                hover:bg-primary/10 hover:text-primary
               '
             >
               <img
@@ -89,7 +97,14 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
               <div>
                 <div class='text-sm'>{name}</div>
                 {description && (
-                  <div class='text-xs text-muted-foreground'>{description}</div>
+                  <div
+                    class='
+                      text-xs text-muted-foreground
+                      group-hover:text-primary/75
+                    '
+                  >
+                    {description}
+                  </div>
                 )}
               </div>
             </a>
