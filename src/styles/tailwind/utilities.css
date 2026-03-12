@@ -2,10 +2,6 @@
   @apply flex items-center justify-center;
 }
 
-@utility size-screen {
-  @apply w-screen h-screen;
-}
-
 @utility bouncy-click {
   @apply hocus:scale-[105%] active:scale-100!;
   --duration: 0.4s;
@@ -14,4 +10,8 @@
     scale var(--duration) var(--ease-overshoot),
     background-color var(--duration) ease-in-out,
     color var(--duration) ease-in-out !important;
+}
+
+@utility scrollbar-* {
+  scrollbar-color: --value(--color-*, [color]) transparent;
 }
