@@ -1,0 +1,56 @@
+---
+import BriefcaseIcon from '@tabler/icons/outline/briefcase.svg';
+import MapPinIcon from '@tabler/icons/outline/map-pin.svg';
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/starwind/tooltip';
+
+import VietnameseLetter from './VietnameseLetter.astro';
+---
+
+<section id='hero'>
+  <div class='space-y-5'>
+    <h1 class='
+      text-3xl font-bold
+      md:text-4xl
+    '>
+      Hey! I'm
+      <Tooltip openDelay={0} closeDelay={0} disableHoverableContent>
+        <TooltipTrigger>
+          <span
+            class='group cursor-help text-primary'
+            tabindex='0'
+            aria-label='Show how to pronounce my name'
+            role='button'
+            >T<VietnameseLetter letter='u' vn='ú' /> "Hareki" <span
+              class='whitespace-nowrap'
+              >Nguy<VietnameseLetter letter='e' vn='ễ' />n</span
+            ></span
+          >
+        </TooltipTrigger>
+        <TooltipContent side='top' animationDuration={300} sideOffset={14}>
+          Pronounced "too nwin", or just Hareki
+        </TooltipContent>
+      </Tooltip>
+    </h1>
+    <div class='flex flex-wrap gap-x-6 gap-y-1.5'>
+      <div class='flex items-center gap-1.5 text-xl text-subtext1-foreground'>
+        <BriefcaseIcon class='size-5' />
+        <span>Frontend Engineer</span>
+      </div>
+
+      <div class='flex items-center gap-1.5 text-xl text-subtext1-foreground'>
+        <MapPinIcon class='size-5' />
+        <span>HCMC, Vietnam</span>
+      </div>
+    </div>
+    <p class='max-w-prose text-lg/relaxed text-subtext0-foreground' id='wtf'>
+      I craft accessible, pixel-perfect interfaces and engaging user
+      experiences, with a deep focus on performance and attention to detail.
+      Neovim power user with a Glove80.
+    </p>
+  </div>
+</section>

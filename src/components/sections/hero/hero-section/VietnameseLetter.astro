@@ -1,0 +1,35 @@
+---
+import DotsIcon from '@tabler/icons/outline/dots.svg';
+
+type Props = {
+  letter: string;
+  vn: string;
+};
+
+const { letter, vn } = Astro.props;
+---
+
+<span class='relative inline-flex opacity-70'>
+  <span class='
+    inline-grid overflow-hidden py-0.5
+    *:[grid-area:1/1]
+  '>
+    <span
+      class='
+        transition-[opacity,translate] duration-300
+        group-hocus:-translate-y-full group-hocus:opacity-0
+      '
+      >{letter}</span
+    >
+    <span
+      class='
+        translate-y-full opacity-0 transition-[opacity,translate] duration-300
+        group-hocus:translate-y-0 group-hocus:opacity-100
+      '
+      aria-hidden='true'
+    >
+      {vn}
+    </span>
+  </span>
+  <DotsIcon class='absolute -bottom-3 -left-px' />
+</span>
