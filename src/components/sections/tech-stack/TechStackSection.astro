@@ -2,18 +2,19 @@
 import TechItem from './TechItem.astro';
 
 const techs = [
+  { name: 'HTML5', icon: 'html5' },
+  { name: 'CSS3', icon: 'css3' },
   { name: 'TypeScript', icon: 'typescript' },
+  { name: 'Tailwind', icon: 'tailwind' },
+  { name: 'TanStack', icon: 'tanstack' },
   { name: 'React', icon: 'react' },
   { name: 'Next.js', icon: 'nextjs' },
   { name: 'Astro', icon: 'astro' },
-  { name: 'Node.js', icon: 'nodejs' },
-  { name: 'Tailwind', icon: 'tailwind' },
 ];
 ---
 
-<section id='tech-stack'>
-  <h2>Tech Stack</h2>
-  <div class='grid grid-cols-3 gap-4'>
+<section id='tech-stack' class='rounded-md border p-5'>
+  <div class='grid grid-cols-4 gap-4'>
     {techs.map((tech) => <TechItem name={tech.name} icon={tech.icon} />)}
   </div>
 </section>
