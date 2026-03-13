@@ -1,9 +1,13 @@
 ---
-import Layout from './Layout.astro';
 import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
+
+import Layout from './Layout.astro';
 ---
 
 <Layout>
-  <BaseSkeleton class='h-6 w-52' slot='last-updated-date' />
-  <BaseSkeleton class='h-10.5 w-30.25' slot='commit-hash-button' />
+  <BaseSkeleton class='
+    h-6 w-52
+    @max-4xl:mb-2.25
+  ' slot='last-updated-date' />
+  <BaseSkeleton class='h-6 w-30.25' slot='commit-hash-button' />
 </Layout>
