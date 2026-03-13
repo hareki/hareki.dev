@@ -8,22 +8,22 @@ import { parseOwnerRepo, cachedFetch } from './utils';
 
 import type {
   RecentCommit,
-  LastCommit,
+  LastCommitInfo,
   CommitSummary,
   LanguageStat,
 } from './types';
 
 const MAX_RECENT_COMMITS = 10;
 
-const EMPTY_LAST_COMMIT_INFO: LastCommit = {
-  commitHash: '',
-  commitUrl: '',
+const EMPTY_LAST_COMMIT_INFO: LastCommitInfo = {
+  hash: '',
+  url: '',
   createdAt: '',
 };
 
 export const getLastCommitInfo = async (
   githubUrl?: string,
-): Promise<LastCommit> => {
+): Promise<LastCommitInfo> => {
   const url = githubUrl ?? 'https://github.com/hareki/hareki.dev';
   const { owner, repo } = parseOwnerRepo(url);
 
@@ -36,8 +36,8 @@ export const getLastCommitInfo = async (
 
     const c = commits[0];
     return {
-      commitHash: c.sha,
-      commitUrl: c.html_url,
+      hash: c.sha,
+      url: c.html_url,
       createdAt: c.commit.author.date,
     };
   });
@@ -163,3 +163,5 @@ export const getLanguageStatsSummary = (
     .map(([name, raw]) => ({ name, percent: Math.round((raw / sum) * 100) }))
     .sort((a, b) => b.percent - a.percent);
 };
+
+export const getShortenCommitHash = (hash: string) => hash.slice(0, 7);

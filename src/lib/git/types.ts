@@ -1,6 +1,6 @@
-export type LastCommit = {
-  commitHash: string;
-  commitUrl: string;
+export type LastCommitInfo = {
+  hash: string;
+  url: string;
   createdAt: string;
 };
 
