@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 
 import playformCompress from '@playform/compress';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -20,4 +22,6 @@ export default defineConfig({
       JavaScript: true,
     }),
   ],
+
+  adapter: cloudflare(),
 });
