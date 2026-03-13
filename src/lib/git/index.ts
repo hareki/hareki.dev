@@ -1,3 +1,5 @@
+import { PROJECT_OWNER_PROFILE, PROJECT_URL } from '@/data/git';
+
 import {
   getRepoCommits,
   getUserEvents,
@@ -18,7 +20,7 @@ const MAX_RECENT_COMMITS = 10;
 export const getLastCommitInfo = async (
   githubUrl?: string,
 ): Promise<LastCommitInfo | null> => {
-  const url = githubUrl ?? 'https://github.com/hareki/hareki.dev';
+  const url = githubUrl ?? PROJECT_URL;
   const { owner, repo } = parseOwnerRepo(url);
 
   const commits = await getRepoCommits(owner, repo, 1);
@@ -43,7 +45,7 @@ export const getRecentCommitDetails = async (
     Math.max(1, Math.floor(limit)),
     MAX_RECENT_COMMITS,
   );
-  const profile = githubProfile ?? 'https://github.com/hareki';
+  const profile = githubProfile ?? PROJECT_OWNER_PROFILE;
   const username = new URL(profile).pathname.replace(/^\//, '').split('/')[0];
 
   // Not all events are PushEvents, so fetch more than needed.

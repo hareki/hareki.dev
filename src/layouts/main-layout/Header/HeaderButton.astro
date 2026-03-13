@@ -2,15 +2,14 @@
 import { cn } from 'tailwind-variants';
 
 import Button from '@/components/starwind/button';
+import type { ButtonProps } from '@/components/starwind/button/Button.astro';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
+import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
 
-import NewTabIndicator from './NewTabIndicator.astro';
-
-import type { ButtonProps } from '../starwind/button/Button.astro';
 import type { SvgComponent } from 'astro/types';
 
 interface Props extends ButtonProps {
@@ -45,6 +44,7 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
       {isOpenInNewTab && <NewTabIndicator />}
     </Button>
   </TooltipTrigger>
+
   <!-- Can't use container query since this component is rendered outside of the container (header) -->
   <TooltipContent class='md:hidden'>{label}</TooltipContent>
 </Tooltip>

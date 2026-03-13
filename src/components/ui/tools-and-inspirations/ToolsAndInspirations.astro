@@ -1,0 +1,41 @@
+---
+import HeartIcon from '@tabler/icons/outline/heart.svg';
+
+import Button from '@/components/starwind/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/starwind/popover';
+import { INSPIRATIONAL_SITES, TOOLS_USED } from '@/data/tools-and-inspirations';
+
+import FooterPopoverSection from './Section.astro';
+---
+
+<Popover class='group/popover'>
+  <PopoverTrigger asChild>
+    <Button
+      variant='ghost'
+      chevron={{
+        orientation: 'up',
+        size: 'md',
+      }}
+      class='
+        w-fit
+        group-data-[state=open]/popover:bg-primary/10
+        group-data-[state=open]/popover:text-primary
+        hocus:scale-[102%]
+      '
+    >
+      <HeartIcon />
+      <span>Tools & Inspirations</span></Button
+    >
+  </PopoverTrigger>
+
+  <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-3'>
+    <div class='space-y-popover-section'>
+      <FooterPopoverSection title='TOOLS USED' items={TOOLS_USED} />
+      <FooterPopoverSection title='INSPIRATIONS' items={INSPIRATIONAL_SITES} />
+    </div>
+  </PopoverContent>
+</Popover>

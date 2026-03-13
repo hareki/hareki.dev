@@ -5,7 +5,7 @@ import jasonCameronFavicon from '@/assets/sites/jason-cameron.svg';
 import leventeOttaFavicon from '@/assets/sites/levente-otta.ico';
 import starwindUiFavicon from '@/assets/sites/starwind-ui.ico';
 
-type SiteEntry = {
+export type SiteEntry = {
   name: string;
   description?: string;
   url: string;

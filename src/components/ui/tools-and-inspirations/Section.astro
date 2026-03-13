@@ -1,0 +1,57 @@
+---
+import { PopoverTitle } from '@/components/starwind/popover';
+import { getFaviconSrc, type SiteEntry } from '@/data/tools-and-inspirations';
+
+
+interface Props {
+  title: string;
+  items: SiteEntry[];
+  class?: string;
+}
+
+const { title, items } = Astro.props;
+---
+
+<div>
+  <PopoverTitle>{title}</PopoverTitle>
+  <div class='grid gap-1'>
+    {
+      items.map(({ name, description, url, favicon }) => (
+        <a
+          href={url}
+          target='_blank'
+          rel='noopener noreferrer'
+          class='
+            group flex bouncy-click items-center gap-3 rounded-md p-2
+            transition-colors
+            hover:bg-primary/10 hover:text-primary
+            hocus:scale-[103%]
+          '
+        >
+          <img
+            src={getFaviconSrc(favicon)}
+            alt={`${name} favicon`}
+            width={32}
+            height={32}
+            class='size-8 rounded-full'
+            decoding='async'
+            loading='lazy'
+          />
+          <div>
+            <div class='text-sm'>{name}</div>
+            {description && (
+              <div
+                class='
+                  text-xs text-muted-foreground
+                  group-hover:text-primary/75
+                '
+              >
+                {description}
+              </div>
+            )}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>
