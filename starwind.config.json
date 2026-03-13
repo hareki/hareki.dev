@@ -6,7 +6,7 @@
     "cssVariables": true
   },
   "componentDir": "src/components",
-  "utilsDir": "src/lib/utils",
+  "utilsDir": "src/lib",
   "components": [
     {
       "name": "button",
