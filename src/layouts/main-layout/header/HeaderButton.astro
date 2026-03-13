@@ -30,9 +30,16 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
       size='icon'
       class={cn(
         '@3xl:w-auto @3xl:px-3.5',
-        'group relative',
+        `
+          group relative
+          @max-sm:size-9
+        `,
         className,
-        hasChevron && 'w-auto px-2.25',
+        hasChevron &&
+          `
+            w-auto! px-1
+            @sm:px-2.25
+          `,
       )}
       {...rest}
     >

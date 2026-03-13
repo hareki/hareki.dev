@@ -56,12 +56,20 @@ const siteControls: HeaderLinkButton[] = [
       @container flex items-center justify-between rounded-md bg-header p-2.5
     '
   >
-    <a class='ml-3.5 flex items-center gap-2' href='/'>
+    <a
+      class='
+        flex items-center gap-2
+        xs:ml-2.25
+        @lg:ml-3.5
+      '
+      href='/'
+    >
       <img
         src={favicon.src}
         fetchpriority='high'
         class='
-          pointer-events-none size-7
+          pointer-events-none hidden size-7
+          @md:block
           @lg:size-8
         '
         alt='Hareki catppuccin logo'
@@ -90,7 +98,10 @@ const siteControls: HeaderLinkButton[] = [
         }
       </div>
 
-      <Separator class='mx-2 h-6' orientation='vertical' />
+      <Separator class='
+        mx-2 h-5
+        @sm:h-6
+      ' orientation='vertical' />
 
       <div class='flex items-center gap-1'>
         {
