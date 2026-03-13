@@ -6,6 +6,8 @@ import playformCompress from '@playform/compress';
 
 import cloudflare from '@astrojs/cloudflare';
 
+import { cloudflareCdnCache } from './src/lib/cache/config';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -24,4 +26,10 @@ export default defineConfig({
   ],
 
   adapter: cloudflare(),
+
+  experimental: {
+    cache: {
+      provider: cloudflareCdnCache(),
+    },
+  },
 });
