@@ -11,6 +11,7 @@ import tailwindcss from '@/assets/tech-stacks/tailwindcss.svg';
 import tanstackDark from '@/assets/tech-stacks/tanstack-dark-bg.svg';
 import tanstackLight from '@/assets/tech-stacks/tanstack-light-bg.svg';
 import typescript from '@/assets/tech-stacks/typescript.svg';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
 
 import TechItem from './TechItem.astro';
 
@@ -74,7 +75,7 @@ const techs = [
   @container rounded-md border p-2.5
   md:p-5
 '>
-  <h2 class='mb-4 ml-3 text-xl font-bold'>Main Technologies</h2>
+  <SectionTitle>Main Technologies</SectionTitle>
   <div
     class='
       grid grid-cols-1 gap-4
