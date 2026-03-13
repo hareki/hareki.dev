@@ -4,11 +4,11 @@ import type { CommitDetail, UserEvent } from './types';
 
 const GITHUB_API = 'https://api.github.com';
 
-type RepoCommitResponse = Array<{
+type RepoCommitResponse = {
   sha: string;
   html_url: string;
   commit: { author: { date: string } };
-}>;
+}[];
 
 export const getRepoCommits = async (
   owner: string,

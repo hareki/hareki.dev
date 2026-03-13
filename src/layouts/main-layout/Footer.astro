@@ -1,17 +1,9 @@
 ---
-import GitCommitIcon from '@tabler/icons/outline/git-commit.svg';
-
-import Button from '@/components/starwind/button';
 import Separator from '@/components/starwind/separator';
 import ToolsAndInspirations from '@/components/ToolsAndInspirations.astro';
-import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
-import { getLastCommitInfo, getShortenCommitHash } from '@/lib/git';
-import { getFormattedDate } from '@/utils/date';
+import LastCommitInfo from '@/components/ui/LastCommitInfo/index.astro';
 
 const currentYear = new Date().getFullYear();
-const lastCommitInfo = await getLastCommitInfo();
-const shortenCommitHash = getShortenCommitHash(lastCommitInfo.hash);
-const lastUpdatedDate = getFormattedDate(new Date(lastCommitInfo.createdAt));
 ---
 
 <footer class='@container rounded-md bg-footer'>
@@ -46,35 +38,6 @@ const lastUpdatedDate = getFormattedDate(new Date(lastCommitInfo.createdAt));
       @xl:hidden
     ' />
 
-    <div
-      class='
-        flex flex-col items-center
-        @xl:@max-4xl:items-end
-        @4xl:flex-row
-      '
-    >
-      <p class='mx-3.5 text-muted-foreground'>Updated on {lastUpdatedDate}</p>
-      <Separator
-        orientation='vertical'
-        class='
-          mx-2 hidden h-6
-          @4xl:block
-        '
-      />
-      <Button
-        variant='ghost'
-        class='group relative w-fit'
-        href={lastCommitInfo.url}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <GitCommitIcon class='rotate-90' />
-        <span>
-          {shortenCommitHash}
-        </span>
-
-        <NewTabIndicator />
-      </Button>
-    </div>
+    <LastCommitInfo />
   </div>
 </footer>

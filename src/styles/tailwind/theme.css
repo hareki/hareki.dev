@@ -33,7 +33,6 @@
     1
   );
   --breakpoint-xs: 30rem;
-  --spacing-popover-section: --spacing(5);
 
   --color-background: var(--ctp-base);
   --color-foreground: var(--ctp-text);
@@ -86,4 +85,6 @@
   --radius-3xl: calc(var(--radius) + 1rem);
 
   --color-footer: var(--ctp-crust);
+  --color-skeleton: var(--ctp-surface2);
+  --spacing-popover-section: --spacing(5);
 }

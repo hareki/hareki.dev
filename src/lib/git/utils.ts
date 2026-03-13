@@ -3,6 +3,7 @@ const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes
 export const githubFetch = async (url: string): Promise<Response> => {
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
+    ['User-Agent']: 'hareki/hareki.dev',
   };
 
   const token = import.meta.env.VITE_PUBLIC_GITHUB_TOKEN;

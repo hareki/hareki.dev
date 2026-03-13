@@ -1,0 +1,9 @@
+---
+import Content from './Content.astro';
+import Skeleton from './Skeleton.astro';
+---
+
+<!-- <Skeleton /> -->
+<Content server:defer>
+  <Skeleton slot='fallback' />
+</Content>

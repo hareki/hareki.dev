@@ -1,0 +1,35 @@
+---
+import GitCommitIcon from '@tabler/icons/outline/git-commit.svg';
+import Layout from './Layout.astro';
+
+import Button from '@/components/starwind/button';
+import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
+import { getLastCommitInfo, getShortenCommitHash } from '@/lib/git';
+import { getFormattedDate } from '@/utils/date';
+
+const lastCommitInfo = await getLastCommitInfo();
+const shortenCommitHash = getShortenCommitHash(lastCommitInfo.hash);
+const lastUpdatedDate = getFormattedDate(new Date(lastCommitInfo.createdAt));
+---
+
+<Layout>
+  <p class='mx-3.5 text-muted-foreground' slot='last-updated-date'>
+    Updated on {lastUpdatedDate}
+  </p>
+
+  <Button
+    variant='ghost'
+    class='group relative w-fit'
+    href={lastCommitInfo.url}
+    target='_blank'
+    rel='noopener noreferrer'
+    slot='commit-hash-button'
+  >
+    <GitCommitIcon class='rotate-90' />
+    <span>
+      {shortenCommitHash}
+    </span>
+
+    <NewTabIndicator />
+  </Button>
+</Layout>

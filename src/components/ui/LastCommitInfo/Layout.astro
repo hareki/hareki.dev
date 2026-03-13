@@ -1,0 +1,21 @@
+---
+import Separator from '@/components/starwind/separator';
+---
+
+<div
+  class='
+    flex flex-col items-center
+    @xl:@max-4xl:items-end
+    @4xl:flex-row
+  '
+>
+  <slot name='last-updated-date' />
+  <Separator
+    orientation='vertical'
+    class='
+      mx-2 hidden h-6
+      @4xl:block
+    '
+  />
+  <slot name='commit-hash-button' />
+</div>
