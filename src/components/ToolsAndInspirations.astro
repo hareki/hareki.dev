@@ -8,7 +8,12 @@ import {
 } from '@/data/tools-and-inspirations';
 
 import Button from './starwind/button';
-import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTitle,
+  PopoverTrigger,
+} from './starwind/popover';
 ---
 
 <Popover class='group/popover'>
@@ -33,7 +38,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
 
   <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-3'>
     <div>
-      <div class='mb-1 text-xs font-bold text-subtext0-foreground'>TOOLS</div>
+      <PopoverTitle>TOOLS</PopoverTitle>
       <div class='grid gap-1'>
         {
           TOOLS_USED.map(({ name, description, url, favicon }) => (
@@ -73,9 +78,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './starwind/popover';
 
       <!-- <Separator class='mx-auto mt-4 mb-6 bg-(--ctp-surface2)' /> -->
 
-      <div class='mt-6 mb-1 text-xs font-bold text-subtext0-foreground'>
-        INSPIRATIONS
-      </div>
+      <PopoverTitle class='mt-popover-section'>INSPIRATIONS</PopoverTitle>
       <div class='grid gap-1'>
         {
           INSPIRATIONAL_SITES.map(({ name, url, favicon, description }) => (

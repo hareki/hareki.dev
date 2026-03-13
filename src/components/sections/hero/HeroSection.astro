@@ -1,17 +1,6 @@
 ---
 import BriefcaseIcon from '@tabler/icons/outline/briefcase.svg';
 import MapPinIcon from '@tabler/icons/outline/map-pin.svg';
-
-import {
-  getLanguageStatsSummary,
-  getLastCommitInfo,
-  getRecentCommitDetails,
-} from '@/lib/git';
-const test = await getRecentCommitDetails(5);
-const test2 = await getLastCommitInfo();
-const test3 = getLanguageStatsSummary(test);
-
-console.log({ test, test2, test3 });
 ---
 
 <section id='hero'>

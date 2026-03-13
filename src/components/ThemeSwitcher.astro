@@ -2,7 +2,11 @@
 import CheckIcon from '@tabler/icons/outline/check.svg';
 import PaletteIcon from '@tabler/icons/outline/palette.svg';
 
-import { Popover, PopoverContent } from '@/components/starwind/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTitle,
+} from '@/components/starwind/popover';
 import {
   Tooltip,
   TooltipContent,
@@ -60,7 +64,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     class='p-3'
   >
     <div data-theme-switcher>
-      <div class='mb-1 text-xs font-bold text-subtext0-foreground'>FLAVOR</div>
+      <PopoverTitle>FLAVOR</PopoverTitle>
       <div class='grid grid-cols-2 gap-2'>
         {
           FLAVORS.map(({ value, label }) => (
@@ -76,11 +80,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
         }
       </div>
 
-      <div
-        class='mt-popup-section mb-1 text-xs font-bold text-subtext0-foreground'
-      >
-        ACCENT
-      </div>
+      <PopoverTitle class='mt-popover-section'>ACCENT</PopoverTitle>
       <div class='grid grid-cols-7 place-items-center gap-3'>
         {
           ACCENTS.map((label, index) => {

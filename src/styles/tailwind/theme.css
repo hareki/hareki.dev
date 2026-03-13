@@ -33,7 +33,7 @@
     1
   );
   --breakpoint-xs: 30rem;
-  --spacing-popup-section: --spacing(6);
+  --spacing-popover-section: --spacing(5);
 
   --color-background: var(--ctp-base);
   --color-foreground: var(--ctp-text);

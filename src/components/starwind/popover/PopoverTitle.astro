@@ -5,7 +5,9 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'h3'>;
 
-export const popoverTitle = tv({ base: 'font-medium' });
+export const popoverTitle = tv({
+  base: 'mb-1 text-xs font-bold text-subtext0-foreground',
+});
 
 const { class: className, ...rest } = Astro.props;
 ---
