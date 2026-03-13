@@ -84,7 +84,8 @@
   --radius-2xl: calc(var(--radius) + 0.5rem);
   --radius-3xl: calc(var(--radius) + 1rem);
 
-  --color-footer: var(--ctp-crust);
+  --color-footer: var(--ctp-mantle);
+  --color-header: var(--ctp-mantle);
   --color-skeleton: var(--ctp-surface2);
   --spacing-popover-section: --spacing(5);
 }
