@@ -20,7 +20,6 @@ export default defineConfig([
   {
     files: ['**/*.{ts,tsx,astro}'],
     plugins: {
-      // @ts-expect-error null and undefined is effectively the same
       'import-x': importX,
     },
     extends: [
