@@ -12,12 +12,17 @@ export const githubFetch = async (url: string): Promise<Response> => {
   return fetch(url, { headers });
 };
 
-export const parseOwnerRepo = (
-  githubUrl: string,
+export const parseRepoFullName = (
+  repoFullName: string,
 ): {
   owner: string;
   repo: string;
 } => {
-  const parts = new URL(githubUrl).pathname.replace(/^\//, '').split('/');
-  return { owner: parts[0], repo: parts[1] };
+  const [owner, repo, ...rest] = repoFullName.trim().split('/').filter(Boolean);
+
+  if (!owner || !repo || rest.length > 0) {
+    throw new Error('Expected repoFullName in the format "<owner>/<repo>".');
+  }
+
+  return { owner, repo };
 };

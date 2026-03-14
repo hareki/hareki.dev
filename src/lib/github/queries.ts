@@ -1,13 +1,16 @@
 import { githubFetch } from './utils';
 
-import type { CommitDetail, UserEvent } from './types';
+import type { CommitDetail } from './types';
 
 const GITHUB_API = 'https://api.github.com';
 
 type RepoCommitResponse = {
   sha: string;
   html_url: string;
-  commit: { author: { date: string } };
+  commit: {
+    message: string;
+    author: { date: string };
+  };
 }[];
 
 export const getRepoCommits = async (
@@ -25,23 +28,6 @@ export const getRepoCommits = async (
     return null;
   }
   return res.json() as Promise<RepoCommitResponse>;
-};
-
-export const getUserEvents = async (
-  username: string,
-  perPage: number,
-): Promise<UserEvent[] | null> => {
-  const res = await githubFetch(
-    `${GITHUB_API}/users/${username}/events/public?per_page=${perPage}`,
-  );
-  if (!res.ok) {
-    console.warn(
-      `GitHub API error (${res.status}) fetching events for ${username}`,
-    );
-    return null;
-  }
-
-  return res.json() as Promise<UserEvent[]>;
 };
 
 export const getCommitDetail = async (
