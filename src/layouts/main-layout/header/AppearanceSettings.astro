@@ -1,6 +1,8 @@
 ---
 import CheckIcon from '@tabler/icons/outline/check.svg';
+import MoonIcon from '@tabler/icons/outline/moon.svg';
 import PaletteIcon from '@tabler/icons/outline/palette.svg';
+import SunIcon from '@tabler/icons/outline/sun.svg';
 
 import Button from '@/components/starwind/button';
 import {
@@ -16,10 +18,10 @@ import {
 import HeaderButton from '@/layouts/main-layout/header/HeaderButton.astro';
 
 const FLAVORS = [
-  { value: 'latte', label: 'Latte' },
-  { value: 'frappe', label: 'Frappé' },
-  { value: 'macchiato', label: 'Macchiato' },
-  { value: 'mocha', label: 'Mocha' },
+  { value: 'latte', label: 'Latte', mode: 'light' },
+  { value: 'frappe', label: 'Frappé', mode: 'dark' },
+  { value: 'macchiato', label: 'Macchiato', mode: 'dark' },
+  { value: 'mocha', label: 'Mocha', mode: 'dark' },
 ] as const;
 
 const ACCENTS = [
@@ -66,13 +68,18 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
       <PopoverTitle>FLAVOR</PopoverTitle>
       <div class='grid grid-cols-2 gap-2'>
         {
-          FLAVORS.map(({ value, label }) => (
+          FLAVORS.map(({ value, label, mode }) => (
             <Button
               variant='secondary'
               size='sm'
-              class='text-sm text-secondary-foreground transition-all'
+              class='
+                justify-start px-4! text-sm text-secondary-foreground
+                transition-all
+              '
               data-flavor={value}
             >
+              {mode === 'light' && <SunIcon class='size-4.5' />}
+              {mode === 'dark' && <MoonIcon />}
               {label}
             </Button>
           ))
