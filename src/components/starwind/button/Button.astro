@@ -4,10 +4,10 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 import type { HTMLAttributes } from 'astro/types';
 
-type ChevronProps = {
+interface ChevronProps {
   orientation: 'up' | 'down';
   size?: 'md';
-};
+}
 
 export interface ButtonProps
   extends

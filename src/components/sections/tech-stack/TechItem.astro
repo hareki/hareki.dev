@@ -6,13 +6,13 @@ import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
 
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = {
+interface Props {
   name: string;
   description: string;
   href: string;
   icon: ImageMetadata;
   darkIcon?: ImageMetadata;
-};
+}
 
 const { name, description, href, icon, darkIcon } = Astro.props;
 const imgClass = cn(

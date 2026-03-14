@@ -13,11 +13,11 @@ import HeaderButton from './HeaderButton.astro';
 
 import type { SvgComponent } from 'astro/types';
 
-type HeaderLinkButton = {
+interface HeaderLinkButton {
   icon: SvgComponent;
   label: string;
   href: string;
-};
+}
 
 const { GITHUB_URL, LINKEDIN_URL, EMAIL_URL, RESUME_URL } = ContactInformation;
 

@@ -1,21 +1,21 @@
-export type LastCommitInfo = {
+export interface LastCommitInfo {
   hash: string;
   url: string;
   createdAt: string;
-};
+}
 
-export type RecentCommit = {
+export interface RecentCommit {
   repoName: string;
   commitUrl: string;
   commitMessage: string;
   createdAt: Date;
   linesAdded: number;
   linesDeleted: number;
-};
+}
 
-export type LanguageStat = { name: string; percent: number };
+export interface LanguageStat { name: string; percent: number }
 
-export type CommitDetail = {
+export interface CommitDetail {
   commit: { message: string };
   stats: { additions: number; deletions: number };
-};
+}

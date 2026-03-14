@@ -5,12 +5,12 @@ import jasonCameronFavicon from '@/assets/sites/jason-cameron.svg';
 import leventeOttaFavicon from '@/assets/sites/levente-otta.ico';
 import starwindUiFavicon from '@/assets/sites/starwind-ui.ico';
 
-export type SiteEntry = {
+export interface SiteEntry {
   name: string;
   description?: string;
   url: string;
   favicon: ImageMetadata | string;
-};
+}
 
 export function getFaviconSrc(favicon: ImageMetadata | string): string {
   return typeof favicon === 'string' ? favicon : favicon.src;
