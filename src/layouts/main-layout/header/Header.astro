@@ -8,8 +8,8 @@ import favicon from '@/assets/favicon.svg';
 import Separator from '@/components/starwind/separator';
 import ContactInformation from '@/data/contact-information';
 
+import AppearanceSettings from './AppearanceSettings.astro';
 import HeaderButton from './HeaderButton.astro';
-import ThemeSwitcher from './ThemeSwitcher.astro';
 
 import type { SvgComponent } from 'astro/types';
 
@@ -98,10 +98,13 @@ const siteControls: HeaderLinkButton[] = [
         }
       </div>
 
-      <Separator class='
-        mx-2 h-5
-        @sm:h-6
-      ' orientation='vertical' />
+      <Separator
+        class='
+          mx-2 h-5
+          @sm:h-6
+        '
+        orientation='vertical'
+      />
 
       <div class='flex items-center gap-1'>
         {
@@ -116,7 +119,7 @@ const siteControls: HeaderLinkButton[] = [
           ))
         }
 
-        <ThemeSwitcher />
+        <AppearanceSettings />
       </div>
     </nav>
   </header>

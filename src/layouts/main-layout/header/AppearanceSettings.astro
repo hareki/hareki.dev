@@ -45,7 +45,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
 <Popover class='group/popover'>
   <HeaderButton
     icon={PaletteIcon}
-    label='Theme'
+    label='Appearance'
     chevron={{
       orientation: 'down',
     }}
@@ -59,10 +59,10 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
   <PopoverContent
     side='bottom'
     align='end'
-    aria-label='Theme Settings'
+    aria-label='Appearance Settings'
     class='p-3'
   >
-    <div data-theme-switcher>
+    <div data-appearance-controller>
       <PopoverTitle>FLAVOR</PopoverTitle>
       <div class='grid grid-cols-2 gap-2'>
         {
@@ -121,7 +121,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
 </Popover>
 
 <script>
-  class ThemeSwitcherHandler {
+  class AppearanceController {
     private flavorButtons: NodeListOf<HTMLElement>;
     private accentButtons: NodeListOf<HTMLElement>;
     private abortController: AbortController;
@@ -232,22 +232,22 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     }
   }
 
-  let instances: ThemeSwitcherHandler[] = [];
+  let instances: AppearanceController[] = [];
 
-  const initThemeSwitcher = () => {
+  const initController = () => {
     document
-      .querySelectorAll<HTMLElement>('[data-theme-switcher]')
+      .querySelectorAll<HTMLElement>('[data-appearance-controller]')
       .forEach((container) => {
-        instances.push(new ThemeSwitcherHandler(container));
+        instances.push(new AppearanceController(container));
       });
   };
 
-  const destroyThemeSwitcher = () => {
+  const destroyController = () => {
     instances.forEach((instance) => instance.destroy());
     instances = [];
   };
 
-  initThemeSwitcher();
-  document.addEventListener('astro:before-swap', destroyThemeSwitcher);
-  document.addEventListener('astro:after-swap', initThemeSwitcher);
+  initController();
+  document.addEventListener('astro:before-swap', destroyController);
+  document.addEventListener('astro:after-swap', initController);
 </script>
