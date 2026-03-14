@@ -1,5 +1,5 @@
 ---
-import GitCommitIcon from '@tabler/icons/outline/git-commit.svg';
+import GitMergeIcon from '@tabler/icons/outline/git-merge.svg';
 
 import Button from '@/components/starwind/button';
 import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
@@ -39,7 +39,7 @@ const shortenCommitHash = lastCommitInfo
         rel='noopener noreferrer'
         slot='commit-hash-button'
       >
-        <GitCommitIcon class='rotate-90' />
+        <GitMergeIcon />
         <span>{shortenCommitHash}</span>
 
         <NewTabIndicator />
