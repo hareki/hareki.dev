@@ -1,10 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import { cn } from 'tailwind-variants';
 
 import Button from '@/components/starwind/button/Button.astro';
 import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
-
-import type { HTMLAttributes } from 'astro/types';
 
 interface Props {
   name: string;
@@ -15,16 +14,42 @@ interface Props {
 }
 
 const { name, description, href, icon, darkIcon } = Astro.props;
+const isSvg = icon.format === 'svg';
+
 const imgClass = cn(
   `
     pointer-events-none absolute top-0 left-0 size-full transition-all
     duration-350
   `,
 );
-
-const imgAttributes: HTMLAttributes<'img'> = {
+const baseProps = {
   width: 40,
   height: 40,
+} as const;
+
+const alt = `${name} logo`;
+
+const lightIconProps = {
+  ...baseProps,
+  class: cn(
+    imgClass,
+    darkIcon &&
+      `
+        opacity-100
+        dark:opacity-0
+      `,
+  ),
+};
+
+const darkIconProps = darkIcon && {
+  ...baseProps,
+  class: cn(
+    imgClass,
+    `
+      opacity-0
+      dark:opacity-100
+    `,
+  ),
 };
 ---
 
@@ -40,35 +65,21 @@ const imgAttributes: HTMLAttributes<'img'> = {
       group-hocus:opacity-100 group-hocus:grayscale-0
     '
   >
-    <img
-      {...imgAttributes}
-      src={icon.src}
-      alt={`${name} logo`}
-      class={cn(
-        imgClass,
-        darkIcon &&
-          `
-            opacity-100
-            dark:opacity-0
-          `,
-      )}
-    />
     {
-      darkIcon && (
-        <img
-          {...imgAttributes}
-          src={darkIcon.src}
-          alt={`${name} logo`}
-          class={cn(
-            imgClass,
-            darkIcon &&
-              `
-                opacity-0
-                dark:opacity-100
-              `,
-          )}
-        />
+      isSvg ? (
+        <img src={icon.src} {...lightIconProps} {alt} />
+      ) : (
+        <Image src={icon} {...lightIconProps} {alt} />
       )
+    }
+
+    {
+      darkIcon &&
+        (isSvg ? (
+          <img src={darkIcon.src} {...darkIconProps} {alt} />
+        ) : (
+          <Image src={darkIcon} {...darkIconProps} {alt} />
+        ))
     }
   </div>
 
