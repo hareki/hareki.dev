@@ -7,10 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write .",
-    "lint": "eslint --report-unused-disable-directives",
+    "format": "prettier --write src",
+    "lint": "eslint --report-unused-disable-directives src",
     "typecheck": "astro check",
-    "fix": "pnpm typecheck && pnpm format && pnpm lint --fix",
+    "diagnose": "pnpm typecheck && pnpm lint",
+    "fix": "pnpm format && pnpm diagnose --fix",
     "generate-types": "wrangler types"
   },
   "dependencies": {

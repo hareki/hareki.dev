@@ -13,7 +13,10 @@ export interface RecentCommit {
   linesDeleted: number;
 }
 
-export interface LanguageStat { name: string; percent: number }
+export interface LanguageStat {
+  name: string;
+  percent: number;
+}
 
 export interface CommitDetail {
   commit: { message: string };
