@@ -4,7 +4,7 @@ export const githubFetch = async (url: string): Promise<Response> => {
     ['User-Agent']: 'hareki/hareki.dev',
   };
 
-  const token = import.meta.env.VITE_PUBLIC_GITHUB_TOKEN;
+  const token = import.meta.env.PUBLIC_GITHUB_TOKEN;
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }

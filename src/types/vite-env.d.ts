@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-  readonly VITE_PUBLIC_GITHUB_TOKEN: string;
+  readonly PUBLIC_GITHUB_TOKEN: string;
 }
 
 interface ImportMeta {
