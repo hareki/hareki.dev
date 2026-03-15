@@ -85,7 +85,13 @@ const darkIconProps = darkIcon && {
 
   <div class='flex flex-col items-start'>
     <span class='text-sm'>{name}</span>
-    <span class='text-xs font-normal text-muted-foreground'>{description}</span>
+    <span
+      class='
+        text-xs font-normal text-muted-foreground
+        group-hover:text-primary/75
+      '
+      >{description}</span
+    >
   </div>
 
   <NewTabIndicator />

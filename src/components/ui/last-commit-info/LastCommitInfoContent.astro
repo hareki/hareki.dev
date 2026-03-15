@@ -6,7 +6,7 @@ import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
 import { getLastCommitInfo, getShortenCommitHash } from '@/lib/github';
 import { getFormattedDate } from '@/utils/date';
 
-import Layout from './Layout.astro';
+import Layout from './LastCommitInfoLayout.astro';
 
 Astro.cache.set({
   maxAge: 900, // 15 minutes

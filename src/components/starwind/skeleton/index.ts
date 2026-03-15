@@ -4,6 +4,6 @@ const SkeletonVariants = {
   skeleton,
 };
 
-export { Skeleton, SkeletonVariants };
+export { SkeletonVariants };
 
 export default Skeleton;

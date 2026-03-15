@@ -1,0 +1,15 @@
+---
+interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+const { ...rest } = Astro.props;
+---
+
+<a
+  target='_blank'
+  rel='noopener noreferrer'
+  class='
+    text-primary underline decoration-primary/30 underline-offset-2
+    transition-colors
+    hover:decoration-primary
+  '
+  {...rest}><slot /></a
+>

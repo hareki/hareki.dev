@@ -1,0 +1,19 @@
+---
+import TerminalIcon from '@tabler/icons/outline/terminal-2.svg';
+
+import BoxSection from '@/components/ui/box-section';
+import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
+import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
+import InlineLink from '@/components/ui/InlineLink.astro';
+---
+
+<section id='neovim'>
+  <BoxSection>
+    <BoxSectionTitle icon={TerminalIcon}>Neovim</BoxSectionTitle>
+    <BoxSectionDescription>
+      My editor of choice, deeply integrated with my terminal workflow. Recent commits from my
+      <InlineLink href='https://github.com/hareki/dotfiles'>dotfiles</InlineLink> below.
+    </BoxSectionDescription>
+    <div class='h-70'></div>
+  </BoxSection>
+</section>

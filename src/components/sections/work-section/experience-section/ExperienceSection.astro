@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import { cn } from 'tailwind-variants';
+
+import Button from '@/components/starwind/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/starwind/popover';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
+import { EXPERIENCE } from '@/data/experience';
+import { getShortFormattedDate } from '@/utils/date';
+---
+
+<section id='work-history' class='@container'>
+  <SectionTitle>EXPERIENCE</SectionTitle>
+
+  <div
+    class='
+      grid grid-cols-1 gap-4
+      @md:grid-cols-2
+      @4xl:grid-cols-4
+    '
+  >
+    {
+      EXPERIENCE.map((record) => (
+        <>
+          <div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant='ghost'
+                  class={cn(
+                    'group h-auto w-full justify-start gap-3 p-3',
+                    !!record.endDate && 'text-subtext0-foreground',
+                  )}
+                  chevron={{
+                    orientation: 'down',
+                    size: 'md',
+                  }}
+                >
+                  <Image
+                    class='rounded-full'
+                    src={record.logo}
+                    width={32}
+                    height={32}
+                    alt={`${record.name} logo`}
+                  />
+                  <div class='flex flex-col items-start'>
+                    <span>
+                      <span>{record.name}</span>
+                      {!!record.endDate && (
+                        <span
+                          class='
+                            text-muted-foreground
+                            group-hover:text-primary/75
+                          '
+                        >
+                          (Past)
+                        </span>
+                      )}
+                    </span>
+
+                    <span
+                      class='
+                        text-xs font-normal text-muted-foreground
+                        group-hover:text-primary/75
+                      '
+                    >
+                      {getShortFormattedDate(record.startDate)} -{' '}
+                      {record.endDate
+                        ? getShortFormattedDate(record.endDate)
+                        : 'Present'}
+                    </span>
+                  </div>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>My work history detail goes here</PopoverContent>
+            </Popover>
+          </div>
+        </>
+      ))
+    }
+  </div>
+</section>

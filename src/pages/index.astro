@@ -1,16 +1,14 @@
 ---
-import HeroSection from '@/components/sections/hero/hero-section';
-import TechStackSection from '@/components/sections/tech-stack/TechStackSection.astro';
+import BeyondWorkSection from '@/components/sections/beyond-work-section';
+import GeneralSection from '@/components/sections/general-section';
+import WorkSection from '@/components/sections/work-section';
 import MainLayout from '@/layouts/main-layout';
-// import JourneySection from '@/components/sections/journey/JourneySection.astro';
-// import PassionsSection from '@/components/sections/passions/PassionsSection.astro';
 ---
 
 <MainLayout>
   <div class='space-y-8'>
-    <HeroSection />
-    <TechStackSection />
-    <!-- <JourneySection /> -->
-    <!-- <PassionsSection /> -->
+    <GeneralSection />
+    <WorkSection />
+    <BeyondWorkSection />
   </div>
 </MainLayout>

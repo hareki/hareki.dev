@@ -1,0 +1,23 @@
+---
+import KeyboardIcon from '@tabler/icons/outline/keyboard.svg';
+
+import BoxSection from '@/components/ui/box-section';
+import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
+import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
+import InlineLink from '@/components/ui/InlineLink.astro';
+---
+
+<section id='monkeytype'>
+  <BoxSection>
+    <BoxSectionTitle icon={KeyboardIcon}>Typing</BoxSectionTitle>
+    <BoxSectionDescription>
+      I find comfort in typing tests with a <InlineLink
+        href='https://www.moergo.com/collections/glove80-keyboards'
+        >Glove80</InlineLink
+      > keyboard on <InlineLink href='https://monkeytype.com'
+        >Monkeytype</InlineLink
+      >, liked it enough to build a small one below.
+    </BoxSectionDescription>
+    <div class='h-70'></div>
+  </BoxSection>
+</section>

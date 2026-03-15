@@ -1,0 +1,8 @@
+---
+const { icon: Icon } = Astro.props;
+---
+
+<div class='mb-2 flex items-center gap-2'>
+  <Icon class='size-5 text-primary' />
+  <h3 class='text-base font-bold'><slot /></h3>
+</div>
