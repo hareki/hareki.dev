@@ -10,7 +10,8 @@ interface Props {
 const { limit } = Astro.props;
 ---
 
+<!-- FIXME: Too hacky to get the skeleton match the innerbox -->
 <BaseSkeleton
-  style={`height: calc(${ROW_HEIGHT} * ${limit} + ${GAP} * (${limit} - 1))`}
+  style={`height: calc(${ROW_HEIGHT} * ${limit} + ${GAP} * (${limit} - 1) + 1rem)`}
   class='w-full'
 />
