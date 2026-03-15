@@ -1,0 +1,15 @@
+---
+import Content from './RecentCommitsContent.astro';
+import Skeleton from './RecentCommitsSkeleton.astro';
+
+interface Props {
+  repoFullName: string;
+  limit: number;
+}
+
+const { repoFullName, limit } = Astro.props;
+---
+
+<Content server:defer repoFullName={repoFullName} limit={limit}>
+  <Skeleton slot='fallback' limit={limit} />
+</Content>

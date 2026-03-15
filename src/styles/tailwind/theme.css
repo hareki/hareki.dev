@@ -72,8 +72,8 @@
   --color-error: var(--ctp-red);
   --color-error-foreground: var(--ctp-base);
 
-  --color-border: var(--ctp-surface0);
-  --color-input: var(--ctp-surface0);
+  --color-border: var(--ctp-surface1);
+  --color-input: var(--ctp-surface1);
   --color-outline: var(--ctp-text);
 
   --radius-xs: calc(var(--radius) - 0.375rem);

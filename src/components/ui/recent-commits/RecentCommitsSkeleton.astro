@@ -1,0 +1,16 @@
+---
+import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
+
+import { GAP, ROW_HEIGHT } from './constants';
+
+interface Props {
+  limit: number;
+}
+
+const { limit } = Astro.props;
+---
+
+<BaseSkeleton
+  style={`height: calc(${ROW_HEIGHT} * ${limit} + ${GAP} * (${limit} - 1))`}
+  class='w-full'
+/>

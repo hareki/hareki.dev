@@ -5,19 +5,20 @@ import BoxSection from '@/components/ui/box-section';
 import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
 import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
+import RecentCommits from '@/components/ui/recent-commits';
 import { BeyondWorkLink } from '@/data/beyond-work';
 ---
 
 <section id='beyond-work-terminal'>
   <BoxSection>
     <BoxSectionTitle icon={TerminalIcon}>Terminal</BoxSectionTitle>
-    <BoxSectionDescription>
+    <BoxSectionDescription class='mb-4'>
       My editor of choice is <InlineLink href={BeyondWorkLink.NEOVIM}>
         Neovim
       </InlineLink>, deeply integrated with my terminal workflow. Recent commits
       from my
       <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink> below.
     </BoxSectionDescription>
-    <div class='h-70'></div>
+    <RecentCommits repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME} limit={5} />
   </BoxSection>
 </section>

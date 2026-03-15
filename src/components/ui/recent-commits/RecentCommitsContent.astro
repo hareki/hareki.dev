@@ -1,0 +1,53 @@
+---
+import { getRecentCommitDetails } from '@/lib/github';
+import { getFormattedDate } from '@/utils/date';
+
+import { GAP, ROW_HEIGHT } from './constants';
+import Layout from './RecentCommitLayout.astro';
+
+interface Props {
+  repoFullName: string;
+  limit: number;
+}
+
+Astro.cache.set({
+  maxAge: 900,
+  swr: 60,
+});
+
+const { repoFullName, limit } = Astro.props;
+const commits = await getRecentCommitDetails(repoFullName, limit);
+---
+
+<div class='-mx-1 flex flex-col' style={`gap: ${GAP};`}>
+  {
+    commits.map((commit) => (
+      <Layout>
+        <a
+          href={commit.commitUrl}
+          target='_blank'
+          rel='noopener noreferrer'
+          class='
+            flex w-full items-center justify-between gap-1.5 rounded-xs px-1
+            text-subtext1-foreground transition-colors
+            hover:bg-primary/10 hover:text-primary
+          '
+          style={`height: ${ROW_HEIGHT};`}
+        >
+          <span class='truncate'>{commit.commitMessage}</span>
+
+          <span class='flex gap-2 text-sm whitespace-nowrap'>
+            <span class='whitespace-nowrap'>
+              <span class='text-success'>+{commit.linesAdded}</span>
+              <span class='text-error'>-{commit.linesDeleted}</span>
+            </span>
+            <span class='text-border'>—</span>
+            <span class='text-subtext0-foreground'>
+              <span>{getFormattedDate(commit.createdAt)}</span>
+            </span>
+          </span>
+        </a>
+      </Layout>
+    ))
+  }
+</div>

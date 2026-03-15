@@ -1,3 +1,19 @@
-<p class='max-w-prose text-sm text-subtext0-foreground'>
+---
+import { cn } from 'tailwind-variants';
+
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'p'>;
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<p
+  class={cn(
+    `max-w-prose text-sm text-subtext0-foreground`,
+    className,
+  )}
+  {...rest}
+>
   <slot />
 </p>
