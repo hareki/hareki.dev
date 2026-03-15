@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 
-import VietnameseLetter from './VietnameseLetter.astro';
+import TextTransformer from './TextTransformer.astro';
 ---
 
 <section id='hero'>
@@ -25,9 +25,9 @@ import VietnameseLetter from './VietnameseLetter.astro';
             tabindex='0'
             aria-label='Show how to pronounce my name'
             role='button'
-            >T<VietnameseLetter letter='u' vn='ú' /> "Hareki" <span
+            >T<TextTransformer original='u' transformed='ú' /> "Hareki" <span
               class='whitespace-nowrap'
-              >Nguy<VietnameseLetter letter='e' vn='ễ' />n</span
+              >Nguy<TextTransformer original='e' transformed='ễ' />n</span
             ></span
           >
         </TooltipTrigger>

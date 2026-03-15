@@ -2,14 +2,14 @@
 import DotsIcon from '@tabler/icons/outline/dots.svg';
 
 interface Props {
-  letter: string;
-  vn: string;
+  original: string;
+  transformed: string;
 }
 
-const { letter, vn } = Astro.props;
+const { original, transformed } = Astro.props;
 ---
 
-<span class='relative inline-flex opacity-70'>
+<span class='relative inline-flex opacity-75'>
   <span class='
     inline-grid overflow-hidden py-0.5
     *:[grid-area:1/1]
@@ -19,7 +19,7 @@ const { letter, vn } = Astro.props;
         transition-[opacity,translate] duration-300
         group-hocus:-translate-y-full group-hocus:opacity-0
       '
-      >{letter}</span
+      >{original}</span
     >
     <span
       class='
@@ -28,7 +28,7 @@ const { letter, vn } = Astro.props;
       '
       aria-hidden='true'
     >
-      {vn}
+      {transformed}
     </span>
   </span>
   <DotsIcon class='absolute -bottom-3 -left-px' />
