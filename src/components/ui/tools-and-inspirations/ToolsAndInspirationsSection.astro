@@ -1,0 +1,35 @@
+---
+import { PopoverTitle } from '@/components/starwind/popover';
+import LinkItem from '@/components/ui/LinkItem.astro';
+import { getFaviconSrc, type SiteEntry } from '@/data/tools-and-inspirations';
+
+interface Props {
+  title: string;
+  items: SiteEntry[];
+  class?: string;
+}
+
+const { title, items } = Astro.props;
+---
+
+<div>
+  <PopoverTitle>{title}</PopoverTitle>
+  <div class='grid gap-1'>
+    {
+      items.map(({ name, description, url, favicon }) => (
+        <LinkItem name={name} description={description} href={url}>
+          <img
+            slot='icon'
+            src={getFaviconSrc(favicon)}
+            alt={`${name} favicon`}
+            width={40}
+            height={40}
+            class='size-8 rounded-full muted-icon'
+            decoding='async'
+            loading='lazy'
+          />
+        </LinkItem>
+      ))
+    }
+  </div>
+</div>

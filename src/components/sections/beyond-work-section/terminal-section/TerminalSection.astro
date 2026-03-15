@@ -5,14 +5,18 @@ import BoxSection from '@/components/ui/box-section';
 import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
 import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
+import { BeyondWorkLink } from '@/data/beyond-work';
 ---
 
-<section id='neovim'>
+<section id='beyond-work-terminal'>
   <BoxSection>
-    <BoxSectionTitle icon={TerminalIcon}>Neovim</BoxSectionTitle>
+    <BoxSectionTitle icon={TerminalIcon}>Terminal</BoxSectionTitle>
     <BoxSectionDescription>
-      My editor of choice, deeply integrated with my terminal workflow. Recent commits from my
-      <InlineLink href='https://github.com/hareki/dotfiles'>dotfiles</InlineLink> below.
+      My editor of choice is <InlineLink href={BeyondWorkLink.NEOVIM}>
+        Neovim
+      </InlineLink>, deeply integrated with my terminal workflow. Recent commits
+      from my
+      <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink> below.
     </BoxSectionDescription>
     <div class='h-70'></div>
   </BoxSection>

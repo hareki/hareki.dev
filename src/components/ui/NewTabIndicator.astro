@@ -1,12 +1,18 @@
 ---
 import ExternalLink from '@tabler/icons/outline/external-link.svg';
+import { cn } from 'tailwind-variants';
+
+const { class: className } = Astro.props;
 ---
 
 <ExternalLink
-  class='
-    pointer-events-none absolute top-2.5 right-2.5 size-4 scale-0 opacity-0
-    transition-all duration-500 ease-overshoot
-    group-hocus:-top-1.5 group-hocus:-right-1.5 group-hocus:scale-100
-    group-hocus:opacity-100
-  '
+  class={cn(
+    `
+      pointer-events-none absolute top-2.5 right-2.5 size-4 scale-0 opacity-0
+      transition-all duration-500 ease-overshoot
+      group-hocus:-top-1.25 group-hocus:-right-1.25 group-hocus:scale-100
+      group-hocus:opacity-100
+    `,
+    className,
+  )}
 />

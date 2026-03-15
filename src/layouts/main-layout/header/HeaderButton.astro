@@ -9,16 +9,25 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
+import type { PopoverIndicatorProps } from '@/components/ui/PopoverIndicator.astro';
+import PopoverIndicator from '@/components/ui/PopoverIndicator.astro';
 
 import type { SvgComponent } from 'astro/types';
 
 interface Props extends ButtonProps {
   icon: SvgComponent;
   label: string;
+  popoverIndicator?: PopoverIndicatorProps;
 }
 
-const { icon: Icon, label, class: className, ...rest } = Astro.props;
-const hasChevron = !!rest.chevron;
+const {
+  icon: Icon,
+  label,
+  class: className,
+  popoverIndicator,
+  ...rest
+} = Astro.props;
+const isPopoverTrigger = !!popoverIndicator;
 const isOpenInNewTab = rest.href && rest.target === '_blank';
 ---
 
@@ -35,7 +44,7 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
           @max-sm:size-9
         `,
         className,
-        hasChevron &&
+        isPopoverTrigger &&
           `
             w-auto! px-1
             @sm:px-2.25
@@ -49,6 +58,7 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
         @3xl:inline
       '>{label}</span>
       {isOpenInNewTab && <NewTabIndicator />}
+      {isPopoverTrigger && <PopoverIndicator {...popoverIndicator} />}
     </Button>
   </TooltipTrigger>
 

@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/starwind/popover';
+import ItemContent from '@/components/ui/ItemContent.astro';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
 import { EXPERIENCE } from '@/data/experience';
 import { getShortFormattedDate } from '@/utils/date';
@@ -25,61 +26,34 @@ import { getShortFormattedDate } from '@/utils/date';
   >
     {
       EXPERIENCE.map((record) => (
-        <>
-          <div>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant='ghost'
-                  class={cn(
-                    'group h-auto w-full justify-start gap-3 p-3',
-                    !!record.endDate && 'text-subtext0-foreground',
-                  )}
-                  chevron={{
+        <div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant='ghost'
+                class={cn('group h-auto w-full justify-start gap-3 p-3')}
+              >
+                <ItemContent
+                  name={record.name}
+                  description={`${getShortFormattedDate(record.startDate)} - ${record.endDate ? getShortFormattedDate(record.endDate) : 'Present'}`}
+                  popoverIndicator={{
                     orientation: 'down',
-                    size: 'md',
                   }}
                 >
                   <Image
-                    class='rounded-full'
+                    slot='icon'
+                    class='rounded-full muted-icon'
                     src={record.logo}
-                    width={32}
-                    height={32}
+                    width={40}
+                    height={40}
                     alt={`${record.name} logo`}
                   />
-                  <div class='flex flex-col items-start'>
-                    <span>
-                      <span>{record.name}</span>
-                      {!!record.endDate && (
-                        <span
-                          class='
-                            text-muted-foreground
-                            group-hover:text-primary/75
-                          '
-                        >
-                          (Past)
-                        </span>
-                      )}
-                    </span>
-
-                    <span
-                      class='
-                        text-xs font-normal text-muted-foreground
-                        group-hover:text-primary/75
-                      '
-                    >
-                      {getShortFormattedDate(record.startDate)} -{' '}
-                      {record.endDate
-                        ? getShortFormattedDate(record.endDate)
-                        : 'Present'}
-                    </span>
-                  </div>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>My work history detail goes here</PopoverContent>
-            </Popover>
-          </div>
-        </>
+                </ItemContent>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>My work history detail goes here</PopoverContent>
+          </Popover>
+        </div>
       ))
     }
   </div>

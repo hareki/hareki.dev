@@ -12,6 +12,10 @@
     color var(--duration) ease-in-out !important;
 }
 
+@utility muted-icon {
+  @apply opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0;
+}
+
 @utility scrollbar-* {
   scrollbar-color: --value(--color-*, [color]) transparent;
 }

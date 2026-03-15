@@ -1,0 +1,28 @@
+---
+import ChevronDownIcon from '@tabler/icons/outline/chevron-down.svg';
+import { tv } from 'tailwind-variants';
+
+interface Props {
+  orientation: 'up' | 'down';
+  size?: 'md';
+}
+
+export type PopoverIndicatorProps = Props;
+
+const chevronClass = tv({
+  variants: {
+    size: { md: 'size-3.5' },
+  },
+  defaultVariants: { size: 'md' },
+});
+
+const { size, orientation } = Astro.props;
+---
+
+<ChevronDownIcon
+  class={chevronClass({
+    size: size,
+    // PERF: Save bundle size by reusing icon
+    class: orientation === 'up' && 'rotate-180',
+  })}
+/>

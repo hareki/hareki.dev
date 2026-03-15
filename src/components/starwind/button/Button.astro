@@ -1,32 +1,17 @@
 ---
-import ChevronDownIcon from '@tabler/icons/outline/chevron-down.svg';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 import type { HTMLAttributes } from 'astro/types';
-
-interface ChevronProps {
-  orientation: 'up' | 'down';
-  size?: 'md';
-}
 
 export interface ButtonProps
   extends
     HTMLAttributes<'button'>,
     Omit<HTMLAttributes<'a'>, 'type'>,
-    VariantProps<typeof button> {
-  chevron?: ChevronProps;
-}
+    VariantProps<typeof button> {}
 
 type Props = ButtonProps;
 
-const { variant, size, class: className, chevron, ...rest } = Astro.props;
-
-const chevronClass = tv({
-  variants: {
-    size: { md: 'size-3.5' },
-  },
-  defaultVariants: { size: 'md' },
-});
+const { variant, size, class: className, ...rest } = Astro.props;
 
 export const button = tv({
   base: [
@@ -50,7 +35,7 @@ export const button = tv({
       default: `
         bg-foreground text-background
         hover:bg-foreground/90
-        focus-visible:ring-outline/50
+        focus-visible:ring-outline/70
       `,
       primary: `
         bg-primary text-primary-foreground
@@ -65,13 +50,13 @@ export const button = tv({
       outline: `
         border bg-background shadow-xs
         hover:bg-muted hover:text-foreground
-        focus-visible:border-outline focus-visible:ring-outline/50
+        focus-visible:border-outline focus-visible:ring-outline/70
         dark:border-input dark:bg-input/30
         dark:hover:bg-input/50
       `,
       ghost: `
         hover:bg-primary/10 hover:text-primary
-        focus-visible:ring-outline/50
+        focus-visible:ring-outline/70
       `,
       info: `
         bg-info text-info-foreground
@@ -136,15 +121,4 @@ const Tag = Astro.props.href ? 'a' : 'button';
   {...rest}
 >
   <slot />
-  {
-    chevron && (
-      <ChevronDownIcon
-        class={chevronClass({
-          size: chevron.size,
-          // PERF: Save bundle size by reusing icon
-          class: chevron.orientation === 'up' && 'rotate-180',
-        })}
-      />
-    )
-  }
 </Tag>

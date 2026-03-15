@@ -9,17 +9,14 @@ import {
 } from '@/components/starwind/popover';
 import { INSPIRATIONAL_SITES, TOOLS_USED } from '@/data/tools-and-inspirations';
 
-import FooterPopoverSection from './Section.astro';
+import Section from './ToolsAndInspirationsSection.astro';
+import PopoverIndicator from '../PopoverIndicator.astro';
 ---
 
 <Popover class='group/popover'>
   <PopoverTrigger asChild>
     <Button
       variant='ghost'
-      chevron={{
-        orientation: 'up',
-        size: 'md',
-      }}
       class='
         w-fit
         group-data-[state=open]/popover:bg-primary/10
@@ -28,14 +25,15 @@ import FooterPopoverSection from './Section.astro';
       '
     >
       <HeartIcon />
-      <span>Tools & Inspirations</span></Button
-    >
+      <span>Tools & Inspirations</span>
+      <PopoverIndicator size='md' orientation='up' />
+    </Button>
   </PopoverTrigger>
 
-  <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-3'>
+  <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-4'>
     <div class='space-y-popover-section'>
-      <FooterPopoverSection title='TOOLS USED' items={TOOLS_USED} />
-      <FooterPopoverSection title='INSPIRATIONS' items={INSPIRATIONAL_SITES} />
+      <Section title='TOOLS USED' items={TOOLS_USED} />
+      <Section title='INSPIRATIONS' items={INSPIRATIONAL_SITES} />
     </div>
   </PopoverContent>
 </Popover>
