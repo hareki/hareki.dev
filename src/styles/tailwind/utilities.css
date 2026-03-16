@@ -13,7 +13,7 @@
 }
 
 @utility muted-icon {
-  @apply opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0;
+  @apply light:opacity-90 opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0;
 }
 
 @utility scrollbar-* {
