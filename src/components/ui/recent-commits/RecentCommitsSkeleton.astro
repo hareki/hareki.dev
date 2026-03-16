@@ -1,7 +1,7 @@
 ---
 import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
 
-import { GAP, ROW_HEIGHT } from './constants';
+import { SPACING, ROW_HEIGHT, CONTAINER_PADDING } from './constants';
 
 interface Props {
   limit: number;
@@ -10,8 +10,7 @@ interface Props {
 const { limit } = Astro.props;
 ---
 
-<!-- FIXME: Too hacky to get the skeleton match the innerbox -->
 <BaseSkeleton
-  style={`height: calc(${ROW_HEIGHT} * ${limit} + ${GAP} * (${limit} - 1) + 1rem)`}
+  style={`height: calc(${ROW_HEIGHT} * ${limit} + ${SPACING} * (${limit} - 1) + ${CONTAINER_PADDING} * 2)`}
   class='w-full'
 />
