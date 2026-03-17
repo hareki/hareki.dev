@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import { cn } from 'tailwind-variants';
+
+import type { ExperienceRecord } from '@/data/experience';
+
+interface Props {
+  record: ExperienceRecord;
+  classes?: {
+    image?: string;
+  };
+}
+
+const { record, classes: { image: imageClass } = {} } = Astro.props;
+---
+
+<div class='relative'>
+  <Image
+    class={cn('rounded-full', imageClass)}
+    src={record.company.logo}
+    width={40}
+    height={40}
+    alt={`${record.company.name} logo`}
+  />
+
+  {
+    !record.endDate && (
+      <div
+        aria-label='Current company'
+        title='Current company'
+        class='
+          absolute right-1.5 bottom-1.5 dot-3 translate-[50%] border-2
+          border-background bg-green
+        '
+      />
+    )
+  }
+</div>

@@ -1,6 +1,6 @@
 import ZigvyLogo from '@/assets/companies/zigvy.jpg';
 
-interface ExperienceRecord {
+export interface ExperienceRecord {
   company: {
     name: string;
     logo: ImageMetadata;

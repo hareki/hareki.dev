@@ -2,7 +2,6 @@
 import CalendarIcon from '@tabler/icons/outline/calendar.svg';
 import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
 import InfoIcon from '@tabler/icons/outline/info-circle.svg';
-import { Image } from 'astro:assets';
 import { cn } from 'tailwind-variants';
 
 import Button from '@/components/starwind/button';
@@ -21,6 +20,8 @@ import ItemSummary from '@/components/ui/ItemSummary.astro';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
 import { EXPERIENCE } from '@/data/experience';
 import { getFormattedDate } from '@/utils/date';
+
+import CompanyLogo from './CompanyLogo.astro';
 
 const getDateRange = (startDate: Date, endDate: Date | undefined) => {
   const start = getFormattedDate(startDate);
@@ -55,26 +56,25 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
                     orientation: 'down',
                   }}
                 >
-                  <div class='relative' slot='icon'>
-                    <Image
-                      class='rounded-full muted-icon'
-                      src={record.company.logo}
-                      width={40}
-                      height={40}
-                      alt={`${record.company.name} logo`}
+                  {record.endDate && (
+                    <CompanyLogo
+                      slot='icon'
+                      record={record}
+                      classes={{ image: 'muted-icon' }}
                     />
+                  )}
 
-                    {!record.endDate && (
-                      <div
-                        aria-label='Current company'
-                        title='Current company'
-                        class='
-                          absolute right-1.5 bottom-1.5 dot-3 translate-[50%]
-                          border-2 border-background bg-green
-                        '
-                      />
-                    )}
-                  </div>
+                  {!record.endDate && (
+                    <Tooltip slot='icon'>
+                      <TooltipTrigger>
+                        <CompanyLogo
+                          record={record}
+                          classes={{ image: 'muted-icon' }}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>Current company</TooltipContent>
+                    </Tooltip>
+                  )}
                 </ItemSummary>
               </Button>
             </PopoverTrigger>
@@ -96,27 +96,7 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
                       {record.company.description}
                     </TooltipContent>
                   </Tooltip>
-
-                  <div class='relative' slot='icon'>
-                    <Image
-                      class='rounded-full'
-                      src={record.company.logo}
-                      width={40}
-                      height={40}
-                      alt={`${record.company.name} logo`}
-                    />
-
-                    {!record.endDate && (
-                      <div
-                        aria-label='Current company'
-                        title='Current company'
-                        class='
-                          absolute right-1.5 bottom-1.5 dot-3 translate-[50%]
-                          border-2 border-background bg-green
-                        '
-                      />
-                    )}
-                  </div>
+                  <CompanyLogo record={record} slot='icon' />
                 </ItemSummary>
               </div>
 
@@ -130,13 +110,13 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
                 ))}
               </ul>
 
-              <div class='flex items-center gap-1.5 text-sm text-muted-foreground'>
+              <div class='flex items-center gap-1.5 text-xs text-muted-foreground'>
                 <CalendarIcon class='size-4' />
                 <span>{getDateRange(record.startDate, record.endDate)}</span>
               </div>
 
               <InlineLink
-                class='w-fit cursor-pointer items-center gap-0.5'
+                class='w-fit cursor-pointer items-center gap-0.5 text-sm'
                 href={record.company.website}
               >
                 <span>Visit Website</span>
