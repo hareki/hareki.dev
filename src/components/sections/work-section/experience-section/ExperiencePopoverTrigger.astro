@@ -1,0 +1,54 @@
+---
+import { cn } from 'tailwind-variants';
+
+import Button from '@/components/starwind/button';
+import { PopoverTrigger } from '@/components/starwind/popover';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/starwind/tooltip';
+import ItemSummary from '@/components/ui/ItemSummary.astro';
+import type { ExperienceRecord } from '@/data/experience';
+
+import CompanyLogo from './CompanyLogo.astro';
+
+interface Props {
+  record: ExperienceRecord;
+}
+
+const { record } = Astro.props;
+---
+
+<PopoverTrigger asChild>
+  <Button variant='ghost' class={cn('h-auto w-full justify-start gap-3 p-3')}>
+    <ItemSummary
+      name={record.company.name}
+      description={record.title}
+      popoverIndicator={{
+        orientation: 'down',
+      }}
+    >
+      {
+        record.endDate && (
+          <CompanyLogo
+            slot='icon'
+            record={record}
+            classes={{ image: 'muted-icon' }}
+          />
+        )
+      }
+
+      {
+        !record.endDate && (
+          <Tooltip slot='icon'>
+            <TooltipTrigger>
+              <CompanyLogo record={record} classes={{ image: 'muted-icon' }} />
+            </TooltipTrigger>
+            <TooltipContent>Current company</TooltipContent>
+          </Tooltip>
+        )
+      }
+    </ItemSummary>
+  </Button>
+</PopoverTrigger>
