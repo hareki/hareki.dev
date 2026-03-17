@@ -1,0 +1,17 @@
+---
+import PaletteIcon from '@tabler/icons/outline/palette.svg';
+
+import HeaderButton from '../HeaderButton.astro';
+---
+
+<HeaderButton
+  icon={PaletteIcon}
+  label='Appearance'
+  popoverIndicator={{
+    orientation: 'down',
+  }}
+  data-slot='popover-trigger'
+  class='
+    group-data-[state=open]:bg-primary/10 group-data-[state=open]:text-primary
+  '
+/>

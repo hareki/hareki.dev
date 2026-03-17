@@ -1,0 +1,99 @@
+---
+import CheckIcon from '@tabler/icons/outline/check.svg';
+import MoonIcon from '@tabler/icons/outline/moon.svg';
+import SunIcon from '@tabler/icons/outline/sun.svg';
+
+import Button from '@/components/starwind/button';
+import { PopoverContent, PopoverTitle } from '@/components/starwind/popover';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/starwind/tooltip';
+
+const FLAVORS = [
+  { value: 'latte', label: 'Latte', mode: 'light' },
+  { value: 'frappe', label: 'Frappé', mode: 'dark' },
+  { value: 'macchiato', label: 'Macchiato', mode: 'dark' },
+  { value: 'mocha', label: 'Mocha', mode: 'dark' },
+] as const;
+
+const ACCENTS = [
+  'Rosewater',
+  'Flamingo',
+  'Pink',
+  'Mauve',
+  'Red',
+  'Maroon',
+  'Peach',
+  'Yellow',
+  'Green',
+  'Teal',
+  'Sky',
+  'Sapphire',
+  'Blue',
+  'Lavender',
+] as const;
+
+const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
+---
+
+<PopoverContent
+  side='bottom'
+  align='end'
+  aria-label='Appearance Settings'
+  class='p-4'
+>
+  <div data-appearance-controller>
+    <PopoverTitle>FLAVOR</PopoverTitle>
+    <div class='grid grid-cols-2 gap-2'>
+      {
+        FLAVORS.map(({ value, label, mode }) => (
+          <Button
+            variant='secondary'
+            size='sm'
+            class='justify-start px-4! text-sm text-foreground transition-all'
+            data-flavor={value}
+          >
+            {mode === 'light' && <SunIcon class='size-4.5' />}
+            {mode === 'dark' && <MoonIcon />}
+            {label}
+          </Button>
+        ))
+      }
+    </div>
+
+    <PopoverTitle class='mt-popover-section'>ACCENT</PopoverTitle>
+    <div class='grid grid-cols-7 place-items-center gap-3'>
+      {
+        ACCENTS.map((label, index) => {
+          const value = label.toLowerCase();
+
+          return (
+            <Tooltip>
+              <TooltipTrigger>
+                <button
+                  class='flex-center dot-7 bouncy-click transition-all'
+                  style={`background-color: var(--ctp-${value})`}
+                  data-accent={value}
+                  aria-label={`Select ${label} accent`}
+                >
+                  <CheckIcon
+                    class='hidden size-4 animate-in text-background zoom-in-50'
+                    data-check
+                  />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                sideOffset={16}
+                side={index < accentMiddleIndex ? 'top' : 'bottom'}
+              >
+                {label}
+              </TooltipContent>
+            </Tooltip>
+          );
+        })
+      }
+    </div>
+  </div>
+</PopoverContent>
