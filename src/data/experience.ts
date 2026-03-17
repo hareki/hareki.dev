@@ -1,10 +1,13 @@
 import ZigvyLogo from '@/assets/companies/zigvy.jpg';
 
 interface ExperienceRecord {
-  name: string;
-  logo: ImageMetadata;
-  url: string;
-  position: string;
+  company: {
+    name: string;
+    logo: ImageMetadata;
+    website: string;
+    description: string;
+  };
+  title: string;
   startDate: Date;
   endDate?: Date;
   responsibilities: string[];
@@ -12,16 +15,19 @@ interface ExperienceRecord {
 
 export const EXPERIENCE: ExperienceRecord[] = [
   {
-    name: 'Zigvy',
-    logo: ZigvyLogo,
-    url: 'https://zigvy.com/',
-    position: 'Junior Frontend Engineer',
+    company: {
+      name: 'Zigvy',
+      logo: ZigvyLogo,
+      website: 'https://zigvy.com/',
+      description:
+        'Zigvy is a joint American and Vietnamese software development company located in Ho Chi Minh city.',
+    },
+    title: 'Jr. Frontend Engineer',
     startDate: new Date('2023-01-01'),
     endDate: new Date('2026-03-31'),
     responsibilities: [
-      'Developed and maintained the frontend of the Zigvy e-commerce platform using React and TypeScript.',
-      'Collaborated with the design team to implement responsive and user-friendly interfaces.',
-      'Optimized website performance, resulting in a 20% decrease in load times.',
+      'Built and maintained web apps for a sports management app and a notary services platform.',
+      'Led a microfrontend migration for an HR platform serving 200+ companies.',
     ],
   },
 ];

@@ -16,15 +16,19 @@ const isPopoverTrigger = !!popoverIndicator;
 <slot name='icon' />
 <div class='flex flex-col items-start gap-0.5'>
   <span class='flex w-full items-center justify-between text-sm'>
-    <span>{name}</span>
+    <span class='flex items-center font-bold'>
+      <span>{name}</span>
+      <slot name='extra-info' />
+    </span>
     {isPopoverTrigger && <PopoverIndicator {...popoverIndicator} />}
   </span>
   {
     description && (
       <span
         class='
-          text-xs font-normal text-muted-foreground
+          text-xs font-normal text-muted-foreground transition-colors
           group-hover:text-primary/75
+          group-data-[state=open]:text-primary/75
         '
       >
         {description}

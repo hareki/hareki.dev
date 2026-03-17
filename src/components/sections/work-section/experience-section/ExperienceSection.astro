@@ -1,4 +1,7 @@
 ---
+import CalendarIcon from '@tabler/icons/outline/calendar.svg';
+import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
+import InfoIcon from '@tabler/icons/outline/info-circle.svg';
 import { Image } from 'astro:assets';
 import { cn } from 'tailwind-variants';
 
@@ -8,10 +11,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/starwind/popover';
-import ItemContent from '@/components/ui/ItemContent.astro';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/starwind/tooltip';
+import InlineLink from '@/components/ui/InlineLink.astro';
+import ItemSummary from '@/components/ui/ItemSummary.astro';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
 import { EXPERIENCE } from '@/data/experience';
-import { getShortFormattedDate } from '@/utils/date';
+import { getFormattedDate } from '@/utils/date';
+
+const getDateRange = (startDate: Date, endDate: Date | undefined) => {
+  const start = getFormattedDate(startDate);
+  const end = endDate ? getFormattedDate(endDate) : 'Present';
+  return `${start} - ${end}`;
+};
 ---
 
 <section id='work-history' class='@container'>
@@ -27,31 +42,107 @@ import { getShortFormattedDate } from '@/utils/date';
     {
       EXPERIENCE.map((record) => (
         <div>
-          <Popover>
+          <Popover class='group'>
             <PopoverTrigger asChild>
               <Button
                 variant='ghost'
-                class={cn('group h-auto w-full justify-start gap-3 p-3')}
+                class={cn('h-auto w-full justify-start gap-3 p-3')}
               >
-                <ItemContent
-                  name={record.name}
-                  description={`${getShortFormattedDate(record.startDate)} - ${record.endDate ? getShortFormattedDate(record.endDate) : 'Present'}`}
+                <ItemSummary
+                  name={record.company.name}
+                  description={record.title}
                   popoverIndicator={{
                     orientation: 'down',
                   }}
                 >
-                  <Image
-                    slot='icon'
-                    class='rounded-full muted-icon'
-                    src={record.logo}
-                    width={40}
-                    height={40}
-                    alt={`${record.name} logo`}
-                  />
-                </ItemContent>
+                  <div class='relative' slot='icon'>
+                    <Image
+                      class='rounded-full muted-icon'
+                      src={record.company.logo}
+                      width={40}
+                      height={40}
+                      alt={`${record.company.name} logo`}
+                    />
+
+                    {!record.endDate && (
+                      <div
+                        aria-label='Current company'
+                        title='Current company'
+                        class='
+                          absolute right-1.5 bottom-1.5 dot-3 translate-[50%]
+                          border-2 border-background bg-green
+                        '
+                      />
+                    )}
+                  </div>
+                </ItemSummary>
               </Button>
             </PopoverTrigger>
-            <PopoverContent>My work history detail goes here</PopoverContent>
+
+            <PopoverContent
+              aria-label={`${record.company.name} work details`}
+              class='max-w-80 gap-4 p-4'
+            >
+              <div class='flex gap-3'>
+                <ItemSummary
+                  name={record.company.name}
+                  description={record.title}
+                >
+                  <Tooltip slot='extra-info' class='ml-1'>
+                    <TooltipTrigger>
+                      <InfoIcon class='size-4 text-info' />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {record.company.description}
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <div class='relative' slot='icon'>
+                    <Image
+                      class='rounded-full'
+                      src={record.company.logo}
+                      width={40}
+                      height={40}
+                      alt={`${record.company.name} logo`}
+                    />
+
+                    {!record.endDate && (
+                      <div
+                        aria-label='Current company'
+                        title='Current company'
+                        class='
+                          absolute right-1.5 bottom-1.5 dot-3 translate-[50%]
+                          border-2 border-background bg-green
+                        '
+                      />
+                    )}
+                  </div>
+                </ItemSummary>
+              </div>
+
+              <ul
+                class='
+                  list-disc space-y-1 pl-4 text-sm text-subtext1-foreground
+                '
+              >
+                {record.responsibilities.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+
+              <div class='flex items-center gap-1.5 text-sm text-muted-foreground'>
+                <CalendarIcon class='size-4' />
+                <span>{getDateRange(record.startDate, record.endDate)}</span>
+              </div>
+
+              <InlineLink
+                class='w-fit cursor-pointer items-center gap-0.5'
+                href={record.company.website}
+              >
+                <span>Visit Website</span>
+                <ExternalLinkIcon class='size-4' />
+              </InlineLink>
+            </PopoverContent>
           </Popover>
         </div>
       ))

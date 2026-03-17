@@ -44,7 +44,7 @@ const ACCENTS = [
 const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
 ---
 
-<Popover class='group/popover'>
+<Popover class='group'>
   <HeaderButton
     icon={PaletteIcon}
     label='Appearance'
@@ -53,8 +53,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     }}
     data-slot='popover-trigger'
     class='
-      group-data-[state=open]/popover:bg-primary/10
-      group-data-[state=open]/popover:text-primary
+      group-data-[state=open]:bg-primary/10 group-data-[state=open]:text-primary
     '
   />
 

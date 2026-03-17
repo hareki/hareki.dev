@@ -17,14 +17,12 @@ const { title, items } = Astro.props;
   <div class='grid gap-1'>
     {
       items.map(({ name, description, url, favicon }) => (
-        <LinkItem name={name} description={description} href={url}>
+        <LinkItem name={name} description={description} href={url} size='sm'>
           <img
             slot='icon'
             src={getFaviconSrc(favicon)}
             alt={`${name} favicon`}
-            width={40}
-            height={40}
-            class='size-8 rounded-full muted-icon'
+            class='size-9 rounded-full muted-icon'
             decoding='async'
             loading='lazy'
           />

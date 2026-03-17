@@ -13,9 +13,15 @@
 }
 
 @utility muted-icon {
-  @apply light:opacity-90 opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0;
+  @apply light:opacity-90 opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0 group-data-[state=open]:opacity-100;
 }
 
 @utility scrollbar-* {
   scrollbar-color: --value(--color-*, [color]) transparent;
+}
+
+@utility dot-* {
+  width: --spacing(--value(number));
+  height: --spacing(--value(number));
+  @apply rounded-full;
 }

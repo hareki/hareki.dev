@@ -16,14 +16,14 @@ const { original, transformed } = Astro.props;
   '>
     <span
       class='
-        transition-[opacity,translate] duration-300
+        transition-[opacity,translate]
         group-hocus:-translate-y-full group-hocus:opacity-0
       '
       >{original}</span
     >
     <span
       class='
-        translate-y-full opacity-0 transition-[opacity,translate] duration-300
+        translate-y-full opacity-0 transition-[opacity,translate]
         group-hocus:translate-y-0 group-hocus:opacity-100
       '
       aria-hidden='true'

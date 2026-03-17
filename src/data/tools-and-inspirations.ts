@@ -2,7 +2,6 @@ import astroFavicon from '@/assets/sites/astro.svg';
 import catppuccinFavicon from '@/assets/sites/catppuccin.png';
 import duyLeFavicon from '@/assets/sites/duy-le.ico';
 import jasonCameronFavicon from '@/assets/sites/jason-cameron.svg';
-import leventeOttaFavicon from '@/assets/sites/levente-otta.ico';
 import starwindUiFavicon from '@/assets/sites/starwind-ui.ico';
 
 export interface SiteEntry {
@@ -45,15 +44,9 @@ export const INSPIRATIONAL_SITES: SiteEntry[] = [
     description: 'Overall Design and Layout',
   },
   {
-    name: 'Levente Otta',
-    url: 'https://leventeotta.com/',
-    favicon: leventeOttaFavicon,
-    description: 'Journey Section',
-  },
-  {
     name: 'Duy Le',
     url: 'https://www.duyle.dev/',
     favicon: duyLeFavicon,
-    description: 'Typing Component',
+    description: 'Typing Test Component',
   },
 ];

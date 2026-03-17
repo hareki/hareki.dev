@@ -31,9 +31,10 @@ const commits = await getRecentCommitDetails(repoFullName, limit);
           target='_blank'
           rel='noopener noreferrer'
           class='
-            flex w-full items-center justify-between gap-1.5 rounded-xs px-1
-            text-subtext1-foreground transition-colors
+            flex w-full bouncy-click items-center justify-between gap-1.5
+            rounded-xs px-1 text-subtext1-foreground
             hover:bg-primary/10 hover:text-primary
+            hocus:scale-[101%]
           '
           style={`height: ${ROW_HEIGHT};`}
         >

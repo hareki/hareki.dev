@@ -1,16 +1,21 @@
 ---
+import { cn } from 'tailwind-variants';
+
 type Props = astroHTML.JSX.AnchorHTMLAttributes;
-const { ...rest } = Astro.props;
+const { class: className, ...rest } = Astro.props;
 ---
 
 <a
   target='_blank'
   rel='noopener noreferrer'
-  class='
-    group relative inline-flex rounded-xs text-primary underline
-    underline-offset-2 transition-all
-    hover:bg-primary hover:text-background hover:no-underline
-  '
+  class={cn(
+    `
+      group relative inline-flex bouncy-click rounded-xs text-primary underline
+      underline-offset-3
+      hover:bg-primary/20 hover:text-primary
+    `,
+    className,
+  )}
   {...rest}
   ><slot />
 </a>
