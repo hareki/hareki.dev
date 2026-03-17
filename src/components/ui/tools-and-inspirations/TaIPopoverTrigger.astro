@@ -1,0 +1,19 @@
+---
+import HeartIcon from '@tabler/icons/outline/heart.svg';
+
+import Button from '@/components/starwind/button';
+import { PopoverTrigger } from '@/components/starwind/popover';
+
+import PopoverIndicator from '../PopoverIndicator.astro';
+---
+
+<PopoverTrigger asChild>
+  <Button variant='ghost' class='
+    w-fit
+    hocus:scale-[102%]
+  '>
+    <HeartIcon />
+    <span>Tools & Inspirations</span>
+    <PopoverIndicator size='md' orientation='up' />
+  </Button>
+</PopoverTrigger>

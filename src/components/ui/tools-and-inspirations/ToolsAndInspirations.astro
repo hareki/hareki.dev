@@ -1,37 +1,11 @@
 ---
-import HeartIcon from '@tabler/icons/outline/heart.svg';
+import { Popover } from '@/components/starwind/popover';
 
-import Button from '@/components/starwind/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/starwind/popover';
-import { INSPIRATIONAL_SITES, TOOLS_USED } from '@/data/tools-and-inspirations';
-
-import Section from './ToolsAndInspirationsSection.astro';
-import PopoverIndicator from '../PopoverIndicator.astro';
+import TaIPopoverContent from './TaIPopoverContent.astro';
+import TaIPopoverTrigger from './TaIPopoverTrigger.astro';
 ---
 
 <Popover class='group'>
-  <PopoverTrigger asChild>
-    <Button
-      variant='ghost'
-      class='
-        w-fit
-        hocus:scale-[102%]
-      '
-    >
-      <HeartIcon />
-      <span>Tools & Inspirations</span>
-      <PopoverIndicator size='md' orientation='up' />
-    </Button>
-  </PopoverTrigger>
-
-  <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-4'>
-    <div class='space-y-popover-section'>
-      <Section title='TOOLS USED' items={TOOLS_USED} />
-      <Section title='INSPIRATIONS' items={INSPIRATIONAL_SITES} />
-    </div>
-  </PopoverContent>
+  <TaIPopoverTrigger />
+  <TaIPopoverContent />
 </Popover>
