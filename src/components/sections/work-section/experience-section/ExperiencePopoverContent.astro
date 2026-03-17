@@ -1,6 +1,5 @@
 ---
 import CalendarIcon from '@tabler/icons/outline/calendar.svg';
-import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
 import InfoIcon from '@tabler/icons/outline/info-circle.svg';
 
 import { PopoverContent } from '@/components/starwind/popover';
@@ -9,7 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
-import InlineLink from '@/components/ui/InlineLink.astro';
+import BlockLink from '@/components/ui/BlockLink.astro';
 import ItemSummary from '@/components/ui/ItemSummary.astro';
 import type { ExperienceRecord } from '@/data/experience';
 import { getFormattedDate } from '@/utils/date';
@@ -56,11 +55,5 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
     <span>{getDateRange(record.startDate, record.endDate)}</span>
   </div>
 
-  <InlineLink
-    class='w-fit cursor-pointer items-center gap-0.5 text-sm'
-    href={record.company.website}
-  >
-    <span>Visit Website</span>
-    <ExternalLinkIcon class='size-4' />
-  </InlineLink>
+  <BlockLink href={record.company.website}>Visit Website</BlockLink>
 </PopoverContent>

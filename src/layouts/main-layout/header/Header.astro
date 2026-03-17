@@ -5,6 +5,7 @@ import ResumeIcon from '@tabler/icons/outline/file-cv.svg';
 import MailIcon from '@tabler/icons/outline/mail.svg';
 
 import favicon from '@/assets/favicon.svg';
+import Button from '@/components/starwind/button';
 import Separator from '@/components/starwind/separator';
 import ContactInformation from '@/data/contact-information';
 
@@ -56,11 +57,12 @@ const siteControls: HeaderLinkButton[] = [
       @container flex items-center justify-between rounded-md bg-header p-2.5
     '
   >
-    <a
+    <Button
+      variant='ghost'
       class='
-        flex items-center gap-2
-        xs:ml-2.25
-        @lg:ml-3.5
+        px-0
+        @md:px-2.25
+        @lg:px-3.5
       '
       href='/'
     >
@@ -81,7 +83,7 @@ const siteControls: HeaderLinkButton[] = [
       '
         >Hareki</span
       >
-    </a>
+    </Button>
 
     <nav class='flex items-center'>
       <div class='flex items-center gap-1'>
