@@ -1,4 +1,5 @@
 import astroFavicon from '@/assets/sites/astro.svg';
+import brittanychiangFavicon from '@/assets/sites/brittanychiang.png';
 import catppuccinFavicon from '@/assets/sites/catppuccin.png';
 import duyLeFavicon from '@/assets/sites/duy-le.ico';
 import jasonCameronFavicon from '@/assets/sites/jason-cameron.svg';
@@ -48,5 +49,12 @@ export const INSPIRATIONAL_SITES: SiteEntry[] = [
     url: 'https://www.duyle.dev/',
     favicon: duyLeFavicon,
     description: 'Typing Test Component',
+  },
+
+  {
+    name: 'Brittany Chiang',
+    url: 'https://brittanychiang.com/',
+    favicon: brittanychiangFavicon,
+    description: 'Résumé Button',
   },
 ];
