@@ -15,6 +15,17 @@
   font-family: Maple Mono;
   font-display: swap;
   src:
+    local('Maple Mono NF Medium'),
+    local('Maple Mono Medium'),
+    url(../assets/fonts/MapleMonoNL-Medium.woff2) format('woff2');
+}
+
+@font-face {
+  font-weight: 700;
+  font-style: bold;
+  font-family: Maple Mono;
+  font-display: swap;
+  src:
     local('Maple Mono NF Bold'),
     local('Maple Mono Bold'),
     url(../assets/fonts/MapleMonoNL-Bold.woff2) format('woff2');
