@@ -1,7 +1,7 @@
-export const getFormattedDate = (date: Date) => {
-  return new Intl.DateTimeFormat('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  }).format(date);
-};
+import { format, formatDistanceToNowStrict } from 'date-fns';
+
+export const getFormattedDate = (date: Date) => format(date, 'dd MMM yyyy');
+export const getDateDistance = (date: Date) =>
+  formatDistanceToNowStrict(date, {
+    addSuffix: true,
+  });
