@@ -64,6 +64,8 @@ export const getRecentCommitDetails = async (
   });
 };
 
+const OTHER_LANGUAGE_THRESHOLD_PERCENT = 1.5;
+
 export const getLanguageStats = async (
   repoFullName?: string,
 ): Promise<LanguageStat[]> => {
@@ -80,12 +82,25 @@ export const getLanguageStats = async (
     return [];
   }
 
-  return Object.entries(languageMap)
+  const allStats = Object.entries(languageMap)
     .map(([name, count]) => ({
       name,
       percent: Math.round((count / total) * 100),
     }))
     .sort((a, b) => b.percent - a.percent);
+
+  const major = allStats.filter(
+    (s) => s.percent >= OTHER_LANGUAGE_THRESHOLD_PERCENT,
+  );
+  const minorTotal = allStats
+    .filter((s) => s.percent < OTHER_LANGUAGE_THRESHOLD_PERCENT)
+    .reduce((sum, s) => sum + s.percent, 0);
+
+  if (minorTotal > 0) {
+    major.push({ name: 'Other', percent: Math.round(minorTotal) });
+  }
+
+  return major;
 };
 
 export const getShortenCommitHash = (hash: string) => hash.slice(0, 7);
