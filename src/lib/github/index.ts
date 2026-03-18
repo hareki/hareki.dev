@@ -1,6 +1,7 @@
 import { PROJECT_REPO_FULL_NAME } from '@/data/git';
 
 import { getRepoCommits, getCommitDetail, getRepoLanguages } from './queries';
+import { getLanguageBadgeColor } from './language-colors';
 import { parseRepoFullName } from './utils';
 
 import type { RecentCommit, LastCommitInfo, LanguageStat } from './types';
@@ -86,6 +87,7 @@ export const getLanguageStats = async (
     .map(([name, count]) => ({
       name,
       percent: Number(((count / total) * 100).toFixed(1)),
+      color: getLanguageBadgeColor(name),
     }))
     .sort((a, b) => b.percent - a.percent);
 
@@ -97,7 +99,7 @@ export const getLanguageStats = async (
     .reduce((sum, s) => sum + s.percent, 0);
 
   if (minorTotal > 0) {
-    major.push({ name: 'Other', percent: Math.round(minorTotal) });
+    major.push({ name: 'Other', percent: Math.round(minorTotal), color: 'text' });
   }
 
   return major;

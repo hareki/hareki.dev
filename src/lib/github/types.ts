@@ -13,9 +13,12 @@ export interface RecentCommit {
   linesDeleted: number;
 }
 
+import type { BadgeColor } from './language-colors';
+
 export interface LanguageStat {
   name: string;
   percent: number;
+  color: BadgeColor;
 }
 
 export interface CommitDetail {

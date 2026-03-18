@@ -6,6 +6,8 @@ interface Props extends VariantProps<typeof badge> {
   extraInfo?: string;
 }
 
+export type BadgeColor = VariantProps<typeof badge>['color'];
+
 export const badge = tv({
   base: ['rounded-full px-2 py-0.5'],
   variants: {
@@ -24,6 +26,9 @@ export const badge = tv({
       sapphire: 'bg-sapphire/10 text-sapphire',
       blue: 'bg-blue/10 text-blue',
       lavender: 'bg-lavender/10 text-lavender',
+      overlay0: 'bg-overlay0/10 text-overlay0',
+      overlay1: 'bg-overlay1/10 text-overlay1',
+      overlay2: 'bg-overlay2/10 text-overlay2',
       text: 'bg-foreground/10 text-foreground',
     },
   },
@@ -48,6 +53,9 @@ export const badgeExtraInfo = tv({
       sapphire: 'text-sapphire/70',
       blue: 'text-blue/70',
       lavender: 'text-lavender/70',
+      overlay0: 'text-overlay0/70',
+      overlay1: 'text-overlay1/70',
+      overlay2: 'text-overlay2/70',
       text: 'text-foreground/70',
     },
   },

@@ -12,6 +12,14 @@ export const githubFetch = async (url: string): Promise<Response> => {
   return fetch(url, { headers });
 };
 
+export const parseConventionalCommit = (
+  message: string,
+): { prefix: string | null; message: string } => {
+  const match = message.match(/^(\w+(?:\([^)]*\))?!?:)\s+(.+)$/);
+  if (!match) return { prefix: null, message };
+  return { prefix: match[1], message: match[2] };
+};
+
 export const parseRepoFullName = (
   repoFullName: string,
 ): {
