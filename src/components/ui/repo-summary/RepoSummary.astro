@@ -1,0 +1,15 @@
+---
+import RepoSummaryContent from './RepoSummaryContent.astro';
+import RepoSummarySkeleton from './RepoSummarySkeleton.astro';
+
+interface Props {
+  repoFullName: string;
+  limit: number;
+}
+
+const { repoFullName, limit } = Astro.props;
+---
+
+<RepoSummaryContent server:defer repoFullName={repoFullName} limit={limit}>
+  <RepoSummarySkeleton slot='fallback' limit={limit} />
+</RepoSummaryContent>
