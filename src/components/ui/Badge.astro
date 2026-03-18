@@ -1,0 +1,68 @@
+---
+import { tv, type VariantProps } from 'tailwind-variants';
+
+interface Props extends VariantProps<typeof badge> {
+  class?: string;
+  extraInfo?: string;
+}
+
+export const badge = tv({
+  base: ['rounded-full px-2 py-0.5'],
+  variants: {
+    color: {
+      rosewater: 'bg-rosewater/10 text-rosewater',
+      flamingo: 'bg-flamingo/10 text-flamingo',
+      pink: 'bg-pink/10 text-pink',
+      mauve: 'bg-mauve/10 text-mauve',
+      red: 'bg-red/10 text-red',
+      maroon: 'bg-maroon/10 text-maroon',
+      peach: 'bg-peach/10 text-peach',
+      yellow: 'bg-yellow/10 text-yellow',
+      green: 'bg-green/10 text-green',
+      teal: 'bg-teal/10 text-teal',
+      sky: 'bg-sky/10 text-sky',
+      sapphire: 'bg-sapphire/10 text-sapphire',
+      blue: 'bg-blue/10 text-blue',
+      lavender: 'bg-lavender/10 text-lavender',
+      text: 'bg-foreground/10 text-foreground',
+    },
+  },
+  defaultVariants: { color: 'blue' },
+});
+
+export const badgeExtraInfo = tv({
+  base: [],
+  variants: {
+    color: {
+      rosewater: 'text-rosewater/70',
+      flamingo: 'text-flamingo/70',
+      pink: 'text-pink/70',
+      mauve: 'text-mauve/70',
+      red: 'text-red/70',
+      maroon: 'text-maroon/70',
+      peach: 'text-peach/70',
+      yellow: 'text-yellow/70',
+      green: 'text-green/70',
+      teal: 'text-teal/70',
+      sky: 'text-sky/70',
+      sapphire: 'text-sapphire/70',
+      blue: 'text-blue/70',
+      lavender: 'text-lavender/70',
+      text: 'text-foreground/70',
+    },
+  },
+  defaultVariants: { color: 'blue' },
+});
+
+const { class: className, color, extraInfo } = Astro.props;
+---
+
+<div class={badge({ color, className })}>
+  <span>
+    <slot />
+  </span>
+
+  <span class={badgeExtraInfo({ color })}>
+    {extraInfo}
+  </span>
+</div>
