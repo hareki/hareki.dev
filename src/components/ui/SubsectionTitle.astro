@@ -1,0 +1,16 @@
+---
+import { cn } from 'tailwind-variants';
+
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'h2'>;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<h4
+  class={cn('mb-1 text-sm font-medium text-muted-foreground', className)}
+  {...props}
+>
+  <slot />
+</h4>

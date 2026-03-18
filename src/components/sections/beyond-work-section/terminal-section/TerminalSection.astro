@@ -20,6 +20,9 @@ import { BeyondWorkLink } from '@/data/beyond-work';
       <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink> below.
     </BoxSectionDescription>
 
-    <RecentCommits repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME} limit={5} />
+    <RecentCommits
+      repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME}
+      commitLimit={5}
+    />
   </BoxSection>
 </section>

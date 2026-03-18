@@ -2,11 +2,9 @@
 import { getRecentCommitDetails } from '@/lib/github';
 import { getFormattedDate } from '@/utils/date';
 
-import { SPACING, ROW_HEIGHT, CONTAINER_PADDING } from './constants';
-
 interface Props {
   repoFullName: string;
-  limit: number;
+  commitLimit: number;
 }
 
 Astro.cache.set({
@@ -14,14 +12,11 @@ Astro.cache.set({
   swr: 60,
 });
 
-const { repoFullName, limit } = Astro.props;
-const commits = await getRecentCommitDetails(repoFullName, limit);
+const { repoFullName, commitLimit } = Astro.props;
+const commits = await getRecentCommitDetails(repoFullName, commitLimit);
 ---
 
-<div
-  class='flex flex-col rounded-md bg-inner-box'
-  style={`gap: ${SPACING};padding: ${CONTAINER_PADDING};`}
->
+<div class='flex flex-col gap-1 rounded-md bg-inner-box p-2'>
   {
     commits.map((commit) => (
       <a
@@ -30,11 +25,10 @@ const commits = await getRecentCommitDetails(repoFullName, limit);
         rel='noopener noreferrer'
         class='
           flex w-full bouncy-click items-center justify-between gap-1.5
-          rounded-xs px-1 text-subtext1-foreground
+          rounded-xs p-1 text-subtext1-foreground
           hover:bg-primary/10 hover:text-primary
           hocus:scale-[101%]
         '
-        style={`height: ${ROW_HEIGHT};`}
       >
         <span class='truncate'>{commit.commitMessage}</span>
 

@@ -1,16 +1,5 @@
 ---
 import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
-
-import { SPACING, ROW_HEIGHT, CONTAINER_PADDING } from './constants';
-
-interface Props {
-  limit: number;
-}
-
-const { limit } = Astro.props;
 ---
 
-<BaseSkeleton
-  style={`height: calc(${ROW_HEIGHT} * ${limit} + ${SPACING} * (${limit} - 1) + ${CONTAINER_PADDING} * 2)`}
-  class='w-full'
-/>
+<BaseSkeleton class='h-30 w-full' />
