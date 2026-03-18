@@ -4,7 +4,7 @@ import { getLanguageStats, getRecentCommitDetails } from '@/lib/github';
 import { getFormattedDate } from '@/utils/date';
 
 import Badge from '../Badge.astro';
-import BlockLink from '../BlockLink.astro';
+import StandaloneLink from '../StandaloneLink.astro';
 import SubsectionTitle from '../SubsectionTitle.astro';
 
 interface Props {
@@ -74,7 +74,7 @@ const [commits, languages] = await Promise.all([
       <div class='flex gap-2'>
         {
           MAIN_MODULES.map(({ name, url }) => (
-            <BlockLink href={url}>{name}</BlockLink>
+            <StandaloneLink href={url}>{name}</StandaloneLink>
           ))
         }
       </div>

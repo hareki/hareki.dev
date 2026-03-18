@@ -8,8 +8,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
-import BlockLink from '@/components/ui/BlockLink.astro';
 import ItemSummary from '@/components/ui/ItemSummary.astro';
+import StandaloneLink from '@/components/ui/StandaloneLink.astro';
 import type { ExperienceRecord } from '@/data/experience';
 import { getFormattedDate } from '@/utils/date';
 
@@ -55,5 +55,5 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
     <span>{getDateRange(record.startDate, record.endDate)}</span>
   </div>
 
-  <BlockLink href={record.company.website}>Visit Website</BlockLink>
+  <StandaloneLink href={record.company.website}>Visit Website</StandaloneLink>
 </PopoverContent>

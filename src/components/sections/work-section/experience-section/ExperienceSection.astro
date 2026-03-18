@@ -1,7 +1,7 @@
 ---
 import { Popover } from '@/components/starwind/popover';
-import BlockLink from '@/components/ui/BlockLink.astro';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
+import StandaloneLink from '@/components/ui/StandaloneLink.astro';
 import ContactInformation from '@/data/contact-information';
 import { EXPERIENCE } from '@/data/experience';
 
@@ -30,7 +30,7 @@ import ExperiencePopoverTrigger from './ExperiencePopoverTrigger.astro';
       ))
     }
   </div>
-  <BlockLink class='ml-3' href={ContactInformation.RESUME_URL}>
+  <StandaloneLink class='ml-3' href={ContactInformation.RESUME_URL}>
     View Full Résumé
-  </BlockLink>
+  </StandaloneLink>
 </section>
