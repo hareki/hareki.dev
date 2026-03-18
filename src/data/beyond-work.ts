@@ -7,3 +7,26 @@ export const BeyondWorkLink = {
   DOTFILES: `https://github.com/${DOTFILES_FULL_NAME}`,
   DOTFILES_FULL_NAME: DOTFILES_FULL_NAME,
 };
+
+interface Module {
+  name: string;
+  url: string;
+}
+const DOTFILES = `${BeyondWorkLink.DOTFILES}/tree/main`;
+
+export const MAIN_MODULES: Module[] = [
+  {
+    name: 'Neovim',
+    url: `${DOTFILES}/nvim/.config/nvim`,
+  },
+
+  {
+    name: 'Zsh',
+    url: `${DOTFILES}/zsh`,
+  },
+
+  {
+    name: 'Tmux',
+    url: `${DOTFILES}/tmux`,
+  },
+];

@@ -85,7 +85,7 @@ export const getLanguageStats = async (
   const allStats = Object.entries(languageMap)
     .map(([name, count]) => ({
       name,
-      percent: Math.round((count / total) * 100),
+      percent: Number(((count / total) * 100).toFixed(1)),
     }))
     .sort((a, b) => b.percent - a.percent);
 
