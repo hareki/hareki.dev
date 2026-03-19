@@ -21,7 +21,7 @@ const { record } = Astro.props;
 ---
 
 <PopoverTrigger asChild>
-  <Button variant='ghost' class={cn('h-auto w-full justify-start gap-3 p-3')}>
+  <Button variant='ghost' class={cn('h-auto w-fit justify-start gap-3 p-3')}>
     <ItemSummary
       name={record.company.name}
       description={record.title}
