@@ -1,7 +1,7 @@
 import { PROJECT_REPO_FULL_NAME } from '@/data/git';
 
-import { getRepoCommits, getCommitDetail, getRepoLanguages } from './queries';
 import { getLanguageBadgeColor } from './language-colors';
+import { getRepoCommits, getCommitDetail, getRepoLanguages } from './queries';
 import { parseRepoFullName } from './utils';
 
 import type { RecentCommit, LastCommitInfo, LanguageStat } from './types';
@@ -83,26 +83,55 @@ export const getLanguageStats = async (
     return [];
   }
 
-  const allStats = Object.entries(languageMap)
+  const rawStats = Object.entries(languageMap)
     .map(([name, count]) => ({
       name,
-      percent: Number(((count / total) * 100).toFixed(1)),
+      rawPercent: (count / total) * 100,
       color: getLanguageBadgeColor(name),
     }))
-    .sort((a, b) => b.percent - a.percent);
+    .sort((a, b) => b.rawPercent - a.rawPercent);
 
-  const major = allStats.filter(
-    (s) => s.percent >= OTHER_LANGUAGE_THRESHOLD_PERCENT,
+  const majorRaw = rawStats.filter(
+    (s) => s.rawPercent >= OTHER_LANGUAGE_THRESHOLD_PERCENT,
   );
-  const minorTotal = allStats
-    .filter((s) => s.percent < OTHER_LANGUAGE_THRESHOLD_PERCENT)
-    .reduce((sum, s) => sum + s.percent, 0);
+  const minorRawTotal = rawStats
+    .filter((s) => s.rawPercent < OTHER_LANGUAGE_THRESHOLD_PERCENT)
+    .reduce((sum, s) => sum + s.rawPercent, 0);
 
-  if (minorTotal > 0) {
-    major.push({ name: 'Other', percent: Math.round(minorTotal), color: 'text' });
+  const entries = majorRaw.map((s) => ({
+    name: s.name,
+    rawPercent: s.rawPercent,
+    color: s.color,
+  }));
+
+  if (minorRawTotal > 0) {
+    entries.push({
+      name: 'Other',
+      rawPercent: minorRawTotal,
+      color: 'text',
+    });
   }
 
-  return major;
+  // Largest-remainder method: round to 1 decimal place summing to exactly 100.0
+  const floored = entries.map((e) => Math.floor(e.rawPercent * 10) / 10);
+  const flooredSum = floored.reduce((a, b) => a + b, 0);
+  const deficit = Math.round((100.0 - flooredSum) * 10);
+
+  const indexed = entries.map((e, i) => ({
+    index: i,
+    remainder: e.rawPercent * 10 - Math.floor(e.rawPercent * 10),
+  }));
+  indexed.sort((a, b) => b.remainder - a.remainder);
+
+  for (let i = 0; i < deficit; i++) {
+    floored[indexed[i].index] += 0.1;
+  }
+
+  return entries.map((e, i) => ({
+    name: e.name,
+    percent: Number(floored[i].toFixed(1)),
+    color: e.color,
+  }));
 };
 
 export const getShortenCommitHash = (hash: string) => hash.slice(0, 7);
