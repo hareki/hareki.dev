@@ -7,7 +7,7 @@ import {
 import { MAIN_MODULES } from '@/data/beyond-work';
 import { getLanguageStats, getRecentCommitDetails } from '@/lib/github';
 import { parseConventionalCommit } from '@/lib/github/utils';
-import { getDateDistance, getFormattedDate } from '@/utils/date';
+import { getDateDistance, getFormattedDateTime } from '@/utils/date';
 
 import Badge from '../Badge.astro';
 import StandaloneLink from '../StandaloneLink.astro';
@@ -89,7 +89,9 @@ const [commits, languages] = await Promise.all([
               </TooltipTrigger>
 
               <TooltipContent class='text-sm font-medium'>
-                {getFormattedDate(commit.createdAt)}
+                <span data-utc={commit.createdAt.toISOString()}>
+                  {getFormattedDateTime(commit.createdAt)}
+                </span>
               </TooltipContent>
             </Tooltip>
           </a>
@@ -127,6 +129,14 @@ const [commits, languages] = await Promise.all([
 
 <script>
   import { initStarwind } from '@/lib/starwind/event';
+  import { getFormattedDateTime } from '@/utils/date';
 
   initStarwind();
+  document.querySelectorAll<HTMLSpanElement>('[data-utc]').forEach((el) => {
+    if (!el.dataset.utc) {
+      throw new Error('UTC data attribute is missing');
+    }
+
+    el.textContent = getFormattedDateTime(new Date(el.dataset.utc));
+  });
 </script>
