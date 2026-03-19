@@ -1,5 +1,11 @@
 ---
 import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
+
+interface Props {
+  commitLimit: number;
+}
+
+const { commitLimit } = Astro.props;
 ---
 
 <div>
@@ -17,20 +23,20 @@ import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
   causing the skeleton not to get cleaned up after the content has arrived.
 -->
 
-  <style>
+  <style define:vars={{ commitLimit }}>
     [data-repo-summary-skeleton] {
-      --summary-skeleton-height: 21.875rem;
+      --summary-skeleton-height: calc(11.875rem + 2rem * var(--commitLimit));
     }
 
     @container (min-width: 31.875rem) {
       [data-repo-summary-skeleton] {
-        --summary-skeleton-height: 19.875rem;
+        --summary-skeleton-height: calc(9.875rem + 2rem * var(--commitLimit));
       }
     }
 
     @container (min-width: 44.813rem) {
       [data-repo-summary-skeleton] {
-        --summary-skeleton-height: 16rem;
+        --summary-skeleton-height: calc(6rem + 2rem * var(--commitLimit));
       }
     }
   </style>

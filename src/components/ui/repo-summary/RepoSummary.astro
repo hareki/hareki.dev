@@ -7,8 +7,9 @@ interface Props {
 }
 
 const { repoFullName } = Astro.props;
+const commitLimit = 5;
 ---
 
-<RepoSummaryContent server:defer repoFullName={repoFullName} commitLimit={5}>
-  <RepoSummarySkeleton slot='fallback' />
+<RepoSummaryContent server:defer {repoFullName} {commitLimit}>
+  <RepoSummarySkeleton slot='fallback' {commitLimit} />
 </RepoSummaryContent>
