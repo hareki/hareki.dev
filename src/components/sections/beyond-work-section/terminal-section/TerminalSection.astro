@@ -5,7 +5,7 @@ import BoxSection from '@/components/ui/box-section';
 import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
 import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
-import RecentCommits from '@/components/ui/repo-summary';
+import RepoSummary from '@/components/ui/repo-summary';
 import { BeyondWorkLink } from '@/data/beyond-work';
 ---
 
@@ -19,9 +19,6 @@ import { BeyondWorkLink } from '@/data/beyond-work';
       <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink> below.
     </BoxSectionDescription>
 
-    <RecentCommits
-      repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME}
-      commitLimit={5}
-    />
+    <RepoSummary repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME} />
   </BoxSection>
 </section>

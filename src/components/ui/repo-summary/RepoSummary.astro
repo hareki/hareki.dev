@@ -4,16 +4,11 @@ import RepoSummarySkeleton from './RepoSummarySkeleton.astro';
 
 interface Props {
   repoFullName: string;
-  commitLimit: number;
 }
 
-const { repoFullName, commitLimit } = Astro.props;
+const { repoFullName } = Astro.props;
 ---
 
-<RepoSummaryContent
-  server:defer
-  repoFullName={repoFullName}
-  commitLimit={commitLimit}
->
+<RepoSummaryContent server:defer repoFullName={repoFullName} commitLimit={5}>
   <RepoSummarySkeleton slot='fallback' />
 </RepoSummaryContent>
