@@ -2,4 +2,36 @@
 import BaseSkeleton from '@/components/starwind/skeleton/Skeleton.astro';
 ---
 
-<BaseSkeleton class='h-30 w-full' />
+<div>
+  <BaseSkeleton
+    data-repo-summary-skeleton
+    class='w-full'
+    style='height:var(--summary-skeleton-height)'
+  />
+
+  <!-- 
+  HACK: It's fragile, but it's pixel perfect to the actual content height 
+  meaning no layout shift between skeleton and content 
+
+  NOTE: I believe there's a bug with returning multiple tags and using server islands, 
+  causing the skeleton not to get cleaned up after the content has arrived.
+-->
+
+  <style>
+    [data-repo-summary-skeleton] {
+      --summary-skeleton-height: 21.875rem;
+    }
+
+    @container (min-width: 31.875rem) {
+      [data-repo-summary-skeleton] {
+        --summary-skeleton-height: 19.875rem;
+      }
+    }
+
+    @container (min-width: 44.813rem) {
+      [data-repo-summary-skeleton] {
+        --summary-skeleton-height: 16rem;
+      }
+    }
+  </style>
+</div>
