@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 
 import { Caret } from './Caret';
 import { Word } from './Word';
@@ -16,16 +16,13 @@ export const TypingScreen = ({
 }: TypingScreenProps) => {
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 
-  const registerRef = useCallback(
-    (key: string, el: HTMLSpanElement | null) => {
-      if (el) {
-        letterRefs.current.set(key, el);
-      } else {
-        letterRefs.current.delete(key);
-      }
-    },
-    [],
-  );
+  const registerRef = (key: string, el: HTMLSpanElement | null) => {
+    if (el) {
+      letterRefs.current.set(key, el);
+    } else {
+      letterRefs.current.delete(key);
+    }
+  };
 
   const screen = useTypingStore((s) => s.screen);
   const wordsTyped = useTypingStore((s) => s.wordsTyped);

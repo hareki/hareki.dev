@@ -23,6 +23,7 @@ export const TapeModeManager = ({
   );
   const currentWordIndex = useTypingStore((s) => s.currentWordIndex);
   const currentCharIndex = useTypingStore((s) => s.currentCharIndex);
+  const dispatch = useTypingStore((s) => s.dispatch);
 
   // Forced tape mode detection via ResizeObserver
   useEffect(() => {
@@ -34,9 +35,7 @@ export const TapeModeManager = ({
 
     const checkOverflow = () => {
       const isOverflowing = measure.scrollWidth > container.offsetWidth;
-      useTypingStore
-        .getState()
-        .dispatch({ type: 'SET_TAPE_MODE_FORCED', forced: isOverflowing });
+      dispatch({ type: 'SET_TAPE_MODE_FORCED', forced: isOverflowing });
     };
 
     const observer = new ResizeObserver(checkOverflow);
@@ -44,7 +43,7 @@ export const TapeModeManager = ({
     checkOverflow();
 
     return () => observer.disconnect();
-  }, [containerRef]);
+  }, [containerRef, dispatch]);
 
   // Scroll offset calculation for tape mode — directly manipulate DOM
   useLayoutEffect(() => {
@@ -70,6 +69,7 @@ export const TapeModeManager = ({
     const wordEl = wordsContainer.children[currentWordIndex] as
       | HTMLElement
       | undefined;
+
     if (!wordEl) {
       return;
     }
@@ -78,6 +78,7 @@ export const TapeModeManager = ({
     const letterEl = wordEl.children[currentCharIndex] as
       | HTMLElement
       | undefined;
+
     if (letterEl) {
       letterRect = letterEl.getBoundingClientRect();
     } else {
@@ -87,12 +88,7 @@ export const TapeModeManager = ({
         return;
       }
       const lastRect = lastEl.getBoundingClientRect();
-      letterRect = new DOMRect(
-        lastRect.right,
-        lastRect.y,
-        0,
-        lastRect.height,
-      );
+      letterRect = new DOMRect(lastRect.right, lastRect.y, 0, lastRect.height);
     }
 
     const wordsRect = wordsContainer.getBoundingClientRect();
@@ -100,12 +96,12 @@ export const TapeModeManager = ({
 
     wordsContainer.style.transform = `translateX(${computedAnchorX - naturalLeft}px)`;
   }, [
-    effectiveTapeMode,
-    currentWordIndex,
+    caretAnchorPercent,
     currentCharIndex,
+    currentWordIndex,
+    effectiveTapeMode,
     typingAreaRef,
     wordsContainerRef,
-    caretAnchorPercent,
   ]);
 
   return (

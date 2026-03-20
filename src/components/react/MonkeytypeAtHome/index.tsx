@@ -7,6 +7,7 @@ import { ShortcutHints } from './components/ShortcutHints';
 import { TapeModeManager } from './components/TapeModeManager';
 import { TypingScreen } from './components/TypingScreen';
 import { useTypingStore } from './store';
+import { isMac } from './utils';
 
 export const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,27 +18,25 @@ export const MonkeytypeAtHome = () => {
 
   const screen = useTypingStore((s) => s.screen);
   const isFocused = useTypingStore((s) => s.isFocused);
+  const dispatch = useTypingStore((s) => s.dispatch);
 
   const focusInput = () => {
     inputRef.current?.focus();
   };
 
   const handleRestart = () => {
-    useTypingStore.getState().dispatch({ type: 'RESTART' });
+    dispatch({ type: 'RESTART' });
     focusInput();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    const { dispatch } = useTypingStore.getState();
-
-    // Cmd/Ctrl + . → toggle tape mode
-    if (e.key === '.' && (e.metaKey || e.ctrlKey)) {
+    const modKey = isMac() ? e.metaKey : e.ctrlKey;
+    if (e.key === '.' && modKey) {
       e.preventDefault();
       dispatch({ type: 'TOGGLE_TAPE_MODE' });
       return;
     }
 
-    // Tab → focus restart button
     if (e.key === 'Tab') {
       e.preventDefault();
       restartButtonRef.current?.focus();
@@ -45,7 +44,7 @@ export const MonkeytypeAtHome = () => {
     }
 
     // On result screen: ignore typing keys
-    if (useTypingStore.getState().screen === 'result') {
+    if (screen === 'result') {
       return;
     }
 
@@ -70,13 +69,12 @@ export const MonkeytypeAtHome = () => {
     }
   };
 
-  const handleFocus = () =>
-    useTypingStore.getState().dispatch({ type: 'FOCUS' });
+  const handleFocus = () => dispatch({ type: 'FOCUS' });
   const handleBlur = (e: React.FocusEvent) => {
     if (containerRef.current?.contains(e.relatedTarget as Node)) {
       return;
     }
-    useTypingStore.getState().dispatch({ type: 'BLUR' });
+    dispatch({ type: 'BLUR' });
   };
 
   const handleContainerClick = () => focusInput();

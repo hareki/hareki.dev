@@ -6,6 +6,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
 import { importX } from 'eslint-plugin-import-x';
+import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -16,6 +17,10 @@ export default defineConfig([
   {
     files: ['**/*.{mjs,ts,tsx,astro}'],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [reactHooks.configs.flat.recommended],
   },
   {
     files: ['**/*.{ts,tsx,astro}'],
