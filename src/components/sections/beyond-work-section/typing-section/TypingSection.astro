@@ -1,6 +1,7 @@
 ---
 import KeyboardIcon from '@tabler/icons/outline/keyboard.svg';
 
+import { MonkeytypeAtHome } from '@/components/react/MonkeytypeAtHome';
 import BoxSection from '@/components/ui/box-section';
 import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
 import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
@@ -20,6 +21,7 @@ import { BeyondWorkLink } from '@/data/beyond-work';
         Monkeytype
       </InlineLink> app enough to build a mini version below.
     </BoxSectionDescription>
-    <div class='h-70'></div>
+
+    <MonkeytypeAtHome client:idle />
   </BoxSection>
 </section>
