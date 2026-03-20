@@ -7,8 +7,10 @@ interface UseTapeModeOptions {
   currentWordIndex: number;
   currentCharIndex: number;
   containerRef: React.RefObject<HTMLDivElement | null>;
+  typingAreaRef: React.RefObject<HTMLDivElement | null>;
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
   dispatch: React.Dispatch<{ type: 'SET_TAPE_MODE_FORCED'; forced: boolean }>;
+  caretAnchorPercent?: number;
 }
 
 export function useTapeMode({
@@ -16,11 +18,14 @@ export function useTapeMode({
   currentWordIndex,
   currentCharIndex,
   containerRef,
+  typingAreaRef,
   wordsContainerRef,
   dispatch,
+  caretAnchorPercent = 50,
 }: UseTapeModeOptions) {
   const measureRef = useRef<HTMLDivElement>(null);
   const [scrollOffset, setScrollOffset] = useState(0);
+  const [anchorX, setAnchorX] = useState(0);
 
   // Forced tape mode detection via ResizeObserver
   useEffect(() => {
@@ -44,35 +49,39 @@ export function useTapeMode({
   useLayoutEffect(() => {
     if (!isTapeModeOn) {
       setScrollOffset(0);
+      setAnchorX(0);
       return;
     }
 
-    const container = containerRef.current;
+    const typingArea = typingAreaRef.current;
     const wordsContainer = wordsContainerRef.current;
-    if (!container || !wordsContainer) {return;}
+    if (!typingArea || !wordsContainer) {return;}
 
-    const containerRect = container.getBoundingClientRect();
-    const anchorX = containerRect.width * 0.33;
+    const typingAreaWidth = typingArea.offsetWidth;
+    const computedAnchorX = typingAreaWidth * (caretAnchorPercent / 100);
+    setAnchorX(computedAnchorX);
 
-    // Find the current letter's position
-    const letters = wordsContainer.querySelectorAll('span > span');
-    let letterIndex = 0;
-    for (let w = 0; w < currentWordIndex; w++) {
-      const wordEl = wordsContainer.children[w];
-      if (wordEl) {letterIndex += wordEl.children.length;}
+    // Find the current letter element using DOM children
+    const wordEl = wordsContainer.children[currentWordIndex] as HTMLElement | undefined;
+    if (!wordEl) {return;}
+
+    let letterRect: DOMRect;
+    const letterEl = wordEl.children[currentCharIndex] as HTMLElement | undefined;
+    if (letterEl) {
+      letterRect = letterEl.getBoundingClientRect();
+    } else {
+      // Past end of word: use right edge of last letter
+      const lastEl = wordEl.lastElementChild as HTMLElement | null;
+      if (!lastEl) {return;}
+      const lastRect = lastEl.getBoundingClientRect();
+      letterRect = new DOMRect(lastRect.right, lastRect.y, 0, lastRect.height);
     }
-    letterIndex += currentCharIndex;
 
-    const currentLetterEl = letters[letterIndex] as HTMLElement | undefined;
-    if (!currentLetterEl) {return;}
-
-    const letterRect = currentLetterEl.getBoundingClientRect();
     const wordsRect = wordsContainer.getBoundingClientRect();
-    const naturalCaretLeft = letterRect.left - wordsRect.left;
+    const naturalLeft = letterRect.left - wordsRect.left;
 
-    const offset = Math.min(0, anchorX - naturalCaretLeft);
-    setScrollOffset(offset);
-  }, [isTapeModeOn, currentWordIndex, currentCharIndex, containerRef, wordsContainerRef]);
+    setScrollOffset(computedAnchorX - naturalLeft);
+  }, [isTapeModeOn, currentWordIndex, currentCharIndex, typingAreaRef, wordsContainerRef, caretAnchorPercent]);
 
   // Hidden measuring element rendered inline by the consumer
   const measureElement = (
@@ -88,5 +97,5 @@ export function useTapeMode({
     </div>
   );
 
-  return { scrollOffset, measureElement };
+  return { scrollOffset, anchorX, measureElement };
 }

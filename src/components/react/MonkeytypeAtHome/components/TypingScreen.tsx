@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-
 import { Caret } from './Caret';
 import { Word } from './Word';
 import { useCaretPosition } from '../hooks/useCaretPosition';
@@ -11,6 +9,8 @@ interface TypingScreenProps {
   state: TypingState;
   isTapeModeOn: boolean;
   tapeScrollOffset: number;
+  tapeAnchorX: number;
+  typingAreaRef: React.RefObject<HTMLDivElement | null>;
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -18,13 +18,14 @@ export const TypingScreen = ({
   state,
   isTapeModeOn,
   tapeScrollOffset,
+  tapeAnchorX,
+  typingAreaRef,
   wordsContainerRef,
 }: TypingScreenProps) => {
-  const caretContainerRef = useRef<HTMLDivElement>(null);
   const { caretPos, registerRef } = useCaretPosition(
     state.currentWordIndex,
     state.currentCharIndex,
-    caretContainerRef,
+    typingAreaRef,
   );
 
   const showCaret = state.isFocused;
@@ -33,7 +34,7 @@ export const TypingScreen = ({
   return (
     <div className='flex flex-col gap-4'>
       <div
-        ref={caretContainerRef}
+        ref={typingAreaRef}
         className='relative overflow-hidden'
       >
         <div
@@ -63,7 +64,7 @@ export const TypingScreen = ({
 
         {showCaret && (
           <Caret
-            x={caretPos.x}
+            x={isTapeModeOn ? tapeAnchorX : caretPos.x}
             y={caretPos.y}
             height={caretPos.height}
             isBlinking={isBlinking}

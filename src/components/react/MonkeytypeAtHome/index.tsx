@@ -13,15 +13,17 @@ export const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const restartButtonRef = useRef<HTMLButtonElement>(null);
+  const typingAreaRef = useRef<HTMLDivElement>(null);
   const wordsContainerRef = useRef<HTMLDivElement>(null);
 
   const effectiveTapeMode = state.isTapeModeOn || state.isTapeModeForced;
 
-  const { scrollOffset, measureElement } = useTapeMode({
+  const { scrollOffset, anchorX, measureElement } = useTapeMode({
     isTapeModeOn: effectiveTapeMode,
     currentWordIndex: state.currentWordIndex,
     currentCharIndex: state.currentCharIndex,
     containerRef,
+    typingAreaRef,
     wordsContainerRef,
     dispatch,
   });
@@ -117,6 +119,8 @@ export const MonkeytypeAtHome = () => {
           state={state}
           isTapeModeOn={effectiveTapeMode}
           tapeScrollOffset={scrollOffset}
+          tapeAnchorX={anchorX}
+          typingAreaRef={typingAreaRef}
           wordsContainerRef={wordsContainerRef}
         />
       )}
