@@ -8,6 +8,8 @@ import cloudflare from '@astrojs/cloudflare';
 
 import { cloudflareCdnCache } from './src/lib/cache/config';
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -17,13 +19,11 @@ export default defineConfig({
     },
   },
 
-  integrations: [
-    playformCompress({
-      CSS: true,
-      HTML: true,
-      JavaScript: true,
-    }),
-  ],
+  integrations: [playformCompress({
+    CSS: true,
+    HTML: true,
+    JavaScript: true,
+  }), react()],
 
   adapter: cloudflare(),
 

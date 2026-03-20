@@ -1,3 +1,5 @@
+import type { BadgeColor } from '@/components/ui/Badge.astro';
+
 export interface LastCommitInfo {
   hash: string;
   url: string;
@@ -12,8 +14,6 @@ export interface RecentCommit {
   linesAdded: number;
   linesDeleted: number;
 }
-
-import type { BadgeColor } from './language-colors';
 
 export interface LanguageStat {
   name: string;
