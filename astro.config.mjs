@@ -1,5 +1,5 @@
-import tailwindcss from '@tailwindcss/vite';
 // @ts-check
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
 import playformCompress from '@playform/compress';
@@ -19,11 +19,14 @@ export default defineConfig({
     },
   },
 
-  integrations: [playformCompress({
-    CSS: true,
-    HTML: true,
-    JavaScript: true,
-  }), react()],
+  integrations: [
+    playformCompress({
+      CSS: true,
+      HTML: true,
+      JavaScript: true,
+    }),
+    react(),
+  ],
 
   adapter: cloudflare(),
 
@@ -33,3 +36,4 @@ export default defineConfig({
     },
   },
 });
+
