@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { Caret } from './Caret';
 import { Word } from './Word';
 import { useCaretPosition } from '../hooks/useCaretPosition';
@@ -8,8 +10,6 @@ import type { TypingState } from '../types';
 interface TypingScreenProps {
   state: TypingState;
   isTapeModeOn: boolean;
-  tapeScrollOffset: number;
-  tapeAnchorX: number;
   typingAreaRef: React.RefObject<HTMLDivElement | null>;
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
 }
@@ -17,18 +17,19 @@ interface TypingScreenProps {
 export const TypingScreen = ({
   state,
   isTapeModeOn,
-  tapeScrollOffset,
-  tapeAnchorX,
   typingAreaRef,
   wordsContainerRef,
 }: TypingScreenProps) => {
-  const { caretPos, registerRef } = useCaretPosition(
+  const caretRef = useRef<HTMLDivElement>(null);
+
+  const { registerRef } = useCaretPosition(
     state.currentWordIndex,
     state.currentCharIndex,
     typingAreaRef,
+    caretRef,
+    isTapeModeOn,
   );
 
-  const showCaret = state.isFocused;
   const isBlinking = state.screen === 'idle';
 
   return (
@@ -45,7 +46,6 @@ export const TypingScreen = ({
               ? {
                   flexWrap: 'nowrap',
                   whiteSpace: 'nowrap',
-                  transform: `translateX(${tapeScrollOffset}px)`,
                   transition: 'transform 80ms ease',
                 }
               : undefined
@@ -62,14 +62,11 @@ export const TypingScreen = ({
           ))}
         </div>
 
-        {showCaret && (
-          <Caret
-            x={isTapeModeOn ? tapeAnchorX : caretPos.x}
-            y={caretPos.y}
-            height={caretPos.height}
-            isBlinking={isBlinking}
-          />
-        )}
+        <Caret
+          ref={caretRef}
+          isBlinking={isBlinking}
+          isVisible={state.isFocused}
+        />
       </div>
 
       {state.screen === 'typing' && (

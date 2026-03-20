@@ -18,7 +18,7 @@ export const MonkeytypeAtHome = () => {
 
   const effectiveTapeMode = state.isTapeModeOn || state.isTapeModeForced;
 
-  const { scrollOffset, anchorX, measureElement } = useTapeMode({
+  const { measureElement } = useTapeMode({
     isTapeModeOn: effectiveTapeMode,
     currentWordIndex: state.currentWordIndex,
     currentCharIndex: state.currentCharIndex,
@@ -118,8 +118,6 @@ export const MonkeytypeAtHome = () => {
         <TypingScreen
           state={state}
           isTapeModeOn={effectiveTapeMode}
-          tapeScrollOffset={scrollOffset}
-          tapeAnchorX={anchorX}
           typingAreaRef={typingAreaRef}
           wordsContainerRef={wordsContainerRef}
         />

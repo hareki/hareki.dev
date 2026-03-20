@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { cn } from 'tailwind-variants';
 
 import { isMac } from '../utils';
@@ -15,13 +17,13 @@ interface ShortcutHintsProps {
   restartButtonRef: React.RefObject<HTMLButtonElement | null>;
 }
 
-export const ShortcutHints = ({
+export const ShortcutHints = memo(function ShortcutHints({
   isTapeModeOn,
   isTapeModeForced,
   onRestart,
   onToggleTapeMode,
   restartButtonRef,
-}: ShortcutHintsProps) => {
+}: ShortcutHintsProps) {
   const modKey = isMac() ? 'Cmd' : 'Ctrl';
 
   return (
@@ -52,4 +54,4 @@ export const ShortcutHints = ({
       )}
     </div>
   );
-};
+});

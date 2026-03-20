@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import type { LetterStatus } from '../types';
 
@@ -17,7 +17,7 @@ interface LetterProps {
   registerRef: (key: string, el: HTMLSpanElement | null) => void;
 }
 
-export const Letter = ({ char, status, wordIndex, charIndex, registerRef }: LetterProps) => {
+export const Letter = memo(function Letter({ char, status, wordIndex, charIndex, registerRef }: LetterProps) {
   const refCallback = useCallback(
     (el: HTMLSpanElement | null) => {
       registerRef(`${wordIndex}-${charIndex}`, el);
@@ -30,4 +30,4 @@ export const Letter = ({ char, status, wordIndex, charIndex, registerRef }: Lett
       {char}
     </span>
   );
-};
+});

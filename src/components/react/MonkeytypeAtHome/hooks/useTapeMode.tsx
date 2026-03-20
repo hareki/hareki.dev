@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { TEXT } from '../types';
 
@@ -24,8 +24,6 @@ export function useTapeMode({
   caretAnchorPercent = 50,
 }: UseTapeModeOptions) {
   const measureRef = useRef<HTMLDivElement>(null);
-  const [scrollOffset, setScrollOffset] = useState(0);
-  const [anchorX, setAnchorX] = useState(0);
 
   // Forced tape mode detection via ResizeObserver
   useEffect(() => {
@@ -45,21 +43,21 @@ export function useTapeMode({
     return () => observer.disconnect();
   }, [containerRef, dispatch]);
 
-  // Scroll offset calculation for tape mode
+  // Scroll offset calculation for tape mode — directly manipulate DOM
   useLayoutEffect(() => {
+    const wordsContainer = wordsContainerRef.current;
+    if (!wordsContainer) {return;}
+
     if (!isTapeModeOn) {
-      setScrollOffset(0);
-      setAnchorX(0);
+      wordsContainer.style.transform = '';
       return;
     }
 
     const typingArea = typingAreaRef.current;
-    const wordsContainer = wordsContainerRef.current;
-    if (!typingArea || !wordsContainer) {return;}
+    if (!typingArea) {return;}
 
     const typingAreaWidth = typingArea.offsetWidth;
     const computedAnchorX = typingAreaWidth * (caretAnchorPercent / 100);
-    setAnchorX(computedAnchorX);
 
     // Find the current letter element using DOM children
     const wordEl = wordsContainer.children[currentWordIndex] as HTMLElement | undefined;
@@ -80,22 +78,25 @@ export function useTapeMode({
     const wordsRect = wordsContainer.getBoundingClientRect();
     const naturalLeft = letterRect.left - wordsRect.left;
 
-    setScrollOffset(computedAnchorX - naturalLeft);
+    wordsContainer.style.transform = `translateX(${computedAnchorX - naturalLeft}px)`;
   }, [isTapeModeOn, currentWordIndex, currentCharIndex, typingAreaRef, wordsContainerRef, caretAnchorPercent]);
 
   // Hidden measuring element rendered inline by the consumer
-  const measureElement = (
-    <div
-      ref={measureRef}
-      className='
-        pointer-events-none invisible absolute top-0 left-0 text-lg
-        whitespace-nowrap
-      '
-      aria-hidden='true'
-    >
-      {TEXT}
-    </div>
+  const measureElement = useMemo(
+    () => (
+      <div
+        ref={measureRef}
+        className='
+          pointer-events-none invisible absolute top-0 left-0 text-lg
+          whitespace-nowrap
+        '
+        aria-hidden='true'
+      >
+        {TEXT}
+      </div>
+    ),
+    [],
   );
 
-  return { scrollOffset, anchorX, measureElement };
+  return { measureElement };
 }

@@ -1,18 +1,13 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-
-interface CaretPosition {
-  x: number;
-  y: number;
-  height: number;
-}
+import { useCallback, useLayoutEffect, useRef } from 'react';
 
 export function useCaretPosition(
   currentWordIndex: number,
   currentCharIndex: number,
   containerRef: React.RefObject<HTMLDivElement | null>,
+  caretRef: React.RefObject<HTMLDivElement | null>,
+  isTapeModeOn: boolean,
 ) {
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
-  const [caretPos, setCaretPos] = useState<CaretPosition>({ x: 0, y: 0, height: 0 });
 
   const registerRef = useCallback((key: string, el: HTMLSpanElement | null) => {
     if (el) {
@@ -24,9 +19,14 @@ export function useCaretPosition(
 
   useLayoutEffect(() => {
     const container = containerRef.current;
-    if (!container) {return;}
+    const caret = caretRef.current;
+    if (!container || !caret) {return;}
 
     const containerRect = container.getBoundingClientRect();
+
+    let x: number;
+    let y: number;
+    let height: number;
 
     // Try to get the current letter element (where the caret should appear before)
     const currentKey = `${currentWordIndex}-${currentCharIndex}`;
@@ -34,39 +34,41 @@ export function useCaretPosition(
 
     if (currentEl) {
       const rect = currentEl.getBoundingClientRect();
-      setCaretPos({
-        x: rect.left - containerRect.left,
-        y: rect.top - containerRect.top,
-        height: rect.height,
-      });
-      return;
+      x = rect.left - containerRect.left;
+      y = rect.top - containerRect.top;
+      height = rect.height;
+    } else {
+      // If no current letter (past end of word), position after the last letter
+      const prevKey = `${currentWordIndex}-${currentCharIndex - 1}`;
+      const prevEl = letterRefs.current.get(prevKey);
+      if (prevEl) {
+        const rect = prevEl.getBoundingClientRect();
+        x = rect.right - containerRect.left;
+        y = rect.top - containerRect.top;
+        height = rect.height;
+      } else {
+        // Fallback: first letter of current word
+        const firstKey = `${currentWordIndex}-0`;
+        const firstEl = letterRefs.current.get(firstKey);
+        if (firstEl) {
+          const rect = firstEl.getBoundingClientRect();
+          x = rect.left - containerRect.left;
+          y = rect.top - containerRect.top;
+          height = rect.height;
+        } else {
+          return;
+        }
+      }
     }
 
-    // If no current letter (past end of word), position after the last letter
-    const prevKey = `${currentWordIndex}-${currentCharIndex - 1}`;
-    const prevEl = letterRefs.current.get(prevKey);
-    if (prevEl) {
-      const rect = prevEl.getBoundingClientRect();
-      setCaretPos({
-        x: rect.right - containerRect.left,
-        y: rect.top - containerRect.top,
-        height: rect.height,
-      });
-      return;
+    // In tape mode, x is pinned to the anchor (center of container)
+    if (isTapeModeOn) {
+      x = container.offsetWidth * 0.5;
     }
 
-    // Fallback: first letter of current word
-    const firstKey = `${currentWordIndex}-0`;
-    const firstEl = letterRefs.current.get(firstKey);
-    if (firstEl) {
-      const rect = firstEl.getBoundingClientRect();
-      setCaretPos({
-        x: rect.left - containerRect.left,
-        y: rect.top - containerRect.top,
-        height: rect.height,
-      });
-    }
-  }, [currentWordIndex, currentCharIndex, containerRef]);
+    caret.style.transform = `translate(${x}px, ${y}px)`;
+    caret.style.height = `${height}px`;
+  }, [currentWordIndex, currentCharIndex, containerRef, caretRef, isTapeModeOn]);
 
-  return { caretPos, registerRef };
+  return { registerRef };
 }
