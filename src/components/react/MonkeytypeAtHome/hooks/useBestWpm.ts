@@ -2,20 +2,23 @@ import { useSyncExternalStore } from 'react';
 
 const STORAGE_KEY = 'monkeytype-at-home-best-wpm';
 
-function getSnapshot(): number {
+const getSnapshot = (): number => {
   try {
     const val = localStorage.getItem(STORAGE_KEY);
     return val ? parseFloat(val) : 0;
   } catch {
     return 0;
   }
-}
+};
 
-function getServerSnapshot(): number {
+const getServerSnapshot = (): number => {
   return 0;
-}
+};
 
-function subscribe(callback: () => void): () => void {
+type Callback = () => void;
+type Cleanup = () => void;
+
+const subscribe = (callback: Callback): Cleanup => {
   const handler = (e: StorageEvent) => {
     if (e.key === STORAGE_KEY) {
       callback();
@@ -23,9 +26,9 @@ function subscribe(callback: () => void): () => void {
   };
   window.addEventListener('storage', handler);
   return () => window.removeEventListener('storage', handler);
-}
+};
 
-export function useBestWpm() {
+export const useBestWpm = () => {
   const bestWpm = useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -45,4 +48,4 @@ export function useBestWpm() {
   };
 
   return { bestWpm, updateBestWpm };
-}
+};

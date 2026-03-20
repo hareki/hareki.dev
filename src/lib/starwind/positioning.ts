@@ -38,7 +38,7 @@ export interface ResolvePlacementResult {
   left: number;
 }
 
-function getOppositeSide(side: FloatingSide): FloatingSide {
+const getOppositeSide = (side: FloatingSide): FloatingSide => {
   switch (side) {
     case 'top':
       return 'bottom';
@@ -49,9 +49,9 @@ function getOppositeSide(side: FloatingSide): FloatingSide {
     case 'right':
       return 'left';
   }
-}
+};
 
-function getOppositeAlign(align: FloatingAlign): FloatingAlign {
+const getOppositeAlign = (align: FloatingAlign): FloatingAlign => {
   switch (align) {
     case 'start':
       return 'end';
@@ -60,12 +60,12 @@ function getOppositeAlign(align: FloatingAlign): FloatingAlign {
     case 'center':
       return 'center';
   }
-}
+};
 
-function getPlacementCandidates(
+const getPlacementCandidates = (
   side: FloatingSide,
   align: FloatingAlign,
-): Placement[] {
+): Placement[] => {
   const placements: Placement[] = [];
 
   const pushUnique = (candidate: Placement) => {
@@ -103,15 +103,15 @@ function getPlacementCandidates(
   }
 
   return placements;
-}
+};
 
-function getPlacementPosition(
+const getPlacementPosition = (
   placement: Placement,
   triggerRect: DOMRect,
   contentWidth: number,
   contentHeight: number,
   sideOffset: number,
-): Position {
+): Position => {
   let top = 0;
   let left = 0;
 
@@ -144,16 +144,16 @@ function getPlacementPosition(
   }
 
   return { top, left };
-}
+};
 
-function clampPositionToViewport(
+const clampPositionToViewport = (
   position: Position,
   contentWidth: number,
   contentHeight: number,
   viewportWidth: number,
   viewportHeight: number,
   viewportPadding: number,
-): Position {
+): Position => {
   const maxLeft = Math.max(
     viewportPadding,
     viewportWidth - contentWidth - viewportPadding,
@@ -167,16 +167,16 @@ function clampPositionToViewport(
     left: Math.min(Math.max(viewportPadding, position.left), maxLeft),
     top: Math.min(Math.max(viewportPadding, position.top), maxTop),
   };
-}
+};
 
-function getOverflowAmount(
+const getOverflowAmount = (
   position: Position,
   contentWidth: number,
   contentHeight: number,
   viewportWidth: number,
   viewportHeight: number,
   viewportPadding: number,
-): OverflowAmount {
+): OverflowAmount => {
   const right = position.left + contentWidth;
   const bottom = position.top + contentHeight;
 
@@ -186,38 +186,38 @@ function getOverflowAmount(
     right: Math.max(0, right - (viewportWidth - viewportPadding)),
     bottom: Math.max(0, bottom - (viewportHeight - viewportPadding)),
   };
-}
+};
 
-function getMainAxisShift(
+const getMainAxisShift = (
   side: FloatingSide,
   preferredPosition: Position,
   clampedPosition: Position,
-): number {
+): number => {
   if (side === 'top' || side === 'bottom') {
     return Math.abs(clampedPosition.top - preferredPosition.top);
   }
 
   return Math.abs(clampedPosition.left - preferredPosition.left);
-}
+};
 
-function getCrossAxisShift(
+const getCrossAxisShift = (
   side: FloatingSide,
   preferredPosition: Position,
   clampedPosition: Position,
-): number {
+): number => {
   if (side === 'top' || side === 'bottom') {
     return Math.abs(clampedPosition.left - preferredPosition.left);
   }
 
   return Math.abs(clampedPosition.top - preferredPosition.top);
-}
+};
 
 /**
  * Resolves the best side/alignment placement for floating content.
  */
-export function resolvePlacement(
+export const resolvePlacement = (
   options: ResolvePlacementOptions,
-): ResolvePlacementResult {
+): ResolvePlacementResult => {
   const {
     side,
     align,
@@ -330,15 +330,15 @@ export function resolvePlacement(
     top: bestPosition.top,
     left: bestPosition.left,
   };
-}
+};
 
 /**
  * Returns a transform-origin value that matches the resolved placement.
  */
-export function getTransformOrigin(
+export const getTransformOrigin = (
   side: FloatingSide,
   align: FloatingAlign,
-): string {
+): string => {
   if (side === 'top' || side === 'bottom') {
     const vertical = side === 'bottom' ? 'top' : 'bottom';
     const horizontal =
@@ -352,4 +352,4 @@ export function getTransformOrigin(
     align === 'start' ? 'top' : align === 'end' ? 'bottom' : 'center';
 
   return `${horizontal} ${vertical}`;
-}
+};

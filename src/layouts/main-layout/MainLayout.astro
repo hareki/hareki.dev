@@ -25,10 +25,10 @@ const baseTitle = 'Hareki';
         let accent = localStorage.getItem('ctp-accent');
         const mq = matchMedia('(prefers-color-scheme:dark)');
 
-        function setFlavor(f) {
+        const setFlavor = (f) => {
           html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
           html.classList.add('ctp-flavor-' + f);
-        }
+        };
 
         if (!flavor) {
           flavor = mq.matches ? 'mocha' : 'latte';

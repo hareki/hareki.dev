@@ -15,11 +15,11 @@ const GITHUB_LANGUAGE_COLORS: Record<string, BadgeColor> = {
   Astro: 'peach',
 };
 
-export function getLanguageBadgeColor(language: string): BadgeColor {
+export const getLanguageBadgeColor = (language: string): BadgeColor => {
   const hex = GITHUB_LANGUAGE_COLORS[language];
 
   if (!hex) {
     return 'blue';
   }
   return hex;
-}
+};

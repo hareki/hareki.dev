@@ -1,8 +1,13 @@
 import { WORDS } from './types';
 
-import type { LetterState, TypingAction, TypingState, WordState } from './types';
+import type {
+  LetterState,
+  TypingAction,
+  TypingState,
+  WordState,
+} from './types';
 
-function createWord(word: string): WordState {
+const createWord = (word: string): WordState => {
   return {
     letters: word.split('').map((char) => ({
       expected: char,
@@ -12,11 +17,13 @@ function createWord(word: string): WordState {
     isCompleted: false,
     isCorrect: false,
   };
-}
+};
 
-export function createInitialState(
-  overrides?: Partial<Pick<TypingState, 'isTapeModeOn' | 'isTapeModeForced' | 'isFocused'>>,
-): TypingState {
+export const createInitialState = (
+  overrides?: Partial<
+    Pick<TypingState, 'isTapeModeOn' | 'isTapeModeForced' | 'isFocused'>
+  >,
+): TypingState => {
   return {
     screen: 'idle',
     words: WORDS.map(createWord),
@@ -30,16 +37,21 @@ export function createInitialState(
     isTapeModeForced: overrides?.isTapeModeForced ?? false,
     isFocused: overrides?.isFocused ?? false,
   };
-}
+};
 
-function computeIsCorrect(letters: LetterState[]): boolean {
+const computeIsCorrect = (letters: LetterState[]): boolean => {
   return letters.every((l) => l.status === 'correct');
-}
+};
 
-export function typingReducer(state: TypingState, action: TypingAction): TypingState {
+export const typingReducer = (
+  state: TypingState,
+  action: TypingAction,
+): TypingState => {
   switch (action.type) {
     case 'TYPE_CHAR': {
-      if (state.screen === 'result') {return state;}
+      if (state.screen === 'result') {
+        return state;
+      }
 
       const word = state.words[state.currentWordIndex];
       const { currentCharIndex } = state;
@@ -57,7 +69,11 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
         const isCorrect = action.char === letter.expected;
         newLetters = word.letters.map((l, i) =>
           i === currentCharIndex
-            ? { ...l, typed: action.char, status: isCorrect ? 'correct' : 'incorrect' }
+            ? {
+                ...l,
+                typed: action.char,
+                status: isCorrect ? 'correct' : 'incorrect',
+              }
             : l,
         );
       } else {
@@ -75,10 +91,16 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
 
       // Auto-finish: last word, all letters typed correctly, no extras
       const isLastWord = state.currentWordIndex === WORDS.length - 1;
-      if (isLastWord && computeIsCorrect(newLetters) && newLetters.length === WORDS[state.currentWordIndex].length
-        && currentCharIndex + 1 === newLetters.length) {
+      if (
+        isLastWord &&
+        computeIsCorrect(newLetters) &&
+        newLetters.length === WORDS[state.currentWordIndex].length &&
+        currentCharIndex + 1 === newLetters.length
+      ) {
         const finalWords = newWords.map((w, i) =>
-          i === state.currentWordIndex ? { ...w, isCompleted: true, isCorrect: true } : w,
+          i === state.currentWordIndex
+            ? { ...w, isCompleted: true, isCorrect: true }
+            : w,
         );
         return {
           ...state,
@@ -103,13 +125,19 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
     }
 
     case 'SPACE': {
-      if (state.screen === 'result') {return state;}
-      if (state.currentCharIndex === 0) {return state;}
+      if (state.screen === 'result') {
+        return state;
+      }
+      if (state.currentCharIndex === 0) {
+        return state;
+      }
 
       const word = state.words[state.currentWordIndex];
       const isCorrect = computeIsCorrect(word.letters);
       const newWords = state.words.map((w, i) =>
-        i === state.currentWordIndex ? { ...w, isCompleted: true, isCorrect } : w,
+        i === state.currentWordIndex
+          ? { ...w, isCompleted: true, isCorrect }
+          : w,
       );
       const newWordsTyped = state.wordsTyped + 1;
 
@@ -142,7 +170,9 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
     }
 
     case 'BACKSPACE': {
-      if (state.screen === 'result') {return state;}
+      if (state.screen === 'result') {
+        return state;
+      }
 
       const { currentWordIndex, currentCharIndex } = state;
 
@@ -157,7 +187,9 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
         } else {
           // Reset letter to untyped
           newLetters = word.letters.map((l, i) =>
-            i === newCharIndex ? { ...l, typed: null, status: 'untyped' as const } : l,
+            i === newCharIndex
+              ? { ...l, typed: null, status: 'untyped' as const }
+              : l,
           );
         }
 
@@ -173,17 +205,23 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
       }
 
       // currentCharIndex === 0, try to go back to previous word
-      if (currentWordIndex === 0) {return state;}
+      if (currentWordIndex === 0) {
+        return state;
+      }
 
       const prevWord = state.words[currentWordIndex - 1];
-      if (!prevWord.isCompleted || prevWord.isCorrect) {return state;}
+      if (!prevWord.isCompleted || prevWord.isCorrect) {
+        return state;
+      }
 
       // Go back to previous incorrect word, place caret after the last typed char
       const newWords = state.words.map((w, i) =>
         i === currentWordIndex - 1 ? { ...w, isCompleted: false } : w,
       );
 
-      const lastTypedIndex = prevWord.letters.findLastIndex((l) => l.typed !== null);
+      const lastTypedIndex = prevWord.letters.findLastIndex(
+        (l) => l.typed !== null,
+      );
       return {
         ...state,
         words: newWords,
@@ -200,7 +238,9 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
       return { ...state, isFocused: false };
 
     case 'TOGGLE_TAPE_MODE':
-      if (state.isTapeModeForced) {return state;}
+      if (state.isTapeModeForced) {
+        return state;
+      }
       return { ...state, isTapeModeOn: !state.isTapeModeOn };
 
     case 'SET_TAPE_MODE_FORCED':
@@ -220,4 +260,4 @@ export function typingReducer(state: TypingState, action: TypingAction): TypingS
     default:
       return state;
   }
-}
+};

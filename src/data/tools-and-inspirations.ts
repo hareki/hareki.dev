@@ -12,9 +12,9 @@ export interface SiteEntry {
   favicon: ImageMetadata | string;
 }
 
-export function getFaviconSrc(favicon: ImageMetadata | string): string {
+export const getFaviconSrc = (favicon: ImageMetadata | string): string => {
   return typeof favicon === 'string' ? favicon : favicon.src;
-}
+};
 
 export const TOOLS_USED: SiteEntry[] = [
   {

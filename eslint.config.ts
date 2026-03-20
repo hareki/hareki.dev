@@ -60,6 +60,7 @@ export default defineConfig([
         },
       ],
 
+      'func-style': ['warn', 'expression'],
       '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
       // Starwind UI does a lot of "any" type casting
       '@typescript-eslint/no-explicit-any': 'off',

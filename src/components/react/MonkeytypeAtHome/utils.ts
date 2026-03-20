@@ -1,11 +1,11 @@
 import type { ResultStats, WordState } from './types';
 
-export function calculateResults(
+export const calculateResults = (
   words: WordState[],
   startTime: number,
   endTime: number,
   totalKeystrokes: number,
-): ResultStats {
+): ResultStats => {
   let correct = 0;
   let incorrect = 0;
   let extra = 0;
@@ -36,10 +36,21 @@ export function calculateResults(
   // Accuracy uses totalKeystrokes (includes backspaced chars) instead of just final letter states
   const accuracy = totalKeystrokes > 0 ? (correct / totalKeystrokes) * 100 : 0;
 
-  return { wpm, accuracy, timeSeconds, correct, incorrect, extra, missed, totalKeystrokes };
-}
+  return {
+    wpm,
+    accuracy,
+    timeSeconds,
+    correct,
+    incorrect,
+    extra,
+    missed,
+    totalKeystrokes,
+  };
+};
 
-export function isMac(): boolean {
-  if (typeof navigator === 'undefined') {return false;}
+export const isMac = () => {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
   return /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-}
+};
