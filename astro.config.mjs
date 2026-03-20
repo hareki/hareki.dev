@@ -25,7 +25,11 @@ export default defineConfig({
       HTML: true,
       JavaScript: true,
     }),
-    react(),
+    react({
+      babel: {
+        plugins: ['babel-plugin-react-compiler'],
+      },
+    }),
   ],
 
   adapter: cloudflare(),
@@ -36,4 +40,3 @@ export default defineConfig({
     },
   },
 });
-
