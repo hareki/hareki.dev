@@ -21,7 +21,8 @@ export const Word = memo(
     return (
       <span
         className={cn(
-          showRedUnderline && 'underline decoration-red decoration-2 underline-offset-4',
+          showRedUnderline &&
+            'underline decoration-red decoration-2 underline-offset-4',
         )}
       >
         {word.letters.map((letter, i) => (

@@ -1,4 +1,4 @@
-import { useCallback, useReducer, useRef } from 'react';
+import { useReducer, useRef } from 'react';
 
 import { cn } from 'tailwind-variants';
 
@@ -9,7 +9,9 @@ import { useTapeMode } from './hooks/useTapeMode';
 import { createInitialState, typingReducer } from './reducer';
 
 export const MonkeytypeAtHome = () => {
-  const [state, dispatch] = useReducer(typingReducer, undefined, () => createInitialState());
+  const [state, dispatch] = useReducer(typingReducer, undefined, () =>
+    createInitialState(),
+  );
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const restartButtonRef = useRef<HTMLButtonElement>(null);
@@ -28,18 +30,18 @@ export const MonkeytypeAtHome = () => {
     dispatch,
   });
 
-  const focusInput = useCallback(() => {
+  const focusInput = () => {
     inputRef.current?.focus();
-  }, []);
+  };
 
-  const handleRestart = useCallback(() => {
+  const handleRestart = () => {
     dispatch({ type: 'RESTART' });
     focusInput();
-  }, [focusInput]);
+  };
 
-  const handleToggleTapeMode = useCallback(() => {
+  const handleToggleTapeMode = () => {
     dispatch({ type: 'TOGGLE_TAPE_MODE' });
-  }, []);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     // Cmd/Ctrl + . → toggle tape mode
@@ -76,13 +78,17 @@ export const MonkeytypeAtHome = () => {
     // Single printable character (no meta/ctrl modifiers)
     if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) {
       dispatch({ type: 'TYPE_CHAR', char: e.key, timestamp: Date.now() });
-      if (inputRef.current) {inputRef.current.value = '';}
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
     }
   };
 
   const handleFocus = () => dispatch({ type: 'FOCUS' });
   const handleBlur = (e: React.FocusEvent) => {
-    if (containerRef.current?.contains(e.relatedTarget as Node)) {return;}
+    if (containerRef.current?.contains(e.relatedTarget as Node)) {
+      return;
+    }
     dispatch({ type: 'BLUR' });
   };
 
@@ -123,18 +129,17 @@ export const MonkeytypeAtHome = () => {
         />
       )}
 
-      {state.screen === 'result' && (
-        <ResultScreen state={state} />
-      )}
+      {state.screen === 'result' && <ResultScreen state={state} />}
 
       {/* Always present; hidden during typing, revealed on focus via Tab */}
       <div
         className={cn(
           'transition-opacity',
-          state.screen === 'typing' && `
-            opacity-0
-            focus-within:opacity-100
-          `,
+          state.screen === 'typing' &&
+            `
+              opacity-0
+              focus-within:opacity-100
+            `,
         )}
       >
         <ShortcutHints

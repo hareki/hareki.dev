@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 export function useCaretPosition(
   currentWordIndex: number,
@@ -9,18 +9,20 @@ export function useCaretPosition(
 ) {
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 
-  const registerRef = useCallback((key: string, el: HTMLSpanElement | null) => {
+  const registerRef = (key: string, el: HTMLSpanElement | null) => {
     if (el) {
       letterRefs.current.set(key, el);
     } else {
       letterRefs.current.delete(key);
     }
-  }, []);
+  };
 
   useLayoutEffect(() => {
     const container = containerRef.current;
     const caret = caretRef.current;
-    if (!container || !caret) {return;}
+    if (!container || !caret) {
+      return;
+    }
 
     const containerRect = container.getBoundingClientRect();
 
@@ -68,7 +70,13 @@ export function useCaretPosition(
 
     caret.style.transform = `translate(${x}px, ${y}px)`;
     caret.style.height = `${height}px`;
-  }, [currentWordIndex, currentCharIndex, containerRef, caretRef, isTapeModeOn]);
+  }, [
+    currentWordIndex,
+    currentCharIndex,
+    containerRef,
+    caretRef,
+    isTapeModeOn,
+  ]);
 
   return { registerRef };
 }

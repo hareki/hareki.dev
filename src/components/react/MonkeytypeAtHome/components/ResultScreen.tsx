@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useBestWpm } from '../hooks/useBestWpm';
 import { calculateResults } from '../utils';
 import { CrownIcon } from './CrownIcon';
@@ -12,13 +10,15 @@ interface ResultScreenProps {
 }
 
 export const ResultScreen = ({ state }: ResultScreenProps) => {
-  const stats = useMemo(
-    () => calculateResults(state.words, state.startTime!, state.endTime!, state.totalKeystrokes),
-    [state.words, state.startTime, state.endTime, state.totalKeystrokes],
+  const stats = calculateResults(
+    state.words,
+    state.startTime!,
+    state.endTime!,
+    state.totalKeystrokes,
   );
 
   const { updateBestWpm } = useBestWpm();
-  const isNewBest = useMemo(() => updateBestWpm(stats.wpm), [updateBestWpm, stats.wpm]);
+  const isNewBest = updateBestWpm(stats.wpm);
 
   const wpmLabel = (
     <span className='flex items-center gap-1'>

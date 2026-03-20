@@ -34,10 +34,7 @@ export const TypingScreen = ({
 
   return (
     <div className='flex flex-col gap-4'>
-      <div
-        ref={typingAreaRef}
-        className='relative overflow-hidden'
-      >
+      <div ref={typingAreaRef} className='relative overflow-hidden'>
         <div
           ref={wordsContainerRef}
           className='flex flex-wrap gap-x-2.5 text-lg/relaxed'
