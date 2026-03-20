@@ -1,29 +1,28 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
+import { useTypingStore } from '../store';
 import { TEXT } from '../types';
 
-interface UseTapeModeOptions {
-  isTapeModeOn: boolean;
-  currentWordIndex: number;
-  currentCharIndex: number;
+interface TapeModeManagerProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
   typingAreaRef: React.RefObject<HTMLDivElement | null>;
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
-  dispatch: React.Dispatch<{ type: 'SET_TAPE_MODE_FORCED'; forced: boolean }>;
   caretAnchorPercent?: number;
 }
 
-export function useTapeMode({
-  isTapeModeOn,
-  currentWordIndex,
-  currentCharIndex,
+export const TapeModeManager = ({
   containerRef,
   typingAreaRef,
   wordsContainerRef,
-  dispatch,
   caretAnchorPercent = 50,
-}: UseTapeModeOptions) {
+}: TapeModeManagerProps) => {
   const measureRef = useRef<HTMLDivElement>(null);
+
+  const effectiveTapeMode = useTypingStore(
+    (s) => s.isTapeModeOn || s.isTapeModeForced,
+  );
+  const currentWordIndex = useTypingStore((s) => s.currentWordIndex);
+  const currentCharIndex = useTypingStore((s) => s.currentCharIndex);
 
   // Forced tape mode detection via ResizeObserver
   useEffect(() => {
@@ -35,7 +34,9 @@ export function useTapeMode({
 
     const checkOverflow = () => {
       const isOverflowing = measure.scrollWidth > container.offsetWidth;
-      dispatch({ type: 'SET_TAPE_MODE_FORCED', forced: isOverflowing });
+      useTypingStore
+        .getState()
+        .dispatch({ type: 'SET_TAPE_MODE_FORCED', forced: isOverflowing });
     };
 
     const observer = new ResizeObserver(checkOverflow);
@@ -43,7 +44,7 @@ export function useTapeMode({
     checkOverflow();
 
     return () => observer.disconnect();
-  }, [containerRef, dispatch]);
+  }, [containerRef]);
 
   // Scroll offset calculation for tape mode — directly manipulate DOM
   useLayoutEffect(() => {
@@ -52,7 +53,7 @@ export function useTapeMode({
       return;
     }
 
-    if (!isTapeModeOn) {
+    if (!effectiveTapeMode) {
       wordsContainer.style.transform = '';
       return;
     }
@@ -86,7 +87,12 @@ export function useTapeMode({
         return;
       }
       const lastRect = lastEl.getBoundingClientRect();
-      letterRect = new DOMRect(lastRect.right, lastRect.y, 0, lastRect.height);
+      letterRect = new DOMRect(
+        lastRect.right,
+        lastRect.y,
+        0,
+        lastRect.height,
+      );
     }
 
     const wordsRect = wordsContainer.getBoundingClientRect();
@@ -94,7 +100,7 @@ export function useTapeMode({
 
     wordsContainer.style.transform = `translateX(${computedAnchorX - naturalLeft}px)`;
   }, [
-    isTapeModeOn,
+    effectiveTapeMode,
     currentWordIndex,
     currentCharIndex,
     typingAreaRef,
@@ -102,8 +108,7 @@ export function useTapeMode({
     caretAnchorPercent,
   ]);
 
-  // Hidden measuring element rendered inline by the consumer
-  const measureElement = (
+  return (
     <div
       ref={measureRef}
       className='
@@ -115,6 +120,4 @@ export function useTapeMode({
       {TEXT}
     </div>
   );
-
-  return { measureElement };
-}
+};

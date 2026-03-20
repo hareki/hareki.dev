@@ -1,7 +1,6 @@
-import { memo } from 'react';
-
 import { cn } from 'tailwind-variants';
 
+import { useTypingStore } from '../store';
 import { isMac } from '../utils';
 
 const kbdClass = 'rounded border border-overlay0 px-1.5 py-0.5 text-xs';
@@ -10,21 +9,22 @@ const ghostButtonClass =
   'flex cursor-pointer select-none items-center gap-1.5 rounded-md px-2 py-1 text-overlay1 transition-colors hover:bg-overlay0/10';
 
 interface ShortcutHintsProps {
-  isTapeModeOn: boolean;
-  isTapeModeForced: boolean;
   onRestart: () => void;
-  onToggleTapeMode: () => void;
   restartButtonRef: React.RefObject<HTMLButtonElement | null>;
 }
 
-export const ShortcutHints = memo(function ShortcutHints({
-  isTapeModeOn,
-  isTapeModeForced,
+export const ShortcutHints = function ShortcutHints({
   onRestart,
-  onToggleTapeMode,
   restartButtonRef,
 }: ShortcutHintsProps) {
+  const isTapeModeOn = useTypingStore((s) => s.isTapeModeOn);
+  const isTapeModeForced = useTypingStore((s) => s.isTapeModeForced);
+
   const modKey = isMac() ? 'Cmd' : 'Ctrl';
+
+  const handleToggleTapeMode = () => {
+    useTypingStore.getState().dispatch({ type: 'TOGGLE_TAPE_MODE' });
+  };
 
   return (
     <div className='flex items-center gap-4 text-sm'>
@@ -44,7 +44,7 @@ export const ShortcutHints = memo(function ShortcutHints({
         <button
           type='button'
           className={cn(ghostButtonClass, isTapeModeOn && 'bg-overlay0/10')}
-          onClick={onToggleTapeMode}
+          onClick={handleToggleTapeMode}
           tabIndex={-1}
         >
           <kbd className={kbdClass}>{modKey}</kbd>
@@ -54,4 +54,4 @@ export const ShortcutHints = memo(function ShortcutHints({
       )}
     </div>
   );
-});
+};

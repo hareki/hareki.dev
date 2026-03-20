@@ -1,36 +1,37 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { Caret } from './Caret';
 import { Word } from './Word';
-import { useCaretPosition } from '../hooks/useCaretPosition';
+import { useTypingStore } from '../store';
 import { WORDS } from '../types';
 
-import type { TypingState } from '../types';
-
 interface TypingScreenProps {
-  state: TypingState;
-  isTapeModeOn: boolean;
   typingAreaRef: React.RefObject<HTMLDivElement | null>;
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const TypingScreen = ({
-  state,
-  isTapeModeOn,
   typingAreaRef,
   wordsContainerRef,
 }: TypingScreenProps) => {
-  const caretRef = useRef<HTMLDivElement>(null);
+  const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 
-  const { registerRef } = useCaretPosition(
-    state.currentWordIndex,
-    state.currentCharIndex,
-    typingAreaRef,
-    caretRef,
-    isTapeModeOn,
+  const registerRef = useCallback(
+    (key: string, el: HTMLSpanElement | null) => {
+      if (el) {
+        letterRefs.current.set(key, el);
+      } else {
+        letterRefs.current.delete(key);
+      }
+    },
+    [],
   );
 
-  const isBlinking = state.screen === 'idle';
+  const screen = useTypingStore((s) => s.screen);
+  const wordsTyped = useTypingStore((s) => s.wordsTyped);
+  const effectiveTapeMode = useTypingStore(
+    (s) => s.isTapeModeOn || s.isTapeModeForced,
+  );
 
   return (
     <div className='flex flex-col gap-4'>
@@ -39,7 +40,7 @@ export const TypingScreen = ({
           ref={wordsContainerRef}
           className='flex flex-wrap gap-x-2.5 text-lg/relaxed'
           style={
-            isTapeModeOn
+            effectiveTapeMode
               ? {
                   flexWrap: 'nowrap',
                   whiteSpace: 'nowrap',
@@ -48,27 +49,17 @@ export const TypingScreen = ({
               : undefined
           }
         >
-          {state.words.map((word, i) => (
-            <Word
-              key={i}
-              word={word}
-              wordIndex={i}
-              isActive={i === state.currentWordIndex}
-              registerRef={registerRef}
-            />
+          {WORDS.map((_, i) => (
+            <Word key={i} wordIndex={i} registerRef={registerRef} />
           ))}
         </div>
 
-        <Caret
-          ref={caretRef}
-          isBlinking={isBlinking}
-          isVisible={state.isFocused}
-        />
+        <Caret typingAreaRef={typingAreaRef} letterRefs={letterRefs} />
       </div>
 
-      {state.screen === 'typing' && (
+      {screen === 'typing' && (
         <div className='text-right text-sm text-overlay1'>
-          {state.wordsTyped}/{WORDS.length}
+          {wordsTyped}/{WORDS.length}
         </div>
       )}
     </div>

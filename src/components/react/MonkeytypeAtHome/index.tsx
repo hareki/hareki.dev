@@ -1,49 +1,35 @@
-import { useReducer, useRef } from 'react';
+import { useRef } from 'react';
 
 import { cn } from 'tailwind-variants';
 
 import { ResultScreen } from './components/ResultScreen';
 import { ShortcutHints } from './components/ShortcutHints';
+import { TapeModeManager } from './components/TapeModeManager';
 import { TypingScreen } from './components/TypingScreen';
-import { useTapeMode } from './hooks/useTapeMode';
-import { createInitialState, typingReducer } from './reducer';
+import { useTypingStore } from './store';
 
 export const MonkeytypeAtHome = () => {
-  const [state, dispatch] = useReducer(typingReducer, undefined, () =>
-    createInitialState(),
-  );
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const restartButtonRef = useRef<HTMLButtonElement>(null);
   const typingAreaRef = useRef<HTMLDivElement>(null);
   const wordsContainerRef = useRef<HTMLDivElement>(null);
 
-  const effectiveTapeMode = state.isTapeModeOn || state.isTapeModeForced;
-
-  const { measureElement } = useTapeMode({
-    isTapeModeOn: effectiveTapeMode,
-    currentWordIndex: state.currentWordIndex,
-    currentCharIndex: state.currentCharIndex,
-    containerRef,
-    typingAreaRef,
-    wordsContainerRef,
-    dispatch,
-  });
+  const screen = useTypingStore((s) => s.screen);
+  const isFocused = useTypingStore((s) => s.isFocused);
 
   const focusInput = () => {
     inputRef.current?.focus();
   };
 
   const handleRestart = () => {
-    dispatch({ type: 'RESTART' });
+    useTypingStore.getState().dispatch({ type: 'RESTART' });
     focusInput();
   };
 
-  const handleToggleTapeMode = () => {
-    dispatch({ type: 'TOGGLE_TAPE_MODE' });
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    const { dispatch } = useTypingStore.getState();
+
     // Cmd/Ctrl + . → toggle tape mode
     if (e.key === '.' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
@@ -59,7 +45,7 @@ export const MonkeytypeAtHome = () => {
     }
 
     // On result screen: ignore typing keys
-    if (state.screen === 'result') {
+    if (useTypingStore.getState().screen === 'result') {
       return;
     }
 
@@ -84,12 +70,13 @@ export const MonkeytypeAtHome = () => {
     }
   };
 
-  const handleFocus = () => dispatch({ type: 'FOCUS' });
+  const handleFocus = () =>
+    useTypingStore.getState().dispatch({ type: 'FOCUS' });
   const handleBlur = (e: React.FocusEvent) => {
     if (containerRef.current?.contains(e.relatedTarget as Node)) {
       return;
     }
-    dispatch({ type: 'BLUR' });
+    useTypingStore.getState().dispatch({ type: 'BLUR' });
   };
 
   const handleContainerClick = () => focusInput();
@@ -102,11 +89,15 @@ export const MonkeytypeAtHome = () => {
           relative min-h-50 cursor-text rounded-md p-4 text-sm transition-colors
           duration-350
         `,
-        state.isFocused ? 'bg-secondary' : 'bg-inner-box',
+        isFocused ? 'bg-secondary' : 'bg-inner-box',
       )}
       onClick={handleContainerClick}
     >
-      {measureElement}
+      <TapeModeManager
+        containerRef={containerRef}
+        typingAreaRef={typingAreaRef}
+        wordsContainerRef={wordsContainerRef}
+      />
 
       <input
         ref={inputRef}
@@ -120,22 +111,20 @@ export const MonkeytypeAtHome = () => {
         autoComplete='off'
       />
 
-      {state.screen !== 'result' && (
+      {screen !== 'result' && (
         <TypingScreen
-          state={state}
-          isTapeModeOn={effectiveTapeMode}
           typingAreaRef={typingAreaRef}
           wordsContainerRef={wordsContainerRef}
         />
       )}
 
-      {state.screen === 'result' && <ResultScreen state={state} />}
+      {screen === 'result' && <ResultScreen />}
 
       {/* Always present; hidden during typing, revealed on focus via Tab */}
       <div
         className={cn(
           'transition-opacity',
-          state.screen === 'typing' &&
+          screen === 'typing' &&
             `
               opacity-0
               focus-within:opacity-100
@@ -143,10 +132,7 @@ export const MonkeytypeAtHome = () => {
         )}
       >
         <ShortcutHints
-          isTapeModeOn={state.isTapeModeOn}
-          isTapeModeForced={state.isTapeModeForced}
           onRestart={handleRestart}
-          onToggleTapeMode={handleToggleTapeMode}
           restartButtonRef={restartButtonRef}
         />
       </div>

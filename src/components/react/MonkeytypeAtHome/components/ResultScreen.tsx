@@ -1,21 +1,16 @@
 import { useBestWpm } from '../hooks/useBestWpm';
+import { useTypingStore } from '../store';
 import { calculateResults } from '../utils';
 import { CrownIcon } from './CrownIcon';
 import { StatItem } from './StatItem';
 
-import type { TypingState } from '../types';
+export const ResultScreen = function ResultScreen() {
+  const words = useTypingStore((s) => s.words);
+  const startTime = useTypingStore((s) => s.startTime);
+  const endTime = useTypingStore((s) => s.endTime);
+  const totalKeystrokes = useTypingStore((s) => s.totalKeystrokes);
 
-interface ResultScreenProps {
-  state: TypingState;
-}
-
-export const ResultScreen = ({ state }: ResultScreenProps) => {
-  const stats = calculateResults(
-    state.words,
-    state.startTime!,
-    state.endTime!,
-    state.totalKeystrokes,
-  );
+  const stats = calculateResults(words, startTime!, endTime!, totalKeystrokes);
 
   const { updateBestWpm } = useBestWpm();
   const isNewBest = updateBestWpm(stats.wpm);
