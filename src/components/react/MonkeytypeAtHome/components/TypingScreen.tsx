@@ -24,8 +24,7 @@ const TypingScreen = ({
     }
   };
 
-  const screen = useTypingStore((s) => s.screen);
-  const wordsTyped = useTypingStore((s) => s.wordsTyped);
+  const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
 
   return (
     <div className='flex flex-col gap-4'>
@@ -46,11 +45,7 @@ const TypingScreen = ({
         />
       </div>
 
-      {screen === 'typing' && (
-        <div className='text-right text-sm text-overlay1'>
-          {wordsTyped}/{WORDS.length}
-        </div>
-      )}
+      <TypingProgress />
     </div>
   );
 };
