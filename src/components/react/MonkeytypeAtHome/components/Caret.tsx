@@ -10,7 +10,11 @@ interface CaretProps {
   caretAnchorPercent?: number;
 }
 
-const TOGGLE_DURATION_MS = 400;
+const TOGGLE_DURATION_MS = 600 as const;
+const LetterSliding = {
+  DURATION_MS: 85,
+  TIMING: 'linear',
+} as const;
 
 interface TargetLetter {
   element: HTMLSpanElement;
@@ -112,11 +116,11 @@ const Caret = ({
     const letterX = target.useRightEdge ? letterRect.right : letterRect.left;
     const y = letterRect.top - containerRect.top;
     const height = letterRect.height;
-    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms ease-out`;
+    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms var(--ease-overshoot-soft)`;
 
     // 5. Compute caret X + words container side-effects
     let caretX: number;
-    let caretTransition = '';
+    let caretTransition = `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`;
     let toggleCleanup: (() => void) | null = null;
 
     if (isToggle && effectiveTapeMode) {
@@ -135,7 +139,7 @@ const Caret = ({
 
       toggleCleanup = () => {
         caret.style.transition = '';
-        wordsContainer.style.transition = 'transform 80ms ease-out';
+        wordsContainer.style.transition = `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`;
       };
     } else if (isToggle && !effectiveTapeMode) {
       caretTransition = toggleTransition;
@@ -163,7 +167,7 @@ const Caret = ({
         caretAnchorPercent,
       );
       caretX = anchorX;
-      wordsContainer.style.transition = 'transform 80ms ease-out';
+      wordsContainer.style.transition = `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`;
       wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
     } else {
       // Normal non-tape mode (or tape mode without wordsContainer)
@@ -200,11 +204,14 @@ const Caret = ({
       className={cx(
         `
           pointer-events-none absolute top-0 left-0 w-0.5 rounded-full
-          bg-rosewater transition-transform duration-75 ease-in-out
+          bg-rosewater
         `,
         isBlinking && 'animate-caret-blink',
         !isFocused && 'invisible',
       )}
+      // style={{
+      //   transition: `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`,
+      // }}
     />
   );
 };

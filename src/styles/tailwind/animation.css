@@ -1,7 +1,7 @@
 @theme {
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-caret-blink: caret-blink 1s steps(2, start) infinite;
+  --animate-caret-blink: caret-blink 1s infinite;
 
   @keyframes accordion-down {
     from {
@@ -22,8 +22,13 @@
   }
 
   @keyframes caret-blink {
-    50% {
+    0%,
+    to {
       opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
     }
   }
 }
