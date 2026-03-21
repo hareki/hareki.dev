@@ -7,7 +7,6 @@ import ShortcutHints from './components/ShortcutHints';
 import TapeModeManager from './components/TapeModeManager';
 import TypingScreen from './components/TypingScreen';
 import { useTypingStore } from './store';
-import { isMac } from './utils';
 
 const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -30,8 +29,7 @@ const MonkeytypeAtHome = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    const modKey = isMac() ? e.metaKey : e.ctrlKey;
-    if (e.key === '.' && modKey) {
+    if (e.key === '.' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       dispatch({ type: 'TOGGLE_TAPE_MODE' });
       return;
