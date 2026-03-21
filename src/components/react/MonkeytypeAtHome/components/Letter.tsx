@@ -1,3 +1,5 @@
+import { useTypingStore } from '../store';
+
 import type { LetterStatus } from '../types';
 
 const statusClasses: Record<LetterStatus, string> = {
@@ -8,26 +10,27 @@ const statusClasses: Record<LetterStatus, string> = {
 };
 
 interface LetterProps {
-  char: string;
-  status: LetterStatus;
   wordIndex: number;
   charIndex: number;
   registerRef: (key: string, el: HTMLSpanElement | null) => void;
 }
 
 const Letter = function Letter({
-  char,
-  status,
   wordIndex,
   charIndex,
   registerRef,
 }: LetterProps) {
+  const letter = useTypingStore(
+    (s) => s.words[wordIndex].letters[charIndex],
+  );
+  const char = letter.status === 'extra' ? letter.typed! : letter.expected;
+
   const refCallback = (el: HTMLSpanElement | null) => {
     registerRef(`${wordIndex}-${charIndex}`, el);
   };
 
   return (
-    <span ref={refCallback} className={statusClasses[status]}>
+    <span ref={refCallback} className={statusClasses[letter.status]}>
       {char}
     </span>
   );

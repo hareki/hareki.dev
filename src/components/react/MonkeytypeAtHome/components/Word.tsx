@@ -9,8 +9,12 @@ interface WordProps {
 }
 
 const Word = ({ wordIndex, registerRef }: WordProps) => {
-  const word = useTypingStore((s) => s.words[wordIndex]);
-  const showRedUnderline = word.isCompleted && !word.isCorrect;
+  const isCompleted = useTypingStore((s) => s.words[wordIndex].isCompleted);
+  const isCorrect = useTypingStore((s) => s.words[wordIndex].isCorrect);
+  const letterCount = useTypingStore(
+    (s) => s.words[wordIndex].letters.length,
+  );
+  const showRedUnderline = isCompleted && !isCorrect;
 
   return (
     <span
@@ -19,11 +23,9 @@ const Word = ({ wordIndex, registerRef }: WordProps) => {
           'underline decoration-red decoration-2 underline-offset-4',
       )}
     >
-      {word.letters.map((letter, i) => (
+      {Array.from({ length: letterCount }, (_, i) => (
         <Letter
           key={i}
-          char={letter.status === 'extra' ? letter.typed! : letter.expected}
-          status={letter.status}
           wordIndex={wordIndex}
           charIndex={i}
           registerRef={registerRef}
