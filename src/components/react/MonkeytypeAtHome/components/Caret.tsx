@@ -9,7 +9,7 @@ interface CaretProps {
   letterRefs: React.RefObject<Map<string, HTMLSpanElement>>;
 }
 
-export const Caret = function Caret({ typingAreaRef, letterRefs }: CaretProps) {
+const Caret = function Caret({ typingAreaRef, letterRefs }: CaretProps) {
   const caretRef = useRef<HTMLDivElement>(null);
 
   const isBlinking = useTypingStore((s) => s.screen === 'idle');
@@ -95,3 +95,5 @@ export const Caret = function Caret({ typingAreaRef, letterRefs }: CaretProps) {
     />
   );
 };
+
+export default Caret;

@@ -6,7 +6,7 @@ interface StatItemProps {
   tooltip: string;
 }
 
-export const StatItem = ({ label, value, tooltip }: StatItemProps) => {
+const StatItem = ({ label, value, tooltip }: StatItemProps) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -28,3 +28,5 @@ export const StatItem = ({ label, value, tooltip }: StatItemProps) => {
     </div>
   );
 };
+
+export default StatItem;

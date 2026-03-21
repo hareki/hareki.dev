@@ -1,10 +1,10 @@
 import { useBestWpm } from '../hooks/useBestWpm';
 import { useTypingStore } from '../store';
 import { calculateResults } from '../utils';
-import { IconCrownFilled } from './IconCrownFilled';
-import { StatItem } from './StatItem';
+import IconCrownFilled from './IconCrownFilled';
+import StatItem from './StatItem';
 
-export const ResultScreen = function ResultScreen() {
+const ResultScreen = function ResultScreen() {
   const words = useTypingStore((s) => s.words);
   const startTime = useTypingStore((s) => s.startTime);
   const endTime = useTypingStore((s) => s.endTime);
@@ -53,3 +53,5 @@ export const ResultScreen = function ResultScreen() {
     </div>
   );
 };
+
+export default ResultScreen;

@@ -23,6 +23,12 @@ export default defineConfig([
     extends: [reactHooks.configs.flat.recommended],
   },
   {
+    files: ['**/*.tsx'],
+    rules: {
+      'import-x/prefer-default-export': 'warn',
+    },
+  },
+  {
     files: ['**/*.{ts,tsx,astro}'],
     plugins: {
       'import-x': importX,

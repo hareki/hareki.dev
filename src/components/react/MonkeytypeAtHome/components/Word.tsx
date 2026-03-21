@@ -1,6 +1,6 @@
 import { cn } from 'tailwind-variants';
 
-import { Letter } from './Letter';
+import Letter from './Letter';
 import { useTypingStore } from '../store';
 
 interface WordProps {
@@ -8,7 +8,7 @@ interface WordProps {
   registerRef: (key: string, el: HTMLSpanElement | null) => void;
 }
 
-export const Word = function Word({ wordIndex, registerRef }: WordProps) {
+const Word = function Word({ wordIndex, registerRef }: WordProps) {
   const word = useTypingStore((s) => s.words[wordIndex]);
   const showRedUnderline = word.isCompleted && !word.isCorrect;
 
@@ -32,3 +32,5 @@ export const Word = function Word({ wordIndex, registerRef }: WordProps) {
     </span>
   );
 };
+
+export default Word;

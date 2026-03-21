@@ -18,7 +18,7 @@ interface ShortcutHintsProps {
   restartButtonRef: React.RefObject<HTMLButtonElement | null>;
 }
 
-export const ShortcutHints = function ShortcutHints({
+const ShortcutHints = function ShortcutHints({
   onRestart,
   restartButtonRef,
 }: ShortcutHintsProps) {
@@ -67,3 +67,5 @@ export const ShortcutHints = function ShortcutHints({
     </div>
   );
 };
+
+export default ShortcutHints;

@@ -15,7 +15,7 @@ interface LetterProps {
   registerRef: (key: string, el: HTMLSpanElement | null) => void;
 }
 
-export const Letter = function Letter({
+const Letter = function Letter({
   char,
   status,
   wordIndex,
@@ -32,3 +32,5 @@ export const Letter = function Letter({
     </span>
   );
 };
+
+export default Letter;

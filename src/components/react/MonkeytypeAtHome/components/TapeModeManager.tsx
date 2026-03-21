@@ -10,7 +10,7 @@ interface TapeModeManagerProps {
   caretAnchorPercent?: number;
 }
 
-export const TapeModeManager = ({
+const TapeModeManager = ({
   containerRef,
   typingAreaRef,
   wordsContainerRef,
@@ -121,3 +121,5 @@ export const TapeModeManager = ({
     </div>
   );
 };
+
+export default TapeModeManager;

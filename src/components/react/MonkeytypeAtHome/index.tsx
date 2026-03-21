@@ -2,14 +2,14 @@ import { useRef } from 'react';
 
 import { cn } from 'tailwind-variants';
 
-import { ResultScreen } from './components/ResultScreen';
-import { ShortcutHints } from './components/ShortcutHints';
-import { TapeModeManager } from './components/TapeModeManager';
-import { TypingScreen } from './components/TypingScreen';
+import ResultScreen from './components/ResultScreen';
+import ShortcutHints from './components/ShortcutHints';
+import TapeModeManager from './components/TapeModeManager';
+import TypingScreen from './components/TypingScreen';
 import { useTypingStore } from './store';
 import { isMac } from './utils';
 
-export const MonkeytypeAtHome = () => {
+const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const restartButtonRef = useRef<HTMLButtonElement>(null);
@@ -137,3 +137,5 @@ export const MonkeytypeAtHome = () => {
     </div>
   );
 };
+
+export default MonkeytypeAtHome;

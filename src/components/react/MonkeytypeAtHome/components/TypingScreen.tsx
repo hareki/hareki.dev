@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
-import { Caret } from './Caret';
-import { Word } from './Word';
+import Caret from './Caret';
+import Word from './Word';
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
 
@@ -10,7 +10,7 @@ interface TypingScreenProps {
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export const TypingScreen = ({
+const TypingScreen = ({
   typingAreaRef,
   wordsContainerRef,
 }: TypingScreenProps) => {
@@ -62,3 +62,5 @@ export const TypingScreen = ({
     </div>
   );
 };
+
+export default TypingScreen;
