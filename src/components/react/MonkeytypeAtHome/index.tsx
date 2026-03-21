@@ -66,10 +66,7 @@ const MonkeytypeAtHome = () => {
   };
 
   const handleFocus = () => dispatch({ type: 'FOCUS' });
-  const handleBlur = (e: React.FocusEvent) => {
-    if (containerRef.current?.contains(e.relatedTarget as Node)) {
-      return;
-    }
+  const handleBlur = () => {
     dispatch({ type: 'BLUR' });
   };
 
