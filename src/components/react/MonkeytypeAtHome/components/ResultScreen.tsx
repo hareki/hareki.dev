@@ -1,7 +1,7 @@
 import { useBestWpm } from '../hooks/useBestWpm';
 import { useTypingStore } from '../store';
 import { calculateResults } from '../utils';
-import { CrownIcon } from './CrownIcon';
+import { IconCrownFilled } from './IconCrownFilled';
 import { StatItem } from './StatItem';
 
 export const ResultScreen = function ResultScreen() {
@@ -17,7 +17,7 @@ export const ResultScreen = function ResultScreen() {
 
   const wpmLabel = (
     <span className='flex items-center gap-1'>
-      {isNewBest && <CrownIcon className='text-yellow' />}
+      {isNewBest && <IconCrownFilled className='text-yellow' />}
       wpm
     </span>
   );
