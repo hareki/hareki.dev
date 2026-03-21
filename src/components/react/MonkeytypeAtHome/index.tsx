@@ -12,8 +12,6 @@ const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const restartButtonRef = useRef<HTMLButtonElement>(null);
-  const typingAreaRef = useRef<HTMLDivElement>(null);
-  const wordsContainerRef = useRef<HTMLDivElement>(null);
 
   const screen = useTypingStore((s) => s.screen);
   const isFocused = useTypingStore((s) => s.isFocused);
@@ -103,13 +101,7 @@ const MonkeytypeAtHome = () => {
         autoComplete='off'
       />
 
-      {screen !== 'result' && (
-        <TypingScreen
-          typingAreaRef={typingAreaRef}
-          wordsContainerRef={wordsContainerRef}
-        />
-      )}
-
+      {screen !== 'result' && <TypingScreen />}
       {screen === 'result' && <ResultScreen />}
 
       {/* Always present; hidden during typing, revealed on focus via Tab */}

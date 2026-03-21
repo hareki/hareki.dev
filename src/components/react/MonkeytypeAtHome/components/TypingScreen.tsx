@@ -8,15 +8,8 @@ import { useTypingStore } from '../store';
 import { WORDS } from '../types';
 import TypingProgress from './TypingProgress';
 
-interface TypingScreenProps {
-  typingAreaRef: React.RefObject<HTMLDivElement | null>;
-  wordsContainerRef: React.RefObject<HTMLDivElement | null>;
-}
-
-const TypingScreen = ({
-  typingAreaRef,
-  wordsContainerRef,
-}: TypingScreenProps) => {
+const TypingScreen = () => {
+  const wordsContainerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 
   const registerRef = (key: string, el: HTMLSpanElement | null) => {
@@ -32,23 +25,23 @@ const TypingScreen = ({
   return (
     <div className='flex flex-col gap-4'>
       <div
-        ref={typingAreaRef}
+        data-typing-area
         className={cx(
           `relative overflow-hidden`,
           effectiveTapeMode && 'mask-fade-x',
         )}
       >
-        <div ref={wordsContainerRef} className='flex gap-x-2.5 text-lg/relaxed'>
+        <div
+          data-words-container
+          ref={wordsContainerRef}
+          className='flex gap-x-2.5 text-lg/relaxed'
+        >
           {WORDS.map((_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />
           ))}
         </div>
 
-        <Caret
-          typingAreaRef={typingAreaRef}
-          letterRefs={letterRefs}
-          wordsContainerRef={wordsContainerRef}
-        />
+        <Caret letterRefs={letterRefs} wordsContainerRef={wordsContainerRef} />
       </div>
 
       <TypingProgress />

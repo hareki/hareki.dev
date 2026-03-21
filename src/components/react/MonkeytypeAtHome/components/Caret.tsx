@@ -5,7 +5,6 @@ import { cx } from 'tailwind-variants';
 import { useTypingStore } from '../store';
 
 interface CaretProps {
-  typingAreaRef: React.RefObject<HTMLDivElement | null>;
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;
   letterRefs: React.RefObject<Map<string, HTMLSpanElement>>;
   caretAnchorPercent?: number;
@@ -13,8 +12,42 @@ interface CaretProps {
 
 const TOGGLE_DURATION_MS = 400;
 
+interface TargetLetter {
+  element: HTMLSpanElement;
+  useRightEdge: boolean;
+}
+
+const resolveTargetLetter = (
+  letterRefs: Map<string, HTMLSpanElement>,
+  wordIndex: number,
+  charIndex: number,
+): TargetLetter | null => {
+  const el = letterRefs.get(`${wordIndex}-${charIndex}`);
+  if (el) {
+    return { element: el, useRightEdge: false };
+  }
+
+  const prevEl = letterRefs.get(`${wordIndex}-${charIndex - 1}`);
+  if (prevEl) {
+    return { element: prevEl, useRightEdge: true };
+  }
+
+  const firstEl = letterRefs.get(`${wordIndex}-0`);
+  return firstEl ? { element: firstEl, useRightEdge: false } : null;
+};
+
+const computeAnchorOffsets = (
+  container: HTMLDivElement,
+  wordsContainer: HTMLDivElement,
+  letterX: number,
+  anchorPercent: number,
+) => {
+  const anchorX = container.offsetWidth * (anchorPercent / 100);
+  const naturalLeft = letterX - wordsContainer.getBoundingClientRect().left;
+  return { anchorX, naturalLeft };
+};
+
 const Caret = ({
-  typingAreaRef,
   letterRefs,
   wordsContainerRef,
   caretAnchorPercent = 50,
@@ -22,7 +55,7 @@ const Caret = ({
   const caretRef = useRef<HTMLDivElement>(null);
 
   const isBlinking = useTypingStore((s) => s.screen === 'idle');
-  const isVisible = useTypingStore((s) => s.isFocused);
+  const isFocused = useTypingStore((s) => s.isFocused);
   const currentWordIndex = useTypingStore((s) => s.currentWordIndex);
   const currentCharIndex = useTypingStore((s) => s.currentCharIndex);
   const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
@@ -39,124 +72,120 @@ const Caret = ({
   }, []);
 
   useLayoutEffect(() => {
-    const container = typingAreaRef.current;
-    const caret = caretRef.current;
     const wordsContainer = wordsContainerRef.current;
-    if (!container || !caret) {
-      return;
-    }
+    const caret = caretRef.current;
+    if (!wordsContainer || !caret) {return;}
 
-    // Resolve target letter element (single lookup for both modes)
-    const currentKey = `${currentWordIndex}-${currentCharIndex}`;
-    let targetEl = letterRefs.current.get(currentKey);
-    let useRightEdge = false;
+    // Derive the typing area from wordsContainer's parent — avoids depending
+    // on a parent ref that React attaches *after* this child effect runs.
+    const typingAreaContainer = wordsContainer.parentElement as HTMLDivElement;
 
-    if (!targetEl) {
-      // Past end of word: use previous letter's right edge
-      const prevKey = `${currentWordIndex}-${currentCharIndex - 1}`;
-      targetEl = letterRefs.current.get(prevKey);
-      useRightEdge = true;
+    // 1. Resolve target letter
+    const target = resolveTargetLetter(
+      letterRefs.current,
+      currentWordIndex,
+      currentCharIndex,
+    );
+    if (!target) {return;}
 
-      if (!targetEl) {
-        // Fallback: first letter of current word
-        targetEl = letterRefs.current.get(`${currentWordIndex}-0`);
-        if (!targetEl) {
-          return;
-        }
-        useRightEdge = false;
-      }
-    }
-
+    // 2. Detect toggle + cancel pending timeout
     const isToggle = prevTapeModeRef.current !== effectiveTapeMode;
     prevTapeModeRef.current = effectiveTapeMode;
 
-    // Cancel any pending toggle cleanup on re-toggle
     if (isToggle && toggleTimeoutRef.current) {
       clearTimeout(toggleTimeoutRef.current);
       toggleTimeoutRef.current = null;
     }
 
-    // For non-tape, non-toggle: clear transform before measuring.
-    // Skip if a toggle-off transition is still in progress.
-    if (
-      !effectiveTapeMode &&
-      !isToggle &&
-      !toggleTimeoutRef.current &&
-      wordsContainer
-    ) {
+    // 3. Clear words transform in non-tape steady state
+    if (!effectiveTapeMode && !isToggle && !toggleTimeoutRef.current) {
       wordsContainer.style.transform = '';
     }
 
-    const containerRect = container.getBoundingClientRect();
-    const letterRect = targetEl.getBoundingClientRect();
-    const letterX = useRightEdge ? letterRect.right : letterRect.left;
+    // 4. Shared DOM measurements
+    const containerRect = typingAreaContainer.getBoundingClientRect();
+    const letterRect = target.element.getBoundingClientRect();
+    const letterX = target.useRightEdge ? letterRect.right : letterRect.left;
     const y = letterRect.top - containerRect.top;
     const height = letterRect.height;
     const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms ease-out`;
 
-    if (isToggle && effectiveTapeMode && wordsContainer) {
-      // TOGGLE ON: smooth slide to anchor
-      const anchorX = container.offsetWidth * (caretAnchorPercent / 100);
-      const wordsRect = wordsContainer.getBoundingClientRect();
-      const naturalLeft = letterX - wordsRect.left;
+    // 5. Compute caret X + words container side-effects
+    let caretX: number;
+    let caretTransition = '';
+    let toggleCleanup: (() => void) | null = null;
 
-      caret.style.transition = toggleTransition;
-      caret.style.transform = `translate(${anchorX}px, ${y}px)`;
-      caret.style.height = `${height}px`;
+    if (isToggle && effectiveTapeMode) {
+      // TOGGLE ON: slide caret to anchor, shift words
+      const { anchorX, naturalLeft } = computeAnchorOffsets(
+        typingAreaContainer,
+        wordsContainer,
+        letterX,
+        caretAnchorPercent,
+      );
+      caretX = anchorX;
 
+      caretTransition = toggleTransition;
       wordsContainer.style.transition = toggleTransition;
       wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
 
-      toggleTimeoutRef.current = setTimeout(() => {
+      toggleCleanup = () => {
         caret.style.transition = '';
         wordsContainer.style.transition = 'transform 80ms ease-out';
-        toggleTimeoutRef.current = null;
-      }, TOGGLE_DURATION_MS);
-    } else if (isToggle && !effectiveTapeMode && wordsContainer) {
-      // TOGGLE OFF: smooth slide back to natural position
-      const computedTransform = getComputedStyle(wordsContainer).transform;
-      const currentTranslateX = new DOMMatrix(computedTransform).m41;
-      const naturalLetterX = letterX - currentTranslateX;
-
-      caret.style.transition = toggleTransition;
-      caret.style.transform = `translate(${naturalLetterX - containerRect.left}px, ${y}px)`;
-      caret.style.height = `${height}px`;
-
+      };
+    } else if (isToggle && !effectiveTapeMode) {
+      caretTransition = toggleTransition;
       wordsContainer.style.transition = toggleTransition;
       wordsContainer.style.transform = 'translateX(0px)';
 
-      toggleTimeoutRef.current = setTimeout(() => {
+      // TOGGLE OFF: slide caret back, reset words
+      const currentTranslateX = new DOMMatrix(
+        getComputedStyle(wordsContainer).transform,
+      ).m41;
+
+      caretX = letterX - currentTranslateX - containerRect.left;
+
+      toggleCleanup = () => {
         caret.style.transition = '';
         wordsContainer.style.transition = '';
         wordsContainer.style.transform = '';
+      };
+    } else if (effectiveTapeMode && wordsContainer) {
+      // Normal tape mode: instant position at anchor
+      const { anchorX, naturalLeft } = computeAnchorOffsets(
+        typingAreaContainer,
+        wordsContainer,
+        letterX,
+        caretAnchorPercent,
+      );
+      caretX = anchorX;
+      wordsContainer.style.transition = 'transform 80ms ease-out';
+      wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
+    } else {
+      // Normal non-tape mode (or tape mode without wordsContainer)
+      caretX = letterX - containerRect.left;
+    }
+
+    // 6. Apply caret styles (single place)
+    caret.style.transition = caretTransition;
+    caret.style.transform = `translate(${caretX}px, ${y}px)`;
+    caret.style.height = `${height}px`;
+
+    // 7. Schedule toggle cleanup
+    if (toggleCleanup) {
+      const fn = toggleCleanup;
+      toggleTimeoutRef.current = setTimeout(() => {
+        fn();
         toggleTimeoutRef.current = null;
       }, TOGGLE_DURATION_MS);
-    } else if (effectiveTapeMode) {
-      // Normal tape mode keystroke
-      caret.style.transition = '';
-      const anchorX = container.offsetWidth * (caretAnchorPercent / 100);
-
-      caret.style.transform = `translate(${anchorX}px, ${y}px)`;
-      caret.style.height = `${height}px`;
-
-      if (wordsContainer) {
-        const wordsRect = wordsContainer.getBoundingClientRect();
-        const naturalLeft = letterX - wordsRect.left;
-        wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
-      }
-    } else {
-      // Normal non-tape mode
-      caret.style.transition = '';
-      caret.style.transform = `translate(${letterX - containerRect.left}px, ${y}px)`;
-      caret.style.height = `${height}px`;
     }
   }, [
     caretAnchorPercent,
     currentCharIndex,
     currentWordIndex,
     effectiveTapeMode,
+    isFocused,
     letterRefs,
-    typingAreaRef,
     wordsContainerRef,
   ]);
 
@@ -170,7 +199,7 @@ const Caret = ({
           transition-transform duration-75 ease-in-out
         `,
         isBlinking && 'animate-caret-blink',
-        !isVisible && 'invisible',
+        !isFocused && 'invisible',
       )}
     />
   );
