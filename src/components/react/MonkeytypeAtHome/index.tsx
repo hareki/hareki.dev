@@ -80,10 +80,10 @@ const MonkeytypeAtHome = () => {
       ref={containerRef}
       className={cx(
         `
-          relative min-h-56 cursor-text rounded-md p-4 text-sm transition-colors
-          duration-350
+          relative min-h-56 cursor-text rounded-md bg-inner-box p-4 text-sm
+          transition-shadow duration-350
         `,
-        isFocused ? 'bg-secondary' : 'bg-inner-box',
+        isFocused && 'ring-2 ring-primary/70',
       )}
       onClick={handleContainerClick}
     >

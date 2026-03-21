@@ -74,7 +74,9 @@ const Caret = ({
   useLayoutEffect(() => {
     const wordsContainer = wordsContainerRef.current;
     const caret = caretRef.current;
-    if (!wordsContainer || !caret) {return;}
+    if (!wordsContainer || !caret) {
+      return;
+    }
 
     // Derive the typing area from wordsContainer's parent — avoids depending
     // on a parent ref that React attaches *after* this child effect runs.
@@ -86,7 +88,9 @@ const Caret = ({
       currentWordIndex,
       currentCharIndex,
     );
-    if (!target) {return;}
+    if (!target) {
+      return;
+    }
 
     // 2. Detect toggle + cancel pending timeout
     const isToggle = prevTapeModeRef.current !== effectiveTapeMode;
@@ -195,8 +199,8 @@ const Caret = ({
       ref={caretRef}
       className={cx(
         `
-          pointer-events-none absolute top-0 left-0 w-0.5 bg-foreground
-          transition-transform duration-75 ease-in-out
+          pointer-events-none absolute top-0 left-0 w-0.5 rounded-full
+          bg-rosewater transition-transform duration-75 ease-in-out
         `,
         isBlinking && 'animate-caret-blink',
         !isFocused && 'invisible',
