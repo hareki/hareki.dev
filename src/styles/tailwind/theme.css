@@ -77,6 +77,21 @@ html:is(.ctp-flavor-latte) {
     1.014 84.2%,
     1
   );
+
+  --ease-overshoot-soft: linear(
+    0,
+    0.333 8.5%,
+    0.596 17.4%,
+    0.795 26.9%,
+    0.87 31.9%,
+    0.93 37.1%,
+    1.002 46.9%,
+    1.023 52.2%,
+    1.035 58%,
+    1.035 67.8%,
+    1.006 89.3%,
+    1
+  );
   --breakpoint-xs: 30rem;
 
   --color-rosewater: var(--ctp-rosewater);

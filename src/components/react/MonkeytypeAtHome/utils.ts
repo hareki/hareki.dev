@@ -54,3 +54,7 @@ export const isMac = () => {
   }
   return /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
 };
+
+export const isServer = () => {
+  return typeof window === 'undefined';
+};

@@ -1,7 +1,7 @@
-import { cn, cx } from 'tailwind-variants';
+import { cx } from 'tailwind-variants';
 
 import { useTypingStore } from '../store';
-import { isMac } from '../utils';
+import { isMac, isServer } from '../utils';
 
 const kbdClass = cx('rounded-sm border border-overlay0 px-1.5 py-0.5 text-xs');
 
@@ -26,7 +26,7 @@ const ShortcutHints = function ShortcutHints({
   const isTapeModeForced = useTypingStore((s) => s.isTapeModeForced);
   const dispatch = useTypingStore((s) => s.dispatch);
 
-  const modKey = isMac() ? 'Cmd' : 'Ctrl';
+  const modKey = isServer() ? undefined : isMac() ? 'Cmd' : 'Ctrl';
 
   const handleToggleTapeMode = () => {
     dispatch({ type: 'TOGGLE_TAPE_MODE' });
@@ -37,7 +37,7 @@ const ShortcutHints = function ShortcutHints({
       <button
         ref={restartButtonRef}
         type='button'
-        className={cn(
+        className={cx(
           ghostButtonClass,
           `
             outline-none
@@ -52,10 +52,10 @@ const ShortcutHints = function ShortcutHints({
         <span>Restart</span>
       </button>
 
-      {!isTapeModeForced && (
+      {!isTapeModeForced && modKey && (
         <button
           type='button'
-          className={cn(ghostButtonClass, isTapeModeOn && 'bg-overlay0/10')}
+          className={cx(ghostButtonClass, isTapeModeOn && 'bg-overlay0/10')}
           onClick={handleToggleTapeMode}
           tabIndex={-1}
         >

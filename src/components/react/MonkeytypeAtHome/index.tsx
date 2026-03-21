@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { cn } from 'tailwind-variants';
+import { cx } from 'tailwind-variants';
 
 import ResultScreen from './components/ResultScreen';
 import ShortcutHints from './components/ShortcutHints';
@@ -82,7 +82,7 @@ const MonkeytypeAtHome = () => {
   return (
     <div
       ref={containerRef}
-      className={cn(
+      className={cx(
         `
           relative min-h-50 cursor-text rounded-md p-4 text-sm transition-colors
           duration-350
@@ -91,11 +91,7 @@ const MonkeytypeAtHome = () => {
       )}
       onClick={handleContainerClick}
     >
-      <TapeModeManager
-        containerRef={containerRef}
-        typingAreaRef={typingAreaRef}
-        wordsContainerRef={wordsContainerRef}
-      />
+      <TapeModeManager containerRef={containerRef} />
 
       <input
         ref={inputRef}
@@ -120,7 +116,7 @@ const MonkeytypeAtHome = () => {
 
       {/* Always present; hidden during typing, revealed on focus via Tab */}
       <div
-        className={cn(
+        className={cx(
           'transition-opacity',
           screen === 'typing' &&
             `

@@ -26,9 +26,6 @@ const TypingScreen = ({
 
   const screen = useTypingStore((s) => s.screen);
   const wordsTyped = useTypingStore((s) => s.wordsTyped);
-  const effectiveTapeMode = useTypingStore(
-    (s) => s.isTapeModeOn || s.isTapeModeForced,
-  );
 
   return (
     <div className='flex flex-col gap-4'>
@@ -36,22 +33,17 @@ const TypingScreen = ({
         <div
           ref={wordsContainerRef}
           className='flex gap-x-2.5 text-lg/relaxed'
-          style={
-            effectiveTapeMode
-              ? {
-                  flexWrap: 'nowrap',
-                  whiteSpace: 'nowrap',
-                  transition: 'transform 80ms ease',
-                }
-              : undefined
-          }
         >
           {WORDS.map((_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />
           ))}
         </div>
 
-        <Caret typingAreaRef={typingAreaRef} letterRefs={letterRefs} />
+        <Caret
+          typingAreaRef={typingAreaRef}
+          letterRefs={letterRefs}
+          wordsContainerRef={wordsContainerRef}
+        />
       </div>
 
       {screen === 'typing' && (

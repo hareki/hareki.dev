@@ -1,15 +1,24 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
-import { cn } from 'tailwind-variants';
+import { cx } from 'tailwind-variants';
 
 import { useTypingStore } from '../store';
 
 interface CaretProps {
   typingAreaRef: React.RefObject<HTMLDivElement | null>;
+  wordsContainerRef: React.RefObject<HTMLDivElement | null>;
   letterRefs: React.RefObject<Map<string, HTMLSpanElement>>;
+  caretAnchorPercent?: number;
 }
 
-const Caret = function Caret({ typingAreaRef, letterRefs }: CaretProps) {
+const TOGGLE_DURATION_MS = 600;
+
+const Caret = ({
+  typingAreaRef,
+  letterRefs,
+  wordsContainerRef,
+  caretAnchorPercent = 50,
+}: CaretProps) => {
   const caretRef = useRef<HTMLDivElement>(null);
 
   const isBlinking = useTypingStore((s) => s.screen === 'idle');
@@ -20,78 +29,151 @@ const Caret = function Caret({ typingAreaRef, letterRefs }: CaretProps) {
     (s) => s.isTapeModeOn || s.isTapeModeForced,
   );
 
+  const prevTapeModeRef = useRef(effectiveTapeMode);
+  const toggleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toggleTimeoutRef.current) {
+        clearTimeout(toggleTimeoutRef.current);
+      }
+    };
+  }, []);
+
   useLayoutEffect(() => {
     const container = typingAreaRef.current;
     const caret = caretRef.current;
+    const wordsContainer = wordsContainerRef.current;
     if (!container || !caret) {
       return;
     }
 
-    const containerRect = container.getBoundingClientRect();
-
-    let x: number;
-    let y: number;
-    let height: number;
-
-    // Try to get the current letter element (where the caret should appear before)
+    // Resolve target letter element (single lookup for both modes)
     const currentKey = `${currentWordIndex}-${currentCharIndex}`;
-    const currentEl = letterRefs.current.get(currentKey);
+    let targetEl = letterRefs.current.get(currentKey);
+    let useRightEdge = false;
 
-    if (currentEl) {
-      const rect = currentEl.getBoundingClientRect();
-      x = rect.left - containerRect.left;
-      y = rect.top - containerRect.top;
-      height = rect.height;
-    } else {
-      // If no current letter (past end of word), position after the last letter
+    if (!targetEl) {
+      // Past end of word: use previous letter's right edge
       const prevKey = `${currentWordIndex}-${currentCharIndex - 1}`;
-      const prevEl = letterRefs.current.get(prevKey);
-      if (prevEl) {
-        const rect = prevEl.getBoundingClientRect();
-        x = rect.right - containerRect.left;
-        y = rect.top - containerRect.top;
-        height = rect.height;
-      } else {
+      targetEl = letterRefs.current.get(prevKey);
+      useRightEdge = true;
+
+      if (!targetEl) {
         // Fallback: first letter of current word
-        const firstKey = `${currentWordIndex}-0`;
-        const firstEl = letterRefs.current.get(firstKey);
-        if (firstEl) {
-          const rect = firstEl.getBoundingClientRect();
-          x = rect.left - containerRect.left;
-          y = rect.top - containerRect.top;
-          height = rect.height;
-        } else {
+        targetEl = letterRefs.current.get(`${currentWordIndex}-0`);
+        if (!targetEl) {
           return;
         }
+        useRightEdge = false;
       }
     }
 
-    // In tape mode, x is pinned to the anchor (center of container)
-    if (effectiveTapeMode) {
-      x = container.offsetWidth * 0.5;
+    const isToggle = prevTapeModeRef.current !== effectiveTapeMode;
+    prevTapeModeRef.current = effectiveTapeMode;
+
+    // Cancel any pending toggle cleanup on re-toggle
+    if (isToggle && toggleTimeoutRef.current) {
+      clearTimeout(toggleTimeoutRef.current);
+      toggleTimeoutRef.current = null;
     }
 
-    caret.style.transform = `translate(${x}px, ${y}px)`;
-    caret.style.height = `${height}px`;
+    // For non-tape, non-toggle: clear transform before measuring.
+    // Skip if a toggle-off transition is still in progress.
+    if (
+      !effectiveTapeMode &&
+      !isToggle &&
+      !toggleTimeoutRef.current &&
+      wordsContainer
+    ) {
+      wordsContainer.style.transform = '';
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const letterRect = targetEl.getBoundingClientRect();
+    const letterX = useRightEdge ? letterRect.right : letterRect.left;
+    const y = letterRect.top - containerRect.top;
+    const height = letterRect.height;
+    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms var(--ease-overshoot-soft)`;
+
+    if (isToggle && effectiveTapeMode && wordsContainer) {
+      // TOGGLE ON: smooth slide to anchor
+      const anchorX = container.offsetWidth * (caretAnchorPercent / 100);
+      const wordsRect = wordsContainer.getBoundingClientRect();
+      const naturalLeft = letterX - wordsRect.left;
+
+      caret.style.transition = toggleTransition;
+      caret.style.transform = `translate(${anchorX}px, ${y}px)`;
+      caret.style.height = `${height}px`;
+
+      wordsContainer.style.transition = toggleTransition;
+      wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
+
+      toggleTimeoutRef.current = setTimeout(() => {
+        caret.style.transition = '';
+        wordsContainer.style.transition = 'transform 80ms ease-in-out';
+        toggleTimeoutRef.current = null;
+      }, TOGGLE_DURATION_MS);
+    } else if (isToggle && !effectiveTapeMode && wordsContainer) {
+      // TOGGLE OFF: smooth slide back to natural position
+      const computedTransform = getComputedStyle(wordsContainer).transform;
+      const currentTranslateX = new DOMMatrix(computedTransform).m41;
+      const naturalLetterX = letterX - currentTranslateX;
+
+      caret.style.transition = toggleTransition;
+      caret.style.transform = `translate(${naturalLetterX - containerRect.left}px, ${y}px)`;
+      caret.style.height = `${height}px`;
+
+      wordsContainer.style.transition = toggleTransition;
+      wordsContainer.style.transform = 'translateX(0px)';
+
+      toggleTimeoutRef.current = setTimeout(() => {
+        caret.style.transition = '';
+        wordsContainer.style.transition = '';
+        wordsContainer.style.transform = '';
+        toggleTimeoutRef.current = null;
+      }, TOGGLE_DURATION_MS);
+    } else if (effectiveTapeMode) {
+      // Normal tape mode keystroke
+      caret.style.transition = '';
+      const anchorX = container.offsetWidth * (caretAnchorPercent / 100);
+
+      caret.style.transform = `translate(${anchorX}px, ${y}px)`;
+      caret.style.height = `${height}px`;
+
+      if (wordsContainer) {
+        const wordsRect = wordsContainer.getBoundingClientRect();
+        const naturalLeft = letterX - wordsRect.left;
+        wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
+      }
+    } else {
+      // Normal non-tape mode
+      caret.style.transition = '';
+      caret.style.transform = `translate(${letterX - containerRect.left}px, ${y}px)`;
+      caret.style.height = `${height}px`;
+    }
   }, [
-    currentWordIndex,
+    caretAnchorPercent,
     currentCharIndex,
-    typingAreaRef,
-    letterRefs,
+    currentWordIndex,
     effectiveTapeMode,
+    letterRefs,
+    typingAreaRef,
+    wordsContainerRef,
   ]);
 
   return (
     <div
+      id='caret'
       ref={caretRef}
-      className={cn(
-        'pointer-events-none absolute top-0 left-0 w-0.5 bg-foreground',
+      className={cx(
+        `
+          pointer-events-none absolute top-0 left-0 w-0.5 bg-foreground
+          transition-transform duration-75 ease-in-out
+        `,
         isBlinking && 'animate-caret-blink',
         !isVisible && 'invisible',
       )}
-      style={{
-        transition: 'transform 80ms ease',
-      }}
     />
   );
 };
