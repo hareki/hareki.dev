@@ -80,7 +80,7 @@ const MonkeytypeAtHome = () => {
       ref={containerRef}
       className={cx(
         `
-          relative min-h-50 cursor-text rounded-md p-4 text-sm transition-colors
+          relative min-h-56 cursor-text rounded-md p-4 text-sm transition-colors
           duration-350
         `,
         isFocused ? 'bg-secondary' : 'bg-inner-box',

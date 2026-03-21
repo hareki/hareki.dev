@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { repoFullName } = Astro.props;
-const commitLimit = 5;
+const commitLimit = 4;
 ---
 
 <RepoSummaryContent server:defer {repoFullName} {commitLimit}>
