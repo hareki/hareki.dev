@@ -34,7 +34,7 @@ const TypingScreen = () => {
         <div
           data-words-container
           ref={wordsContainerRef}
-          className='flex gap-x-2.5 text-lg/relaxed'
+          className='flex gap-x-2.5 text-xl font-medium'
         >
           {WORDS.map((_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />
