@@ -1,7 +1,8 @@
+import { IconCrownFilled } from '@tabler/icons-react';
+
 import { useBestWpm } from '../hooks/useBestWpm';
 import { useTypingStore } from '../store';
 import { calculateResults } from '../utils';
-import IconCrownFilled from './IconCrownFilled';
 import StatItem from './StatItem';
 
 const ResultScreen = function ResultScreen() {
