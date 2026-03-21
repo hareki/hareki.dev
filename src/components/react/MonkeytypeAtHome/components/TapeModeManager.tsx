@@ -33,14 +33,19 @@ export const TapeModeManager = ({
       return;
     }
 
-    const checkOverflow = () => {
-      const isOverflowing = measure.scrollWidth > container.offsetWidth;
+    const checkOverflow = (
+      measureScrollWidth: number,
+      containerContentWidth: number,
+    ) => {
+      const isOverflowing = measureScrollWidth > containerContentWidth;
       dispatch({ type: 'SET_TAPE_MODE_FORCED', forced: isOverflowing });
     };
 
-    const observer = new ResizeObserver(checkOverflow);
+    const observer = new ResizeObserver(([entry]) => {
+      checkOverflow(measure.scrollWidth, entry.contentBoxSize[0].inlineSize);
+    });
+
     observer.observe(container);
-    checkOverflow();
 
     return () => observer.disconnect();
   }, [containerRef, dispatch]);
@@ -108,8 +113,7 @@ export const TapeModeManager = ({
     <div
       ref={measureRef}
       className='
-        pointer-events-none invisible absolute top-0 left-0 text-lg
-        whitespace-nowrap
+        pointer-events-none invisible absolute text-lg whitespace-nowrap
       '
       aria-hidden='true'
     >

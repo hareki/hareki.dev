@@ -35,7 +35,7 @@ export const TypingScreen = ({
       <div ref={typingAreaRef} className='relative overflow-hidden'>
         <div
           ref={wordsContainerRef}
-          className='flex flex-wrap gap-x-2.5 text-lg/relaxed'
+          className='flex gap-x-2.5 text-lg/relaxed'
           style={
             effectiveTapeMode
               ? {
