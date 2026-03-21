@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { cx } from 'tailwind-variants';
 
 import ResultScreen from './components/ResultScreen';
-import ShortcutHints from './components/ShortcutHints';
+import TypingControls from './components/TypingControls';
 import TypingScreen from './components/TypingScreen';
 import { useTypingStore } from './store';
 
@@ -76,15 +76,13 @@ const MonkeytypeAtHome = () => {
       ref={containerRef}
       className={cx(
         `
-          relative min-h-56 cursor-text rounded-md bg-inner-box p-4 text-sm
-          transition-shadow duration-350
+          relative flex-center min-h-56 cursor-text rounded-md bg-inner-box p-4
+          text-sm transition-shadow duration-350
         `,
-        isFocused && 'ring-2 ring-primary/70',
+        isFocused && screen !== 'result' && 'ring-2 ring-primary/70',
       )}
       onClick={handleContainerClick}
     >
-      {/* <TapeModeManager containerRef={containerRef} /> */}
-
       <input
         ref={inputRef}
         className='absolute size-0 opacity-0'
@@ -96,22 +94,11 @@ const MonkeytypeAtHome = () => {
         autoCorrect='off'
         autoComplete='off'
       />
+      <div className='-translate-y-2.5'>
+        {screen !== 'result' && <TypingScreen containerRef={containerRef} />}
+        {screen === 'result' && <ResultScreen />}
 
-      {screen !== 'result' && <TypingScreen containerRef={containerRef} />}
-      {screen === 'result' && <ResultScreen />}
-
-      {/* Always present; hidden during typing, revealed on focus via Tab */}
-      <div
-        className={cx(
-          'transition-opacity',
-          screen === 'typing' &&
-            `
-              opacity-0
-              focus-within:opacity-100
-            `,
-        )}
-      >
-        <ShortcutHints
+        <TypingControls
           onRestart={handleRestart}
           restartButtonRef={restartButtonRef}
         />

@@ -4,10 +4,9 @@ import { cx } from 'tailwind-variants';
 
 import Caret from './Caret';
 import Word from './Word';
+import { useForcedTapeMode } from '../hooks/useForcedTapeMode';
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
-import TypingProgress from './TypingProgress';
-import { useForcedTapeMode } from '../hooks/useForcedTapeMode';
 
 interface TypingScreenProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -50,8 +49,6 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
 
         <Caret letterRefs={letterRefs} wordsContainerRef={wordsContainerRef} />
       </div>
-
-      <TypingProgress />
     </div>
   );
 };

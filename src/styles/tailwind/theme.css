@@ -26,7 +26,6 @@
   --secondary-foreground: var(--ctp-text);
   --secondary-accent: var(--ctp-text);
   --secondary-focus: var(--ctp-overlay2);
-  --muted: var(--ctp-mantle);
   --muted-foreground: var(--ctp-overlay1);
   --subtext0-foreground: var(--ctp-subtext0);
   --subtext1-foreground: var(--ctp-subtext1);
@@ -133,7 +132,6 @@ html:is(.ctp-flavor-latte) {
   --color-secondary-accent: var(--secondary-accent);
   --color-secondary-focus: var(--secondary-focus);
 
-  --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
 
   --color-subtext0-foreground: var(--subtext0-foreground);

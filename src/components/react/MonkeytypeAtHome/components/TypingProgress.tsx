@@ -1,20 +1,21 @@
-import type { FC } from 'react';
+import { cx } from 'tailwind-variants';
 
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
 
-type Props = object;
+interface TypingProgressProps {
+  className?: string;
+}
 
-const TypingProgress: FC<Props> = () => {
-  const screen = useTypingStore((s) => s.screen);
+const TypingProgress = ({ className }: TypingProgressProps) => {
   const wordsTyped = useTypingStore((s) => s.wordsTyped);
 
   return (
-    screen === 'typing' && (
-      <div className='text-right text-sm text-overlay1'>
-        {wordsTyped}/{WORDS.length}
-      </div>
-    )
+    <div
+      className={cx('text-right text-base text-muted-foreground', className)}
+    >
+      {wordsTyped}/{WORDS.length}
+    </div>
   );
 };
 
