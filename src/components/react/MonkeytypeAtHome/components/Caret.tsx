@@ -11,7 +11,7 @@ interface CaretProps {
   caretAnchorPercent?: number;
 }
 
-const TOGGLE_DURATION_MS = 600;
+const TOGGLE_DURATION_MS = 400;
 
 const Caret = ({
   typingAreaRef,
@@ -25,9 +25,7 @@ const Caret = ({
   const isVisible = useTypingStore((s) => s.isFocused);
   const currentWordIndex = useTypingStore((s) => s.currentWordIndex);
   const currentCharIndex = useTypingStore((s) => s.currentCharIndex);
-  const effectiveTapeMode = useTypingStore(
-    (s) => s.isTapeModeOn || s.isTapeModeForced,
-  );
+  const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
 
   const prevTapeModeRef = useRef(effectiveTapeMode);
   const toggleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -94,7 +92,7 @@ const Caret = ({
     const letterX = useRightEdge ? letterRect.right : letterRect.left;
     const y = letterRect.top - containerRect.top;
     const height = letterRect.height;
-    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms var(--ease-overshoot-soft)`;
+    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms ease-out`;
 
     if (isToggle && effectiveTapeMode && wordsContainer) {
       // TOGGLE ON: smooth slide to anchor
@@ -111,7 +109,7 @@ const Caret = ({
 
       toggleTimeoutRef.current = setTimeout(() => {
         caret.style.transition = '';
-        wordsContainer.style.transition = 'transform 80ms ease-in-out';
+        wordsContainer.style.transition = 'transform 80ms ease-out';
         toggleTimeoutRef.current = null;
       }, TOGGLE_DURATION_MS);
     } else if (isToggle && !effectiveTapeMode && wordsContainer) {

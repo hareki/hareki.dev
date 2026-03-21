@@ -12,6 +12,10 @@
     color var(--duration) ease-in-out !important;
 }
 
+@utility mask-fade-x {
+  mask-image: linear-gradient(90deg, #0000 1%, #000 10% 90%, #0000 99%);
+}
+
 @utility muted-icon {
   @apply light:opacity-90 opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0 group-data-[state=open]:opacity-100;
 }

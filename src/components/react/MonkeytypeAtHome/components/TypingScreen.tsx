@@ -1,9 +1,12 @@
 import { useRef } from 'react';
 
+import { cx } from 'tailwind-variants';
+
 import Caret from './Caret';
 import Word from './Word';
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
+import TypingProgress from './TypingProgress';
 
 interface TypingScreenProps {
   typingAreaRef: React.RefObject<HTMLDivElement | null>;
@@ -28,11 +31,14 @@ const TypingScreen = ({
 
   return (
     <div className='flex flex-col gap-4'>
-      <div ref={typingAreaRef} className='relative overflow-hidden'>
-        <div
-          ref={wordsContainerRef}
-          className='flex gap-x-2.5 text-lg/relaxed'
-        >
+      <div
+        ref={typingAreaRef}
+        className={cx(
+          `relative overflow-hidden`,
+          effectiveTapeMode && 'mask-fade-x',
+        )}
+      >
+        <div ref={wordsContainerRef} className='flex gap-x-2.5 text-lg/relaxed'>
           {WORDS.map((_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />
           ))}
