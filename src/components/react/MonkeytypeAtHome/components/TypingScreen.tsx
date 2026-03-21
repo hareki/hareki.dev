@@ -7,10 +7,17 @@ import Word from './Word';
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
 import TypingProgress from './TypingProgress';
+import { useForcedTapeMode } from '../hooks/useForcedTapeMode';
 
-const TypingScreen = () => {
+interface TypingScreenProps {
+  containerRef: React.RefObject<HTMLDivElement | null>;
+}
+
+const TypingScreen = ({ containerRef }: TypingScreenProps) => {
   const wordsContainerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
+
+  useForcedTapeMode(containerRef, wordsContainerRef);
 
   const registerRef = (key: string, el: HTMLSpanElement | null) => {
     if (el) {

@@ -1,21 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { useTypingStore } from '../store';
-import { TEXT } from '../types';
 
-interface TapeModeManagerProps {
-  containerRef: React.RefObject<HTMLDivElement | null>;
-}
+type ContainerRef = React.RefObject<HTMLDivElement | null>;
 
-const TapeModeManager = ({ containerRef }: TapeModeManagerProps) => {
-  const measureRef = useRef<HTMLDivElement>(null);
-
+export const useForcedTapeMode = (
+  containerRef: ContainerRef,
+  wordsContainerRef: ContainerRef,
+) => {
   const dispatch = useTypingStore((s) => s.dispatch);
 
   // Forced tape mode detection via ResizeObserver
   useEffect(() => {
     const container = containerRef.current;
-    const measure = measureRef.current;
+    const measure = wordsContainerRef.current;
     if (!container || !measure) {
       return;
     }
@@ -35,19 +33,5 @@ const TapeModeManager = ({ containerRef }: TapeModeManagerProps) => {
     observer.observe(container);
 
     return () => observer.disconnect();
-  }, [containerRef, dispatch]);
-
-  return (
-    <div
-      ref={measureRef}
-      className='
-        pointer-events-none invisible absolute text-lg whitespace-nowrap
-      '
-      aria-hidden='true'
-    >
-      {TEXT}
-    </div>
-  );
+  }, [containerRef, dispatch, wordsContainerRef]);
 };
-
-export default TapeModeManager;

@@ -4,7 +4,6 @@ import { cx } from 'tailwind-variants';
 
 import ResultScreen from './components/ResultScreen';
 import ShortcutHints from './components/ShortcutHints';
-import TapeModeManager from './components/TapeModeManager';
 import TypingScreen from './components/TypingScreen';
 import { useTypingStore } from './store';
 
@@ -84,7 +83,7 @@ const MonkeytypeAtHome = () => {
       )}
       onClick={handleContainerClick}
     >
-      <TapeModeManager containerRef={containerRef} />
+      {/* <TapeModeManager containerRef={containerRef} /> */}
 
       <input
         ref={inputRef}
@@ -98,7 +97,7 @@ const MonkeytypeAtHome = () => {
         autoComplete='off'
       />
 
-      {screen !== 'result' && <TypingScreen />}
+      {screen !== 'result' && <TypingScreen containerRef={containerRef} />}
       {screen === 'result' && <ResultScreen />}
 
       {/* Always present; hidden during typing, revealed on focus via Tab */}
