@@ -37,17 +37,14 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
         data-typing-area
         key={text}
         className={cx(
-          `relative overflow-hidden`,
+          `relative animate-in overflow-hidden duration-750 fade-in-0`,
           effectiveTapeMode && 'mask-fade-x',
         )}
       >
         <div
           data-words-container
           ref={wordsContainerRef}
-          key={text}
-          className='
-            flex animate-in gap-x-2.5 text-xl font-medium duration-750 fade-in-0
-          '
+          className='flex gap-x-2.5 text-xl font-medium'
         >
           {Array.from({ length: wordCount }, (_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />

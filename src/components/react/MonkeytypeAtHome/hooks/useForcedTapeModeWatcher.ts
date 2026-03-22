@@ -13,8 +13,8 @@ export const useForcedTapeModeWatcher = (
   // Forced tape mode detection via ResizeObserver
   useEffect(() => {
     const container = containerRef.current;
-    const measure = wordsContainerRef.current;
-    if (!container || !measure) {
+    const wordsContainer = wordsContainerRef.current;
+    if (!container || !wordsContainer) {
       return;
     }
 
@@ -27,7 +27,10 @@ export const useForcedTapeModeWatcher = (
     };
 
     const observer = new ResizeObserver(([entry]) => {
-      checkOverflow(measure.scrollWidth, entry.contentBoxSize[0].inlineSize);
+      checkOverflow(
+        wordsContainer.scrollWidth,
+        entry.contentBoxSize[0].inlineSize,
+      );
     });
 
     observer.observe(container);
