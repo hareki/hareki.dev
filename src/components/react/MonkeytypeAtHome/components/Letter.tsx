@@ -6,7 +6,7 @@ const statusClasses: Record<LetterStatus, string> = {
   untyped: 'text-overlay1',
   correct: 'text-foreground',
   incorrect: 'text-red',
-  extra: 'text-red opacity-50',
+  extra: 'text-maroon',
 };
 
 interface LetterProps {
@@ -20,9 +20,7 @@ const Letter = function Letter({
   charIndex,
   registerRef,
 }: LetterProps) {
-  const letter = useTypingStore(
-    (s) => s.words[wordIndex].letters[charIndex],
-  );
+  const letter = useTypingStore((s) => s.words[wordIndex].letters[charIndex]);
   const char = letter.status === 'extra' ? letter.typed! : letter.expected;
 
   const refCallback = (el: HTMLSpanElement | null) => {
