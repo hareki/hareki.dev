@@ -57,7 +57,11 @@ const MonkeytypeAtHome = () => {
 
     // Single printable character (no meta/ctrl modifiers)
     if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) {
-      dispatch({ type: 'TYPE_CHAR', char: e.key, timestamp: performance.now() });
+      dispatch({
+        type: 'TYPE_CHAR',
+        char: e.key,
+        timestamp: performance.now(),
+      });
       if (inputRef.current) {
         inputRef.current.value = '';
       }
