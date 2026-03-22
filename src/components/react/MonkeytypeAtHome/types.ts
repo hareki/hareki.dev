@@ -25,6 +25,7 @@ export interface WordState {
 
 export interface TypingState {
   screen: Screen;
+  text: string;
   words: WordState[];
   currentWordIndex: number;
   currentCharIndex: number;

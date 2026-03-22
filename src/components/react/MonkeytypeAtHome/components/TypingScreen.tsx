@@ -28,12 +28,14 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
   };
 
   const wordCount = useTypingStore((s) => s.words.length);
+  const text = useTypingStore((s) => s.text);
   const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
 
   return (
     <div className='flex flex-col gap-4'>
       <div
         data-typing-area
+        key={text}
         className={cx(
           `relative overflow-hidden`,
           effectiveTapeMode && 'mask-fade-x',
@@ -42,7 +44,10 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
         <div
           data-words-container
           ref={wordsContainerRef}
-          className='flex gap-x-2.5 text-xl font-medium'
+          key={text}
+          className='
+            flex animate-in gap-x-2.5 text-xl font-medium duration-750 fade-in-0
+          '
         >
           {Array.from({ length: wordCount }, (_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />

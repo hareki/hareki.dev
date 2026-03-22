@@ -29,10 +29,12 @@ export const createInitialState = (
     Pick<TypingState, 'isTapeModeOn' | 'isTapeModeForced' | 'isFocused'>
   >,
 ): TypingState => {
-  const words = TEXTS[textIndex].split(' ');
+  const text = TEXTS[textIndex];
+  const words = text.split(' ');
   return {
     screen: 'idle',
     words: words.map(createWord),
+    text,
     currentWordIndex: 0,
     currentCharIndex: 0,
     wordsTyped: 0,
