@@ -45,15 +45,16 @@ const TypingControls = ({
         )}
       </div>
 
-      <TypingProgress
-        className={cx(
-          `
-            absolute top-1/2 right-0 -translate-y-1/2 opacity-0
-            transition-opacity
-          `,
-          screen === 'typing' && 'opacity-100',
-        )}
-      />
+      {screen === 'typing' && (
+        <TypingProgress
+          className={cx(
+            `
+              absolute top-1/2 right-0 -translate-y-1/2 animate-in
+              transition-opacity duration-350 fade-in
+            `,
+          )}
+        />
+      )}
     </div>
   );
 };
