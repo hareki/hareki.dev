@@ -66,7 +66,7 @@ const ResultScreen = function ResultScreen() {
         />
       </div>
 
-      <p className='text-center text-base text-subtext0-foreground'>
+      <p className='max-w-prose text-center text-base text-subtext0-foreground'>
         You didn't have to try this, glad you did. Thanks!
       </p>
     </div>
