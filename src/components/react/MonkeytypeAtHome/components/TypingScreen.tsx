@@ -7,6 +7,7 @@ import Word from './Word';
 import { useForcedTapeModeWatcher } from '../hooks/useForcedTapeModeWatcher';
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
+import TypingTransition from './TypingTransition';
 
 interface TypingScreenProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -15,6 +16,7 @@ interface TypingScreenProps {
 const TypingScreen = ({ containerRef }: TypingScreenProps) => {
   const wordsContainerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
+  const caretRef = useRef<HTMLDivElement>(null);
 
   useForcedTapeModeWatcher(containerRef, wordsContainerRef);
 
@@ -47,7 +49,12 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
           ))}
         </div>
 
-        <Caret letterRefs={letterRefs} wordsContainerRef={wordsContainerRef} />
+        <Caret ref={caretRef} />
+        <TypingTransition
+          letterRefs={letterRefs}
+          wordsContainerRef={wordsContainerRef}
+          caretRef={caretRef}
+        />
       </div>
     </div>
   );
