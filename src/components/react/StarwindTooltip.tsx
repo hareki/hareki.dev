@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 
 import { IconCaretUpFilled } from '@tabler/icons-react';
 
@@ -32,8 +32,18 @@ const StarwindTooltip = ({
   disableHoverableContent = false,
   className,
 }: StarwindTooltipProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    const contentEl = contentRef.current;
     initStarwind();
+
+    return () => {
+      if (contentEl?.parentElement === document.body) {
+        contentEl.remove();
+      }
+      initStarwind();
+    };
   }, []);
 
   return (
@@ -47,6 +57,7 @@ const StarwindTooltip = ({
     >
       {children}
       <div
+        ref={contentRef}
         className={tooltipContent()}
         data-state='closed'
         data-side={side}
