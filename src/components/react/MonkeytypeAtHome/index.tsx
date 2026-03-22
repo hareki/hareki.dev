@@ -45,7 +45,7 @@ const MonkeytypeAtHome = () => {
 
     if (e.key === ' ') {
       e.preventDefault();
-      dispatch({ type: 'SPACE', timestamp: Date.now() });
+      dispatch({ type: 'SPACE', timestamp: performance.now() });
       return;
     }
 
@@ -57,7 +57,7 @@ const MonkeytypeAtHome = () => {
 
     // Single printable character (no meta/ctrl modifiers)
     if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) {
-      dispatch({ type: 'TYPE_CHAR', char: e.key, timestamp: Date.now() });
+      dispatch({ type: 'TYPE_CHAR', char: e.key, timestamp: performance.now() });
       if (inputRef.current) {
         inputRef.current.value = '';
       }
