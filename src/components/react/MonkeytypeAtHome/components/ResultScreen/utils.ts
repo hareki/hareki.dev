@@ -1,4 +1,5 @@
-import type { ResultStats, WordState } from './types';
+import type { ResultStats } from './types';
+import type { WordState } from '../../hooks/useTypingStore/types';
 
 export const calculateResults = (
   words: WordState[],

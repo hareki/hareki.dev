@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useTypingStore } from '../store';
+import { useTypingStore } from './useTypingStore';
 
 type ContainerRef = React.RefObject<HTMLDivElement | null>;
 

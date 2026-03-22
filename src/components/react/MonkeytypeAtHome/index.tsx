@@ -5,7 +5,7 @@ import { cx } from 'tailwind-variants';
 import ResultScreen from './components/ResultScreen';
 import TypingControls from './components/TypingControls';
 import TypingScreen from './components/TypingScreen';
-import { useTypingStore } from './store';
+import { useTypingStore } from './hooks/useTypingStore';
 
 const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);

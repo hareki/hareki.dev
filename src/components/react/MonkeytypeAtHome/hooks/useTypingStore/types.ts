@@ -1,12 +1,3 @@
-export const TEXTS = [
-  'Simplicity is the ultimate sophistication',
-  'Great things never came from comfort zones',
-  'Your limitation is only your imagination',
-  'In the middle of difficulty lies opportunity',
-  'The harder you work the luckier you get',
-  'Doubt kills more dreams than failure ever will',
-];
-
 export type Screen = 'idle' | 'typing' | 'result';
 export type LetterStatus = 'untyped' | 'correct' | 'incorrect' | 'extra';
 
@@ -36,17 +27,6 @@ export interface TypingState {
   isTapeModeOn: boolean;
   isTapeModeForced: boolean;
   isFocused: boolean;
-}
-
-export interface ResultStats {
-  wpm: number;
-  accuracy: number;
-  timeSeconds: number;
-  correct: number;
-  incorrect: number;
-  extra: number;
-  missed: number;
-  totalKeystrokes: number;
 }
 
 export type TypingAction =

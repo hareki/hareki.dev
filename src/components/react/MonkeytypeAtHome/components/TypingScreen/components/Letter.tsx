@@ -1,6 +1,6 @@
-import { useTypingStore } from '../store';
+import { useTypingStore } from '../../../hooks/useTypingStore';
 
-import type { LetterStatus } from '../types';
+import type { LetterStatus } from '../../../hooks/useTypingStore/types';
 
 const statusClasses: Record<LetterStatus, string> = {
   untyped: 'text-overlay1',

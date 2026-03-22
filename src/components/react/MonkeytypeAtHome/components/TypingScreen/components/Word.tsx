@@ -1,7 +1,7 @@
 import { cx } from 'tailwind-variants';
 
 import Letter from './Letter';
-import { useTypingStore } from '../store';
+import { useTypingStore } from '../../../hooks/useTypingStore';
 
 interface WordProps {
   wordIndex: number;

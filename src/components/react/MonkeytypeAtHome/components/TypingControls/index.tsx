@@ -1,8 +1,8 @@
 import { cx } from 'tailwind-variants';
 
-import ShortcutHintButton from './ShortcutHintButton';
-import TypingProgress from './TypingProgress';
-import { useTypingStore } from '../store';
+import ShortcutHintButton from './components/ShortcutHintButton';
+import TypingProgress from './components/TypingProgress';
+import { useTypingStore } from '../../hooks/useTypingStore';
 
 interface TypingControlsProps {
   onRestart: () => void;

@@ -3,18 +3,14 @@ import { useEffect, useState } from 'react';
 import { IconCrownFilled } from '@tabler/icons-react';
 import { cx } from 'tailwind-variants';
 
-import { useBestWpm } from '../hooks/useBestWpm';
-import { createShuffledCycler } from '../shuffled-cycler';
-import { useTypingStore } from '../store';
-import { calculateResults } from '../utils';
-import StatItem from './StatItem';
-import StarwindTooltip from '../../StarwindTooltip';
+import StarwindTooltip from '@/components/react/StarwindTooltip';
 
-const RESULT_MESSAGES = [
-  "You didn't have to try this, glad you did. Thanks!",
-  'Fun fact: this component is named MonkeytypeAtHome in the code.',
-  'Hope you had fun trying this out. I sure had fun building it!',
-];
+import StatItem from './components/StatItem';
+import { RESULT_MESSAGES } from './constants';
+import { calculateResults } from './utils';
+import { useBestWpm } from '../../hooks/useBestWpm';
+import { useTypingStore } from '../../hooks/useTypingStore';
+import { createShuffledCycler } from '../../utils/shuffled-cycler';
 
 const messageCycler = createShuffledCycler(RESULT_MESSAGES.length);
 

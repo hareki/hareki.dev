@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
+import { useTypingStore } from '@/components/react/MonkeytypeAtHome/hooks/useTypingStore';
+
 import { resolveTargetLetter, computeAnchorOffsets } from './utils';
-import { useTypingStore } from '../../store';
 
 interface CaretProps {
   wordsContainerRef: React.RefObject<HTMLDivElement | null>;

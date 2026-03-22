@@ -1,27 +1,12 @@
-import { createShuffledCycler } from './shuffled-cycler';
-import { TEXTS } from './types';
+import { create } from 'zustand';
 
-import type {
-  LetterState,
-  TypingAction,
-  TypingState,
-  WordState,
-} from './types';
+import { TYPING_TEXTS } from './constants';
+import { createWord, computeIsCorrect } from './utils';
+import { createShuffledCycler } from '../../utils/shuffled-cycler';
 
-export const textCycler = createShuffledCycler(TEXTS.length);
+import type { TypingState, TypingAction, LetterState } from './types';
 
-const createWord = (word: string): WordState => {
-  return {
-    letters: word.split('').map((char) => ({
-      expected: char,
-      typed: null,
-      status: 'untyped' as const,
-    })),
-    expectedLength: word.length,
-    isCompleted: false,
-    isCorrect: false,
-  };
-};
+export const textCycler = createShuffledCycler(TYPING_TEXTS.length);
 
 export const createInitialState = (
   textIndex: number,
@@ -29,7 +14,7 @@ export const createInitialState = (
     Pick<TypingState, 'isTapeModeOn' | 'isTapeModeForced' | 'isFocused'>
   >,
 ): TypingState => {
-  const text = TEXTS[textIndex];
+  const text = TYPING_TEXTS[textIndex];
   const words = text.split(' ');
   return {
     screen: 'idle',
@@ -45,10 +30,6 @@ export const createInitialState = (
     isTapeModeForced: overrides?.isTapeModeForced ?? false,
     isFocused: overrides?.isFocused ?? false,
   };
-};
-
-const computeIsCorrect = (letters: LetterState[]): boolean => {
-  return letters.every((l) => l.status === 'correct');
 };
 
 export const typingReducer = (
@@ -269,3 +250,26 @@ export const typingReducer = (
       return state;
   }
 };
+
+export interface TypingStore extends TypingState {
+  dispatch: (action: TypingAction) => void;
+  getEffectiveTapeMode: () => boolean;
+}
+
+let cachedState: TypingState = createInitialState(0);
+
+export const useTypingStore = create<TypingStore>((set, get) => ({
+  ...cachedState,
+  getEffectiveTapeMode: () => {
+    const state = get();
+    return state.isTapeModeOn || state.isTapeModeForced;
+  },
+  dispatch: (action) => {
+    const next = typingReducer(cachedState, action);
+    if (next === cachedState) {
+      return;
+    }
+    cachedState = next;
+    set(next);
+  },
+}));

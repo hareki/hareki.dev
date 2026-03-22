@@ -2,11 +2,11 @@ import { useRef } from 'react';
 
 import { cx } from 'tailwind-variants';
 
-import Caret from './Caret';
-import Word from './Word';
-import { useForcedTapeModeWatcher } from '../hooks/useForcedTapeModeWatcher';
-import { useTypingStore } from '../store';
-import TypingTransition from './TypingTransition';
+import Caret from './components/Caret';
+import TypingTransition from './components/TypingTransition';
+import Word from './components/Word';
+import { useForcedTapeModeWatcher } from '../../hooks/useForcedTapeModeWatcher';
+import { useTypingStore } from '../../hooks/useTypingStore';
 
 interface TypingScreenProps {
   containerRef: React.RefObject<HTMLDivElement | null>;

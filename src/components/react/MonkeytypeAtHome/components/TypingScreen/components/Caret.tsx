@@ -1,6 +1,6 @@
 import { cx } from 'tailwind-variants';
 
-import { useTypingStore } from '../store';
+import { useTypingStore } from '../../../hooks/useTypingStore';
 
 interface CaretProps {
   ref: React.RefObject<HTMLDivElement | null>;
