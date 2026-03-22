@@ -2,6 +2,7 @@ import { cx } from 'tailwind-variants';
 
 import ShortcutHintButton from './components/ShortcutHintButton';
 import TypingProgress from './components/TypingProgress';
+import { COMPONENT_TRANSITION_CLASS } from '../../constants';
 import { useTypingStore } from '../../hooks/useTypingStore';
 
 interface TypingControlsProps {
@@ -31,10 +32,8 @@ const TypingControls = ({
           label='Restart'
           onClick={onRestart}
           className={cx(
-            `
-              animate-in duration-350 fade-in
-              focus-within:opacity-100
-            `,
+            COMPONENT_TRANSITION_CLASS,
+            'focus-within:opacity-100',
             screen === 'typing' && 'opacity-0',
           )}
         />

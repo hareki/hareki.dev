@@ -5,6 +5,7 @@ import { cx } from 'tailwind-variants';
 import ResultScreen from './components/ResultScreen';
 import TypingControls from './components/TypingControls';
 import TypingScreen from './components/TypingScreen';
+import { COMPONENT_TRANSITION_CLASS } from './constants';
 import { useTypingStore } from './hooks/useTypingStore';
 
 const MonkeytypeAtHome = () => {
@@ -104,11 +105,11 @@ const MonkeytypeAtHome = () => {
         {screen !== 'result' && (
           <TypingScreen
             containerRef={containerRef}
-            className='animate-in duration-350 fade-in'
+            className={COMPONENT_TRANSITION_CLASS}
           />
         )}
         {screen === 'result' && (
-          <ResultScreen className='animate-in duration-350 fade-in' />
+          <ResultScreen className={COMPONENT_TRANSITION_CLASS} />
         )}
 
         <TypingControls
