@@ -18,7 +18,8 @@ const TypingControls = ({
   const isTapeModeForced = useTypingStore((s) => s.isTapeModeForced);
   const dispatch = useTypingStore((s) => s.dispatch);
 
-  const showTapeModeButton = screen === 'idle' && !isTapeModeForced;
+  const shouldShowTapeMode = screen === 'idle' && !isTapeModeForced;
+  const shouldUnmountTapeMode = screen === 'result' || isTapeModeForced;
 
   return (
     <div className={cx('relative mt-3 flex-center gap-4 text-sm')}>
@@ -38,18 +39,19 @@ const TypingControls = ({
           )}
         />
 
-        <ShortcutHintButton
-          keys={['Cmd/Ctrl', '.']}
-          label='Tape Mode'
-          onClick={() => dispatch({ type: 'TOGGLE_TAPE_MODE' })}
-          checked={isTapeModeOn}
-          hidden={!showTapeModeButton}
-          className={cx(
-            'animate-in duration-350 fade-in',
-            !showTapeModeButton && 'opacity-0',
-            screen === 'result' && 'absolute -z-50',
-          )}
-        />
+        {!shouldUnmountTapeMode && (
+          <ShortcutHintButton
+            keys={['Cmd/Ctrl', '.']}
+            label='Tape Mode'
+            onClick={() => dispatch({ type: 'TOGGLE_TAPE_MODE' })}
+            checked={isTapeModeOn}
+            hidden={!shouldShowTapeMode}
+            className={cx(
+              'animate-in duration-350 fade-in',
+              !shouldShowTapeMode && 'opacity-0',
+            )}
+          />
+        )}
       </div>
 
       {screen === 'typing' && (
