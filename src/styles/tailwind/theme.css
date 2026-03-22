@@ -44,6 +44,8 @@
   --footer: var(--ctp-mantle);
   --header: var(--ctp-mantle);
   --skeleton: var(--ctp-surface2);
+  --switch-unchecked: var(--ctp-subtext0);
+  --switch-handle: var(--ctp-surface0);
 }
 
 html:is(.ctp-flavor-latte) {
@@ -166,4 +168,6 @@ html:is(.ctp-flavor-latte) {
   --color-footer: var(--footer);
   --color-header: var(--header);
   --color-skeleton: var(--skeleton);
+  --color-switch-unchecked: var(--switch-unchecked);
+  --color-switch-handle: var(--switch-handle);
 }

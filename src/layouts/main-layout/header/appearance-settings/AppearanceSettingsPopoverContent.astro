@@ -5,6 +5,7 @@ import SunIcon from '@tabler/icons/outline/sun.svg';
 
 import Button from '@/components/starwind/button';
 import { PopoverContent, PopoverTitle } from '@/components/starwind/popover';
+import { Switch } from '@/components/starwind/switch';
 import {
   Tooltip,
   TooltipContent,
@@ -45,7 +46,10 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
   class='p-4'
 >
   <div data-appearance-controller>
-    <PopoverTitle>Flavor</PopoverTitle>
+    <div class='mb-2 flex items-center justify-between'>
+      <PopoverTitle class='mb-0' data-flavor-title>Flavor</PopoverTitle>
+      <Switch id='match-system' label='System' size='sm' />
+    </div>
     <div class='grid grid-cols-2 gap-2'>
       {
         FLAVORS.map(({ value, label, mode }) => (
@@ -54,6 +58,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
             size='sm'
             class='justify-start px-4! text-sm text-foreground transition-all'
             data-flavor={value}
+            data-flavor-mode={mode}
           >
             {mode === 'light' && <SunIcon class='size-4.5' />}
             {mode === 'dark' && <MoonIcon />}

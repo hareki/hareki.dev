@@ -74,7 +74,7 @@ export const switchButton = tv({
   base: [
     `
       inline-flex h-(--height) w-(--width) items-center rounded-full border
-      border-input bg-background
+      border-input bg-switch-unchecked
     `,
     `
       group peer ring-offset-background transition outline-none
@@ -100,7 +100,7 @@ export const switchButton = tv({
       default: `
         focus:ring-outline/50
         focus-visible:border-outline
-        aria-checked:border-foreground
+        aria-checked:bg-primary
       `,
       info: `
         focus:ring-info/50
@@ -129,7 +129,7 @@ export const switchButton = tv({
 
 export const switchToggle = tv({
   base: [
-    'inline-block transform rounded-full bg-foreground transition-transform',
+    `inline-block transform rounded-full bg-switch-handle transition-transform`,
     `
       group-aria-checked:translate-x-(--translation)
       group-aria-[checked=false]:translate-x-[calc(var(--padding)-var(--border-offset))]

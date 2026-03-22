@@ -1,9 +1,17 @@
-import { setStorageItem } from '@/utils/local-storage';
+import type { SwitchChangeEvent } from '@/components/starwind/switch';
+import {
+  getStorageItem,
+  removeStorageItem,
+  setStorageItem,
+} from '@/utils/local-storage';
 
 export class AppearanceController {
   private flavorButtons: NodeListOf<HTMLElement>;
   private accentButtons: NodeListOf<HTMLElement>;
+  private switchButton: HTMLElement | null;
+  private flavorTitle: HTMLElement | null;
   private abortController: AbortController;
+  private mediaQuery: MediaQueryList;
 
   constructor(container: HTMLElement) {
     this.abortController = new AbortController();
@@ -11,8 +19,23 @@ export class AppearanceController {
       container.querySelectorAll<HTMLElement>('[data-flavor]');
     this.accentButtons =
       container.querySelectorAll<HTMLElement>('[data-accent]');
+    this.switchButton = container.querySelector<HTMLElement>('#match-system');
+    this.flavorTitle = container.querySelector<HTMLElement>(
+      '[data-flavor-title]',
+    );
+    this.mediaQuery = matchMedia('(prefers-color-scheme:dark)');
     this.setupEvents();
     this.syncUI();
+  }
+
+  private isMatchSystem(): boolean {
+    const ms = getStorageItem('themeMatchSystem');
+    const fl = getStorageItem('themeFlavor');
+    return ms === 'true' || (ms === null && fl === null);
+  }
+
+  private getDarkFlavor(): string {
+    return getStorageItem('themeDarkFlavor') || 'mocha';
   }
 
   private getCurrentFlavor(): string | undefined {
@@ -35,11 +58,21 @@ export class AppearanceController {
     return undefined;
   }
 
-  private setFlavor(flavor: string) {
+  private applyFlavor(flavor: string) {
     const html = document.documentElement;
     html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
     html.classList.add(`ctp-flavor-${flavor}`);
-    setStorageItem('themeFlavor', flavor);
+  }
+
+  private setFlavor(flavor: string) {
+    if (this.isMatchSystem()) {
+      setStorageItem('themeDarkFlavor', flavor);
+      const resolved = this.mediaQuery.matches ? flavor : 'latte';
+      this.applyFlavor(resolved);
+    } else {
+      this.applyFlavor(flavor);
+      setStorageItem('themeFlavor', flavor);
+    }
     this.syncUI();
   }
 
@@ -51,15 +84,69 @@ export class AppearanceController {
     this.syncUI();
   }
 
+  private handleMatchSystemToggle(enabled: boolean) {
+    if (enabled) {
+      setStorageItem('themeMatchSystem', 'true');
+
+      const currentFlavor = this.getCurrentFlavor();
+      const darkFlavor =
+        currentFlavor && currentFlavor !== 'latte'
+          ? currentFlavor
+          : getStorageItem('themeDarkFlavor') || 'mocha';
+      setStorageItem('themeDarkFlavor', darkFlavor);
+      removeStorageItem('themeFlavor');
+
+      const resolved = this.mediaQuery.matches ? darkFlavor : 'latte';
+      this.applyFlavor(resolved);
+    } else {
+      setStorageItem('themeMatchSystem', 'false');
+
+      const currentFlavor = this.getCurrentFlavor();
+      if (currentFlavor) {
+        setStorageItem('themeFlavor', currentFlavor);
+      }
+    }
+    this.syncUI();
+  }
+
+  private handleOsChange = (e: MediaQueryListEvent) => {
+    if (this.isMatchSystem()) {
+      const darkFlavor = this.getDarkFlavor();
+      this.applyFlavor(e.matches ? darkFlavor : 'latte');
+      this.syncUI();
+    }
+  };
+
   private syncUI() {
+    const matchSystem = this.isMatchSystem();
     const currentFlavor = this.getCurrentFlavor();
     const currentAccent = this.getCurrentAccent();
+    const darkFlavor = this.getDarkFlavor();
+
+    if (this.switchButton) {
+      this.switchButton.setAttribute('aria-checked', String(matchSystem));
+    }
+
+    if (this.flavorTitle) {
+      this.flavorTitle.textContent = matchSystem ? 'Dark Flavor' : 'Flavor';
+    }
 
     this.flavorButtons.forEach((btn) => {
-      const isSelected = btn.dataset.flavor === currentFlavor;
-      btn.classList.toggle('ring-2', isSelected);
-      btn.classList.toggle('ring-primary', isSelected);
-      btn.classList.toggle('text-primary', isSelected);
+      const flavor = btn.dataset.flavor;
+      const isLight = btn.dataset.flavorMode === 'light';
+
+      if (matchSystem && isLight) {
+        btn.setAttribute('disabled', '');
+        btn.classList.remove('ring-2', 'ring-primary', 'text-primary');
+      } else {
+        btn.removeAttribute('disabled');
+        const isSelected = matchSystem
+          ? flavor === darkFlavor
+          : flavor === currentFlavor;
+        btn.classList.toggle('ring-2', isSelected);
+        btn.classList.toggle('ring-primary', isSelected);
+        btn.classList.toggle('text-primary', isSelected);
+      }
     });
 
     this.accentButtons.forEach((btn) => {
@@ -83,7 +170,7 @@ export class AppearanceController {
       btn.addEventListener(
         'click',
         () => {
-          if (btn.dataset.flavor) {
+          if (btn.dataset.flavor && !btn.hasAttribute('disabled')) {
             this.setFlavor(btn.dataset.flavor);
           }
         },
@@ -101,6 +188,21 @@ export class AppearanceController {
         },
         { signal },
       );
+    });
+
+    if (this.switchButton) {
+      this.switchButton.addEventListener(
+        'starwind-switch:change',
+        (e) => {
+          const detail = (e as CustomEvent<SwitchChangeEvent['detail']>).detail;
+          this.handleMatchSystemToggle(detail.checked);
+        },
+        { signal },
+      );
+    }
+
+    this.mediaQuery.addEventListener('change', this.handleOsChange, {
+      signal,
     });
   }
 

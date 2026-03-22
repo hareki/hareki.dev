@@ -21,26 +21,35 @@ const baseTitle = 'Hareki';
     <script is:inline>
       (function () {
         const html = document.documentElement;
-        let flavor = localStorage.getItem('THEME_ctp-flavor');
-        let accent = localStorage.getItem('THEME_ctp-accent');
         const mq = matchMedia('(prefers-color-scheme:dark)');
+        const ms = localStorage.getItem('THEME_match-system');
+        const flavor = localStorage.getItem('THEME_ctp-flavor');
+        const darkFlavor = localStorage.getItem('THEME_dark-flavor') || 'mocha';
+        const accent = localStorage.getItem('THEME_ctp-accent') || 'blue';
 
         const setFlavor = (f) => {
           html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
           html.classList.add('ctp-flavor-' + f);
         };
 
-        if (!flavor) {
-          flavor = mq.matches ? 'mocha' : 'latte';
+        // New user (no keys) => match-system ON
+        // Existing user (has flavor but no ms key) => match-system OFF
+        const isMatchSystem = ms === 'true' || (ms === null && flavor === null);
+
+        if (isMatchSystem) {
+          setFlavor(mq.matches ? darkFlavor : 'latte');
+        } else {
+          setFlavor(flavor || (mq.matches ? 'mocha' : 'latte'));
         }
-        if (!accent) {
-          accent = 'blue';
-        }
-        html.classList.add('ctp-flavor-' + flavor, 'ctp-accent-' + accent);
+
+        html.classList.add('ctp-accent-' + accent);
 
         mq.addEventListener('change', function (e) {
-          if (!localStorage.getItem('THEME_ctp-flavor')) {
-            setFlavor(e.matches ? 'mocha' : 'latte');
+          const m = localStorage.getItem('THEME_match-system');
+          const f = localStorage.getItem('THEME_ctp-flavor');
+          if (m === 'true' || (m === null && f === null)) {
+            const df = localStorage.getItem('THEME_dark-flavor') || 'mocha';
+            setFlavor(e.matches ? df : 'latte');
           }
         });
       })();
