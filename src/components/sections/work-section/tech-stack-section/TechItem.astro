@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { cn } from 'tailwind-variants';
 
 import LinkItem from '@/components/ui/LinkItem.astro';
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const { name, description, href, icon, darkIcon } = Astro.props;
-const isSvg = icon.format === 'svg';
 
 const imgClass = cn(
   `absolute top-0 left-0 size-full transition-all duration-350`,
