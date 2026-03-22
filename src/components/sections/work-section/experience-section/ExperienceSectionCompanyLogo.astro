@@ -15,9 +15,9 @@ const { record, classes: { image: imageClass } = {} } = Astro.props;
 ---
 
 <div class='relative'>
-  <Image
+  <img
     class={cn('rounded-full', imageClass)}
-    src={record.company.logo}
+    src={record.company.logo.src}
     width={40}
     height={40}
     alt={`${record.company.name} logo`}

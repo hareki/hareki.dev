@@ -1,4 +1,4 @@
-import ZigvyLogo from '@/assets/companies/zigvy.jpg';
+import ZigvyLogo from '@/assets/companies/zigvy.webp';
 
 export interface ExperienceRecord {
   company: {

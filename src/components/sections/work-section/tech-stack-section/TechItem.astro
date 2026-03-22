@@ -51,21 +51,7 @@ const darkIconProps = darkIcon && {
 
 <LinkItem name={name} description={description} href={href}>
   <div slot='icon' class='relative size-10 shrink-0 muted-icon'>
-    {
-      isSvg ? (
-        <img src={icon.src} {...lightIconProps} {alt} />
-      ) : (
-        <Image src={icon} {...lightIconProps} {alt} />
-      )
-    }
-
-    {
-      darkIcon &&
-        (isSvg ? (
-          <img src={darkIcon.src} {...darkIconProps} {alt} />
-        ) : (
-          <Image src={darkIcon} {...darkIconProps} {alt} />
-        ))
-    }
+    <img src={icon.src} {...lightIconProps} {alt} />
+    {darkIcon && <img src={darkIcon.src} {...darkIconProps} {alt} />}
   </div>
 </LinkItem>
