@@ -8,7 +8,9 @@ interface StatItemProps {
 
 const StatItem = ({ label, value, tooltip }: StatItemProps) => {
   return (
-    <StarwindTooltip content={<span className='whitespace-pre'>{tooltip}</span>}>
+    <StarwindTooltip
+      content={<span className='whitespace-pre'>{tooltip}</span>}
+    >
       <div className='flex cursor-default flex-col items-center gap-0.5'>
         <span className='text-sm text-overlay1'>{label}</span>
         <span className='text-xl text-foreground'>{value}</span>

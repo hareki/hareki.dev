@@ -11,9 +11,7 @@ interface WordProps {
 const Word = ({ wordIndex, registerRef }: WordProps) => {
   const isCompleted = useTypingStore((s) => s.words[wordIndex].isCompleted);
   const isCorrect = useTypingStore((s) => s.words[wordIndex].isCorrect);
-  const letterCount = useTypingStore(
-    (s) => s.words[wordIndex].letters.length,
-  );
+  const letterCount = useTypingStore((s) => s.words[wordIndex].letters.length);
   const showRedUnderline = isCompleted && !isCorrect;
 
   return (

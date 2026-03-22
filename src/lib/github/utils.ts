@@ -16,7 +16,9 @@ export const parseConventionalCommit = (
   message: string,
 ): { prefix: string | null; message: string } => {
   const match = message.match(/^(\w+(?:\([^)]*\))?!?:)\s+(.+)$/);
-  if (!match) {return { prefix: null, message };}
+  if (!match) {
+    return { prefix: null, message };
+  }
   return { prefix: match[1], message: match[2] };
 };
 
