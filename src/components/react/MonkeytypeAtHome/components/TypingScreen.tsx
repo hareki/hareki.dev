@@ -6,7 +6,6 @@ import Caret from './Caret';
 import Word from './Word';
 import { useForcedTapeModeWatcher } from '../hooks/useForcedTapeModeWatcher';
 import { useTypingStore } from '../store';
-import { WORDS } from '../types';
 import TypingTransition from './TypingTransition';
 
 interface TypingScreenProps {
@@ -28,6 +27,7 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
     }
   };
 
+  const wordCount = useTypingStore((s) => s.words.length);
   const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
 
   return (
@@ -44,7 +44,7 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
           ref={wordsContainerRef}
           className='flex gap-x-2.5 text-xl font-medium'
         >
-          {WORDS.map((_, i) => (
+          {Array.from({ length: wordCount }, (_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />
           ))}
         </div>

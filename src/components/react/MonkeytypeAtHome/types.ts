@@ -1,5 +1,11 @@
-export const TEXT = 'The quick brown fox jumps over the lazy dog';
-export const WORDS = TEXT.split(' ');
+export const TEXTS = [
+  'Simplicity is the ultimate sophistication',
+  'Great things never came from comfort zones',
+  'Your limitation is only your imagination',
+  'In the middle of difficulty lies opportunity',
+  'The harder you work the luckier you get',
+  'Doubt kills more dreams than failure ever will',
+];
 
 export type Screen = 'idle' | 'typing' | 'result';
 export type LetterStatus = 'untyped' | 'correct' | 'incorrect' | 'extra';
@@ -12,6 +18,7 @@ export interface LetterState {
 
 export interface WordState {
   letters: LetterState[];
+  expectedLength: number;
   isCompleted: boolean;
   isCorrect: boolean;
 }

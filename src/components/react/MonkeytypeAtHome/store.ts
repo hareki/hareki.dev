@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { createInitialState, typingReducer } from './reducer';
+import { createInitialState, textCycler, typingReducer } from './reducer';
 
 import type { TypingAction, TypingState } from './types';
 
@@ -9,7 +9,7 @@ export interface TypingStore extends TypingState {
   getEffectiveTapeMode: () => boolean;
 }
 
-let cachedState: TypingState = createInitialState();
+let cachedState: TypingState = createInitialState(textCycler.next());
 
 export const useTypingStore = create<TypingStore>((set, get) => ({
   ...cachedState,

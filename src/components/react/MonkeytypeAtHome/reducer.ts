@@ -1,4 +1,5 @@
-import { WORDS } from './types';
+import { createShuffledCycler } from './shuffledCycler';
+import { TEXTS } from './types';
 
 import type {
   LetterState,
@@ -7,6 +8,8 @@ import type {
   WordState,
 } from './types';
 
+export const textCycler = createShuffledCycler(TEXTS.length);
+
 const createWord = (word: string): WordState => {
   return {
     letters: word.split('').map((char) => ({
@@ -14,19 +17,22 @@ const createWord = (word: string): WordState => {
       typed: null,
       status: 'untyped' as const,
     })),
+    expectedLength: word.length,
     isCompleted: false,
     isCorrect: false,
   };
 };
 
 export const createInitialState = (
+  textIndex: number,
   overrides?: Partial<
     Pick<TypingState, 'isTapeModeOn' | 'isTapeModeForced' | 'isFocused'>
   >,
 ): TypingState => {
+  const words = TEXTS[textIndex].split(' ');
   return {
     screen: 'idle',
-    words: WORDS.map(createWord),
+    words: words.map(createWord),
     currentWordIndex: 0,
     currentCharIndex: 0,
     wordsTyped: 0,
@@ -90,11 +96,12 @@ export const typingReducer = (
       const newTotalKeystrokes = state.totalKeystrokes + 1;
 
       // Auto-finish: last word, all letters typed correctly, no extras
-      const isLastWord = state.currentWordIndex === WORDS.length - 1;
+      const isLastWord = state.currentWordIndex === state.words.length - 1;
       if (
         isLastWord &&
         computeIsCorrect(newLetters) &&
-        newLetters.length === WORDS[state.currentWordIndex].length &&
+        newLetters.length ===
+          state.words[state.currentWordIndex].expectedLength &&
         currentCharIndex + 1 === newLetters.length
       ) {
         const finalWords = newWords.map((w, i) =>
@@ -141,7 +148,7 @@ export const typingReducer = (
       );
       const newWordsTyped = state.wordsTyped + 1;
 
-      if (state.currentWordIndex === WORDS.length - 1) {
+      if (state.currentWordIndex === state.words.length - 1) {
         return {
           ...state,
           words: newWords,
@@ -181,7 +188,7 @@ export const typingReducer = (
         const newCharIndex = currentCharIndex - 1;
 
         let newLetters: LetterState[];
-        if (newCharIndex >= WORDS[currentWordIndex].length) {
+        if (newCharIndex >= state.words[currentWordIndex].expectedLength) {
           // Remove extra letter
           newLetters = word.letters.slice(0, -1);
         } else {
@@ -251,7 +258,7 @@ export const typingReducer = (
       };
 
     case 'RESTART':
-      return createInitialState({
+      return createInitialState(textCycler.next(), {
         isTapeModeOn: state.isTapeModeOn,
         isTapeModeForced: state.isTapeModeForced,
       });

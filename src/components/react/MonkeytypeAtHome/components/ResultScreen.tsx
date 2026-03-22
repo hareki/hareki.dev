@@ -3,10 +3,19 @@ import { useEffect, useState } from 'react';
 import { IconCrownFilled } from '@tabler/icons-react';
 
 import { useBestWpm } from '../hooks/useBestWpm';
+import { createShuffledCycler } from '../shuffledCycler';
 import { useTypingStore } from '../store';
 import { calculateResults } from '../utils';
 import StatItem from './StatItem';
 import StarwindTooltip from '../../StarwindTooltip';
+
+const RESULT_MESSAGES = [
+  "You didn't have to try this, glad you did. Thanks!",
+  'Fun fact: this component is named MonkeytypeAtHome in the code.',
+  'Hope you had fun trying this out. I sure had fun building it!',
+];
+
+const messageCycler = createShuffledCycler(RESULT_MESSAGES.length);
 
 const ResultScreen = function ResultScreen() {
   const words = useTypingStore((s) => s.words);
@@ -18,6 +27,7 @@ const ResultScreen = function ResultScreen() {
 
   const { bestWpm, setBestWpm } = useBestWpm();
   const [isNewBest] = useState(() => stats.wpm > bestWpm);
+  const [message] = useState(() => RESULT_MESSAGES[messageCycler.next()]);
 
   useEffect(() => {
     if (isNewBest) {
@@ -67,7 +77,7 @@ const ResultScreen = function ResultScreen() {
       </div>
 
       <p className='max-w-prose text-center text-base text-subtext0-foreground'>
-        You didn't have to try this, glad you did. Thanks!
+        {message}
       </p>
     </div>
   );

@@ -1,7 +1,6 @@
 import { cx } from 'tailwind-variants';
 
 import { useTypingStore } from '../store';
-import { WORDS } from '../types';
 
 interface TypingProgressProps {
   className?: string;
@@ -9,12 +8,13 @@ interface TypingProgressProps {
 
 const TypingProgress = ({ className }: TypingProgressProps) => {
   const wordsTyped = useTypingStore((s) => s.wordsTyped);
+  const totalWords = useTypingStore((s) => s.words.length);
 
   return (
     <div
       className={cx('text-right text-base text-muted-foreground', className)}
     >
-      {wordsTyped}/{WORDS.length}
+      {wordsTyped}/{totalWords}
     </div>
   );
 };

@@ -21,11 +21,7 @@ const TypingControls = ({
   const showTapeModeButton = screen === 'idle' && !isTapeModeForced;
 
   return (
-    <div
-      className={cx(
-        'relative mt-3 flex-center gap-4 text-sm',
-      )}
-    >
+    <div className={cx('relative mt-3 flex-center gap-4 text-sm')}>
       {/* Shortcuts */}
       <div className='flex items-center gap-5'>
         <ShortcutHintButton
