@@ -19,13 +19,11 @@ const TypingControls = ({
   const dispatch = useTypingStore((s) => s.dispatch);
 
   const showTapeModeButton = screen === 'idle' && !isTapeModeForced;
-  const centerControls = isTapeModeForced || screen === 'result';
 
   return (
     <div
       className={cx(
-        'relative mt-3 flex items-center gap-4 text-sm',
-        centerControls ? 'justify-center' : 'justify-between',
+        'relative mt-3 flex-center gap-4 text-sm',
       )}
     >
       {/* Shortcuts */}
