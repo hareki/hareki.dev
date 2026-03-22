@@ -209,9 +209,6 @@ const Caret = ({
         isBlinking && 'animate-caret-blink',
         !isFocused && 'invisible',
       )}
-      // style={{
-      //   transition: `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`,
-      // }}
     />
   );
 };

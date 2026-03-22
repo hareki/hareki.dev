@@ -4,7 +4,7 @@ import { useTypingStore } from '../store';
 
 type ContainerRef = React.RefObject<HTMLDivElement | null>;
 
-export const useForcedTapeMode = (
+export const useForcedTapeModeWatcher = (
   containerRef: ContainerRef,
   wordsContainerRef: ContainerRef,
 ) => {

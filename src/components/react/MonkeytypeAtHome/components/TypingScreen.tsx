@@ -4,7 +4,7 @@ import { cx } from 'tailwind-variants';
 
 import Caret from './Caret';
 import Word from './Word';
-import { useForcedTapeMode } from '../hooks/useForcedTapeMode';
+import { useForcedTapeModeWatcher } from '../hooks/useForcedTapeModeWatcher';
 import { useTypingStore } from '../store';
 import { WORDS } from '../types';
 
@@ -16,7 +16,7 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
   const wordsContainerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 
-  useForcedTapeMode(containerRef, wordsContainerRef);
+  useForcedTapeModeWatcher(containerRef, wordsContainerRef);
 
   const registerRef = (key: string, el: HTMLSpanElement | null) => {
     if (el) {
