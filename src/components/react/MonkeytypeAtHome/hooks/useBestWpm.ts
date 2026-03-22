@@ -1,10 +1,14 @@
 import { useSyncExternalStore } from 'react';
 
-const STORAGE_KEY = 'monkeytype-at-home-best-wpm';
+import {
+  getStorageItem,
+  setStorageItem,
+  STORAGE_KEYS,
+} from '@/utils/local-storage';
 
 const getSnapshot = (): number => {
   try {
-    const val = localStorage.getItem(STORAGE_KEY);
+    const val = getStorageItem('typingBestWpm');
     return val ? parseFloat(val) : 0;
   } catch {
     return 0;
@@ -20,7 +24,7 @@ type Cleanup = () => void;
 
 const subscribe = (callback: Callback): Cleanup => {
   const handler = (e: StorageEvent) => {
-    if (e.key === STORAGE_KEY) {
+    if (e.key === STORAGE_KEYS.typingBestWpm) {
       callback();
     }
   };
@@ -37,7 +41,7 @@ export const useBestWpm = () => {
 
   const setBestWpm = (wpm: number) => {
     try {
-      localStorage.setItem(STORAGE_KEY, String(wpm));
+      setStorageItem('typingBestWpm', String(wpm));
     } catch {
       // localStorage full or unavailable
     }

@@ -21,8 +21,8 @@ const baseTitle = 'Hareki';
     <script is:inline>
       (function () {
         const html = document.documentElement;
-        let flavor = localStorage.getItem('ctp-flavor');
-        let accent = localStorage.getItem('ctp-accent');
+        let flavor = localStorage.getItem('THEME_ctp-flavor');
+        let accent = localStorage.getItem('THEME_ctp-accent');
         const mq = matchMedia('(prefers-color-scheme:dark)');
 
         const setFlavor = (f) => {
@@ -39,7 +39,7 @@ const baseTitle = 'Hareki';
         html.classList.add('ctp-flavor-' + flavor, 'ctp-accent-' + accent);
 
         mq.addEventListener('change', function (e) {
-          if (!localStorage.getItem('ctp-flavor')) {
+          if (!localStorage.getItem('THEME_ctp-flavor')) {
             setFlavor(e.matches ? 'mocha' : 'latte');
           }
         });

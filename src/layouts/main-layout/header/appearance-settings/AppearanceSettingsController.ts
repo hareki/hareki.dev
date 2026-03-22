@@ -1,3 +1,5 @@
+import { setStorageItem } from '@/utils/local-storage';
+
 export class AppearanceController {
   private flavorButtons: NodeListOf<HTMLElement>;
   private accentButtons: NodeListOf<HTMLElement>;
@@ -37,7 +39,7 @@ export class AppearanceController {
     const html = document.documentElement;
     html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
     html.classList.add(`ctp-flavor-${flavor}`);
-    localStorage.setItem('ctp-flavor', flavor);
+    setStorageItem('themeFlavor', flavor);
     this.syncUI();
   }
 
@@ -45,7 +47,7 @@ export class AppearanceController {
     const html = document.documentElement;
     html.className = html.className.replace(/\bctp-accent-\S+/g, '');
     html.classList.add(`ctp-accent-${accent}`);
-    localStorage.setItem('ctp-accent', accent);
+    setStorageItem('themeAccent', accent);
     this.syncUI();
   }
 
