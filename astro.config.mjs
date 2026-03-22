@@ -22,7 +22,7 @@ export default defineConfig({
   integrations: [
     playformCompress({
       CSS: true,
-      HTML: true,
+      HTML: false,
       JavaScript: true,
     }),
     react({
