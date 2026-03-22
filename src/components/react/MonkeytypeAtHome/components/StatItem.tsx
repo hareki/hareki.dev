@@ -12,8 +12,8 @@ const StatItem = ({ label, value, tooltip }: StatItemProps) => {
       content={<span className='whitespace-pre'>{tooltip}</span>}
     >
       <div className='flex cursor-default flex-col items-center gap-0.5'>
-        <span className='text-sm text-overlay1'>{label}</span>
-        <span className='text-xl text-foreground'>{value}</span>
+        <span className='text-base text-overlay1'>{label}</span>
+        <span className='text-xl text-primary'>{value}</span>
       </div>
     </StarwindTooltip>
   );

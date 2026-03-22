@@ -76,9 +76,10 @@ const MonkeytypeAtHome = () => {
       ref={containerRef}
       className={cx(
         `
-          relative flex-center min-h-56 cursor-text rounded-md bg-inner-box p-4
-          text-sm transition-shadow duration-350
+          relative flex-center min-h-56 rounded-md bg-inner-box p-4 text-sm
+          transition-shadow duration-350
         `,
+        screen !== 'result' && 'cursor-text',
         isFocused && screen !== 'result' && 'ring-2 ring-primary/70',
       )}
       onClick={handleContainerClick}
@@ -94,7 +95,8 @@ const MonkeytypeAtHome = () => {
         autoCorrect='off'
         autoComplete='off'
       />
-      <div className='-translate-y-2.5'>
+
+      <div className='max-w-full'>
         {screen !== 'result' && <TypingScreen containerRef={containerRef} />}
         {screen === 'result' && <ResultScreen />}
 

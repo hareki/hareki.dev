@@ -35,17 +35,13 @@ export const useBestWpm = () => {
     getServerSnapshot,
   );
 
-  const updateBestWpm = (wpm: number): boolean => {
-    if (wpm > bestWpm) {
-      try {
-        localStorage.setItem(STORAGE_KEY, String(wpm));
-      } catch {
-        // localStorage full or unavailable
-      }
-      return true;
+  const setBestWpm = (wpm: number) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, String(wpm));
+    } catch {
+      // localStorage full or unavailable
     }
-    return false;
   };
 
-  return { bestWpm, updateBestWpm };
+  return { bestWpm, setBestWpm };
 };

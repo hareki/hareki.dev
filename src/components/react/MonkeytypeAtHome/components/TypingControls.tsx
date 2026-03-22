@@ -18,15 +18,14 @@ const TypingControls = ({
   const isTapeModeForced = useTypingStore((s) => s.isTapeModeForced);
   const dispatch = useTypingStore((s) => s.dispatch);
 
-  const isTyping = screen === 'typing';
-  const isIdle = screen === 'idle';
-  const isResult = screen === 'result';
+  const showTapeModeButton = screen === 'idle' && !isTapeModeForced;
+  const centerControls = isTapeModeForced || screen === 'result';
 
   return (
     <div
       className={cx(
-        'mt-3 flex items-center gap-4 text-sm',
-        isResult ? 'justify-center' : 'justify-between',
+        'relative mt-3 flex items-center gap-4 text-sm',
+        centerControls ? 'justify-center' : 'justify-between',
       )}
     >
       {/* Shortcuts */}
@@ -36,10 +35,13 @@ const TypingControls = ({
           keys={['Tab', 'Enter']}
           label='Restart'
           onClick={onRestart}
-          className={cx('focus-within:opacity-100', isTyping && 'opacity-0')}
+          className={cx(
+            'focus-within:opacity-100',
+            screen === 'typing' && 'opacity-0',
+          )}
         />
 
-        {!isTapeModeForced && isIdle && (
+        {showTapeModeButton && (
           <ShortcutHintButton
             keys={['Cmd/Ctrl', '.']}
             label='Tape Mode'
@@ -49,14 +51,15 @@ const TypingControls = ({
         )}
       </div>
 
-      {!isResult && (
-        <TypingProgress
-          className={cx(
-            'opacity-0 transition-opacity',
-            isTyping && 'opacity-100',
-          )}
-        />
-      )}
+      <TypingProgress
+        className={cx(
+          `
+            absolute top-1/2 right-0 -translate-y-1/2 opacity-0
+            transition-opacity
+          `,
+          screen === 'typing' && 'opacity-100',
+        )}
+      />
     </div>
   );
 };
