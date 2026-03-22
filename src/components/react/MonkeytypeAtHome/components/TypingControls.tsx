@@ -30,19 +30,26 @@ const TypingControls = ({
           label='Restart'
           onClick={onRestart}
           className={cx(
-            'focus-within:opacity-100',
+            `
+              animate-in duration-350 fade-in
+              focus-within:opacity-100
+            `,
             screen === 'typing' && 'opacity-0',
           )}
         />
 
-        {showTapeModeButton && (
-          <ShortcutHintButton
-            keys={['Cmd/Ctrl', '.']}
-            label='Tape Mode'
-            onClick={() => dispatch({ type: 'TOGGLE_TAPE_MODE' })}
-            active={isTapeModeOn}
-          />
-        )}
+        <ShortcutHintButton
+          keys={['Cmd/Ctrl', '.']}
+          label='Tape Mode'
+          onClick={() => dispatch({ type: 'TOGGLE_TAPE_MODE' })}
+          checked={isTapeModeOn}
+          hidden={!showTapeModeButton}
+          className={cx(
+            'animate-in duration-350 fade-in',
+            !showTapeModeButton && 'opacity-0',
+            screen === 'result' && 'absolute -z-50',
+          )}
+        />
       </div>
 
       {screen === 'typing' && (

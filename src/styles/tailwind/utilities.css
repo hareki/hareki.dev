@@ -9,6 +9,7 @@
   transition:
     scale var(--duration) var(--ease-overshoot),
     background-color var(--duration) ease-in-out,
+    opacity var(--duration) ease-in-out,
     color var(--duration) ease-in-out !important;
 }
 

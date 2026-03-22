@@ -10,9 +10,10 @@ import TypingTransition from './TypingTransition';
 
 interface TypingScreenProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
+  className?: string;
 }
 
-const TypingScreen = ({ containerRef }: TypingScreenProps) => {
+const TypingScreen = ({ containerRef, className }: TypingScreenProps) => {
   const wordsContainerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
   const caretRef = useRef<HTMLDivElement>(null);
@@ -32,12 +33,12 @@ const TypingScreen = ({ containerRef }: TypingScreenProps) => {
   const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className={cx('flex flex-col gap-4', className)}>
       <div
         data-typing-area
         key={text}
         className={cx(
-          `relative animate-in overflow-hidden duration-750 fade-in-0`,
+          `relative animate-in overflow-hidden duration-350 fade-in-0`,
           effectiveTapeMode && 'mask-fade-x',
         )}
       >

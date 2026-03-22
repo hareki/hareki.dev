@@ -1,4 +1,4 @@
-import { createShuffledCycler } from './shuffledCycler';
+import { createShuffledCycler } from './shuffled-cycler';
 import { TEXTS } from './types';
 
 import type {

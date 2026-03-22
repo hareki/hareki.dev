@@ -101,8 +101,15 @@ const MonkeytypeAtHome = () => {
       />
 
       <div className='max-w-full'>
-        {screen !== 'result' && <TypingScreen containerRef={containerRef} />}
-        {screen === 'result' && <ResultScreen />}
+        {screen !== 'result' && (
+          <TypingScreen
+            containerRef={containerRef}
+            className='animate-in duration-350 fade-in'
+          />
+        )}
+        {screen === 'result' && (
+          <ResultScreen className='animate-in duration-350 fade-in' />
+        )}
 
         <TypingControls
           onRestart={handleRestart}

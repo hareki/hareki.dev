@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { IconCrownFilled } from '@tabler/icons-react';
+import { cx } from 'tailwind-variants';
 
 import { useBestWpm } from '../hooks/useBestWpm';
-import { createShuffledCycler } from '../shuffledCycler';
+import { createShuffledCycler } from '../shuffled-cycler';
 import { useTypingStore } from '../store';
 import { calculateResults } from '../utils';
 import StatItem from './StatItem';
@@ -17,7 +18,11 @@ const RESULT_MESSAGES = [
 
 const messageCycler = createShuffledCycler(RESULT_MESSAGES.length);
 
-const ResultScreen = function ResultScreen() {
+interface ResultScreenProps {
+  className?: string;
+}
+
+const ResultScreen = ({ className }: ResultScreenProps) => {
   const words = useTypingStore((s) => s.words);
   const startTime = useTypingStore((s) => s.startTime);
   const endTime = useTypingStore((s) => s.endTime);
@@ -52,7 +57,7 @@ const ResultScreen = function ResultScreen() {
   );
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className={cx('flex flex-col gap-4', className)}>
       <div className='flex flex-wrap items-start justify-center gap-x-8 gap-y-2'>
         <StatItem
           label={wpmLabel}

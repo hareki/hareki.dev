@@ -7,8 +7,9 @@ interface ShortcutHintButtonProps {
   label: string;
   onClick: () => void;
   ref?: React.RefObject<HTMLButtonElement | null>;
-  active?: boolean;
+  checked?: boolean;
   className?: string;
+  hidden?: boolean;
 }
 
 const ShortcutHintButton = ({
@@ -16,27 +17,31 @@ const ShortcutHintButton = ({
   label,
   onClick,
   ref,
-  active,
+  checked,
   className,
+  hidden,
 }: ShortcutHintButtonProps) => {
-  const isCheckbox = active !== undefined;
-  const ariaProps: ComponentProps<'button'> = isCheckbox
-    ? { 'aria-checked': active, role: 'checkbox' }
+  const isCheckbox = checked !== undefined;
+  const checkedProps: ComponentProps<'button'> = isCheckbox
+    ? { 'aria-checked': checked, role: 'checkbox' }
     : {};
+
   return (
     <button
-      {...ariaProps}
+      {...checkedProps}
+      tabIndex={hidden ? -1 : 0}
+      aria-hidden={hidden}
       ref={ref}
       className={cx(
         `
-          group relative -mx-1.5 flex bouncy-click cursor-pointer items-center
-          gap-1.5 rounded-md p-1.5 text-muted-foreground transition-colors
-          outline-none select-none
+          group -mx-1.5 flex bouncy-click cursor-pointer items-center gap-1.5
+          rounded-md p-1.5 text-muted-foreground transition-all outline-none
+          select-none
           hover:bg-primary/10 hover:text-primary
           focus-visible:ring-2 focus-visible:ring-primary/70
           hocus:scale-102
         `,
-        active && 'bg-primary/10 text-primary',
+        checked && 'bg-primary/10 text-primary',
         className,
       )}
       onClick={onClick}
@@ -51,7 +56,7 @@ const ShortcutHintButton = ({
                 transition-colors
                 group-hover:border-primary
               `,
-              active && 'border-primary bg-primary/60 text-background',
+              checked && 'border-primary bg-primary/60 text-background',
             )}
           >
             {key}
