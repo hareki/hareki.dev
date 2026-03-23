@@ -4,6 +4,7 @@ export const STORAGE_KEYS = {
   themeMatchSystem: 'THEME_match-system',
   themeDarkFlavor: 'THEME_dark-flavor',
   typingBestWpm: 'TYPING_best-wpm',
+  bannerReducedMotionDismissed: 'BANNER_reduced-motion-dismissed',
 } as const;
 
 type Key = keyof typeof STORAGE_KEYS;

@@ -1,0 +1,116 @@
+---
+import XIcon from '@tabler/icons/outline/x.svg';
+
+interface Props {
+  message: string;
+  storageKey: string;
+}
+
+const { message, storageKey } = Astro.props;
+---
+
+<div
+  data-slot='top-banner'
+  data-storage-key={storageKey}
+  class='
+    flex w-full items-center justify-between rounded-b-md bg-primary px-3.5
+    py-1.5 text-sm font-medium text-background
+    selection:bg-footer/50 selection:text-foreground
+    @sm:px-4.75
+    @3xl:px-6
+  '
+  hidden
+>
+  <span class='flex-1 text-center'>{message}</span>
+  <button
+    data-slot='top-banner-dismiss'
+    class='
+      -mr-0.5 ml-1 cursor-pointer rounded-full p-0.5 transition-colors
+      duration-150
+      hover:bg-footer/50 hover:text-foreground
+    '
+    aria-label='Dismiss banner'
+  >
+    <XIcon class='size-4' />
+  </button>
+</div>
+
+<script>
+  let controller: AbortController | null = null;
+
+  const initTopBanner = () => {
+    const banner = document.querySelector<HTMLElement>(
+      '[data-slot="top-banner"]',
+    );
+    if (!banner) {
+      return;
+    }
+
+    const storageKey = banner.dataset.storageKey;
+    if (!storageKey) {
+      return;
+    }
+
+    if (localStorage.getItem(storageKey) === 'true') {
+      return;
+    }
+
+    controller = new AbortController();
+    const { signal } = controller;
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const header = banner.previousElementSibling as HTMLElement | null;
+
+    const showBanner = () => {
+      banner.removeAttribute('hidden');
+      banner.setAttribute('role', 'status');
+      header?.classList.add('rounded-b-none');
+    };
+
+    const hideBanner = () => {
+      banner.setAttribute('hidden', '');
+      banner.removeAttribute('role');
+      header?.classList.remove('rounded-b-none');
+    };
+
+    if (motionQuery.matches) {
+      showBanner();
+    }
+
+    motionQuery.addEventListener(
+      'change',
+      (e) => {
+        if (e.matches) {
+          if (localStorage.getItem(storageKey) !== 'true') {
+            showBanner();
+          }
+        } else {
+          hideBanner();
+        }
+      },
+      { signal },
+    );
+
+    const dismissButton = banner.querySelector<HTMLButtonElement>(
+      '[data-slot="top-banner-dismiss"]',
+    );
+    dismissButton?.addEventListener(
+      'click',
+      () => {
+        hideBanner();
+        localStorage.setItem(storageKey, 'true');
+      },
+      { signal },
+    );
+  };
+
+  const destroyTopBanner = () => {
+    controller?.abort();
+    controller = null;
+  };
+
+  initTopBanner();
+  document.addEventListener('astro:before-swap', destroyTopBanner);
+  document.addEventListener('astro:after-swap', initTopBanner);
+</script>

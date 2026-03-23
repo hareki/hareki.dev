@@ -11,6 +11,7 @@ import ContactInformation from '@/data/contact-information';
 
 import AppearanceSettings from './appearance-settings';
 import HeaderButton from './HeaderButton.astro';
+import TopBanner from './TopBanner.astro';
 
 import type { SvgComponent } from 'astro/types';
 
@@ -125,4 +126,9 @@ const siteControls: HeaderLinkButton[] = [
       </div>
     </nav>
   </header>
+
+  <TopBanner
+    message='System reduced-motion preference detected, animations minimized'
+    storageKey='BANNER_reduced-motion-dismissed'
+  />
 </div>
