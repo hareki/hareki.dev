@@ -42,9 +42,11 @@ const TypingScreen = ({ containerRef, className }: TypingScreenProps) => {
           effectiveTapeMode && 'mask-fade-x',
         )}
       >
+        <p className='sr-only'>{text}</p>
         <div
           data-words-container
           ref={wordsContainerRef}
+          aria-hidden='true'
           className='flex gap-x-2.5 text-xl font-medium'
         >
           {Array.from({ length: wordCount }, (_, i) => (
