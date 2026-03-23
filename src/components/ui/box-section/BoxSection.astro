@@ -1,4 +1,12 @@
-<section id='tech-stack'>
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<section id={id}>
   <div class='
     @container rounded-md border p-2.5
     md:p-5

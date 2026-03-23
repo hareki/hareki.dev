@@ -9,16 +9,14 @@ import RepoSummary from '@/components/ui/repo-summary';
 import { BeyondWorkLink } from '@/data/beyond-work';
 ---
 
-<section id='beyond-work-terminal'>
-  <BoxSection>
-    <BoxSectionTitle icon={TerminalIcon}>Terminal</BoxSectionTitle>
-    <BoxSectionDescription>
-      My editor of choice is <InlineLink href={BeyondWorkLink.NEOVIM}>
-        Neovim
-      </InlineLink>, deeply integrated with my terminal workflow. Summary of my
-      <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink> below.
-    </BoxSectionDescription>
+<BoxSection id='beyond-work-terminal'>
+  <BoxSectionTitle icon={TerminalIcon}>Terminal</BoxSectionTitle>
+  <BoxSectionDescription>
+    My editor of choice is <InlineLink href={BeyondWorkLink.NEOVIM}>
+      Neovim
+    </InlineLink>, deeply integrated with my terminal workflow. Summary of my
+    <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink> below.
+  </BoxSectionDescription>
 
-    <RepoSummary repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME} />
-  </BoxSection>
-</section>
+  <RepoSummary repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME} />
+</BoxSection>

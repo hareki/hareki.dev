@@ -9,19 +9,17 @@ import InlineLink from '@/components/ui/InlineLink.astro';
 import { BeyondWorkLink } from '@/data/beyond-work';
 ---
 
-<section id='beyond-work-typing'>
-  <BoxSection>
-    <BoxSectionTitle icon={KeyboardIcon}>Typing</BoxSectionTitle>
-    <BoxSectionDescription>
-      I find comfort in typing tests with a <InlineLink
-        href={BeyondWorkLink.GLOVE80}>Glove80</InlineLink
-      > keyboard, liked typing on <InlineLink
-        href={BeyondWorkLink.MONKEYTYPE_PROFILE}
-      >
-        Monkeytype
-      </InlineLink> app enough to build a mini version below.
-    </BoxSectionDescription>
+<BoxSection id='beyond-work-typing'>
+  <BoxSectionTitle icon={KeyboardIcon}>Typing</BoxSectionTitle>
+  <BoxSectionDescription>
+    I find comfort in typing tests with a <InlineLink
+      href={BeyondWorkLink.GLOVE80}>Glove80</InlineLink
+    > keyboard, liked typing on <InlineLink
+      href={BeyondWorkLink.MONKEYTYPE_PROFILE}
+    >
+      Monkeytype
+    </InlineLink> app enough to build a mini version below.
+  </BoxSectionDescription>
 
-    <MonkeytypeAtHome client:idle />
-  </BoxSection>
-</section>
+  <MonkeytypeAtHome client:idle />
+</BoxSection>
