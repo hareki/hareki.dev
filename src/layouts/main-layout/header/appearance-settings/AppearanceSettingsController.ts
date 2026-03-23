@@ -21,7 +21,7 @@ export class AppearanceController {
       container.querySelectorAll<HTMLElement>('[data-accent]');
     this.switchButton = container.querySelector<HTMLElement>('#match-system');
     this.flavorTitle = container.querySelector<HTMLElement>(
-      '[data-flavor-title]',
+      '[data-flavor-title]>[data-text-transformer]',
     );
     this.mediaQuery = matchMedia('(prefers-color-scheme:dark)');
     this.setupEvents();
@@ -128,7 +128,16 @@ export class AppearanceController {
     }
 
     if (this.flavorTitle) {
-      this.flavorTitle.textContent = matchSystem ? 'Dark Flavor' : 'Flavor';
+      this.flavorTitle.dataset.transformed = String(matchSystem);
+
+      const original = this.flavorTitle.querySelector<HTMLElement>(
+        '[data-text-original]',
+      );
+      const transformed = this.flavorTitle.querySelector<HTMLElement>(
+        '[data-text-transformed]',
+      );
+      original?.setAttribute('aria-hidden', String(matchSystem));
+      transformed?.setAttribute('aria-hidden', String(!matchSystem));
     }
 
     this.flavorButtons.forEach((btn) => {

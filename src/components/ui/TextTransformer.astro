@@ -1,0 +1,29 @@
+<span class='group relative inline-flex' data-text-transformer>
+  <span class='
+    inline-grid overflow-hidden
+    *:[grid-area:1/1]
+  '>
+    <span
+      data-text-original
+      class='
+        transition-[opacity,translate] duration-[150ms,350ms]
+        group-data-[transformed="true"]:-translate-y-full
+        group-data-[transformed="true"]:opacity-0
+      '
+    >
+      <slot name='original' />
+    </span>
+
+    <span
+      data-text-transformed
+      class='
+        translate-y-full opacity-0 transition-[opacity,translate]
+        duration-[150ms,350ms]
+        group-data-[transformed="true"]:translate-y-0
+        group-data-[transformed="true"]:opacity-100
+      '
+    >
+      <slot name='transformed' />
+    </span>
+  </span>
+</span>
