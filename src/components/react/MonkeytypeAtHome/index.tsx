@@ -5,7 +5,6 @@ import { cx } from 'tailwind-variants';
 import ResultScreen from './components/ResultScreen';
 import TypingControls from './components/TypingControls';
 import TypingScreen from './components/TypingScreen';
-import { COMPONENT_TRANSITION_CLASS } from './constants';
 import { useTypingStore } from './hooks/useTypingStore';
 
 const MonkeytypeAtHome = () => {
@@ -105,11 +104,11 @@ const MonkeytypeAtHome = () => {
         {screen !== 'result' && (
           <TypingScreen
             containerRef={containerRef}
-            className={COMPONENT_TRANSITION_CLASS}
+            className='component-transition'
           />
         )}
         {screen === 'result' && (
-          <ResultScreen className={COMPONENT_TRANSITION_CLASS} />
+          <ResultScreen className='component-transition' />
         )}
 
         <TypingControls
