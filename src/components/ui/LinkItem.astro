@@ -23,7 +23,7 @@ const { name, description, href, class: className, size = 'md' } = Astro.props;
   size={size}
   target='_blank'
   class={cn(
-    'group h-auto w-full justify-start gap-3 p-3',
+    'group relative h-auto w-full justify-start gap-3 p-3',
     size === 'sm' && 'p-2',
     className,
   )}

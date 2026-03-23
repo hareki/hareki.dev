@@ -7,18 +7,22 @@ export const tooltipContent = tv({
     'starwind-tooltip-content',
     'group fixed z-50 hidden w-fit max-w-prose px-3 py-1.5',
     'rounded-md bg-foreground text-background',
-    'animate-in zoom-in-95 fade-in',
     `
-      zoom-out-95 fade-out
+      animate-in fade-in
+      motion-safe:zoom-in-95
+    `,
+    `
+      fade-out
       data-[state=closed]:animate-out data-[state=closed]:fill-mode-forwards
+      motion-safe:zoom-out-95
     `,
     `
-      data-[side=bottom]:slide-in-from-top-2
-      data-[side=top]:slide-in-from-bottom-2
+      motion-safe:data-[side=bottom]:slide-in-from-top-2
+      motion-safe:data-[side=top]:slide-in-from-bottom-2
     `,
     `
-      data-[side=left]:slide-in-from-right-2
-      data-[side=right]:slide-in-from-left-2
+      motion-safe:data-[side=left]:slide-in-from-right-2
+      motion-safe:data-[side=right]:slide-in-from-left-2
     `,
   ],
 });

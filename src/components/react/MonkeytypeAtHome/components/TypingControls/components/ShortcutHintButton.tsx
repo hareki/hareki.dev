@@ -39,7 +39,7 @@ const ShortcutHintButton = ({
           select-none
           hover:bg-primary/10 hover:text-primary
           focus-visible:ring-2 focus-visible:ring-primary/70
-          hocus:scale-102
+          motion-safe:hocus:scale-102
         `,
         checked && 'bg-primary/10 text-primary',
         className,

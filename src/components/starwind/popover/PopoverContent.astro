@@ -37,24 +37,26 @@ export const popoverContent = tv({
     `
       z-50 flex min-w-72 flex-col gap-2.5 overflow-x-hidden overflow-y-auto
       rounded-lg border bg-popover p-2.5 text-foreground shadow-md
-      ease-overshoot
+      motion-safe:ease-overshoot
     `,
     `
-      zoom-in-70 fade-in
+      fade-in
       data-[state=open]:animate-in
+      motion-safe:zoom-in-70
     `,
     `
-      zoom-out-70 fade-out
+      fade-out
       data-[state=closed]:animate-out data-[state=closed]:fill-mode-forwards
+      motion-safe:zoom-out-70
     `,
     'fixed isolate will-change-transform',
   ],
   variants: {
     side: {
-      bottom: 'slide-in-from-top-2 slide-out-to-top-2',
-      top: 'slide-in-from-bottom-2 slide-out-to-bottom-2',
-      right: 'slide-in-from-left-2 slide-out-to-left-2',
-      left: 'slide-in-from-right-2 slide-out-to-right-2',
+      bottom: 'motion-safe:slide-in-from-top-2 motion-safe:slide-out-to-top-2',
+      top: 'motion-safe:slide-in-from-bottom-2 motion-safe:slide-out-to-bottom-2',
+      right: 'motion-safe:slide-in-from-left-2 motion-safe:slide-out-to-left-2',
+      left: 'motion-safe:slide-in-from-right-2 motion-safe:slide-out-to-right-2',
     },
     align: {
       start: '',
@@ -66,12 +68,13 @@ export const popoverContent = tv({
     {
       side: ['top', 'bottom'],
       align: 'start',
-      class: 'slide-in-from-left-1 slide-out-to-left-1',
+      class: 'motion-safe:slide-in-from-left-1 motion-safe:slide-out-to-left-1',
     },
     {
       side: ['top', 'bottom'],
       align: 'end',
-      class: 'slide-in-from-right-1 slide-out-to-right-1',
+      class:
+        'motion-safe:slide-in-from-right-1 motion-safe:slide-out-to-right-1',
     },
   ],
   defaultVariants: {

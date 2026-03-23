@@ -16,15 +16,20 @@ const { original, transformed } = Astro.props;
   '>
     <span
       class='
-        transition-[opacity,translate]
-        group-hocus:-translate-y-full group-hocus:opacity-0
+        group-hocus:opacity-0
+        motion-safe:transition-[opacity,translate]
+        motion-safe:group-hocus:-translate-y-full
+        motion-reduce:transition-opacity
       '
       >{original}</span
     >
     <span
       class='
-        translate-y-full opacity-0 transition-[opacity,translate]
-        group-hocus:translate-y-0 group-hocus:opacity-100
+        opacity-0
+        group-hocus:opacity-100
+        motion-safe:translate-y-full motion-safe:transition-[opacity,translate]
+        motion-safe:group-hocus:translate-y-0
+        motion-reduce:transition-opacity
       '
       aria-hidden='true'
     >

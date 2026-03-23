@@ -6,9 +6,11 @@
     <span
       data-text-original
       class='
-        transition-[opacity,translate] duration-[150ms,350ms]
-        group-data-[transformed="true"]:-translate-y-full
         group-data-[transformed="true"]:opacity-0
+        motion-safe:transition-[opacity,translate]
+        motion-safe:duration-[150ms,350ms]
+        motion-safe:group-data-[transformed="true"]:-translate-y-full
+        motion-reduce:transition-opacity motion-reduce:duration-350
       '
     >
       <slot name='original' />
@@ -17,10 +19,12 @@
     <span
       data-text-transformed
       class='
-        translate-y-full opacity-0 transition-[opacity,translate]
-        duration-[150ms,350ms]
-        group-data-[transformed="true"]:translate-y-0
+        opacity-0 duration-5000
         group-data-[transformed="true"]:opacity-100
+        motion-safe:translate-y-full motion-safe:transition-[opacity,translate]
+        motion-safe:duration-[150ms,350ms]
+        motion-safe:group-data-[transformed="true"]:translate-y-0
+        motion-reduce:transition-opacity motion-reduce:duration-350
       '
     >
       <slot name='transformed' />

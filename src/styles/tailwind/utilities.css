@@ -3,7 +3,7 @@
 }
 
 @utility bouncy-click {
-  @apply not-disabled:hocus:scale-[105%] active:scale-100!;
+  @apply motion-safe:not-disabled:hocus:scale-[105%] active:scale-100!;
   --duration: 0.35s;
 
   transition:

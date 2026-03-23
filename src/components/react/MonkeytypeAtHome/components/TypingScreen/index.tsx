@@ -38,7 +38,7 @@ const TypingScreen = ({ containerRef, className }: TypingScreenProps) => {
         data-typing-area
         key={text}
         className={cx(
-          `relative animate-in overflow-hidden duration-350 fade-in-0`,
+          `relative component-transition overflow-hidden`,
           effectiveTapeMode && 'mask-fade-x',
         )}
       >

@@ -68,21 +68,51 @@ const TypingTransition = ({
       toggleTimeoutRef.current = null;
     }
 
-    // 3. Clear words transform in non-tape steady state
+    // 3. Detect reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    // 4. Clear words transform in non-tape steady state
     if (!effectiveTapeMode && !isToggle && !toggleTimeoutRef.current) {
       wordsContainer.style.transform = '';
     }
 
-    // 4. Shared DOM measurements
+    // 5. Shared DOM measurements
     const containerRect = typingAreaContainer.getBoundingClientRect();
     const letterRect = target.element.getBoundingClientRect();
     const letterX = target.useRightEdge ? letterRect.right : letterRect.left;
     const y = letterRect.top - containerRect.top;
     const height = letterRect.height;
-    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms var(--ease-overshoot-soft)`;
 
-    // 5. Compute caret X + words container side-effects
+    // 6. Compute caret X + words container side-effects
     let caretX: number;
+
+    if (prefersReducedMotion) {
+      // Reduced motion: teleport everything, no transitions
+      if (effectiveTapeMode) {
+        const { anchorX, naturalLeft } = computeAnchorOffsets(
+          typingAreaContainer,
+          wordsContainer,
+          letterX,
+          caretAnchorPercent,
+        );
+        caretX = anchorX;
+        wordsContainer.style.transition = 'none';
+        wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
+      } else {
+        caretX = letterX - containerRect.left;
+        wordsContainer.style.transition = 'none';
+        wordsContainer.style.transform = '';
+      }
+
+      caret.style.transition = 'none';
+      caret.style.transform = `translate(${caretX}px, ${y}px)`;
+      caret.style.height = `${height}px`;
+      return;
+    }
+
+    const toggleTransition = `transform ${TOGGLE_DURATION_MS}ms var(--ease-overshoot-soft)`;
     let caretTransition = `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`;
     let toggleCleanup: (() => void) | null = null;
 
@@ -137,12 +167,12 @@ const TypingTransition = ({
       caretX = letterX - containerRect.left;
     }
 
-    // 6. Apply caret styles (single place)
+    // 7. Apply caret styles (single place)
     caret.style.transition = caretTransition;
     caret.style.transform = `translate(${caretX}px, ${y}px)`;
     caret.style.height = `${height}px`;
 
-    // 7. Schedule toggle cleanup
+    // 8. Schedule toggle cleanup
     if (toggleCleanup) {
       const fn = toggleCleanup;
       toggleTimeoutRef.current = setTimeout(() => {
