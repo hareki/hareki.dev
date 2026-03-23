@@ -77,7 +77,9 @@ const ResultScreen = ({ className }: ResultScreenProps) => {
         />
       </div>
 
-      <p className='max-w-prose text-center text-base text-subtext0-foreground'>
+      <p
+        className='max-w-prose text-center text-sm text-subtext0-foreground'
+      >
         {message}
       </p>
     </div>
