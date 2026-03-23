@@ -8,10 +8,13 @@ import PopoverIndicator from '../PopoverIndicator.astro';
 ---
 
 <PopoverTrigger asChild>
-  <Button variant='ghost' class='
-    w-fit
-    motion-safe:hocus:scale-[102%]
-  '>
+  <Button
+    variant='ghost'
+    class='
+      w-fit
+      motion-safe:not-disabled:hocus:scale-[102%]
+    '
+  >
     <HeartIcon />
     <span>Tools & Inspirations</span>
     <PopoverIndicator size='md' orientation='up' />
