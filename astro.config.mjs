@@ -22,7 +22,12 @@ export default defineConfig({
   integrations: [
     playformCompress({
       CSS: true,
-      HTML: false,
+      HTML: {
+        'html-minifier-terser': {
+          collapseWhitespace: false,
+          preserveLineBreaks: true,
+        },
+      },
       JavaScript: true,
     }),
     react({

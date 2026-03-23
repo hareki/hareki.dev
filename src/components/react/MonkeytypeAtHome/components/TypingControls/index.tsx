@@ -1,7 +1,6 @@
 import { cx } from 'tailwind-variants';
 
 import ShortcutHintButton from './components/ShortcutHintButton';
-import TypingProgress from './components/TypingProgress';
 import { useTypingStore } from '../../hooks/useTypingStore';
 
 interface TypingControlsProps {
@@ -53,17 +52,6 @@ const TypingControls = ({
           />
         )}
       </div>
-
-      {screen === 'typing' && (
-        <TypingProgress
-          className={cx(
-            `
-              absolute top-1/2 right-0 -translate-y-1/2 component-transition
-              transition-opacity
-            `,
-          )}
-        />
-      )}
     </div>
   );
 };

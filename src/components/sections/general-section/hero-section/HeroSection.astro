@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 
-import TextTransformer from './TextTransformer.astro';
+import LetterTransformer from './LetterTransformer.astro';
 ---
 
 <section id='hero'>
@@ -25,9 +25,9 @@ import TextTransformer from './TextTransformer.astro';
             tabindex='0'
             role='button'
             aria-label='Tu "Hareki" Nguyen'
-            >T<TextTransformer original='u' transformed='ú' /> "Hareki" <span
+            >T<LetterTransformer original='u' transformed='ú' /> "Hareki" <span
               class='whitespace-nowrap'
-              >Nguy<TextTransformer original='e' transformed='ễ' />n</span
+              >Nguy<LetterTransformer original='e' transformed='ễ' />n</span
             ></span
           >
         </TooltipTrigger>

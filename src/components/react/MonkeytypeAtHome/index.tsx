@@ -4,6 +4,7 @@ import { cx } from 'tailwind-variants';
 
 import ResultScreen from './components/ResultScreen';
 import TypingControls from './components/TypingControls';
+import TypingProgress from './components/TypingControls/components/TypingProgress';
 import TypingScreen from './components/TypingScreen';
 import { useTypingStore } from './hooks/useTypingStore';
 
@@ -100,7 +101,7 @@ const MonkeytypeAtHome = () => {
         autoComplete='off'
       />
 
-      <div className='max-w-full'>
+      <div className='relative max-w-full'>
         {screen !== 'result' && (
           <TypingScreen
             containerRef={containerRef}
@@ -110,11 +111,16 @@ const MonkeytypeAtHome = () => {
         {screen === 'result' && (
           <ResultScreen className='component-transition' />
         )}
-
         <TypingControls
           onRestart={handleRestart}
           restartButtonRef={restartButtonRef}
         />
+
+        {screen === 'typing' && (
+          <TypingProgress
+            className={cx(`absolute right-0 bottom-1 component-transition`)}
+          />
+        )}
       </div>
     </div>
   );
