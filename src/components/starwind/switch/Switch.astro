@@ -58,7 +58,7 @@ if (!padding) {
   newPadding = size === 'sm' ? 2.5 : size === 'lg' ? 4 : 3;
 }
 
-const sizeMultiplier = size === 'sm' ? 4 : size === 'lg' ? 6 : 5;
+const sizeMultiplier = size === 'sm' ? 3.5 : size === 'lg' ? 6 : 5;
 
 let ariaLabel;
 if (rest['aria-label']) {
@@ -135,7 +135,7 @@ export const switchToggle = tv({
       group-aria-[checked=false]:translate-x-[calc(var(--padding)-var(--border-offset))]
     `,
   ],
-  variants: { size: { sm: 'size-4', md: 'size-5', lg: 'size-6' } },
+  variants: { size: { sm: 'size-3.5', md: 'size-5', lg: 'size-6' } },
   defaultVariants: { size: 'md' },
 });
 
