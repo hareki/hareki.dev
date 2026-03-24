@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { cx } from 'tailwind-variants';
 
@@ -7,6 +7,14 @@ import TypingControls from './components/TypingControls';
 import TypingProgress from './components/TypingControls/components/TypingProgress';
 import TypingScreen from './components/TypingScreen';
 import { useTypingStore } from './hooks/useTypingStore';
+
+const SENTINEL = ' ';
+
+const resetInput = (el: HTMLInputElement) => {
+  el.value = SENTINEL;
+  el.selectionStart = 1;
+  el.selectionEnd = 1;
+};
 
 const MonkeytypeAtHome = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,15 +25,65 @@ const MonkeytypeAtHome = () => {
   const isFocused = useTypingStore((s) => s.isFocused);
   const dispatch = useTypingStore((s) => s.dispatch);
 
+  // Initialize sentinel on mount
+  useEffect(() => {
+    if (inputRef.current) {
+      resetInput(inputRef.current);
+    }
+  }, []);
+
+  // Native beforeinput listener (React's onBeforeInput is polyfilled, not native)
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) {
+      return;
+    }
+
+    const handler = (event: InputEvent) => {
+      const inputEvent = event;
+      inputEvent.preventDefault();
+
+      if (screen === 'result') {
+        return;
+      }
+
+      const { inputType, data } = inputEvent;
+
+      if (inputType === 'deleteContentBackward') {
+        dispatch({ type: 'BACKSPACE' });
+        return;
+      }
+
+      if (inputType === 'insertText' && data) {
+        if (data === ' ') {
+          dispatch({ type: 'SPACE', timestamp: performance.now() });
+        } else if (data.length === 1) {
+          dispatch({
+            type: 'TYPE_CHAR',
+            char: data,
+            timestamp: performance.now(),
+          });
+        }
+      }
+    };
+
+    el.addEventListener('beforeinput', handler);
+    return () => el.removeEventListener('beforeinput', handler);
+  }, [screen, dispatch]);
+
   const focusInput = () => {
     inputRef.current?.focus();
   };
 
   const handleRestart = () => {
     dispatch({ type: 'RESTART' });
+    if (inputRef.current) {
+      resetInput(inputRef.current);
+    }
     focusInput();
   };
 
+  // Only handle shortcuts that don't produce text input (no beforeinput fired)
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === '.' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
@@ -36,40 +94,17 @@ const MonkeytypeAtHome = () => {
     if (e.key === 'Tab') {
       e.preventDefault();
       restartButtonRef.current?.focus();
-      return;
-    }
-
-    // On result screen: ignore typing keys
-    if (screen === 'result') {
-      return;
-    }
-
-    if (e.key === ' ') {
-      e.preventDefault();
-      dispatch({ type: 'SPACE', timestamp: performance.now() });
-      return;
-    }
-
-    if (e.key === 'Backspace') {
-      e.preventDefault();
-      dispatch({ type: 'BACKSPACE' });
-      return;
-    }
-
-    // Single printable character (no meta/ctrl modifiers)
-    if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) {
-      dispatch({
-        type: 'TYPE_CHAR',
-        char: e.key,
-        timestamp: performance.now(),
-      });
-      if (inputRef.current) {
-        inputRef.current.value = '';
-      }
     }
   };
 
-  const handleFocus = () => dispatch({ type: 'FOCUS' });
+  const handleFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.selectionStart = 1;
+      inputRef.current.selectionEnd = 1;
+    }
+    dispatch({ type: 'FOCUS' });
+  };
+
   const handleBlur = () => {
     dispatch({ type: 'BLUR' });
   };
