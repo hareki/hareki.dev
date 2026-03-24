@@ -7,6 +7,7 @@ import TypingTransition from './components/TypingTransition';
 import Word from './components/Word';
 import { useForcedTapeModeWatcher } from '../../hooks/useForcedTapeModeWatcher';
 import { useTypingStore } from '../../hooks/useTypingStore';
+import { selectEffectiveTapeMode } from '../../hooks/useTypingStore/selectors';
 
 interface TypingScreenProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -30,7 +31,7 @@ const TypingScreen = ({ containerRef, className }: TypingScreenProps) => {
 
   const wordCount = useTypingStore((s) => s.words.length);
   const text = useTypingStore((s) => s.text);
-  const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
+  const effectiveTapeMode = useTypingStore(selectEffectiveTapeMode);
 
   return (
     <div className={cx('flex flex-col gap-4', className)}>

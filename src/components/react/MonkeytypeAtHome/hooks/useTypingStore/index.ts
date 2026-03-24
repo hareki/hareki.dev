@@ -253,17 +253,12 @@ export const typingReducer = (
 
 export interface TypingStore extends TypingState {
   dispatch: (action: TypingAction) => void;
-  getEffectiveTapeMode: () => boolean;
 }
 
 let cachedState: TypingState = createInitialState(0);
 
-export const useTypingStore = create<TypingStore>((set, get) => ({
+export const useTypingStore = create<TypingStore>((set) => ({
   ...cachedState,
-  getEffectiveTapeMode: () => {
-    const state = get();
-    return state.isTapeModeOn || state.isTapeModeForced;
-  },
   dispatch: (action) => {
     const next = typingReducer(cachedState, action);
     if (next === cachedState) {

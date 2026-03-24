@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useTypingStore } from '@/components/react/MonkeytypeAtHome/hooks/useTypingStore';
+import { selectEffectiveTapeMode } from '@/components/react/MonkeytypeAtHome/hooks/useTypingStore/selectors';
 
 import { resolveTargetLetter, computeAnchorOffsets } from './utils';
 
@@ -25,7 +26,7 @@ const TypingTransition = ({
 }: CaretProps) => {
   const currentWordIndex = useTypingStore((s) => s.currentWordIndex);
   const currentCharIndex = useTypingStore((s) => s.currentCharIndex);
-  const effectiveTapeMode = useTypingStore((s) => s.getEffectiveTapeMode());
+  const effectiveTapeMode = useTypingStore(selectEffectiveTapeMode);
 
   const prevTapeModeRef = useRef(effectiveTapeMode);
   const toggleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

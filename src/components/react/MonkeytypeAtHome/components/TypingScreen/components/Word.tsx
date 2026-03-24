@@ -2,6 +2,7 @@ import { cx } from 'tailwind-variants';
 
 import Letter from './Letter';
 import { useTypingStore } from '../../../hooks/useTypingStore';
+import { selectShowRedUnderline } from '../../../hooks/useTypingStore/selectors';
 
 interface WordProps {
   wordIndex: number;
@@ -9,10 +10,8 @@ interface WordProps {
 }
 
 const Word = ({ wordIndex, registerRef }: WordProps) => {
-  const isCompleted = useTypingStore((s) => s.words[wordIndex].isCompleted);
-  const isCorrect = useTypingStore((s) => s.words[wordIndex].isCorrect);
   const letterCount = useTypingStore((s) => s.words[wordIndex].letters.length);
-  const showRedUnderline = isCompleted && !isCorrect;
+  const showRedUnderline = useTypingStore(selectShowRedUnderline(wordIndex));
 
   return (
     <span

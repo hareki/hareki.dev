@@ -15,11 +15,7 @@ interface LetterProps {
   registerRef: (key: string, el: HTMLSpanElement | null) => void;
 }
 
-const Letter = function Letter({
-  wordIndex,
-  charIndex,
-  registerRef,
-}: LetterProps) {
+const Letter = ({ wordIndex, charIndex, registerRef }: LetterProps) => {
   const letter = useTypingStore((s) => s.words[wordIndex].letters[charIndex]);
   const char = letter.status === 'extra' ? letter.typed! : letter.expected;
 
