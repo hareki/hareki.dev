@@ -6,15 +6,20 @@ interface TypingProgressProps {
   className?: string;
 }
 
-const TypingProgress = ({ className }: TypingProgressProps) => {
+const WordsTyped = () => {
   const wordsTyped = useTypingStore((s) => s.wordsTyped);
+
+  return wordsTyped;
+};
+
+const TypingProgress = ({ className }: TypingProgressProps) => {
   const totalWords = useTypingStore((s) => s.words.length);
 
   return (
     <div
       className={cx('text-right text-base text-muted-foreground', className)}
     >
-      {wordsTyped}/{totalWords}
+      <WordsTyped />/{totalWords}
     </div>
   );
 };
