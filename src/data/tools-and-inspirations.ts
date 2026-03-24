@@ -42,19 +42,19 @@ export const INSPIRATIONAL_SITES: SiteEntry[] = [
     name: 'Jason Cameron',
     url: 'https://jasoncameron.dev/',
     favicon: jasonCameronFavicon,
-    description: 'Overall Design and Layout',
+    description: 'Overall Look and Feel',
   },
   {
     name: 'Duy Le',
     url: 'https://www.duyle.dev/',
     favicon: duyLeFavicon,
-    description: 'Typing Test Component',
+    description: 'Animations and Components',
   },
 
   {
     name: 'Brittany Chiang',
     url: 'https://brittanychiang.com/',
     favicon: brittanychiangFavicon,
-    description: 'Résumé Button',
+    description: 'Layout and Components',
   },
 ];
