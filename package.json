@@ -11,7 +11,9 @@
     "lint": "eslint --report-unused-disable-directives src",
     "typecheck": "astro check",
     "diagnose": "pnpm typecheck && pnpm format && pnpm lint",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.3",
@@ -35,6 +37,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/ts-plugin": "^1.10.7",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@eslint/compat": "^2.0.3",
     "@eslint/js": "^10.0.1",
     "@types/node": "^25.5.0",
@@ -51,12 +55,69 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
+    "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,astro}": [
+      "prettier --write",
+      "eslint --fix --report-unused-disable-directives"
+    ]
+  },
+  "commitlint": {
+    "rules": {
+      "type-enum": [
+        2,
+        "always",
+        [
+          "feat",
+          "fix",
+          "docs",
+          "style",
+          "refactor",
+          "perf",
+          "test",
+          "build",
+          "ci",
+          "chore",
+          "revert"
+        ]
+      ],
+      "type-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ],
+      "subject-empty": [
+        2,
+        "never"
+      ],
+      "subject-case": [
+        2,
+        "never",
+        [
+          "sentence-case",
+          "start-case",
+          "pascal-case",
+          "upper-case"
+        ]
+      ],
+      "header-max-length": [
+        2,
+        "always",
+        100
+      ]
+    }
   },
   "packageManager": "pnpm@10.32.1",
   "pnpm": {
