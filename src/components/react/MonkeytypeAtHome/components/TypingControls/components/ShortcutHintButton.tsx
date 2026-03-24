@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, MouseEvent } from 'react';
 
 import { cx } from 'tailwind-variants';
 
@@ -26,6 +26,11 @@ const ShortcutHintButton = ({
     ? { 'aria-checked': checked, role: 'checkbox' }
     : {};
 
+  // PERF: Avoid stealing input focus and flashing isFocused state
+  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <button
       {...checkedProps}
@@ -44,6 +49,7 @@ const ShortcutHintButton = ({
         checked && 'bg-primary/10 text-primary',
         className,
       )}
+      onMouseDown={handleMouseDown}
       onClick={onClick}
     >
       <div className='space-x-1'>

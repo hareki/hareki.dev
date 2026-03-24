@@ -257,6 +257,7 @@ export const typingReducer = (
       return createInitialState(textCycler.next(), {
         isTapeModeOn: state.isTapeModeOn,
         isTapeModeForced: state.isTapeModeForced,
+        isFocused: state.isFocused,
       });
 
     default:

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type MouseEvent } from 'react';
 
 import { cx } from 'tailwind-variants';
 
@@ -80,10 +80,13 @@ const MonkeytypeAtHome = () => {
   };
 
   const handleRestart = () => {
-    dispatch({ type: 'RESTART' });
     if (inputRef.current) {
       resetInput(inputRef.current);
     }
+    focusInput();
+  };
+
+  const handleToggleTapeMode = () => {
     focusInput();
   };
 
@@ -113,7 +116,14 @@ const MonkeytypeAtHome = () => {
     dispatch({ type: 'BLUR' });
   };
 
-  const handleContainerClick = () => focusInput();
+  const handleContainerClick = () => {
+    focusInput();
+  };
+
+  const handleContainerMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    // PERF: Avoid stealing input focus and flashing isFocused state
+    event.preventDefault();
+  };
 
   return (
     <div
@@ -127,6 +137,7 @@ const MonkeytypeAtHome = () => {
         isFocused && screen !== 'result' && 'ring-2 ring-primary/70',
       )}
       onClick={handleContainerClick}
+      onMouseDown={handleContainerMouseDown}
       onMouseMove={handleMouseMove}
     >
       <input
@@ -153,6 +164,7 @@ const MonkeytypeAtHome = () => {
         )}
         <TypingControls
           onRestart={handleRestart}
+          onToggleTapeMode={handleToggleTapeMode}
           restartButtonRef={restartButtonRef}
         />
 
