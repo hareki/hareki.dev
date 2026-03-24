@@ -24,6 +24,7 @@ const TypingTransition = ({
   caretAnchorPercent = 50,
   caretRef,
 }: CaretProps) => {
+  const screen = useTypingStore((s) => s.screen);
   const currentWordIndex = useTypingStore((s) => s.currentWordIndex);
   const currentCharIndex = useTypingStore((s) => s.currentCharIndex);
   const effectiveTapeMode = useTypingStore(selectEffectiveTapeMode);
@@ -153,7 +154,7 @@ const TypingTransition = ({
         wordsContainer.style.transform = '';
       };
     } else if (effectiveTapeMode && wordsContainer) {
-      // Normal tape mode: instant position at anchor
+      // Normal tape mode: position at anchor (skip transition on idle/restart)
       const { anchorX, naturalLeft } = computeAnchorOffsets(
         typingAreaContainer,
         wordsContainer,
@@ -161,7 +162,10 @@ const TypingTransition = ({
         caretAnchorPercent,
       );
       caretX = anchorX;
-      wordsContainer.style.transition = `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`;
+      wordsContainer.style.transition =
+        screen === 'idle'
+          ? 'none'
+          : `transform ${LetterSliding.DURATION_MS}ms ${LetterSliding.TIMING}`;
       wordsContainer.style.transform = `translateX(${anchorX - naturalLeft}px)`;
     } else {
       // Normal non-tape mode (or tape mode without wordsContainer)
@@ -169,6 +173,9 @@ const TypingTransition = ({
     }
 
     // 7. Apply caret styles (single place)
+    if (screen === 'idle' && !isToggle) {
+      caretTransition = 'none';
+    }
     caret.style.transition = caretTransition;
     caret.style.transform = `translate(${caretX}px, ${y}px)`;
     caret.style.height = `${height}px`;
@@ -188,6 +195,7 @@ const TypingTransition = ({
     currentWordIndex,
     effectiveTapeMode,
     letterRefs,
+    screen,
     wordsContainerRef,
   ]);
 
