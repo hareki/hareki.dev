@@ -29,6 +29,7 @@ export const createInitialState = (
     isTapeModeOn: overrides?.isTapeModeOn ?? false,
     isTapeModeForced: overrides?.isTapeModeForced ?? false,
     isFocused: overrides?.isFocused ?? false,
+    isTypingPaused: false,
   };
 };
 
@@ -101,6 +102,7 @@ export const typingReducer = (
           wordsTyped: state.wordsTyped + 1,
           totalKeystrokes: newTotalKeystrokes,
           endTime: action.timestamp,
+          isTypingPaused: false,
         };
       }
 
@@ -111,6 +113,7 @@ export const typingReducer = (
         words: newWords,
         currentCharIndex: currentCharIndex + 1,
         totalKeystrokes: newTotalKeystrokes,
+        isTypingPaused: false,
       };
     }
 
@@ -138,6 +141,7 @@ export const typingReducer = (
           wordsTyped: newWordsTyped,
           endTime: action.timestamp,
           screen: 'result',
+          isTypingPaused: false,
         };
       }
 
@@ -156,6 +160,7 @@ export const typingReducer = (
         currentWordIndex: state.currentWordIndex + 1,
         currentCharIndex: 0,
         wordsTyped: newWordsTyped,
+        isTypingPaused: false,
       };
     }
 
@@ -191,6 +196,7 @@ export const typingReducer = (
           ...state,
           words: newWords,
           currentCharIndex: newCharIndex,
+          isTypingPaused: false,
         };
       }
 
@@ -218,6 +224,7 @@ export const typingReducer = (
         currentWordIndex: currentWordIndex - 1,
         currentCharIndex: lastTypedIndex + 1,
         wordsTyped: state.wordsTyped - 1,
+        isTypingPaused: false,
       };
     }
 
@@ -239,6 +246,12 @@ export const typingReducer = (
         isTapeModeForced: action.forced,
         isTapeModeOn: action.forced ? true : state.isTapeModeOn,
       };
+
+    case 'PAUSE_TYPING':
+      if (state.screen !== 'typing' || state.isTypingPaused) {
+        return state;
+      }
+      return { ...state, isTypingPaused: true };
 
     case 'RESTART':
       return createInitialState(textCycler.next(), {

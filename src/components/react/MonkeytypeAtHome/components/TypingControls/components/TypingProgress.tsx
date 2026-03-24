@@ -14,10 +14,15 @@ const WordsTyped = () => {
 
 const TypingProgress = ({ className }: TypingProgressProps) => {
   const totalWords = useTypingStore((s) => s.words.length);
+  const isTypingPaused = useTypingStore((s) => s.isTypingPaused);
 
   return (
     <div
-      className={cx('text-right text-base text-muted-foreground', className)}
+      className={cx(
+        'text-right text-base text-muted-foreground',
+        isTypingPaused && 'opacity-0',
+        className,
+      )}
     >
       <WordsTyped />/{totalWords}
     </div>

@@ -35,6 +35,7 @@ export interface TypingState {
   isTapeModeOn: boolean;
   isTapeModeForced: boolean;
   isFocused: boolean;
+  isTypingPaused: boolean;
 }
 
 export type TypingAction =
@@ -45,4 +46,5 @@ export type TypingAction =
   | { type: 'BLUR' }
   | { type: 'TOGGLE_TAPE_MODE' }
   | { type: 'SET_TAPE_MODE_FORCED'; forced: boolean }
-  | { type: 'RESTART' };
+  | { type: 'RESTART' }
+  | { type: 'PAUSE_TYPING' };

@@ -13,6 +13,7 @@ const TypingControls = ({
   restartButtonRef,
 }: TypingControlsProps) => {
   const screen = useTypingStore((s) => s.screen);
+  const isTypingPaused = useTypingStore((s) => s.isTypingPaused);
   const isTapeModeOn = useTypingStore((s) => s.isTapeModeOn);
   const isTapeModeForced = useTypingStore((s) => s.isTapeModeForced);
   const dispatch = useTypingStore((s) => s.dispatch);
@@ -34,7 +35,7 @@ const TypingControls = ({
               component-transition
               focus-within:opacity-100
             `,
-            screen === 'typing' && 'opacity-0',
+            screen === 'typing' && !isTypingPaused && 'opacity-0',
           )}
         />
 
@@ -44,10 +45,12 @@ const TypingControls = ({
             label='Tape Mode'
             onClick={() => dispatch({ type: 'TOGGLE_TAPE_MODE' })}
             checked={isTapeModeOn}
-            hidden={!shouldShowTapeMode}
             className={cx(
-              'component-transition',
-              !shouldShowTapeMode && 'opacity-0',
+              `
+                component-transition
+                focus-within:opacity-100
+              `,
+              !shouldShowTapeMode && !isTypingPaused && 'opacity-0',
             )}
           />
         )}

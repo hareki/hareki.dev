@@ -75,6 +75,10 @@ const MonkeytypeAtHome = () => {
     inputRef.current?.focus();
   };
 
+  const handleMouseMove = () => {
+    dispatch({ type: 'PAUSE_TYPING' });
+  };
+
   const handleRestart = () => {
     dispatch({ type: 'RESTART' });
     if (inputRef.current) {
@@ -123,6 +127,7 @@ const MonkeytypeAtHome = () => {
         isFocused && screen !== 'result' && 'ring-2 ring-primary/70',
       )}
       onClick={handleContainerClick}
+      onMouseMove={handleMouseMove}
     >
       <input
         ref={inputRef}
