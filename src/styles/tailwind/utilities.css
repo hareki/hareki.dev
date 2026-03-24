@@ -30,7 +30,7 @@
 }
 
 @utility revealing {
-  @apply animate-in duration-800 fade-in slide-in-from-bottom-4 fill-mode-backwards;
+  @apply animate-in duration-800 fade-in slide-in-from-bottom-4 fill-mode-backwards motion-reduce:animate-none;
 }
 
 @utility revealing-* {
