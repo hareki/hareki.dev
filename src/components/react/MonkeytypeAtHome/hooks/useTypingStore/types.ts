@@ -1,11 +1,19 @@
 export type Screen = 'idle' | 'typing' | 'result';
 export type LetterStatus = 'untyped' | 'correct' | 'incorrect' | 'extra';
 
-export interface LetterState {
+interface UntypedLetterState {
   expected: string;
-  typed: string | null;
-  status: LetterStatus;
+  typed: null;
+  status: 'untyped';
 }
+
+interface TypedLetterState {
+  expected: string;
+  typed: string;
+  status: 'correct' | 'incorrect' | 'extra';
+}
+
+export type LetterState = UntypedLetterState | TypedLetterState;
 
 export interface WordState {
   letters: LetterState[];
