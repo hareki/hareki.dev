@@ -1,0 +1,66 @@
+---
+import BrowserIcon from '@tabler/icons/outline/browser.svg';
+
+import Badge from '@/components/ui/Badge.astro';
+import BoxSection from '@/components/ui/box-section';
+import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
+import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
+import InlineLink from '@/components/ui/InlineLink.astro';
+import SubsectionTitle from '@/components/ui/SubsectionTitle.astro';
+import { ThisWebSiteData } from '@/data/this-website';
+---
+
+<BoxSection id='beyond-work-terminal' class='revealing revealing-5'>
+  <BoxSectionTitle icon={BrowserIcon}>This Website</BoxSectionTitle>
+  <BoxSectionDescription>
+    My first project outside of work. Built from scratch with <InlineLink
+      href='https://astro.build/'
+    >
+      Astro
+    </InlineLink>, deployed on <InlineLink href='https://www.cloudflare.com/'>
+      Cloudflare
+    </InlineLink>, no templates involved. Source on <InlineLink
+      href='https://github.com/hareki/hareki.dev'>GitHub</InlineLink
+    >.
+  </BoxSectionDescription>
+
+  <div class='rounded-md bg-inner-box p-2 text-sm'>
+    <SubsectionTitle class='mb-0 px-1.5'>Core Principles</SubsectionTitle>
+    <div class='mb-4 flex flex-col'>
+      {
+        ThisWebSiteData.CORE_PRINCIPLES.map(({ name, description }) => {
+          return (
+            <span
+              class='
+                group inline-flex max-w-full rounded-xs p-1.5
+                text-subtext0-foreground
+              '
+            >
+              <div class='flex min-w-0 items-center gap-1'>
+                <div>
+                  <span class='font-medium whitespace-nowrap text-foreground'>
+                    {name}
+                  </span>
+                  <span>{description}</span>
+                </div>
+              </div>
+            </span>
+          );
+        })
+      }
+    </div>
+
+    <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-1.5'>
+      <div>
+        <SubsectionTitle>Technologies</SubsectionTitle>
+        <div class='flex flex-wrap gap-2'>
+          {
+            ThisWebSiteData.TECHNOLOGIES.map(({ name, color }) => (
+              <Badge color={color}>{name}</Badge>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</BoxSection>

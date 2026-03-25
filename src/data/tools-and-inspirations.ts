@@ -16,24 +16,25 @@ export const getFaviconSrc = (favicon: ImageMetadata | string): string => {
   return typeof favicon === 'string' ? favicon : favicon.src;
 };
 
-export const TOOLS_USED: SiteEntry[] = [
-  {
-    name: 'Astro',
-    description: 'Web Framework',
-    url: 'https://astro.build/',
-    favicon: astroFavicon,
-  },
-  {
-    name: 'Starwind UI',
-    description: 'UI Component Set',
-    url: 'https://starwind.dev/',
-    favicon: starwindUiFavicon,
-  },
+export const COLOPHON: SiteEntry[] = [
   {
     name: 'Catppuccin',
     description: 'Color Palette',
     url: 'https://catppuccin.com/',
     favicon: catppuccinFavicon,
+  },
+
+  {
+    name: 'Maple Mono',
+    description: 'Coding Font',
+    url: 'https://font.subf.dev/en/',
+    favicon: astroFavicon,
+  },
+  {
+    name: 'Tabler Icons',
+    description: 'Icon Set',
+    url: 'https://tabler.io/icons',
+    favicon: starwindUiFavicon,
   },
 ];
 

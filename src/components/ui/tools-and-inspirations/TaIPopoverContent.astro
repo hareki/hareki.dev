@@ -1,13 +1,13 @@
 ---
 import { PopoverContent } from '@/components/starwind/popover';
-import { INSPIRATIONAL_SITES, TOOLS_USED } from '@/data/tools-and-inspirations';
+import { INSPIRATIONAL_SITES, COLOPHON } from '@/data/tools-and-inspirations';
 
 import TaIPopoverContentSection from './TaIPopoverContentSection.astro';
 ---
 
 <PopoverContent side='top' aria-label='Tools & Inspirations' class='p-4'>
   <div class='space-y-popover-section'>
-    <TaIPopoverContentSection title='Tools Used' items={TOOLS_USED} />
+    <TaIPopoverContentSection title='Colophon' items={COLOPHON} />
     <TaIPopoverContentSection
       title='Inspirations'
       items={INSPIRATIONAL_SITES}
