@@ -130,7 +130,7 @@ const MonkeytypeAtHome = () => {
       ref={containerRef}
       className={cx(
         `
-          relative flex-center min-h-56 rounded-md bg-inner-box p-4 text-sm
+          relative flex-center min-h-63 rounded-md bg-inner-box p-4 text-sm
           transition-shadow duration-350
         `,
         screen !== 'result' && 'cursor-text',

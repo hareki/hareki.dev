@@ -30,9 +30,9 @@ const [commits, languages] = await Promise.all([
 ]);
 ---
 
-<div class='rounded-md bg-inner-box p-2 text-sm'>
-  <SubsectionTitle class='mb-0 px-1.5'> Recent Commits </SubsectionTitle>
-  <div class='mb-4 flex flex-col'>
+<div class='rounded-md bg-inner-box px-1 py-2 text-sm'>
+  <SubsectionTitle class='mb-0 px-2'> Recent Commits </SubsectionTitle>
+  <div class='mb-6 flex flex-col'>
     {
       commits.map((commit) => {
         const parsed = parseConventionalCommit(commit.commitMessage);
@@ -44,7 +44,7 @@ const [commits, languages] = await Promise.all([
             rel='noopener noreferrer'
             class='
               group flex w-full bouncy-click items-center justify-between gap-5
-              rounded-xs p-1.5 text-subtext0-foreground
+              rounded-xs p-2 text-subtext0-foreground
               hover:bg-primary/10 hover:text-primary/70
               motion-safe:not-disabled:hocus:scale-[100.5%]
             '
@@ -95,7 +95,7 @@ const [commits, languages] = await Promise.all([
     }
   </div>
 
-  <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-1.5'>
+  <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-2'>
     <div>
       <SubsectionTitle> Languages </SubsectionTitle>
       <div class='flex flex-wrap gap-2'>

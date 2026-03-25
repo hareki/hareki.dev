@@ -24,15 +24,15 @@ import { ThisWebSiteData } from '@/data/this-website';
     >.
   </BoxSectionDescription>
 
-  <div class='rounded-md bg-inner-box p-2 text-sm'>
-    <SubsectionTitle class='mb-0 px-1.5'>Core Principles</SubsectionTitle>
-    <div class='mb-4 flex flex-col'>
+  <div class='rounded-md bg-inner-box px-1 py-2 text-sm'>
+    <SubsectionTitle class='mb-0 px-2'>Core Principles</SubsectionTitle>
+    <div class='mb-6 flex flex-col'>
       {
         ThisWebSiteData.CORE_PRINCIPLES.map(({ name, description }) => {
           return (
             <span
               class='
-                group inline-flex max-w-full rounded-xs p-1.5
+                group inline-flex max-w-full rounded-xs p-2
                 text-subtext0-foreground
               '
             >
@@ -50,7 +50,7 @@ import { ThisWebSiteData } from '@/data/this-website';
       }
     </div>
 
-    <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-1.5'>
+    <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-2'>
       <div>
         <SubsectionTitle>Technologies</SubsectionTitle>
         <div class='flex flex-wrap gap-2'>
