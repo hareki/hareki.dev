@@ -71,14 +71,7 @@ const techs: TechItemProps[] = [
 
 <section id='technologies' class='@container revealing revealing-1'>
   <SectionTitle>TECHNOLOGIES</SectionTitle>
-  <div
-    class='
-      grid grid-cols-1 gap-x-6 gap-y-3
-      @md:grid-cols-2
-      @2xl:grid-cols-3
-      @4xl:grid-cols-4
-    '
-  >
+  <div class='work-grid'>
     {techs.map((tech) => <TechItem {...tech} />)}
   </div>
 </section>

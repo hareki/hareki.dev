@@ -42,3 +42,11 @@
   height: --spacing(--value(number));
   @apply rounded-full;
 }
+
+@utility work-grid {
+  @apply grid grid-cols-1 gap-x-6 gap-y-3 @md:grid-cols-2 @2xl:grid-cols-3 @4xl:grid-cols-4;
+}
+
+@utility work-subgrid-span {
+  @apply @md:col-span-1 @2xl:col-span-2 @4xl:col-span-3;
+}
