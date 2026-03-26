@@ -25,18 +25,20 @@ const { commitLimit } = Astro.props;
 
   <style define:vars={{ commitLimit }}>
     [data-repo-summary-skeleton] {
-      --summary-skeleton-height: calc(11.875rem + 2rem * var(--commitLimit));
+      --summary-skeleton-height: calc(12.625rem + 2.25rem * var(--commitLimit));
     }
 
     @container (min-width: 31.875rem) {
       [data-repo-summary-skeleton] {
-        --summary-skeleton-height: calc(9.875rem + 2rem * var(--commitLimit));
+        --summary-skeleton-height: calc(
+          10.625rem + 2.25rem * var(--commitLimit)
+        );
       }
     }
 
     @container (min-width: 44.813rem) {
       [data-repo-summary-skeleton] {
-        --summary-skeleton-height: calc(6rem + 2rem * var(--commitLimit));
+        --summary-skeleton-height: calc(6.75rem + 2.25rem * var(--commitLimit));
       }
     }
   </style>
