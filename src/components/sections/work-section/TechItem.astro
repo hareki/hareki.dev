@@ -8,10 +8,14 @@ interface Props {
   description: string;
   href: string;
   icon: ImageMetadata;
+  iconClass?: string;
+  iconSize?: number;
   darkIcon?: ImageMetadata;
 }
 
-const { name, description, href, icon, darkIcon } = Astro.props;
+export type TechItemProps = Props;
+
+const { name, description, href, icon, darkIcon, iconClass } = Astro.props;
 
 const imgClass = cn(
   `absolute top-0 left-0 size-full transition-all duration-350`,
@@ -48,7 +52,10 @@ const darkIconProps = darkIcon && {
 ---
 
 <LinkItem name={name} description={description} href={href}>
-  <div slot='icon' class='relative size-10 shrink-0 muted-icon'>
+  <div
+    slot='icon'
+    class={cn('relative size-10 shrink-0 muted-icon', iconClass)}
+  >
     <img src={icon.src} {...lightIconProps} {alt} />
     {darkIcon && <img src={darkIcon.src} {...darkIconProps} {alt} />}
   </div>

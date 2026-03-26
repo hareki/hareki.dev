@@ -12,9 +12,9 @@ import tanstack from '@/assets/technologies/tanstack.webp';
 import typescript from '@/assets/technologies/typescript.svg';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
 
-import TechItem from './TechItem.astro';
+import TechItem, { type TechItemProps } from '../TechItem.astro';
 
-const techs = [
+const techs: TechItemProps[] = [
   {
     name: 'HTML5',
     description: 'Markup Language',
@@ -69,18 +69,16 @@ const techs = [
 ];
 ---
 
-<section id='tech-stack' class='@container revealing revealing-2'>
+<section id='technologies' class='@container revealing revealing-1'>
   <SectionTitle>TECHNOLOGIES</SectionTitle>
-  <div>
-    <div
-      class='
-        grid grid-cols-1 gap-3
-        @md:grid-cols-2
-        @2xl:grid-cols-3
-        @4xl:grid-cols-4
-      '
-    >
-      {techs.map((tech) => <TechItem {...tech} />)}
-    </div>
+  <div
+    class='
+      grid grid-cols-1 gap-x-6 gap-y-3
+      @md:grid-cols-2
+      @2xl:grid-cols-3
+      @4xl:grid-cols-4
+    '
+  >
+    {techs.map((tech) => <TechItem {...tech} />)}
   </div>
 </section>

@@ -9,17 +9,10 @@ import WorkExperiencePopoverContent from './WorkExperiencePopoverContent.astro';
 import WorkExperiencePopoverTrigger from './WorkExperiencePopoverTrigger.astro';
 ---
 
-<section id='work-experience' class='@container revealing revealing-1'>
+<section id='work-experience' class='revealing revealing-2'>
   <SectionTitle>WORK EXPERIENCE</SectionTitle>
 
-  <div
-    class='
-      mb-2 grid grid-cols-1 gap-3
-      @md:grid-cols-2
-      @2xl:grid-cols-3
-      @4xl:grid-cols-4
-    '
-  >
+  <div class='mb-2 flex gap-3'>
     {
       EXPERIENCE.map((record) => (
         <div>

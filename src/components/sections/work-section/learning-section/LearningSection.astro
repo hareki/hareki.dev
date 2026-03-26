@@ -1,0 +1,46 @@
+---
+import figma from '@/assets/technologies/figma.svg';
+import go from '@/assets/technologies/go2.svg';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
+
+import TechItem, { type TechItemProps } from '../TechItem.astro';
+
+const techs: TechItemProps[] = [
+  {
+    name: 'Go',
+    description: 'Markup Language',
+    href: 'https://go.dev',
+    icon: go,
+    iconClass: 'size-11',
+  },
+  {
+    name: 'Figma',
+    description: 'Styling Language',
+    href: 'https://figma.com',
+    icon: figma,
+    iconClass: 'size-8',
+  },
+];
+---
+
+<section
+  id='learning'
+  class='
+    grid revealing grid-cols-subgrid grid-rows-[auto_1fr] revealing-2
+    @md:col-span-1
+    @2xl:col-span-2
+    @4xl:col-span-3
+  '
+>
+  <SectionTitle>LEARNING</SectionTitle>
+  <div
+    class='
+      grid h-fit grid-cols-subgrid gap-x-6 gap-y-3
+      @md:col-span-1
+      @2xl:col-span-2
+      @4xl:col-span-3
+    '
+  >
+    {techs.map((tech) => <TechItem {...tech} />)}
+  </div>
+</section>

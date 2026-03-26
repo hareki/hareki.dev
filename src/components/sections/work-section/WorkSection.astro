@@ -1,7 +1,20 @@
 ---
+import LearningSection from './learning-section/LearningSection.astro';
 import TechnologiesSection from './technologies-section/TechnologiesSection.astro';
 import WorkExperienceSection from './work-experience-section/WorkExperienceSection.astro';
 ---
 
-<WorkExperienceSection />
 <TechnologiesSection />
+<div class='@container'>
+  <div
+    class='
+      grid grid-cols-1 gap-x-6 gap-y-3
+      @md:grid-cols-2
+      @2xl:grid-cols-3
+      @4xl:grid-cols-4
+    '
+  >
+    <WorkExperienceSection />
+    <LearningSection />
+  </div>
+</div>
