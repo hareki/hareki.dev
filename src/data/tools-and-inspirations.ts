@@ -1,9 +1,9 @@
-import astroFavicon from '@/assets/sites/astro.svg';
 import brittanychiangFavicon from '@/assets/sites/brittanychiang.png';
 import catppuccinFavicon from '@/assets/sites/catppuccin.png';
 import duyLeFavicon from '@/assets/sites/duy-le.ico';
 import jasonCameronFavicon from '@/assets/sites/jason-cameron.svg';
-import starwindUiFavicon from '@/assets/sites/starwind-ui.ico';
+import mapleMonoIcon from '@/assets/sites/maple-mono.svg';
+import tablerIcon from '@/assets/sites/tabler.svg';
 
 export interface SiteEntry {
   name: string;
@@ -28,13 +28,13 @@ export const COLOPHON: SiteEntry[] = [
     name: 'Maple Mono',
     description: 'Coding Font',
     url: 'https://font.subf.dev/en/',
-    favicon: astroFavicon,
+    favicon: mapleMonoIcon,
   },
   {
     name: 'Tabler Icons',
     description: 'Icon Set',
     url: 'https://tabler.io/icons',
-    favicon: starwindUiFavicon,
+    favicon: tablerIcon,
   },
 ];
 
