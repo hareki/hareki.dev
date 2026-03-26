@@ -1,8 +1,8 @@
 ---
-import Content from './LastCommitInfoContent.astro';
-import Skeleton from './LastCommitInfoSkeleton.astro';
+import LastCommitInfoContent from './LastCommitInfoContent.astro';
+import LastCommitInfoSkeleton from './LastCommitInfoSkeleton.astro';
 ---
 
-<Content server:defer>
-  <Skeleton slot='fallback' />
-</Content>
+<LastCommitInfoContent server:defer>
+  <LastCommitInfoSkeleton slot='fallback' />
+</LastCommitInfoContent>

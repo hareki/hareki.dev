@@ -11,7 +11,7 @@ import {
 import ItemSummary from '@/components/ui/ItemSummary.astro';
 import type { ExperienceRecord } from '@/data/experience';
 
-import CompanyLogo from './ExperienceSectionCompanyLogo.astro';
+import WorkExperienceSectionCompanyLogo from './WorkExperienceSectionCompanyLogo.astro';
 
 interface Props {
   record: ExperienceRecord;
@@ -31,7 +31,7 @@ const { record } = Astro.props;
     >
       {
         record.endDate && (
-          <CompanyLogo
+          <WorkExperienceSectionCompanyLogo
             slot='icon'
             record={record}
             classes={{ image: 'muted-icon' }}
@@ -43,7 +43,10 @@ const { record } = Astro.props;
         !record.endDate && (
           <Tooltip slot='icon'>
             <TooltipTrigger>
-              <CompanyLogo record={record} classes={{ image: 'muted-icon' }} />
+              <WorkExperienceSectionCompanyLogo
+                record={record}
+                classes={{ image: 'muted-icon' }}
+              />
             </TooltipTrigger>
             <TooltipContent>Current company</TooltipContent>
           </Tooltip>

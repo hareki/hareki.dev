@@ -13,7 +13,7 @@ import StandaloneLink from '@/components/ui/StandaloneLink.astro';
 import type { ExperienceRecord } from '@/data/experience';
 import { getFormattedDate } from '@/utils/date';
 
-import CompanyLogo from './ExperienceSectionCompanyLogo.astro';
+import WorkExperienceSectionCompanyLogo from './WorkExperienceSectionCompanyLogo.astro';
 
 interface Props {
   record: ExperienceRecord;
@@ -43,7 +43,7 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
           {record.company.description}
         </TooltipContent>
       </Tooltip>
-      <CompanyLogo record={record} slot='icon' />
+      <WorkExperienceSectionCompanyLogo record={record} slot='icon' />
     </ItemSummary>
   </div>
 

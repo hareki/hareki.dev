@@ -5,8 +5,8 @@ import StandaloneLink from '@/components/ui/StandaloneLink.astro';
 import ContactInformation from '@/data/contact-information';
 import { EXPERIENCE } from '@/data/experience';
 
-import ExperiencePopoverContent from './ExperiencePopoverContent.astro';
-import ExperiencePopoverTrigger from './ExperiencePopoverTrigger.astro';
+import WorkExperiencePopoverContent from './WorkExperiencePopoverContent.astro';
+import WorkExperiencePopoverTrigger from './WorkExperiencePopoverTrigger.astro';
 ---
 
 <section id='work-experience' class='@container revealing revealing-1'>
@@ -24,8 +24,8 @@ import ExperiencePopoverTrigger from './ExperiencePopoverTrigger.astro';
       EXPERIENCE.map((record) => (
         <div>
           <Popover class='group'>
-            <ExperiencePopoverTrigger record={record} />
-            <ExperiencePopoverContent record={record} />
+            <WorkExperiencePopoverTrigger record={record} />
+            <WorkExperiencePopoverContent record={record} />
           </Popover>
         </div>
       ))
