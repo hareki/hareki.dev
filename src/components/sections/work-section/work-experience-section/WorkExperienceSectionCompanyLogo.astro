@@ -13,7 +13,7 @@ interface Props {
 const { record, classes: { image: imageClass } = {} } = Astro.props;
 ---
 
-<div class='relative'>
+<div class='relative size-10'>
   <img
     class={cn('rounded-full', imageClass)}
     src={record.company.logo.src}

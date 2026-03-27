@@ -17,8 +17,12 @@ export type TechItemProps = Props;
 
 const { name, description, href, icon, darkIcon, iconClass } = Astro.props;
 
-const imgClass = cn(
-  `absolute top-0 left-0 size-full transition-all duration-350`,
+const computedIconClass = cn(
+  `
+    absolute top-[50%] left-[50%] size-10 translate-[-50%] transition-all
+    duration-350
+  `,
+  iconClass,
 );
 const baseProps = {
   width: 40,
@@ -30,7 +34,7 @@ const alt = `${name} logo`;
 const lightIconProps = {
   ...baseProps,
   class: cn(
-    imgClass,
+    computedIconClass,
     darkIcon &&
       `
         opacity-100
@@ -42,7 +46,7 @@ const lightIconProps = {
 const darkIconProps = darkIcon && {
   ...baseProps,
   class: cn(
-    imgClass,
+    computedIconClass,
     `
       opacity-0
       dark:opacity-100
@@ -54,7 +58,7 @@ const darkIconProps = darkIcon && {
 <LinkItem name={name} description={description} href={href}>
   <div
     slot='icon'
-    class={cn('relative size-10 shrink-0 muted-icon', iconClass)}
+    class={cn('relative size-10 shrink-0 overflow-visible muted-icon')}
   >
     <img src={icon.src} {...lightIconProps} {alt} />
     {darkIcon && <img src={darkIcon.src} {...darkIconProps} {alt} />}
