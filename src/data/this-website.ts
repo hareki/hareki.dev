@@ -31,7 +31,6 @@ const TECHNOLOGIES: Technology[] = [
 interface CorePrinciple {
   name: string;
   description: string;
-  extraInfo?: string;
 }
 
 const CORE_PRINCIPLES: CorePrinciple[] = [
