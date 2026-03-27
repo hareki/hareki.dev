@@ -38,7 +38,8 @@
   --warning-foreground: var(--ctp-base);
   --error: var(--ctp-red);
   --error-foreground: var(--ctp-base);
-  --border: var(--ctp-surface1);
+  --border-1: var(--ctp-surface1);
+  --border-2: var(--ctp-surface2);
   --input: var(--ctp-surface1);
   --outline: var(--ctp-text);
   --footer: var(--ctp-mantle);
@@ -154,7 +155,8 @@ html:is(.ctp-flavor-latte) {
   --color-error: var(--error);
   --color-error-foreground: var(--error-foreground);
 
-  --color-border: var(--border);
+  --color-border-1: var(--border-1);
+  --color-border-2: var(--border-2);
   --color-input: var(--input);
   --color-outline: var(--outline);
 
