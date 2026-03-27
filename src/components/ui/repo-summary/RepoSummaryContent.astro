@@ -1,4 +1,5 @@
 ---
+import Separator from '@/components/starwind/separator';
 import {
   Tooltip,
   TooltipContent,
@@ -30,7 +31,7 @@ const [commits, languages] = await Promise.all([
 ]);
 ---
 
-<div class='rounded-md bg-inner-box px-1 py-2 text-sm'>
+<div class='@container rounded-md bg-inner-box px-1 py-2 text-sm'>
   <SubsectionTitle class='mb-0 px-2'> Recent Commits </SubsectionTitle>
   <div class='mb-6 flex flex-col'>
     {
@@ -43,15 +44,21 @@ const [commits, languages] = await Promise.all([
             target='_blank'
             rel='noopener noreferrer'
             class='
-              group flex w-full bouncy-click items-center justify-between gap-5
-              rounded-xs p-2 text-subtext0-foreground
+              group flex w-full bouncy-click flex-col items-start gap-x-2
+              gap-y-1 rounded-xs p-2 text-subtext0-foreground
               hover:bg-primary/10 hover:text-primary/70
+              @md:flex-row @md:items-center @md:gap-5
               motion-safe:not-disabled:hocus:scale-[100.5%]
             '
           >
-            <div class='flex min-w-0 items-center gap-1'>
+            <div
+              class='
+                min-w-0
+                @md:flex-1
+              '
+            >
               {parsed.prefix ? (
-                <div class='truncate'>
+                <>
                   <span
                     class='
                       font-medium whitespace-nowrap text-foreground
@@ -59,36 +66,66 @@ const [commits, languages] = await Promise.all([
                     '
                   >
                     {parsed.prefix}
-                  </span>
+                  </span>{' '}
                   <span>{parsed.message}</span>
-                </div>
+                </>
               ) : (
-                <span class='truncate'>{commit.commitMessage}</span>
+                <span>{commit.commitMessage}</span>
               )}
-              <span class='shrink-0 whitespace-nowrap'>
+              <span
+                class='
+                  ml-1 hidden whitespace-nowrap
+                  @md:inline
+                '
+              >
                 <span class='text-success'>+{commit.linesAdded}</span>
                 <span class='text-error'>-{commit.linesDeleted}</span>
               </span>
             </div>
 
-            <Tooltip>
-              <TooltipTrigger>
-                <span
-                  class='
-                    whitespace-nowrap
-                    group-hover:text-primary/70
-                  '
-                >
-                  {getDateDistance(commit.createdAt)}
-                </span>
-              </TooltipTrigger>
+            <div
+              class='
+                flex w-full items-center
+                @md:w-auto @md:shrink-0 @md:justify-end
+              '
+            >
+              <span
+                class='
+                  whitespace-nowrap
+                  @md:hidden
+                '
+              >
+                <span class='text-success'>+{commit.linesAdded}</span>
+                <span class='text-error'>-{commit.linesDeleted}</span>
+              </span>
 
-              <TooltipContent class='text-sm font-medium'>
-                <span data-utc={commit.createdAt.toISOString()}>
-                  {getFormattedDateTime(commit.createdAt)}
-                </span>
-              </TooltipContent>
-            </Tooltip>
+              <Separator
+                class='
+                  mx-2 h-3.5 bg-(--ctp-surface2)
+                  @md:hidden
+                '
+                orientation='vertical'
+              />
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <span
+                    class='
+                      whitespace-nowrap
+                      group-hover:text-primary/70
+                    '
+                  >
+                    {getDateDistance(commit.createdAt)}
+                  </span>
+                </TooltipTrigger>
+
+                <TooltipContent class='text-sm font-medium'>
+                  <span data-utc={commit.createdAt.toISOString()}>
+                    {getFormattedDateTime(commit.createdAt)}
+                  </span>
+                </TooltipContent>
+              </Tooltip>
+            </div>
           </a>
         );
       })
