@@ -134,7 +134,7 @@ const MonkeytypeAtHome = () => {
           text-sm transition-shadow duration-350
         `,
         screen !== 'result' && 'cursor-text',
-        isFocused && screen !== 'result' && 'ring-2 ring-primary/70',
+        isFocused && screen !== 'result' && 'ring-2 ring-primary/80',
       )}
       onClick={handleContainerClick}
       onMouseDown={handleContainerMouseDown}

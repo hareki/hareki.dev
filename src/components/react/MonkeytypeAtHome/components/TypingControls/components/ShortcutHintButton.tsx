@@ -43,7 +43,7 @@ const ShortcutHintButton = ({
           rounded-md p-1.5 text-muted-foreground transition-all outline-none
           select-none
           hover:bg-primary/10 hover:text-primary
-          focus-visible:ring-2 focus-visible:ring-primary/70
+          focus-visible:ring-2 focus-visible:ring-primary/80
           motion-safe:not-disabled:hocus:scale-102
         `,
         checked && 'bg-primary/15 font-medium text-primary',

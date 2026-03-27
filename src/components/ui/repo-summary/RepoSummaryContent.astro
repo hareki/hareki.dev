@@ -48,7 +48,7 @@ const [commits, languages] = await Promise.all([
             class='
               group flex w-full bouncy-click flex-col items-start gap-x-3
               gap-y-1 rounded-xs p-1.5 text-subtext0-foreground
-              hover:bg-primary/10 hover:text-primary/70
+              hover:bg-primary/10 hover:text-primary/80
               @md:flex-row @md:items-center @md:gap-5
               motion-safe:not-disabled:hocus:scale-[100.5%]
             '
@@ -114,7 +114,7 @@ const [commits, languages] = await Promise.all([
                   <span
                     class='
                       whitespace-nowrap
-                      group-hover:text-primary/70
+                      group-hover:text-primary/80
                     '
                   >
                     {getDateDistance(commit.createdAt)}
