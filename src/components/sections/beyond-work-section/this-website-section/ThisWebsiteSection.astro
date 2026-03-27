@@ -7,6 +7,7 @@ import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescrip
 import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
 import SubsectionTitle from '@/components/ui/SubsectionTitle.astro';
+import { PROJECT_REPO_FULL_NAME } from '@/data/git';
 import { ThisWebSiteData } from '@/data/this-website';
 ---
 
@@ -16,8 +17,8 @@ import { ThisWebSiteData } from '@/data/this-website';
     First time work with, <InlineLink href='https://astro.build/'
       >Astro</InlineLink
     > also my first website outside of work. Built from scratch with clear goals in
-    mind. Source on <InlineLink href='https://github.com/hareki/hareki.dev'
-      >GitHub</InlineLink
+    mind. Source on <InlineLink
+      href={`https://github.com/${PROJECT_REPO_FULL_NAME}`}>GitHub</InlineLink
     >.
   </BoxSectionDescription>
 
