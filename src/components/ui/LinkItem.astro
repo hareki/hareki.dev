@@ -1,10 +1,8 @@
 ---
 import { cn } from 'tailwind-variants';
 
-import Button from '@/components/starwind/button';
-import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
-
-import ItemSummary from './ItemSummary.astro';
+import ItemButton from './ItemButton.astro';
+import NewTabIndicator from './NewTabIndicator.astro';
 
 interface Props {
   name: string;
@@ -17,19 +15,14 @@ interface Props {
 const { name, description, href, class: className, size = 'md' } = Astro.props;
 ---
 
-<Button
-  variant='ghost'
+<ItemButton
+  name={name}
+  description={description}
   href={href}
-  size={size}
   target='_blank'
-  class={cn(
-    'group relative h-auto w-full justify-start gap-3 p-3',
-    size === 'sm' && 'p-2',
-    className,
-  )}
+  size={size}
+  class={cn('group relative', className)}
 >
-  <ItemSummary name={name} description={description}>
-    <slot name='icon' slot='icon' />
-  </ItemSummary>
+  <slot name='icon' slot='icon' />
   <NewTabIndicator />
-</Button>
+</ItemButton>

@@ -1,0 +1,46 @@
+---
+import { cn } from 'tailwind-variants';
+
+import Button from '@/components/starwind/button';
+import type { ButtonProps } from '@/components/starwind/button/Button.astro';
+
+import ItemSummary from './ItemSummary.astro';
+
+import type { PopoverIndicatorProps } from './PopoverIndicator.astro';
+
+interface Props extends Omit<ButtonProps, 'variant'> {
+  name: string;
+  description?: string;
+  size?: 'sm' | 'md';
+  popoverIndicator?: PopoverIndicatorProps;
+}
+
+const {
+  name,
+  description,
+  size = 'md',
+  popoverIndicator,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Button
+  variant='ghost'
+  class={cn(
+    'h-auto w-full justify-start gap-3 p-3',
+    size === 'sm' && 'p-2',
+    className,
+  )}
+  {...rest}
+>
+  <ItemSummary
+    name={name}
+    description={description}
+    popoverIndicator={popoverIndicator}
+  >
+    <slot name='icon' slot='icon' />
+    <slot name='extra-info' slot='extra-info' />
+  </ItemSummary>
+  <slot />
+</Button>
