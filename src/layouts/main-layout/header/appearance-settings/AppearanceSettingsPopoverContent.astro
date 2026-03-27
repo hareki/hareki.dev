@@ -1,4 +1,6 @@
 ---
+import MoonIconFilled from '@tabler/icons/filled/moon.svg';
+import SunIconFilled from '@tabler/icons/filled/sun.svg';
 import CheckIcon from '@tabler/icons/outline/check.svg';
 import MoonIcon from '@tabler/icons/outline/moon.svg';
 import SunIcon from '@tabler/icons/outline/sun.svg';
@@ -62,12 +64,45 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
           <Button
             variant='secondary'
             size='sm'
-            class='justify-start px-4! text-sm text-foreground transition-all'
+            class='
+              justify-start px-4! text-sm font-medium text-foreground
+              transition-all
+            '
             data-flavor={value}
             data-flavor-mode={mode}
           >
-            {mode === 'light' && <SunIcon class='size-4.5' />}
-            {mode === 'dark' && <MoonIcon />}
+            <span class='relative inline-flex size-4.5'>
+              {mode === 'light' && (
+                <SunIcon
+                  class='size-full transition-opacity duration-150'
+                  data-icon-outline
+                />
+              )}
+              {mode === 'light' && (
+                <SunIconFilled
+                  class='
+                    absolute inset-0 size-full opacity-0 transition-opacity
+                    duration-150
+                  '
+                  data-icon-filled
+                />
+              )}
+              {mode === 'dark' && (
+                <MoonIcon
+                  class='size-full transition-opacity duration-150'
+                  data-icon-outline
+                />
+              )}
+              {mode === 'dark' && (
+                <MoonIconFilled
+                  class='
+                    absolute inset-0 size-full opacity-0 transition-opacity
+                    duration-150
+                  '
+                  data-icon-filled
+                />
+              )}
+            </span>
             {label}
           </Button>
         ))

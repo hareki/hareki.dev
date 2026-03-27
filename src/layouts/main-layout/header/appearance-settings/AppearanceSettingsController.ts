@@ -147,18 +147,27 @@ export class AppearanceController {
     this.flavorButtons.forEach((btn) => {
       const flavor = btn.dataset.flavor;
       const isLight = btn.dataset.flavorMode === 'light';
+      const outlineIcon = btn.querySelector<HTMLElement>('[data-icon-outline]');
+      const filledIcon = btn.querySelector<HTMLElement>('[data-icon-filled]');
+      const selectedClasses = ['bg-primary/15!', 'text-primary', 'font-bold!'];
 
       if (matchSystem && isLight) {
         btn.setAttribute('disabled', '');
-        btn.classList.remove('ring-2', 'ring-primary', 'text-primary');
+        btn.classList.remove(...selectedClasses);
+        outlineIcon?.classList.remove('opacity-0');
+        filledIcon?.classList.add('opacity-0');
       } else {
         btn.removeAttribute('disabled');
         const isSelected = matchSystem
           ? flavor === darkFlavor
           : flavor === currentFlavor;
-        btn.classList.toggle('ring-2', isSelected);
-        btn.classList.toggle('ring-primary', isSelected);
-        btn.classList.toggle('text-primary', isSelected);
+
+        selectedClasses.forEach((cls) => {
+          btn.classList.toggle(cls, isSelected);
+        });
+
+        outlineIcon?.classList.toggle('opacity-0', isSelected);
+        filledIcon?.classList.toggle('opacity-0', !isSelected);
       }
     });
 
@@ -167,7 +176,7 @@ export class AppearanceController {
       btn.classList.toggle('ring-2', isSelected);
       btn.classList.toggle('ring-offset-1', isSelected);
       btn.classList.toggle('ring-offset-background', isSelected);
-      btn.classList.toggle('ring-foreground', isSelected);
+      btn.classList.toggle('ring-primary', isSelected);
 
       const check = btn.querySelector<HTMLElement>('[data-check]');
       if (check) {
