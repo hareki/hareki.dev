@@ -53,14 +53,13 @@ export const getRecentCommitDetails = async (
     const detailResult = commitDetails[index];
     const detail =
       detailResult.status === 'fulfilled' ? detailResult.value : null;
-    const commitMessage = (
-      detail?.commit.message ?? commit.commit.message
-    ).split('\n')[0];
+    const rawCommitMessage = detail?.commit.message ?? commit.commit.message;
+    const firstLineIndex = rawCommitMessage.indexOf('\n');
 
     return {
       repoName: repo,
       commitUrl: commit.html_url,
-      commitMessage,
+      commitMessage: rawCommitMessage.slice(0, firstLineIndex),
       createdAt: new Date(commit.commit.author.date),
       linesAdded: detail?.stats.additions ?? 0,
       linesDeleted: detail?.stats.deletions ?? 0,
