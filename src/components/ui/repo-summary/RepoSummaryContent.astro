@@ -1,5 +1,4 @@
 ---
-import Separator from '@/components/starwind/separator';
 import {
   Tooltip,
   TooltipContent,
@@ -44,7 +43,7 @@ const [commits, languages] = await Promise.all([
             target='_blank'
             rel='noopener noreferrer'
             class='
-              group flex w-full bouncy-click flex-col items-start gap-x-2
+              group flex w-full bouncy-click flex-col items-start gap-x-3
               gap-y-1 rounded-xs p-2 text-subtext0-foreground
               hover:bg-primary/10 hover:text-primary/70
               @md:flex-row @md:items-center @md:gap-5
@@ -99,14 +98,14 @@ const [commits, languages] = await Promise.all([
                 <span class='text-error'>-{commit.linesDeleted}</span>
               </span>
 
-              <Separator
+              <span
                 class='
-                  mx-2.5 h-3.5 bg-border-2
+                  mx-1.5 text-muted-foreground
                   @md:hidden
                 '
-                orientation='vertical'
-              />
-
+              >
+                &#8226;
+              </span>
               <Tooltip>
                 <TooltipTrigger>
                   <span
