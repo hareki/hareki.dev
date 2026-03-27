@@ -61,7 +61,9 @@ export class AppearanceController {
   private applyFlavor(flavor: string) {
     const html = document.documentElement;
     html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
-    html.classList.add(`ctp-flavor-${flavor}`);
+    html.classList.add('theme-switching', `ctp-flavor-${flavor}`);
+    void html.offsetHeight;
+    html.classList.remove('theme-switching');
   }
 
   private setFlavor(flavor: string) {
@@ -79,7 +81,9 @@ export class AppearanceController {
   private setAccent(accent: string) {
     const html = document.documentElement;
     html.className = html.className.replace(/\bctp-accent-\S+/g, '');
-    html.classList.add(`ctp-accent-${accent}`);
+    html.classList.add('theme-switching', `ctp-accent-${accent}`);
+    void html.offsetHeight;
+    html.classList.remove('theme-switching');
     setStorageItem('themeAccent', accent);
     this.syncUI();
   }

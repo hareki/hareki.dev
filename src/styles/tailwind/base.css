@@ -8,4 +8,11 @@
   button {
     @apply cursor-pointer;
   }
+
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition-duration: 0s !important;
+  }
 }

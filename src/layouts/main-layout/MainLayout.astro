@@ -35,7 +35,9 @@ const baseTitle = 'Hareki';
 
         const setFlavor = (f) => {
           html.className = html.className.replace(/\bctp-flavor-\S+/g, '');
-          html.classList.add('ctp-flavor-' + f);
+          html.classList.add('theme-switching', 'ctp-flavor-' + f);
+          void html.offsetHeight;
+          html.classList.remove('theme-switching');
         };
 
         // New user (no keys) => match-system ON
