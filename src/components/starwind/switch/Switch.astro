@@ -171,6 +171,8 @@ export const switchLabel = tv({
       data-slot='switch-toggle'
       style={{
         '--translation': `calc((var(--spacing) * ${sizeMultiplier}) + (var(--padding) * 2) - var(--border-offset))`,
+        // Allow this one to have transition transform during flavor switching, others are disabled in base layer
+        'transition-duration': '200ms !important',
       }}></span>
   </button>
   {
