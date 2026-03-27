@@ -11,6 +11,7 @@ export const BeyondWorkLink = {
 interface Module {
   name: string;
   url: string;
+  ariaLabel?: string;
 }
 const DOTFILES = `${BeyondWorkLink.DOTFILES}/tree/main`;
 
@@ -18,15 +19,18 @@ export const MAIN_MODULES: Module[] = [
   {
     name: 'Neovim',
     url: `${DOTFILES}/nvim/.config/nvim`,
+    ariaLabel: 'Neovim configs',
   },
 
   {
     name: 'Zsh',
     url: `${DOTFILES}/zsh`,
+    ariaLabel: 'Zsh configs',
   },
 
   {
     name: 'Tmux',
     url: `${DOTFILES}/tmux`,
+    ariaLabel: 'Tmux configs',
   },
 ];

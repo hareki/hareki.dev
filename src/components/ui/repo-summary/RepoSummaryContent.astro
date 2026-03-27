@@ -152,8 +152,10 @@ const [commits, languages] = await Promise.all([
       <SubsectionTitle> Main Modules </SubsectionTitle>
       <div class='flex gap-3'>
         {
-          MAIN_MODULES.map(({ name, url }) => (
-            <StandaloneLink href={url}>{name}</StandaloneLink>
+          MAIN_MODULES.map(({ name, url, ariaLabel }) => (
+            <StandaloneLink href={url} aria-label={ariaLabel}>
+              {name}
+            </StandaloneLink>
           ))
         }
       </div>
