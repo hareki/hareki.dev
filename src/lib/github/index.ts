@@ -59,7 +59,7 @@ export const getRecentCommitDetails = async (
     return {
       repoName: repo,
       commitUrl: commit.html_url,
-      commitMessage: rawCommitMessage.slice(0, firstLineIndex),
+      commitMessage: rawCommitMessage.slice(0, firstLineIndex + 1),
       createdAt: new Date(commit.commit.author.date),
       linesAdded: detail?.stats.additions ?? 0,
       linesDeleted: detail?.stats.deletions ?? 0,
