@@ -30,11 +30,11 @@
 }
 
 @utility revealing {
-  @apply animate-in duration-800 fade-in slide-in-from-bottom-4 fill-mode-backwards motion-reduce:animate-none;
+  @apply animate-in duration-720 fade-in-0 slide-in-from-bottom-[20px] fill-mode-backwards motion-reduce:animate-none;
 }
 
 @utility revealing-* {
-  animation-delay: calc(--value(integer) * 150ms);
+  animation-delay: calc(--value(integer) * 125ms);
 }
 
 @utility dot-* {

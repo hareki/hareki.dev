@@ -12,7 +12,8 @@ import {
 import LetterTransformer from './LetterTransformer.astro';
 ---
 
-<section id='hero' class='revealing'>
+<!-- PERF: fade-in from 0% on LCP elements will affect lighthouse performance score -->
+<section id='hero' class='revealing fade-in-10!'>
   <div class='space-y-5'>
     <h1 class='
       text-3xl font-bold

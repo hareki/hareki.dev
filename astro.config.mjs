@@ -13,6 +13,7 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   build: {
+    // PERF: This resource is render blocking anyway, inline it to avoid round trips
     inlineStylesheets: 'always',
   },
 
