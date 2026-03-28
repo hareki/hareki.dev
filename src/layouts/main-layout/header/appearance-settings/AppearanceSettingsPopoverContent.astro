@@ -1,7 +1,6 @@
 ---
 import MoonIconFilled from '@tabler/icons/filled/moon.svg';
 import SunIconFilled from '@tabler/icons/filled/sun.svg';
-import CheckIcon from '@tabler/icons/outline/check.svg';
 import MoonIcon from '@tabler/icons/outline/moon.svg';
 import SunIcon from '@tabler/icons/outline/sun.svg';
 
@@ -124,10 +123,13 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
                   data-accent={value}
                   aria-label={`Select ${label} accent`}
                 >
-                  <CheckIcon
+                  <svg
                     class='hidden size-4 animate-in text-background zoom-in-50'
+                    viewBox='0 0 24 24'
                     data-check
-                  />
+                  >
+                    <use href='#icon-check' />
+                  </svg>
                 </button>
               </TooltipTrigger>
               <TooltipContent

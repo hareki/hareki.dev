@@ -1,6 +1,4 @@
 ---
-import CaretUp from '@tabler/icons/filled/caret-up.svg';
-
 import { tooltipContent, tooltipCaret } from './tooltipVariants';
 
 import type { HTMLAttributes } from 'astro/types';
@@ -55,5 +53,7 @@ const {
   data-slot='tooltip-content'
 >
   <slot> My tooltip! </slot>
-  <CaretUp class={tooltipCaret()} />
+  <svg class={tooltipCaret()} viewBox='0 0 24 24'>
+    <use href='#icon-caret-up'></use>
+  </svg>
 </div>

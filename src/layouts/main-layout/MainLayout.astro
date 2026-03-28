@@ -1,9 +1,9 @@
 ---
 import '@/styles/index.css';
 import favicon from '@/assets/favicon.svg';
-import boldFont from '@/assets/fonts/MapleMono-Bold.woff2';
-import mediumFont from '@/assets/fonts/MapleMono-Medium.woff2';
+import boldFont from '@/assets/fonts/MapleMono-bold.woff2';
 import regularFont from '@/assets/fonts/MapleMono-Regular.woff2';
+import SvgSprite from '@/components/ui/SvgSprite.astro';
 
 import Footer from './Footer.astro';
 import Header from './header';
@@ -69,13 +69,7 @@ const baseTitle = 'Hareki';
       as='font'
       crossorigin
     />
-    <link
-      href={mediumFont}
-      rel='preload'
-      type='font/woff2'
-      as='font'
-      crossorigin
-    />
+
     <link
       href={boldFont}
       rel='preload'
@@ -94,6 +88,7 @@ const baseTitle = 'Hareki';
     <title>{title ? `${title} | ${baseTitle}` : baseTitle}</title>
   </head>
   <body>
+    <SvgSprite />
     <div
       class='
         mx-auto flex min-h-screen max-w-5xl flex-col px-2 pb-4 text-foreground

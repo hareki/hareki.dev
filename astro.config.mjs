@@ -24,8 +24,26 @@ export default defineConfig({
       CSS: true,
       HTML: {
         'html-minifier-terser': {
-          collapseWhitespace: false,
-          preserveLineBreaks: true,
+          collapseInlineTagWhitespace: true,
+          collapseWhitespace: true,
+          conservativeCollapse: true,
+          minifyCSS: true,
+          minifyJS: true,
+          minifyURLs: true,
+          preserveLineBreaks: false,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeEmptyAttributes: true,
+
+          // Causes react hydration errors
+          // removeEmptyElements: true,
+
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          sortAttributes: true,
+          sortClassName: true,
+          useShortDoctype: true,
         },
       },
       JavaScript: true,
@@ -40,6 +58,7 @@ export default defineConfig({
   adapter: cloudflare(),
 
   experimental: {
+    svgo: true,
     cache: {
       provider: cloudflareCdnCache(),
     },
