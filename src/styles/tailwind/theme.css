@@ -26,7 +26,8 @@
   --secondary-foreground: var(--ctp-text);
   --secondary-accent: var(--ctp-text);
   --secondary-focus: var(--ctp-overlay2);
-  --muted-foreground: var(--ctp-overlay2);
+  /* Have to increase text contrast for muted-foreground for legibility, now it's exactly the same as subtext0-foreground */
+  --muted-foreground: var(--ctp-subtext0);
   --subtext0-foreground: var(--ctp-subtext0);
   --subtext1-foreground: var(--ctp-subtext1);
   --inner-box: var(--ctp-surface0);
