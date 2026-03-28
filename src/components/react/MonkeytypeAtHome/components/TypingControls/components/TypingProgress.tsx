@@ -19,7 +19,7 @@ const TypingProgress = ({ className }: TypingProgressProps) => {
   return (
     <div
       className={cn(
-        'text-right text-base text-muted-foreground',
+        'text-right text-base text-subtext0-foreground',
         isTypingPaused && 'opacity-0',
         className,
       )}

@@ -27,7 +27,7 @@ const shortenCommitHash = lastCommitInfo
 {
   lastCommitInfo && (
     <Layout>
-      <p class='mx-3.5 text-muted-foreground' slot='last-updated-date'>
+      <p class='mx-3.5 text-subtext0-foreground' slot='last-updated-date'>
         Updated on {lastUpdatedDate}
       </p>
 
@@ -50,7 +50,7 @@ const shortenCommitHash = lastCommitInfo
 
 {
   !lastCommitInfo && (
-    <p class='mx-3.5 text-muted-foreground' slot='last-updated-date'>
+    <p class='mx-3.5 text-subtext0-foreground' slot='last-updated-date'>
       Unable to fetch last commit info
     </p>
   )

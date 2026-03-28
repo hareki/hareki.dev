@@ -26,8 +26,6 @@
   --secondary-foreground: var(--ctp-text);
   --secondary-accent: var(--ctp-text);
   --secondary-focus: var(--ctp-overlay2);
-  /* Have to increase text contrast for muted-foreground for legibility, now it's exactly the same as subtext0-foreground */
-  --muted-foreground: var(--ctp-subtext0);
   --subtext0-foreground: var(--ctp-subtext0);
   --subtext1-foreground: var(--ctp-subtext1);
   --inner-box: var(--ctp-surface0);
@@ -135,8 +133,6 @@ html:is(.ctp-flavor-latte) {
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary-accent: var(--secondary-accent);
   --color-secondary-focus: var(--secondary-focus);
-
-  --color-muted-foreground: var(--muted-foreground);
 
   --color-subtext0-foreground: var(--subtext0-foreground);
   --color-subtext1-foreground: var(--subtext1-foreground);

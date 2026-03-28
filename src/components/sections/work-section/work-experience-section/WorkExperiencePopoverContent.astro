@@ -51,7 +51,7 @@ const getDateRange = (startDate: Date, endDate: Date | undefined) => {
     {record.responsibilities.map((item) => <li>{item}</li>)}
   </ul>
 
-  <div class='flex items-center gap-1.5 text-xs text-muted-foreground'>
+  <div class='flex items-center gap-1.5 text-xs text-subtext0-foreground'>
     <CalendarIcon class='size-4' />
     <span>{getDateRange(record.startDate, record.endDate)}</span>
   </div>
