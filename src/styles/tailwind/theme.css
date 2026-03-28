@@ -55,7 +55,7 @@ html:is(.ctp-flavor-latte) {
   --header: var(--ctp-surface0);
   --inner-box: var(--ctp-crust);
   --popover: var(--ctp-crust);
-  --muted-foreground: var(--ctp-overlay2);
+  --border-1: var(--ctp-overlay0);
 }
 
 @theme inline {

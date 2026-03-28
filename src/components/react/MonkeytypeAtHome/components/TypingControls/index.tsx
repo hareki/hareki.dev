@@ -1,4 +1,4 @@
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import RestartButton from './components/RestartButton';
 import ToggleTapeModeButton from './components/ToggleTapeModeButton';
@@ -15,7 +15,7 @@ const TypingControls = ({
   restartButtonRef,
 }: TypingControlsProps) => {
   return (
-    <div className={cx('relative mt-3 flex-center gap-4 text-sm')}>
+    <div className={cn('relative mt-3 flex-center gap-4 text-sm')}>
       {/* Shortcuts */}
       <div className='flex items-center gap-5'>
         <RestartButton onRestart={onRestart} ref={restartButtonRef} />

@@ -1,6 +1,6 @@
 import { useEffect, useRef, type MouseEvent } from 'react';
 
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import ResultScreen from './components/ResultScreen';
 import ScreenAnnouncer from './components/ScreenAnnouncer';
@@ -129,7 +129,7 @@ const MonkeytypeAtHome = () => {
   return (
     <div
       ref={containerRef}
-      className={cx(
+      className={cn(
         `
           relative flex-center min-h-58 rounded-md bg-inner-box px-6 py-4
           text-sm transition-shadow duration-350
@@ -179,7 +179,7 @@ const MonkeytypeAtHome = () => {
 
         {screen === 'typing' && (
           <TypingProgress
-            className={cx(`absolute right-0 bottom-1 component-transition`)}
+            className={cn(`absolute right-0 bottom-1 component-transition`)}
           />
         )}
       </div>

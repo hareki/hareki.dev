@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import Caret from './components/Caret';
 import TypingTransition from './components/TypingTransition';
@@ -34,11 +34,11 @@ const TypingScreen = ({ containerRef, className }: TypingScreenProps) => {
   const effectiveTapeMode = useTypingStore(selectEffectiveTapeMode);
 
   return (
-    <div className={cx('flex flex-col gap-4', className)}>
+    <div className={cn('flex flex-col gap-4', className)}>
       <div
         data-typing-area
         key={text}
-        className={cx(
+        className={cn(
           `relative component-transition overflow-hidden`,
           effectiveTapeMode && 'mask-fade-x',
         )}

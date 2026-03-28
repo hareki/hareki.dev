@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import ShortcutHintButton from './ShortcutHintButton';
 import { useTypingStore } from '../../../hooks/useTypingStore';
@@ -24,7 +24,7 @@ const RestartButton = ({ onRestart, ref }: RestartButtonProps) => {
         dispatch({ type: 'RESTART' });
         onRestart?.();
       }}
-      className={cx(
+      className={cn(
         `
           component-transition
           focus-within:opacity-100

@@ -1,4 +1,4 @@
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import Letter from './Letter';
 import { useTypingStore } from '../../../hooks/useTypingStore';
@@ -15,7 +15,7 @@ const Word = ({ wordIndex, registerRef }: WordProps) => {
 
   return (
     <span
-      className={cx(
+      className={cn(
         showRedUnderline &&
           'underline decoration-red decoration-2 underline-offset-4',
       )}

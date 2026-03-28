@@ -1,4 +1,4 @@
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import { useTypingStore } from '../../../hooks/useTypingStore';
 
@@ -14,7 +14,7 @@ const Caret = ({ ref }: CaretProps) => {
     <div
       id='caret'
       ref={ref}
-      className={cx(
+      className={cn(
         `
           pointer-events-none absolute top-0 left-0 w-0.5 rounded-full
           bg-rosewater

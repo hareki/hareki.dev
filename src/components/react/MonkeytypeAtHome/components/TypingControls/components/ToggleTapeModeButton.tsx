@@ -1,4 +1,4 @@
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import ShortcutHintButton from './ShortcutHintButton';
 import { useTypingStore } from '../../../hooks/useTypingStore';
@@ -29,7 +29,7 @@ const ToggleTapeModeButton = ({
           onToggleTapeMode?.();
         }}
         checked={isTapeModeOn}
-        className={cx(
+        className={cn(
           `
             component-transition
             focus-within:opacity-100

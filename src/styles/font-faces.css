@@ -12,9 +12,9 @@
   font-family: Maple Mono;
   font-display: swap;
   src:
-    local('Maple Mono NF Regular'),
-    local('Maple Mono Regular'),
-    url(../assets/fonts/MapleMono-Regular.woff2) format('woff2');
+    local('Maple Mono NF Medium'),
+    local('Maple Mono Medium'),
+    url(../assets/fonts/MapleMono-Medium.woff2) format('woff2');
 }
 
 @font-face {

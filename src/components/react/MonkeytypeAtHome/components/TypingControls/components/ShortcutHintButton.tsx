@@ -1,6 +1,6 @@
 import type { ComponentProps, MouseEvent } from 'react';
 
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 interface ShortcutHintButtonProps {
   keys: string[];
@@ -37,10 +37,10 @@ const ShortcutHintButton = ({
       tabIndex={hidden ? -1 : 0}
       aria-hidden={hidden}
       ref={ref}
-      className={cx(
+      className={cn(
         `
           group -mx-1.5 flex bouncy-click cursor-pointer items-center gap-1.5
-          rounded-md p-1.5 text-muted-foreground transition-all outline-none
+          rounded-md p-1.5 text-subtext1-foreground transition-all outline-none
           select-none
           hover:bg-primary/10 hover:text-primary
           focus-visible:ring-2 focus-visible:ring-primary/80
@@ -56,10 +56,10 @@ const ShortcutHintButton = ({
         {keys.map((key) => (
           <kbd
             key={key}
-            className={cx(
+            className={cn(
               `
-                rounded-sm border border-muted-foreground px-1.5 py-0.5 text-xs
-                transition-colors
+                rounded-sm border border-subtext1-foreground px-1.5 py-0.5
+                font-display text-xs transition-colors
                 group-hover:border-primary
               `,
               checked && 'border-primary bg-primary text-background',

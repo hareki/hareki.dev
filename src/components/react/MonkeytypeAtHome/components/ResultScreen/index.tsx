@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { IconCrownFilled } from '@tabler/icons-react';
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import StarwindTooltip from '@/components/react/StarwindTooltip';
 
@@ -56,7 +56,7 @@ const ResultScreen = ({ className }: ResultScreenProps) => {
   );
 
   return (
-    <div className={cx('flex flex-col gap-4', className)}>
+    <div className={cn('flex flex-col gap-4', className)}>
       <div className='flex flex-wrap items-start justify-center gap-x-8 gap-y-2'>
         <StatItem
           label={wpmLabel}

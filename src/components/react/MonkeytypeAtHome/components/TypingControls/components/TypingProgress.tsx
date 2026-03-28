@@ -1,4 +1,4 @@
-import { cx } from 'tailwind-variants';
+import { cn } from 'tailwind-variants';
 
 import { useTypingStore } from '../../../hooks/useTypingStore';
 
@@ -18,7 +18,7 @@ const TypingProgress = ({ className }: TypingProgressProps) => {
 
   return (
     <div
-      className={cx(
+      className={cn(
         'text-right text-base text-muted-foreground',
         isTypingPaused && 'opacity-0',
         className,
