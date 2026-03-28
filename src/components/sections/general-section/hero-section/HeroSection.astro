@@ -1,4 +1,5 @@
 ---
+/* eslint-disable astro/jsx-a11y/no-noninteractive-tabindex */
 import BriefcaseIcon from '@tabler/icons/outline/briefcase.svg';
 import MapPinIcon from '@tabler/icons/outline/map-pin.svg';
 
@@ -23,7 +24,6 @@ import LetterTransformer from './LetterTransformer.astro';
           <span
             class='group cursor-help text-primary'
             tabindex='0'
-            role='button'
             aria-label='Tu "Hareki" Nguyen'
             >T<LetterTransformer original='u' transformed='ú' /> "Hareki" <span
               class='whitespace-nowrap'
