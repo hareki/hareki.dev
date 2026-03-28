@@ -12,7 +12,7 @@
     "typecheck": "astro check",
     "diagnose": "pnpm typecheck && pnpm format && pnpm lint",
     "generate-types": "wrangler types",
-    "prepare": "husky",
+    "prepare": "husky && wrangler types",
     "commitlint": "commitlint --edit"
   },
   "dependencies": {

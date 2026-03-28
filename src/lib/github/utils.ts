@@ -1,4 +1,6 @@
-import { GITHUB_TOKEN } from 'astro:env/server';
+import { env } from 'cloudflare:workers';
+
+const GITHUB_TOKEN = env.GITHUB_TOKEN;
 
 export const githubFetch = async (url: string): Promise<Response> => {
   const headers: Record<string, string> = {
@@ -7,7 +9,7 @@ export const githubFetch = async (url: string): Promise<Response> => {
   };
 
   const token = GITHUB_TOKEN;
-  console.log('DEBUGPRINT[259]: utils.ts:9: token=', token);
+  console.log(`[GitHub Uilts] Fetching GitHub info with token: ${token}`);
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
