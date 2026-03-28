@@ -69,7 +69,7 @@ const StarwindTooltip = ({
         data-slot='tooltip-content'
       >
         {content}
-        <IconCaretUpFilled className={tooltipCaret()} />
+        <IconCaretUpFilled className={tooltipCaret()} aria-hidden='true' />
       </div>
     </div>
   );

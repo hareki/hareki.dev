@@ -89,6 +89,16 @@ const baseTitle = 'Hareki';
   </head>
   <body>
     <SvgSprite />
+    <a
+      href='#main-content'
+      class='
+        sr-only rounded-md bg-primary px-2! py-1! font-bold
+        text-primary-foreground
+        focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50
+      '
+    >
+      Skip to main content
+    </a>
     <div
       class='
         mx-auto flex min-h-screen max-w-5xl flex-col px-2 pb-4 text-foreground
@@ -97,6 +107,7 @@ const baseTitle = 'Hareki';
     >
       <Header />
       <main
+        id='main-content'
         class='
           grow px-2.5 py-10
           xs:px-3

@@ -84,7 +84,10 @@ const contactLinks: HeaderLinkButton[] = [
       >
     </Button>
 
-    <nav class='flex items-center'>
+    <nav
+      aria-label='Contact information and site controls'
+      class='flex items-center'
+    >
       <div class='flex items-center gap-1.5'>
         {
           contactLinks.map(({ icon, label, href }) => (

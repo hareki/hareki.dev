@@ -18,5 +18,6 @@ const { class: className, ...rest } = Astro.props;
   <span>
     <slot />
   </span>
-  <ExternalLinkIcon class='size-4' />
+  <ExternalLinkIcon class='size-4' aria-hidden='true' />
+  <span class='sr-only'>(opens in new tab)</span>
 </InlineLink>

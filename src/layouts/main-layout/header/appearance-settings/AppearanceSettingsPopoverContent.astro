@@ -57,7 +57,11 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
       </PopoverTitle>
       <Switch id='match-system' label='System' size='sm' />
     </div>
-    <div class='grid grid-cols-2 gap-2' role='radiogroup'>
+    <div
+      class='grid grid-cols-2 gap-2'
+      role='radiogroup'
+      aria-label='Theme flavor'
+    >
       {
         FLAVORS.map(({ value, label, mode }) => (
           <Button
@@ -69,7 +73,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
             aria-checked={false}
             role='radio'
           >
-            <span class='relative inline-flex size-4.5'>
+            <span class='relative inline-flex size-4.5' aria-hidden='true'>
               {mode === 'light' && (
                 <SunIcon
                   class='size-full transition-opacity duration-150'
@@ -108,7 +112,11 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
     </div>
 
     <PopoverTitle class='mt-4'>Accent</PopoverTitle>
-    <div class='grid grid-cols-7 place-items-center gap-3' role='radiogroup'>
+    <div
+      class='grid grid-cols-7 place-items-center gap-3'
+      role='radiogroup'
+      aria-label='Accent color'
+    >
       {
         ACCENTS.map((label, index) => {
           const value = label.toLowerCase();

@@ -3,6 +3,7 @@ import { useEffect, useRef, type MouseEvent } from 'react';
 import { cx } from 'tailwind-variants';
 
 import ResultScreen from './components/ResultScreen';
+import ScreenAnnouncer from './components/ScreenAnnouncer';
 import TypingControls from './components/TypingControls';
 import TypingProgress from './components/TypingControls/components/TypingProgress';
 import TypingScreen from './components/TypingScreen';
@@ -143,7 +144,7 @@ const MonkeytypeAtHome = () => {
       <input
         ref={inputRef}
         className='absolute size-0 opacity-0'
-        aria-label='Typing input'
+        aria-label='Typing test input — click the typing area or tab here to begin'
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -151,6 +152,8 @@ const MonkeytypeAtHome = () => {
         autoCorrect='off'
         autoComplete='off'
       />
+
+      <ScreenAnnouncer />
 
       <div className='relative max-w-full'>
         {screen !== 'result' && (
@@ -160,7 +163,13 @@ const MonkeytypeAtHome = () => {
           />
         )}
         {screen === 'result' && (
-          <ResultScreen className='component-transition' />
+          <div
+            role='region'
+            aria-label='Typing test results'
+            aria-live='polite'
+          >
+            <ResultScreen className='component-transition' />
+          </div>
         )}
         <TypingControls
           onRestart={handleRestart}

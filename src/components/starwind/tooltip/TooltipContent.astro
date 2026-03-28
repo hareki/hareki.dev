@@ -53,7 +53,7 @@ const {
   data-slot='tooltip-content'
 >
   <slot> My tooltip! </slot>
-  <svg class={tooltipCaret()} viewBox='0 0 24 24'>
+  <svg class={tooltipCaret()} viewBox='0 0 24 24' aria-hidden='true'>
     <use href='#icon-caret-up'></use>
   </svg>
 </div>

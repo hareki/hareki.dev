@@ -45,7 +45,10 @@ const ResultScreen = ({ className }: ResultScreenProps) => {
             className='rounded-sm bg-primary p-0.5'
             aria-label='Your best wpm'
           >
-            <IconCrownFilled className='size-3.5 text-inner-box' />
+            <IconCrownFilled
+              className='size-3.5 text-inner-box'
+              aria-hidden='true'
+            />
           </div>
         </StarwindTooltip>
       )}
