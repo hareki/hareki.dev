@@ -1,46 +1,86 @@
-# Astro Starter Kit: Basics
+# hareki.dev
 
-```sh
-pnpm create astro@latest -- --template basics
+Personal portfolio site built with [Astro](https://astro.build/) and deployed on [Cloudflare Workers](https://workers.cloudflare.com/).
+
+**[Live Site](https://hareki.dev)**
+
+## Highlights
+
+- **Zero-JS baseline** — Astro renders static HTML; JavaScript is only shipped for the interactive typing test via a React island (`client:idle`)
+- **Interactive typing test** — A Monkeytype-inspired game built with React 19 + Zustand, featuring real-time WPM/accuracy tracking, tape mode, and keyboard shortcuts
+- **Live GitHub data** — Repository stats (recent commits, language breakdown, lines changed) fetched at runtime with Cloudflare CDN caching and skeleton loading states via Astro's `server:defer`
+- **4-flavor Catppuccin theming** — Full light/dark theme support (Latte, Frappe, Macchiato, Mocha) with 14 selectable accent colors, respecting OS color scheme preference
+- **Accessibility-first** — Semantic HTML, ARIA labels/live regions, full keyboard navigation, and `prefers-reduced-motion` support
+
+## Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| Framework | Astro 6 |
+| Interactive UI | React 19 (with Compiler) |
+| State Management | Zustand 5 |
+| Styling | Tailwind CSS 4, tailwind-variants |
+| Components | Starwind UI |
+| Icons | Tabler Icons |
+| Font | Maple Mono |
+| Deployment | Cloudflare Workers |
+| Linting | ESLint 10, Prettier, CommitLint |
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── react/              # React islands (typing test game)
+│   ├── sections/           # Page sections (hero, work, beyond-work)
+│   ├── starwind/           # Starwind UI components
+│   └── ui/                 # Shared utility components
+├── data/                   # Static content (experience, contact, etc.)
+├── layouts/                # Root layout, header, footer
+├── lib/
+│   ├── cache/              # Cloudflare CDN cache helpers
+│   └── github/             # GitHub API queries and types
+├── pages/                  # Single-page entry (index.astro)
+└── styles/                 # Catppuccin theme, Tailwind config, fonts
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Getting Started
 
-## 🚀 Project Structure
+```bash
+# Install dependencies
+pnpm install
 
-Inside of your Astro project, you'll see the following folders and files:
+# Start dev server at localhost:4321
+pnpm dev
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+# Production build
+pnpm build
+
+# Preview production build
+pnpm preview
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### Environment Variables
 
-## 🧞 Commands
+| Variable | Required | Description |
+| :--- | :--- | :--- |
+| `GITHUB_TOKEN` | No | GitHub personal access token for higher API rate limits |
 
-All commands are run from the root of the project, from a terminal:
+## Development
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+```bash
+# Typecheck + format + lint
+pnpm diagnose
 
-## 👀 Want to learn more?
+# Same with auto-fix
+pnpm diagnose --fix
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The project enforces [Conventional Commits](https://www.conventionalcommits.org/) via CommitLint and runs lint-staged checks on pre-commit through Husky.
+
+## Design Credits
+
+- Color palette: [Catppuccin](https://github.com/catppuccin/catppuccin)
+- Font: [Maple Mono](https://github.com/subframe7536/maple-font)
+- Icons: [Tabler Icons](https://tabler.io/icons)
+- Design inspiration: [Jason Cameron](https://www.jasonmcameron.com/), [Duy Le](https://www.duyle.dev/), [Brittany Chiang](https://brittanychiang.com/)
