@@ -14,9 +14,10 @@ html.ctp-flavor-latte {
   --ctp-sapphire: #209fb5;
   --ctp-blue: #1e66f5;
   --ctp-lavender: #7287fd;
-  --ctp-text: #35374a;
-  --ctp-subtext1: #404353;
-  --ctp-subtext0: #4c4e5d;
+  --ctp-text: #4c4f69;
+  --ctp-subtext1: #5c5f77;
+  --ctp-subtext0: #6c6f85;
+  /* overlay, surface, base, mantle and crust have been brighten for legibility */
   --ctp-overlay2: #a3a5b3;
   --ctp-overlay1: #afb1bd;
   --ctp-overlay0: #babdc8;
