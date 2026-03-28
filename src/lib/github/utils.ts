@@ -1,10 +1,12 @@
+import { GITHUB_TOKEN } from 'astro:env/server';
+
 export const githubFetch = async (url: string): Promise<Response> => {
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
     ['User-Agent']: 'hareki/hareki.dev',
   };
 
-  const token = import.meta.env.GITHUB_TOKEN;
+  const token = GITHUB_TOKEN;
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
