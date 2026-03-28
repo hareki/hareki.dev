@@ -1,77 +1,13 @@
 ---
-import astroDark from '@/assets/technologies/astro-dark-bg.svg';
-import astroLight from '@/assets/technologies/astro-light-bg.svg';
-import css3 from '@/assets/technologies/css3.svg';
-import html5 from '@/assets/technologies/html5.svg';
-import nextjsDark from '@/assets/technologies/nextjs-dark-bg.svg';
-import nextjsLight from '@/assets/technologies/nextjs-light-bg.svg';
-import reactDark from '@/assets/technologies/react-dark-bg.svg';
-import reactLight from '@/assets/technologies/react-light-bg.svg';
-import tailwindcss from '@/assets/technologies/tailwindcss.svg';
-import tanstack from '@/assets/technologies/tanstack.webp';
-import typescript from '@/assets/technologies/typescript.svg';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
+import { TECHNOLOGIES } from '@/data/technologies';
 
-import TechItem, { type TechItemProps } from '../TechItem.astro';
-
-const techs: TechItemProps[] = [
-  {
-    name: 'HTML5',
-    description: 'Markup Language',
-    href: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
-    icon: html5,
-  },
-  {
-    name: 'CSS3',
-    description: 'Styling Language',
-    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
-    icon: css3,
-  },
-  {
-    name: 'TypeScript',
-    description: 'Typed JavaScript',
-    href: 'https://www.typescriptlang.org',
-    icon: typescript,
-  },
-  {
-    name: 'Tailwind',
-    description: 'Utility-First CSS',
-    href: 'https://tailwindcss.com',
-    icon: tailwindcss,
-  },
-  {
-    name: 'TanStack',
-    description: 'Headless Utilities',
-    href: 'https://tanstack.com',
-    icon: tanstack,
-  },
-  {
-    name: 'React',
-    description: 'UI Library',
-    href: 'https://react.dev',
-    icon: reactLight,
-    darkIcon: reactDark,
-  },
-  {
-    name: 'Next.js',
-    description: 'React Framework',
-    href: 'https://nextjs.org',
-    icon: nextjsLight,
-    darkIcon: nextjsDark,
-  },
-  {
-    name: 'Astro',
-    description: 'Web Framework',
-    href: 'https://astro.build',
-    icon: astroLight,
-    darkIcon: astroDark,
-  },
-];
+import TechItem from '../TechItem.astro';
 ---
 
 <section id='technologies' class='@container revealing pt-3 revealing-1'>
   <SectionTitle>Technologies</SectionTitle>
   <div class='work-grid'>
-    {techs.map((tech) => <TechItem {...tech} />)}
+    {TECHNOLOGIES.map((tech) => <TechItem {...tech} />)}
   </div>
 </section>
