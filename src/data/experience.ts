@@ -22,7 +22,7 @@ export const EXPERIENCE: ExperienceRecord[] = [
       description:
         'Zigvy is a joint American and Vietnamese software development company located in Ho Chi Minh city.',
     },
-    title: 'Jr. Frontend Engineer',
+    title: 'Frontend Engineer',
     startDate: new Date('2023-01-01'),
     endDate: new Date('2026-03-31'),
     responsibilities: [

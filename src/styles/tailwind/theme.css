@@ -126,7 +126,6 @@ html:is(.ctp-flavor-latte) {
   --color-card-foreground: var(--card-foreground);
 
   --color-popover: var(--popover);
-  --spacing-popover-section: --spacing(4);
 
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);

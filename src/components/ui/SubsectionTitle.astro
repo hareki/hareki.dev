@@ -8,9 +8,6 @@ type Props = HTMLAttributes<'h3'>;
 const { class: className, ...props } = Astro.props;
 ---
 
-<h3
-  class={cn('mb-1 text-sm font-medium text-muted-foreground', className)}
-  {...props}
->
+<h3 class={cn('mb-1 text-sm text-muted-foreground', className)} {...props}>
   <slot />
 </h3>

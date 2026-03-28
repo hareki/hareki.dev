@@ -153,6 +153,7 @@ export class AppearanceController {
 
       if (matchSystem && isLight) {
         btn.setAttribute('disabled', '');
+        btn.setAttribute('aria-checked', 'false');
         btn.classList.remove(...selectedClasses);
         outlineIcon?.classList.remove('opacity-0');
         filledIcon?.classList.add('opacity-0');
@@ -166,6 +167,7 @@ export class AppearanceController {
           btn.classList.toggle(cls, isSelected);
         });
 
+        btn.setAttribute('aria-checked', String(isSelected));
         outlineIcon?.classList.toggle('opacity-0', isSelected);
         filledIcon?.classList.toggle('opacity-0', !isSelected);
       }
@@ -177,6 +179,7 @@ export class AppearanceController {
       btn.classList.toggle('ring-offset-1', isSelected);
       btn.classList.toggle('ring-offset-background', isSelected);
       btn.classList.toggle('ring-primary', isSelected);
+      btn.setAttribute('aria-checked', String(isSelected));
 
       const check = btn.querySelector<HTMLElement>('[data-check]');
       if (check) {

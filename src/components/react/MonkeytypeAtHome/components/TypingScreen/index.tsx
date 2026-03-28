@@ -48,7 +48,7 @@ const TypingScreen = ({ containerRef, className }: TypingScreenProps) => {
           data-words-container
           ref={wordsContainerRef}
           aria-hidden='true'
-          className='flex gap-x-2.5 text-xl font-medium'
+          className='flex gap-x-2.5 text-xl'
         >
           {Array.from({ length: wordCount }, (_, i) => (
             <Word key={i} wordIndex={i} registerRef={registerRef} />

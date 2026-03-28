@@ -31,9 +31,9 @@ const [commits, languages] = await Promise.all([
 ---
 
 <div class='@container rounded-md bg-inner-box px-1 py-2 text-sm'>
-  <SubsectionTitle class='px-2'> Recent Commits </SubsectionTitle>
+  <SubsectionTitle class='px-1.5'> Recent Commits </SubsectionTitle>
   <div class='
-    mb-6 flex flex-col gap-1
+    mb-4 flex flex-col gap-1
     @md:gap-0
   '>
     {
@@ -63,7 +63,7 @@ const [commits, languages] = await Promise.all([
                 <>
                   <span
                     class='
-                      font-medium whitespace-nowrap text-foreground
+                      whitespace-nowrap text-foreground
                       group-hover:text-primary
                     '
                   >
@@ -80,8 +80,18 @@ const [commits, languages] = await Promise.all([
                   @md:inline
                 '
               >
-                <span class='text-success'>+{commit.linesAdded}</span>
-                <span class='text-error'>-{commit.linesDeleted}</span>
+                <span
+                  class='text-success'
+                  aria-label={`${commit.linesAdded} lines added`}
+                >
+                  +{commit.linesAdded}
+                </span>
+                <span
+                  class='text-error'
+                  aria-label={`${commit.linesDeleted} lines deleted`}
+                >
+                  -{commit.linesDeleted}
+                </span>
               </span>
             </div>
 
@@ -97,8 +107,18 @@ const [commits, languages] = await Promise.all([
                   @md:hidden
                 '
               >
-                <span class='text-success'>+{commit.linesAdded}</span>
-                <span class='text-error'>-{commit.linesDeleted}</span>
+                <span
+                  class='text-success'
+                  aria-label={`${commit.linesAdded} lines added`}
+                >
+                  +{commit.linesAdded}
+                </span>
+                <span
+                  class='text-error'
+                  aria-label={`${commit.linesDeleted} lines deleted`}
+                >
+                  -{commit.linesDeleted}
+                </span>
               </span>
 
               <span
@@ -121,7 +141,7 @@ const [commits, languages] = await Promise.all([
                   </span>
                 </TooltipTrigger>
 
-                <TooltipContent class='text-sm font-medium'>
+                <TooltipContent class='text-sm'>
                   <span data-utc={commit.createdAt.toISOString()}>
                     {getFormattedDateTime(commit.createdAt)}
                   </span>
@@ -134,7 +154,7 @@ const [commits, languages] = await Promise.all([
     }
   </div>
 
-  <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-2'>
+  <div class='flex flex-wrap justify-between gap-x-5 gap-y-4.5 px-1.5'>
     <div>
       <SubsectionTitle> Languages </SubsectionTitle>
       <div class='flex flex-wrap gap-2'>

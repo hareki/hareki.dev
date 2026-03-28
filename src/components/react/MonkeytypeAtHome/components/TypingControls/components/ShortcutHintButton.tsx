@@ -46,7 +46,7 @@ const ShortcutHintButton = ({
           focus-visible:ring-2 focus-visible:ring-primary/80
           motion-safe:not-disabled:hocus:scale-102
         `,
-        checked && 'bg-primary/15 font-medium text-primary',
+        checked && 'bg-primary/15 text-primary',
         className,
       )}
       onMouseDown={handleMouseDown}
@@ -62,8 +62,7 @@ const ShortcutHintButton = ({
                 transition-colors
                 group-hover:border-primary
               `,
-              checked &&
-                'border-primary bg-primary font-medium text-background',
+              checked && 'border-primary bg-primary text-background',
             )}
           >
             {key}

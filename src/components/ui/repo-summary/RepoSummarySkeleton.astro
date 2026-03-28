@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { commitLimit } = Astro.props;
+const commitHeight = '2rem';
 ---
 
 <div>
@@ -23,20 +24,26 @@ const { commitLimit } = Astro.props;
   causing the skeleton not to get cleaned up after the content has arrived.
 -->
 
-  <style define:vars={{ commitLimit }}>
+  <style define:vars={{ commitLimit, commitHeight }}>
     [data-repo-summary-skeleton] {
-      --summary-skeleton-height: calc(12.875rem + 2rem * var(--commitLimit));
+      --summary-skeleton-height: calc(
+        12.375rem + var(--commitHeight) * var(--commitLimit)
+      );
     }
 
     @container (min-width: 31.875rem) {
       [data-repo-summary-skeleton] {
-        --summary-skeleton-height: calc(10.875rem + 2rem * var(--commitLimit));
+        --summary-skeleton-height: calc(
+          10.375rem + var(--commitHeight) * var(--commitLimit)
+        );
       }
     }
 
     @container (min-width: 44.813rem) {
       [data-repo-summary-skeleton] {
-        --summary-skeleton-height: calc(7rem + 2rem * var(--commitLimit));
+        --summary-skeleton-height: calc(
+          6.5rem + var(--commitHeight) * var(--commitLimit)
+        );
       }
     }
   </style>

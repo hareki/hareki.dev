@@ -57,18 +57,17 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
       </PopoverTitle>
       <Switch id='match-system' label='System' size='sm' />
     </div>
-    <div class='grid grid-cols-2 gap-2'>
+    <div class='grid grid-cols-2 gap-2' role='radiogroup'>
       {
         FLAVORS.map(({ value, label, mode }) => (
           <Button
             variant='secondary'
             size='sm'
-            class='
-              justify-start px-4! text-sm font-medium text-foreground
-              transition-all
-            '
+            class='justify-start px-4! text-sm text-foreground transition-all'
             data-flavor={value}
             data-flavor-mode={mode}
+            aria-checked={false}
+            role='radio'
           >
             <span class='relative inline-flex size-4.5'>
               {mode === 'light' && (
@@ -108,8 +107,8 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
       }
     </div>
 
-    <PopoverTitle class='mt-popover-section'>Accent</PopoverTitle>
-    <div class='grid grid-cols-7 place-items-center gap-3'>
+    <PopoverTitle class='mt-4'>Accent</PopoverTitle>
+    <div class='grid grid-cols-7 place-items-center gap-3' role='radiogroup'>
       {
         ACCENTS.map((label, index) => {
           const value = label.toLowerCase();
@@ -122,6 +121,8 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
                   style={`background-color: var(--ctp-${value})`}
                   data-accent={value}
                   aria-label={`Select ${label} accent`}
+                  role='radio'
+                  aria-checked={false}
                 >
                   <svg
                     class='hidden size-4 animate-in text-background zoom-in-50'

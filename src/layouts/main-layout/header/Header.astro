@@ -41,9 +41,7 @@ const contactLinks: HeaderLinkButton[] = [
     label: 'Mail',
     href: EMAIL_URL,
   },
-];
 
-const siteControls: HeaderLinkButton[] = [
   {
     icon: ResumeIcon,
     label: 'Résumé',
@@ -87,7 +85,7 @@ const siteControls: HeaderLinkButton[] = [
     </Button>
 
     <nav class='flex items-center'>
-      <div class='flex items-center gap-1'>
+      <div class='flex items-center gap-1.5'>
         {
           contactLinks.map(({ icon, label, href }) => (
             <HeaderButton
@@ -109,21 +107,7 @@ const siteControls: HeaderLinkButton[] = [
         orientation='vertical'
       />
 
-      <div class='flex items-center gap-1'>
-        {
-          siteControls.map(({ icon, label, href }) => (
-            <HeaderButton
-              icon={icon}
-              label={label}
-              href={href}
-              target='_blank'
-              rel='noopener noreferrer'
-            />
-          ))
-        }
-
-        <AppearanceSettings />
-      </div>
+      <AppearanceSettings />
     </nav>
   </header>
 

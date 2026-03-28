@@ -18,7 +18,7 @@
 }
 
 @utility muted-icon {
-  @apply light:opacity-90 opacity-75 grayscale-25 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0 group-data-[state=open]:opacity-100;
+  @apply light:opacity-90 opacity-80 grayscale-20 duration-350 group-hocus:opacity-100 group-hocus:grayscale-0 group-data-[state=open]:opacity-100;
 }
 
 @utility scrollbar-* {

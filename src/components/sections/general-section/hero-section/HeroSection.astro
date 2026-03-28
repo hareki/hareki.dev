@@ -37,17 +37,32 @@ import LetterTransformer from './LetterTransformer.astro';
       </Tooltip>
     </h1>
     <div class='flex flex-wrap gap-x-6 gap-y-1.5'>
-      <div class='flex items-center gap-1.5 text-xl text-subtext1-foreground'>
+      <div
+        class='
+          flex items-center gap-1.5 text-lg text-subtext1-foreground
+          md:text-xl
+        '
+      >
         <BriefcaseIcon class='size-5' />
-        <span>Frontend Engineer</span>
+        <span>Software Engineer</span>
       </div>
 
-      <div class='flex items-center gap-1.5 text-xl text-subtext1-foreground'>
+      <div
+        class='
+          flex items-center gap-1.5 text-lg text-subtext1-foreground
+          md:text-xl
+        '
+      >
         <MapPinIcon class='size-5' />
         <span>HCMC, Vietnam</span>
       </div>
     </div>
-    <p class='max-w-prose text-lg/relaxed text-subtext0-foreground'>
+    <p
+      class='
+        max-w-prose text-base/relaxed text-subtext0-foreground
+        md:text-lg/relaxed
+      '
+    >
       I craft accessible, pixel-perfect interfaces and engaging user
       experiences, with a deep focus on performance and attention to detail.
       Neovim power user with a Glove80.
