@@ -1,5 +1,7 @@
 import type { CacheProviderFactory } from 'astro';
 
+declare const __CACHE_BUILD_ID__: string;
+
 interface CloudflareCacheStorage extends CacheStorage {
   default: Cache;
 }
@@ -30,7 +32,9 @@ const factory: CacheProviderFactory = () => ({
     }
 
     const cache = (caches as CloudflareCacheStorage).default;
-    const cacheKey = new Request(context.url.toString(), { method: 'GET' });
+    const url = new URL(context.url);
+    url.searchParams.set('__v', __CACHE_BUILD_ID__);
+    const cacheKey = new Request(url.toString(), { method: 'GET' });
 
     const cached = await cache.match(cacheKey);
     if (cached) {

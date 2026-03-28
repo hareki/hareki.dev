@@ -14,6 +14,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __CACHE_BUILD_ID__: JSON.stringify(String(Date.now())),
+    },
     server: {
       hmr: true,
     },
