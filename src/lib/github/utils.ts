@@ -7,6 +7,7 @@ export const githubFetch = async (url: string): Promise<Response> => {
   };
 
   const token = GITHUB_TOKEN;
+  console.log('DEBUGPRINT[259]: utils.ts:9: token=', token);
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
