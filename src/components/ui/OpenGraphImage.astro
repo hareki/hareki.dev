@@ -1,0 +1,32 @@
+---
+import favicon from '@/assets/favicon.svg';
+
+// This component is used to generate Open Graph images
+
+const standardDimensions = {
+  width: 1200,
+  height: 630,
+};
+
+const twitterDimensions = {
+  width: 1200,
+  height: 675,
+};
+
+const useStandard = true;
+---
+
+<div
+  class='
+    flex-center flex-col gap-5 bg-linear-to-br from-(--ctp-base)
+    to-(--ctp-crust)
+  '
+  style={`width: ${useStandard ? standardDimensions.width : twitterDimensions.width}px;` +
+    `height: ${useStandard ? standardDimensions.height : twitterDimensions.height}px;`}
+>
+  <img alt='' class='size-32' src={favicon.src} />
+  <h1 class='text-5xl font-bold'>Hareki</h1>
+  <div class='rounded-full bg-primary/10 px-6 py-3 text-2xl text-primary'>
+    Software Engineer
+  </div>
+</div>
