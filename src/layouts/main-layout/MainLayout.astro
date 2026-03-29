@@ -63,20 +63,21 @@ const baseTitle = 'Hareki';
     </script>
 
     <!-- Ignore ERR_BLOCKED_BY_CLIENT errors, often thrown because of ad blockers -->
+    <!-- Personal preference, I find them really annoying -->
     <script is:inline>
       (function () {
-        const originalError = console.error;
-        console.error = function (...args) {
-          for (let i = 0; i < args.length; i++) {
-            if (
-              typeof args[i] === 'string' &&
-              args[i].includes('ERR_BLOCKED_BY_CLIENT')
-            ) {
-              return;
+        window.addEventListener(
+          'error',
+          (event) => {
+            console.log('DEBUGPRINT[262]: MainLayout.astro:71: event=', event);
+            if (event.message?.includes('ERR_BLOCKED_BY_CLIENT')) {
+              event.stopImmediatePropagation();
+              return false;
             }
-          }
-          return originalError.apply(console, args);
-        };
+          },
+          // Capture phase, catches resource errors
+          true,
+        );
       })();
     </script>
 
