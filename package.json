@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro build",
+    "build": "astro build && node scripts/compute-csp-hashes.mjs",
     "preview": "wrangler dev",
     "astro": "astro",
     "format": "prettier --write src",
