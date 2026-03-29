@@ -10,7 +10,9 @@
     "format": "prettier --write src",
     "lint": "eslint --report-unused-disable-directives src",
     "typecheck": "astro check",
-    "diagnose": "pnpm typecheck && pnpm format && pnpm lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "diagnose": "pnpm typecheck && pnpm test && pnpm format && pnpm lint",
     "generate-types": "wrangler types",
     "prepare": "husky && wrangler types",
     "commitlint": "commitlint --edit"
@@ -62,7 +64,8 @@
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.57.2"
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^4.1.2"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,astro}": [
