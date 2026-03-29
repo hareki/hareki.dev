@@ -13,6 +13,9 @@ interface Props {
 }
 const { title } = Astro.props;
 const baseTitle = 'Hareki';
+const description =
+  'Hareki — software engineer portfolio featuring work experience, projects, and an interactive typing test built with Astro and React.';
+const fullTitle = title ? `${title} | ${baseTitle}` : baseTitle;
 ---
 
 <!doctype html>
@@ -89,11 +92,24 @@ const baseTitle = 'Hareki';
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href={favicon.src} />
     <meta name='generator' content={Astro.generator} />
-    <meta
-      name='description'
-      content='Hareki — software engineer portfolio featuring work experience, projects, and an interactive typing test built with Astro and React.'
-    />
-    <title>{title ? `${title} | ${baseTitle}` : baseTitle}</title>
+    <meta name='description' content={description} />
+    <title>{fullTitle}</title>
+
+    <!-- For link preview rendering -->
+    <meta property='og:title' content={fullTitle} />
+    <meta property='og:description' content={description} />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content={Astro.url} />
+    <meta property='og:site_name' content={baseTitle} />
+    <meta property='og:locale' content='en_US' />
+    <meta name='twitter:card' content='summary' />
+    <meta name='twitter:title' content={fullTitle} />
+    <meta name='twitter:description' content={description} />
+
+    <!-- SEO -->
+    <meta name='author' content={baseTitle} />
+    <meta name='robots' content='index, follow' />
+    <link rel='canonical' href={Astro.url} />
   </head>
   <body>
     <SvgSprite />
