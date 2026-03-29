@@ -37,120 +37,124 @@ const [commits, languages] = await Promise.all([
     @md:gap-0
   '>
     {
-      commits.map((commit) => {
-        const parsed = parseConventionalCommit(commit.commitMessage);
+      commits.length > 0 ? (
+        commits.map((commit) => {
+          const parsed = parseConventionalCommit(commit.commitMessage);
 
-        return (
-          <a
-            href={commit.commitUrl}
-            target='_blank'
-            rel='noopener noreferrer'
-            class='
-              group flex w-full bouncy-click flex-col items-start gap-x-3
-              gap-y-1 rounded-xs p-1.5 text-subtext0-foreground
-              hover:bg-primary/10 hover:text-primary/80
-              @md:flex-row @md:items-center @md:gap-5
-              motion-safe:not-disabled:hocus:scale-[100.5%]
-            '
-          >
-            <div
+          return (
+            <a
+              href={commit.commitUrl}
+              target='_blank'
+              rel='noopener noreferrer'
               class='
-                min-w-0
-                @md:flex-1
+                group flex w-full bouncy-click flex-col items-start gap-x-3
+                gap-y-1 rounded-xs p-1.5 text-subtext0-foreground
+                hover:bg-primary/10 hover:text-primary/80
+                @md:flex-row @md:items-center @md:gap-5
+                motion-safe:not-disabled:hocus:scale-[100.5%]
               '
             >
-              {parsed.prefix ? (
-                <>
+              <div
+                class='
+                  min-w-0
+                  @md:flex-1
+                '
+              >
+                {parsed.prefix ? (
+                  <>
+                    <span
+                      class='
+                        whitespace-nowrap text-foreground
+                        group-hover:text-primary
+                      '
+                    >
+                      {parsed.prefix}
+                    </span>{' '}
+                    <span>{parsed.message}</span>
+                  </>
+                ) : (
+                  <span>{commit.commitMessage}</span>
+                )}
+                <span
+                  class='
+                    ml-1 hidden whitespace-nowrap
+                    @md:inline
+                  '
+                >
                   <span
-                    class='
-                      whitespace-nowrap text-foreground
-                      group-hover:text-primary
-                    '
+                    class='text-success'
+                    aria-label={`${commit.linesAdded} lines added`}
                   >
-                    {parsed.prefix}
-                  </span>{' '}
-                  <span>{parsed.message}</span>
-                </>
-              ) : (
-                <span>{commit.commitMessage}</span>
-              )}
-              <span
-                class='
-                  ml-1 hidden whitespace-nowrap
-                  @md:inline
-                '
-              >
-                <span
-                  class='text-success'
-                  aria-label={`${commit.linesAdded} lines added`}
-                >
-                  +{commit.linesAdded}
-                </span>
-                <span
-                  class='text-error'
-                  aria-label={`${commit.linesDeleted} lines deleted`}
-                >
-                  -{commit.linesDeleted}
-                </span>
-              </span>
-            </div>
-
-            <div
-              class='
-                flex w-full items-center
-                @md:w-auto @md:shrink-0 @md:justify-end
-              '
-            >
-              <span
-                class='
-                  whitespace-nowrap
-                  @md:hidden
-                '
-              >
-                <span
-                  class='text-success'
-                  aria-label={`${commit.linesAdded} lines added`}
-                >
-                  +{commit.linesAdded}
-                </span>
-                <span
-                  class='text-error'
-                  aria-label={`${commit.linesDeleted} lines deleted`}
-                >
-                  -{commit.linesDeleted}
-                </span>
-              </span>
-
-              <span
-                class='
-                  mx-1.5 text-subtext0-foreground
-                  @md:hidden
-                '
-              >
-                &#8226;
-              </span>
-              <Tooltip>
-                <TooltipTrigger>
+                    +{commit.linesAdded}
+                  </span>
                   <span
-                    class='
-                      whitespace-nowrap
-                      group-hover:text-primary/80
-                    '
+                    class='text-error'
+                    aria-label={`${commit.linesDeleted} lines deleted`}
                   >
-                    {getDateDistance(commit.createdAt)}
+                    -{commit.linesDeleted}
                   </span>
-                </TooltipTrigger>
+                </span>
+              </div>
 
-                <TooltipContent class='text-sm'>
-                  <span data-utc={commit.createdAt.toISOString()}>
-                    {getFormattedDateTime(commit.createdAt)}
+              <div
+                class='
+                  flex w-full items-center
+                  @md:w-auto @md:shrink-0 @md:justify-end
+                '
+              >
+                <span
+                  class='
+                    whitespace-nowrap
+                    @md:hidden
+                  '
+                >
+                  <span
+                    class='text-success'
+                    aria-label={`${commit.linesAdded} lines added`}
+                  >
+                    +{commit.linesAdded}
                   </span>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-          </a>
-        );
-      })
+                  <span
+                    class='text-error'
+                    aria-label={`${commit.linesDeleted} lines deleted`}
+                  >
+                    -{commit.linesDeleted}
+                  </span>
+                </span>
+
+                <span
+                  class='
+                    mx-1.5 text-subtext0-foreground
+                    @md:hidden
+                  '
+                >
+                  &#8226;
+                </span>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <span
+                      class='
+                        whitespace-nowrap
+                        group-hover:text-primary/80
+                      '
+                    >
+                      {getDateDistance(commit.createdAt)}
+                    </span>
+                  </TooltipTrigger>
+
+                  <TooltipContent class='text-sm'>
+                    <span data-utc={commit.createdAt.toISOString()}>
+                      {getFormattedDateTime(commit.createdAt)}
+                    </span>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </a>
+          );
+        })
+      ) : (
+        <p class='px-1.5 text-error'>Unable to fetch recent commits</p>
+      )
     }
   </div>
 
@@ -159,11 +163,15 @@ const [commits, languages] = await Promise.all([
       <SubsectionTitle> Languages </SubsectionTitle>
       <div class='flex flex-wrap gap-2'>
         {
-          languages.map(({ name, percent, color }) => (
-            <Badge color={color} extraInfo={`${percent}%`}>
-              {name}
-            </Badge>
-          ))
+          languages.length > 0 ? (
+            languages.map(({ name, percent, color }) => (
+              <Badge color={color} extraInfo={`${percent}%`}>
+                {name}
+              </Badge>
+            ))
+          ) : (
+            <p class='text-error'>Unable to fetch languages</p>
+          )
         }
       </div>
     </div>
