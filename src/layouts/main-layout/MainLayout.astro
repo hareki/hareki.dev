@@ -19,17 +19,13 @@ const baseTitle = 'Hareki';
 <html lang='en' class='h-screen w-full font-display scrollbar-primary'>
   <head>
     <meta charset='UTF-8' />
-    <!-- Quick way to check mobile logs -->
-    <!-- <script src='https://cdn.jsdelivr.net/npm/eruda'></script> -->
-    <!-- <script> -->
-    <!--   eruda.init(); -->
-    <!-- </script> -->
 
+    <!-- Theme Switching Handler -->
     <script is:inline>
       (function () {
         const html = document.documentElement;
-        const mq = matchMedia('(prefers-color-scheme:dark)');
-        const ms = localStorage.getItem('THEME_match-system');
+        const preferDarkMode = matchMedia('(prefers-color-scheme:dark)');
+        const matchSystemKey = localStorage.getItem('THEME_match-system');
         const flavor = localStorage.getItem('THEME_ctp-flavor');
         const darkFlavor = localStorage.getItem('THEME_dark-flavor') || 'mocha';
         const accent = localStorage.getItem('THEME_ctp-accent') || 'blue';
@@ -43,17 +39,19 @@ const baseTitle = 'Hareki';
 
         // New user (no keys) => match-system ON
         // Existing user (has flavor but no ms key) => match-system OFF
-        const isMatchSystem = ms === 'true' || (ms === null && flavor === null);
+        const isMatchSystem =
+          matchSystemKey === 'true' ||
+          (matchSystemKey === null && flavor === null);
 
         if (isMatchSystem) {
-          setFlavor(mq.matches ? darkFlavor : 'latte');
+          setFlavor(preferDarkMode.matches ? darkFlavor : 'latte');
         } else {
-          setFlavor(flavor || (mq.matches ? 'mocha' : 'latte'));
+          setFlavor(flavor || (preferDarkMode.matches ? 'mocha' : 'latte'));
         }
 
         html.classList.add('ctp-accent-' + accent);
 
-        mq.addEventListener('change', function (e) {
+        preferDarkMode.addEventListener('change', function (e) {
           const m = localStorage.getItem('THEME_match-system');
           const f = localStorage.getItem('THEME_ctp-flavor');
           if (m === 'true' || (m === null && f === null)) {
