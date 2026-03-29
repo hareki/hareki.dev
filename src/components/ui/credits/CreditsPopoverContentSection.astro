@@ -1,13 +1,18 @@
 ---
 import { PopoverTitle } from '@/components/starwind/popover';
 import LinkItem from '@/components/ui/LinkItem.astro';
-import { getFaviconSrc, type SiteEntry } from '@/data/credits';
+
+import { type SiteEntry } from './data';
 
 interface Props {
   title: string;
   items: SiteEntry[];
   class?: string;
 }
+
+const getFaviconSrc = (favicon: ImageMetadata | string): string => {
+  return typeof favicon === 'string' ? favicon : favicon.src;
+};
 
 const { title, items } = Astro.props;
 ---

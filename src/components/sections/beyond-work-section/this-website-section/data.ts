@@ -5,29 +5,6 @@ interface Technology {
   color: BadgeColor;
 }
 
-const TECHNOLOGIES: Technology[] = [
-  {
-    name: 'Astro',
-    color: 'maroon',
-  },
-  {
-    name: 'Tailwind',
-    color: 'sky',
-  },
-  {
-    name: 'Starwind UI',
-    color: 'text',
-  },
-  {
-    name: 'React',
-    color: 'blue',
-  },
-  {
-    name: 'Zustand',
-    color: 'text',
-  },
-];
-
 interface CorePrinciple {
   name: string;
   description: string;
@@ -52,6 +29,29 @@ const CORE_PRINCIPLES: CorePrinciple[] = [
     name: 'Subtle Motion:',
     description:
       'Minimal transitions that respond to hover, focus, and interaction',
+  },
+];
+
+const TECHNOLOGIES: Technology[] = [
+  {
+    name: 'Astro',
+    color: 'maroon',
+  },
+  {
+    name: 'Tailwind',
+    color: 'sky',
+  },
+  {
+    name: 'Starwind UI',
+    color: 'text',
+  },
+  {
+    name: 'React',
+    color: 'blue',
+  },
+  {
+    name: 'Zustand',
+    color: 'text',
   },
 ];
 

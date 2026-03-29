@@ -12,10 +12,6 @@ export interface SiteEntry {
   favicon: ImageMetadata | string;
 }
 
-export const getFaviconSrc = (favicon: ImageMetadata | string): string => {
-  return typeof favicon === 'string' ? favicon : favicon.src;
-};
-
 export const COLOPHON: SiteEntry[] = [
   {
     name: 'Catppuccin',

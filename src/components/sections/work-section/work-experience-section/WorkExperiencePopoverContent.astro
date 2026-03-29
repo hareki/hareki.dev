@@ -10,13 +10,14 @@ import {
 } from '@/components/starwind/tooltip';
 import ItemSummary from '@/components/ui/ItemSummary.astro';
 import StandaloneLink from '@/components/ui/StandaloneLink.astro';
-import type { ExperienceRecord } from '@/data/work-experience';
 import { getFormattedDate } from '@/utils/date';
 
 import WorkExperienceSectionCompanyLogo from './WorkExperienceSectionCompanyLogo.astro';
 
+import type { WorkExperienceRecord } from './data';
+
 interface Props {
-  record: ExperienceRecord;
+  record: WorkExperienceRecord;
 }
 
 const { record } = Astro.props;

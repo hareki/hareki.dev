@@ -4,7 +4,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
-import { MAIN_MODULES } from '@/data/beyond-work';
 import { getLanguageStats, getRecentCommitDetails } from '@/lib/github';
 import { parseConventionalCommit } from '@/lib/github/utils';
 import { getDateDistance, getFormattedDateTime } from '@/utils/date';
@@ -12,6 +11,7 @@ import { getDateDistance, getFormattedDateTime } from '@/utils/date';
 import Badge from '../Badge.astro';
 import StandaloneLink from '../StandaloneLink.astro';
 import SubsectionTitle from '../SubsectionTitle.astro';
+import { MAIN_MODULES } from './data';
 
 interface Props {
   repoFullName: string;

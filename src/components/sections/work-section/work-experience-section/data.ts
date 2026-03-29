@@ -1,6 +1,6 @@
 import ZigvyLogo from '@/assets/companies/zigvy.webp';
 
-export interface ExperienceRecord {
+export interface WorkExperienceRecord {
   company: {
     name: string;
     logo: ImageMetadata;
@@ -13,7 +13,7 @@ export interface ExperienceRecord {
   responsibilities: string[];
 }
 
-export const EXPERIENCE: ExperienceRecord[] = [
+export const WORK_EXPERIENCE: WorkExperienceRecord[] = [
   {
     company: {
       name: 'Zigvy',
