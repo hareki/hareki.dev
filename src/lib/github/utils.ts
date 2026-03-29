@@ -9,7 +9,6 @@ export const githubFetch = async (url: string): Promise<Response> => {
   };
 
   const token = GITHUB_TOKEN;
-  console.log(`[GitHub Utils] Fetching GitHub info with token: ${token}`);
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }

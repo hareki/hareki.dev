@@ -20,7 +20,11 @@ const baseTitle = 'Hareki';
   <head>
     <meta charset='UTF-8' />
 
-    <!-- Theme Switching Handler -->
+    <!--
+      Theme Switching Handler
+      `is:inline` can't use imports, so the logic duplicates AppearanceSettingsController a bit.
+      It's worth the trade off to prevent a flash of wrong-theme content on first paint
+    -->
     <script is:inline>
       (function () {
         const html = document.documentElement;

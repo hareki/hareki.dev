@@ -77,6 +77,10 @@ const MonkeytypeAtHome = () => {
   };
 
   const handleMouseMove = () => {
+    if (screen !== 'typing') {
+      return;
+    }
+
     dispatch({ type: 'PAUSE_TYPING' });
   };
 
