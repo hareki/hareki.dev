@@ -63,6 +63,25 @@ const baseTitle = 'Hareki';
         });
       })();
     </script>
+
+    <!-- Ignore ERR_BLOCKED_BY_CLIENT errors, often thrown because of ad blockers -->
+    <script is:inline>
+      (function () {
+        const originalError = console.error;
+        console.error = function (...args) {
+          for (let i = 0; i < args.length; i++) {
+            if (
+              typeof args[i] === 'string' &&
+              args[i].includes('ERR_BLOCKED_BY_CLIENT')
+            ) {
+              return;
+            }
+          }
+          return originalError.apply(console, args);
+        };
+      })();
+    </script>
+
     <link
       href={mediumFont}
       rel='preload'
