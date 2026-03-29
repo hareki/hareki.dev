@@ -133,15 +133,6 @@ export class AppearanceController {
 
     if (this.flavorTitle) {
       this.flavorTitle.dataset.transformed = String(matchSystem);
-
-      const original = this.flavorTitle.querySelector<HTMLElement>(
-        '[data-text-original]',
-      );
-      const transformed = this.flavorTitle.querySelector<HTMLElement>(
-        '[data-text-transformed]',
-      );
-      original?.setAttribute('aria-hidden', String(matchSystem));
-      transformed?.setAttribute('aria-hidden', String(!matchSystem));
     }
 
     this.flavorButtons.forEach((btn) => {

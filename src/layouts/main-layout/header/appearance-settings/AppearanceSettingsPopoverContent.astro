@@ -12,7 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
-import TextTransformer from '@/components/ui/TextTransformer.astro';
+import PrefixSlide from '@/components/ui/PrefixSlide.astro';
 
 const FLAVORS = [
   { value: 'latte', label: 'Latte', mode: 'light' },
@@ -50,10 +50,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
   <div data-appearance-controller>
     <div class='mb-2 flex items-center justify-between'>
       <PopoverTitle class='mb-0' data-flavor-title>
-        <TextTransformer>
-          <span slot='original'>Flavor</span>
-          <span slot='transformed'>Dark Flavor</span>
-        </TextTransformer>
+        <PrefixSlide prefix='Dark'>Flavor</PrefixSlide>
       </PopoverTitle>
       <Switch id='match-system' label='System' size='sm' />
     </div>

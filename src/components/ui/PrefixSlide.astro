@@ -1,0 +1,88 @@
+---
+interface Props {
+  prefix: string;
+  class?: string;
+}
+
+const { prefix, class: className } = Astro.props;
+---
+
+<span
+  class:list={['group/prefix inline-flex items-baseline', className]}
+  data-text-transformer
+  data-prefix-slide
+>
+  <span
+    class='
+      inline-grid grid-cols-[0fr]
+      group-data-[transformed="true"]/prefix:grid-cols-[1fr]
+      motion-safe:transition-[grid-template-columns] motion-safe:duration-350
+    '
+    data-prefix-slide-prefix
+    aria-hidden='true'
+  >
+    <span class='overflow-hidden'>
+      <span
+        class='
+          inline-block min-w-max opacity-0
+          group-data-[transformed="true"]/prefix:opacity-100
+          motion-safe:transition-opacity motion-safe:duration-150
+          motion-reduce:transition-opacity motion-reduce:duration-350
+        '
+      >
+        {prefix}&nbsp;
+      </span>
+    </span>
+  </span>
+  <slot />
+</span>
+
+<script>
+  const initPrefixSlides = () => {
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+    document
+      .querySelectorAll<HTMLElement>('[data-prefix-slide]')
+      .forEach((root) => {
+        const prefix = root.querySelector<HTMLElement>(
+          '[data-prefix-slide-prefix]',
+        );
+        if (!prefix) {
+          return;
+        }
+
+        prefix.setAttribute(
+          'aria-hidden',
+          String(root.dataset.transformed !== 'true'),
+        );
+
+        const observer = new MutationObserver(() => {
+          const hiding = root.dataset.transformed !== 'true';
+          if (!hiding) {
+            prefix.setAttribute('aria-hidden', 'false');
+            // Immediately hides the prefix for reduced motion users, otherwise defer until the end of the animation.
+          } else if (reducedMotion.matches) {
+            prefix.setAttribute('aria-hidden', 'true');
+          }
+        });
+
+        observer.observe(root, {
+          attributes: true,
+          attributeFilter: ['data-transformed'],
+        });
+
+        // Defers aria-hidden until the slide-out animation completes (full motion only).
+        prefix.addEventListener('transitionend', (event) => {
+          if (
+            event.propertyName === 'grid-template-columns' &&
+            root.dataset.transformed !== 'true'
+          ) {
+            prefix.setAttribute('aria-hidden', 'true');
+          }
+        });
+      });
+  };
+
+  initPrefixSlides();
+  document.addEventListener('astro:after-swap', initPrefixSlides);
+</script>
