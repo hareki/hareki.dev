@@ -41,8 +41,7 @@ const CORE_PRINCIPLES: CorePrinciple[] = [
   },
   {
     name: 'System-Aware:',
-    description:
-      'Honors system prefers-color-scheme and prefers-reduced-motion',
+    description: 'Honors system color scheme and reduced-motion preferences',
   },
   {
     name: 'Accessible:',

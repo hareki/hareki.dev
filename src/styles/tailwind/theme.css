@@ -63,7 +63,7 @@ html:is(.ctp-flavor-latte) {
     'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
     sans-serif; /* universal fallback */
 
-  --max-width-prose: 66ch;
+  --max-width-prose: 67ch;
   --ease-overshoot: linear(
     0,
     0.383 7.5%,
