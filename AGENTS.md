@@ -12,15 +12,17 @@ Personal portfolio site (hareki.dev) built with Astro 6 + React 19 islands, depl
 pnpm dev              # Dev server at localhost:4321 (with --host)
 pnpm build            # Production build to dist/
 pnpm preview          # Preview production build
-pnpm diagnose         # Run typecheck + format + lint (use this for validation)
+pnpm diagnose         # Run typecheck + test + format + lint (use this for validation)
 pnpm diagnose --fix   # Same but auto-fix issues
+pnpm test             # Run all tests once (vitest run)
+pnpm test:watch       # Run tests in watch mode
 pnpm format           # Prettier on src/
 pnpm lint             # ESLint on src/
 pnpm typecheck        # astro check (TypeScript validation)
 pnpm generate-types   # Generate Cloudflare Worker types
 ```
 
-Use `pnpm diagnose` (not `npx tsc --noEmit`) for type checking and linting.
+Use `pnpm diagnose` (not `npx tsc --noEmit`) for type checking and linting. To run a single test file: `pnpm vitest run path/to/file.test.ts`.
 
 ## Architecture
 
@@ -30,7 +32,11 @@ Use `pnpm diagnose` (not `npx tsc --noEmit`) for type checking and linting.
 
 **State management**: Zustand with a custom dispatch/reducer pattern for the typing game (`src/components/react/MonkeytypeAtHome/`).
 
-**Data**: Static TypeScript files in `src/data/` (experience, contact info, etc.). GitHub stats fetched via API at runtime with Cloudflare CDN caching (`src/lib/github/`).
+**Data**: Co-located with the components that consume them. Only shared/global data remains in `src/data/` (contact info, git config). Feature-specific data lives in `data.ts` files next to their components (e.g., `src/components/sections/work-section/work-experience-section/data.ts`).
+
+**GitHub integration**: Stats fetched via API at runtime with Cloudflare CDN caching (`src/lib/github/`).
+
+**Testing**: Vitest with global test utilities enabled. Test setup in `vitest.setup.ts` mocks the Cloudflare Workers runtime. Tests are co-located with source files as `*.test.ts`.
 
 **Deployment**: Cloudflare Workers via `@astrojs/cloudflare` adapter. Config in `wrangler.jsonc`.
 
