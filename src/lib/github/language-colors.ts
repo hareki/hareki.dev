@@ -19,7 +19,7 @@ export const getLanguageBadgeColor = (language: string): BadgeColor => {
   const hex = GITHUB_LANGUAGE_COLORS[language];
 
   if (!hex) {
-    return 'blue';
+    return 'text';
   }
   return hex;
 };
