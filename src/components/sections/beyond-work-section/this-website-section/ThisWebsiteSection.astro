@@ -2,26 +2,26 @@
 import BrowserIcon from '@tabler/icons/outline/browser.svg';
 
 import Badge from '@/components/ui/Badge.astro';
-import BoxSection from '@/components/ui/box-section';
-import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
-import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
+import SubSection from '@/components/ui/sub-section';
+import SubSectionDescription from '@/components/ui/sub-section/SubSectionDescription.astro';
+import SubSectionTitle from '@/components/ui/sub-section/SubSectionTitle.astro';
 import SubsectionTitle from '@/components/ui/SubsectionTitle.astro';
 import { PROJECT_REPO_FULL_NAME } from '@/data/git';
 
 import { ThisWebSiteData } from './data';
 ---
 
-<BoxSection id='beyond-work-this-website' class='revealing revealing-5'>
-  <BoxSectionTitle icon={BrowserIcon}>This Website</BoxSectionTitle>
-  <BoxSectionDescription>
+<SubSection id='beyond-work-this-website' class='revealing revealing-5'>
+  <SubSectionTitle icon={BrowserIcon}>This Website</SubSectionTitle>
+  <SubSectionDescription>
     My first project with <InlineLink href='https://astro.build/'
       >Astro</InlineLink
     >, also my first website outside of work. Built from scratch with clear
     goals in mind. <InlineLink
       href={`https://github.com/${PROJECT_REPO_FULL_NAME}`}>Source</InlineLink
     > on GitHub.
-  </BoxSectionDescription>
+  </SubSectionDescription>
 
   <div class='rounded-md bg-inner-box px-1 py-2 text-sm'>
     <SubsectionTitle class='px-1.5'>Core Principles</SubsectionTitle>
@@ -56,4 +56,4 @@ import { ThisWebSiteData } from './data';
       </div>
     </div>
   </div>
-</BoxSection>
+</SubSection>

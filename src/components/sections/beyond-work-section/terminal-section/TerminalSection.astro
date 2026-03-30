@@ -1,22 +1,22 @@
 ---
 import TerminalIcon from '@tabler/icons/outline/terminal-2.svg';
 
-import BoxSection from '@/components/ui/box-section';
-import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
-import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
 import RepoSummary from '@/components/ui/repo-summary';
 import { BeyondWorkLink } from '@/components/ui/repo-summary/data';
+import SubSection from '@/components/ui/sub-section';
+import SubSectionDescription from '@/components/ui/sub-section/SubSectionDescription.astro';
+import SubSectionTitle from '@/components/ui/sub-section/SubSectionTitle.astro';
 ---
 
-<BoxSection id='beyond-work-terminal' class='revealing revealing-4'>
-  <BoxSectionTitle icon={TerminalIcon}>Terminal</BoxSectionTitle>
-  <BoxSectionDescription>
+<SubSection id='beyond-work-terminal' class='revealing revealing-4'>
+  <SubSectionTitle icon={TerminalIcon}>Terminal</SubSectionTitle>
+  <SubSectionDescription>
     I love the efficiency and minimalism of CLI tools, my editor of choice is <InlineLink
       href={BeyondWorkLink.NEOVIM}>Neovim</InlineLink
     >. Here's a look at my
     <InlineLink href={BeyondWorkLink.DOTFILES}>dotfiles</InlineLink>.
-  </BoxSectionDescription>
+  </SubSectionDescription>
 
   <RepoSummary repoFullName={BeyondWorkLink.DOTFILES_FULL_NAME} />
-</BoxSection>
+</SubSection>

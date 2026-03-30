@@ -2,16 +2,16 @@
 import KeyboardIcon from '@tabler/icons/outline/keyboard.svg';
 
 import MonkeytypeAtHome from '@/components/react/MonkeytypeAtHome';
-import BoxSection from '@/components/ui/box-section';
-import BoxSectionDescription from '@/components/ui/box-section/BoxSectionDescription.astro';
-import BoxSectionTitle from '@/components/ui/box-section/BoxSectionTitle.astro';
 import InlineLink from '@/components/ui/InlineLink.astro';
 import { BeyondWorkLink } from '@/components/ui/repo-summary/data';
+import SubSection from '@/components/ui/sub-section';
+import SubSectionDescription from '@/components/ui/sub-section/SubSectionDescription.astro';
+import SubSectionTitle from '@/components/ui/sub-section/SubSectionTitle.astro';
 ---
 
-<BoxSection id='beyond-work-typing' class='revealing revealing-3'>
-  <BoxSectionTitle icon={KeyboardIcon}>Typing</BoxSectionTitle>
-  <BoxSectionDescription>
+<SubSection id='beyond-work-typing' class='revealing revealing-3'>
+  <SubSectionTitle icon={KeyboardIcon}>Typing</SubSectionTitle>
+  <SubSectionDescription>
     I find comfort in typing tests with a <InlineLink
       href={BeyondWorkLink.GLOVE80}>Glove80</InlineLink
     > keyboard and liked the <InlineLink
@@ -19,7 +19,7 @@ import { BeyondWorkLink } from '@/components/ui/repo-summary/data';
     >
       Monkeytype
     </InlineLink> app enough to build a mini version below.
-  </BoxSectionDescription>
+  </SubSectionDescription>
 
   <MonkeytypeAtHome client:idle />
-</BoxSection>
+</SubSection>
