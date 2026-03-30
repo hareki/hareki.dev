@@ -58,7 +58,7 @@ html:is(.ctp-flavor-latte) {
 
 @theme inline {
   --font-display:
-    'Maple Mono', -apple-system /* macOS/iOS Safari */,
+    var(--font-maple-mono), -apple-system /* macOS/iOS Safari */,
     BlinkMacSystemFont /* macOS Chrome */, 'Segoe UI' /* Windows */,
     'Ubuntu' /* Ubuntu Linux */, 'Noto Sans' /* other Linux (GNOME) */,
     sans-serif; /* universal fallback */

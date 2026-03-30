@@ -1,10 +1,9 @@
 ---
 import '@/styles/index.css';
 import { SEO } from 'astro-seo';
+import { Font } from 'astro:assets';
 
 import favicon from '@/assets/favicon.svg';
-import boldFont from '@/assets/fonts/MapleMono-Bold.woff2';
-import mediumFont from '@/assets/fonts/MapleMono-Medium.woff2';
 
 interface Props {
   title?: string;
@@ -72,22 +71,7 @@ const ogAlt = 'Hareki - Software Engineer';
         meta: [{ name: 'author', content: baseTitle }],
       }}
     />
-
-    <link
-      href={mediumFont}
-      rel='preload'
-      type='font/woff2'
-      as='font'
-      crossorigin
-    />
-
-    <link
-      href={boldFont}
-      rel='preload'
-      type='font/woff2'
-      as='font'
-      crossorigin
-    />
+    <Font cssVariable='--font-maple-mono' />
 
     <meta name='generator' content={Astro.generator} />
 
