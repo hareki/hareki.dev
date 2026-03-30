@@ -9,7 +9,10 @@ const { class: className, ...rest } = Astro.props;
 ---
 
 <p
-  class={cn(`mb-4 max-w-prose text-sm text-subtext0-foreground`, className)}
+  class={cn(
+    `box-content max-w-prose px-2.5 text-sm text-subtext0-foreground`,
+    className,
+  )}
   {...rest}
 >
   <slot />

@@ -2,7 +2,12 @@
 const { icon: Icon } = Astro.props;
 ---
 
-<div class='mb-2 flex items-center gap-1'>
+<div
+  class='
+    flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1.25
+    text-subtext1-foreground
+  '
+>
   <Icon class='size-4.5 text-primary' />
   <h3 class='text-base font-bold'><slot /></h3>
 </div>

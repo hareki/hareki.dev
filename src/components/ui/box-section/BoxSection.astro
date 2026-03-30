@@ -8,10 +8,7 @@ const { id, class: className } = Astro.props;
 ---
 
 <section id={id} class={className}>
-  <div class='
-    @container rounded-md border p-2.5
-    md:p-5
-  '>
+  <div class='@container flex flex-col gap-3'>
     <slot />
   </div>
 </section>
