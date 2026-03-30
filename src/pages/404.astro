@@ -1,0 +1,16 @@
+---
+import favicon from '@/assets/favicon.svg';
+import Button from '@/components/starwind/button';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title='Page Not Found'>
+  <div class='flex-center grow flex-col'>
+    <img src={favicon.src} alt='Hareki catppuccin logo' class='size-32' />
+    <h1 class='mt-4 text-4xl/relaxed'>404</h1>
+    <p class='text-xl text-subtext1-foreground'>
+      This page could not be found.
+    </p>
+    <Button variant='primary' class='mt-6' href='/'>Back Home</Button>
+  </div>
+</BaseLayout>

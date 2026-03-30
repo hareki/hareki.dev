@@ -4,10 +4,10 @@ import SvgSprite from '@/components/ui/SvgSprite.astro';
 
 import Footer from './Footer.astro';
 import Header from './header';
-import BaseLayout from '../BaseLayout.astro';
+import BaseLayout, { type BaseLayoutProps } from '../BaseLayout.astro';
 
 interface Props {
-  title?: string;
+  title?: BaseLayoutProps['title'];
 }
 const { title } = Astro.props;
 ---
@@ -24,25 +24,18 @@ const { title } = Astro.props;
   >
     Skip to main content
   </a>
-  <div
+  <Header />
+  <main
+    id='main-content'
     class='
-      mx-auto flex min-h-screen max-w-5xl flex-col px-2 pb-4 text-foreground
+      grow px-2.5 py-10
       xs:px-3
+      md:px-6
     '
   >
-    <Header />
-    <main
-      id='main-content'
-      class='
-        grow px-2.5 py-10
-        xs:px-3
-        md:px-6
-      '
-    >
-      <slot />
-    </main>
-    <Footer />
-  </div>
+    <slot />
+  </main>
+  <Footer />
 </BaseLayout>
 
 <script>
