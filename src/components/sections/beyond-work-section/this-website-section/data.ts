@@ -38,7 +38,7 @@ const TECHNOLOGIES: Technology[] = [
     color: 'maroon',
   },
   {
-    name: 'Tailwind',
+    name: 'Tailwind CSS',
     color: 'sky',
   },
   {

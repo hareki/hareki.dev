@@ -31,7 +31,7 @@ export const TECHNOLOGIES: TechItemProps[] = [
     icon: typescript,
   },
   {
-    name: 'Tailwind',
+    name: 'Tailwind CSS',
     description: 'Utility-First CSS',
     href: 'https://tailwindcss.com',
     icon: tailwindcss,
