@@ -7,8 +7,8 @@ Personal portfolio site built with [Astro](https://astro.build/) and deployed on
 ## Highlights
 
 - **Zero-JS baseline** — Astro renders static HTML; JavaScript is only shipped for the interactive typing test via a React island (`client:idle`)
-- **Interactive typing test** — A Monkeytype-inspired game built with React 19 + Zustand, featuring real-time WPM/accuracy tracking, tape mode, and keyboard shortcuts
-- **Live GitHub data** — Repository stats (recent commits, language breakdown, lines changed) fetched at runtime with Cloudflare CDN caching and skeleton loading states via Astro's `server:defer`
+- **Interactive typing test** — A Monkeytype-inspired game built with React 19 + Zustand, featuring real-time WPM/accuracy tracking, tape mode, and keyboard shortcuts; render-optimized so each keystroke re-renders only the affected letter component
+- **Live GitHub data** — Repository stats (recent commits, language breakdown, lines changed) fetched via Astro Server Islands — Astro's equivalent of Next.js async Server Components — with Cloudflare CDN caching and skeleton loading states
 - **4-flavor Catppuccin theming** — Full light/dark theme support (Latte, Frappe, Macchiato, Mocha) with 14 selectable accent colors, respecting OS color scheme preference
 - **Accessibility-first** — Semantic HTML, ARIA labels/live regions, full keyboard navigation, and `prefers-reduced-motion` support
 
