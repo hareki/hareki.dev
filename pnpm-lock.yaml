@@ -40,6 +40,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      astro-seo:
+        specifier: ^1.1.0
+        version: 1.1.0(prettier-plugin-astro@0.14.1(patch_hash=ae130a5d427c225a50afc5b8f974e783c7f9a6cf2b79cca38ea5d8a7903ae5a2))(prettier@3.8.1)(typescript@6.0.2)
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -1658,6 +1661,9 @@ packages:
   astro-eslint-parser@1.4.0:
     resolution: {integrity: sha512-+QDcgc7e+au6EZ0YjMmRRjNoQo5bDMlaR45aWDoFsuxQTCM9qmCHRoiKJPELgckJ8Wmr7vcfpa9eCDHBFh6G4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-seo@1.1.0:
+    resolution: {integrity: sha512-G6LDNDyga30o+52v58jU7C35n3cORUzk7RSuY+xf/ZRbW6JiNplyaOO1VoYVKO+xzYNaBcxqNln2RFRR/wgJNQ==}
 
   astro@6.1.1:
     resolution: {integrity: sha512-vq8sHpu1JsY1fWAunn+tdKNbVDmLQNiVdyuGsVT2csgITdFGXXVAyEXFWc1DzkMN0ehElPeiHnqItyQOJK+GqA==}
@@ -5719,6 +5725,14 @@ snapshots:
       semver: 7.7.4
     transitivePeerDependencies:
       - supports-color
+
+  astro-seo@1.1.0(prettier-plugin-astro@0.14.1(patch_hash=ae130a5d427c225a50afc5b8f974e783c7f9a6cf2b79cca38ea5d8a7903ae5a2))(prettier@3.8.1)(typescript@6.0.2):
+    dependencies:
+      '@astrojs/check': 0.9.8(prettier-plugin-astro@0.14.1(patch_hash=ae130a5d427c225a50afc5b8f974e783c7f9a6cf2b79cca38ea5d8a7903ae5a2))(prettier@3.8.1)(typescript@6.0.2)
+    transitivePeerDependencies:
+      - prettier
+      - prettier-plugin-astro
+      - typescript
 
   astro@6.1.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(terser@5.46.0)(typescript@6.0.2)(yaml@2.8.2):
     dependencies:
