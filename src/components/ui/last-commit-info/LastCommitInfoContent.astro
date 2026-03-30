@@ -7,6 +7,7 @@ import { getLastCommitInfo, getShortenCommitHash } from '@/lib/github';
 import { getFormattedDate } from '@/utils/date';
 
 import Layout from './LastCommitInfoLayout.astro';
+import NewTabSrIndicator from '../NewTabSrIndicator.astro';
 
 Astro.cache.set({
   maxAge: 900, // 15 minutes
@@ -41,7 +42,7 @@ const shortenCommitHash = lastCommitInfo
       >
         <GitMergeIcon />
         <span>{shortenCommitHash}</span>
-
+        <NewTabSrIndicator />
         <NewTabIndicator />
       </Button>
     </Layout>

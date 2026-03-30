@@ -9,6 +9,7 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
+import NewTabSrIndicator from '@/components/ui/NewTabSrIndicator.astro';
 import type { PopoverIndicatorProps } from '@/components/ui/PopoverIndicator.astro';
 import PopoverIndicator from '@/components/ui/PopoverIndicator.astro';
 
@@ -58,7 +59,14 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
         hidden
         @3xl:inline
       '>{label}</span>
-      {isOpenInNewTab && <NewTabIndicator />}
+      {
+        isOpenInNewTab && (
+          <>
+            <NewTabSrIndicator />
+            <NewTabIndicator />
+          </>
+        )
+      }
       {isPopoverTrigger && <PopoverIndicator {...popoverIndicator} />}
     </Button>
   </TooltipTrigger>

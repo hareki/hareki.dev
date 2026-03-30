@@ -1,6 +1,8 @@
 ---
 import { cn } from 'tailwind-variants';
 
+import NewTabSrIndicator from './NewTabSrIndicator.astro';
+
 type Props = astroHTML.JSX.AnchorHTMLAttributes;
 const { class: className, ...rest } = Astro.props;
 ---
@@ -18,5 +20,5 @@ const { class: className, ...rest } = Astro.props;
     className,
   )}
   {...rest}
-  ><slot /><span class='sr-only'>(opens in new tab)</span>
+  ><slot /><NewTabSrIndicator />
 </a>
