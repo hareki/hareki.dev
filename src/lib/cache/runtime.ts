@@ -77,7 +77,7 @@ const factory: CacheProviderFactory = () => ({
     // But since we're returning a cached response, the server island components don't re-run => no `setHeaders` is called
     // headers.delete('CDN-Cache-Control');
 
-    const cachedResponseEntry = new Response(response.body, {
+    const responseToCache = new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
       headers,
@@ -87,15 +87,16 @@ const factory: CacheProviderFactory = () => ({
     // But there's a bug making it unavailable in both type and runtime levels
     // https://github.com/withastro/astro/issues/16145
     const waitUntil = (context as any).waitUntil;
+    const cachedResponse = responseToCache.clone();
 
     if (waitUntil) {
-      waitUntil(cache.put(cacheKey, cachedResponseEntry));
+      waitUntil(cache.put(cacheKey, cachedResponse));
     } else {
-      await cache.put(cacheKey, cachedResponseEntry);
+      await cache.put(cacheKey, cachedResponse);
     }
 
     console.log('[Worker] Cache miss, entry generated', context.url);
-    return cachedResponseEntry;
+    return responseToCache;
   },
 
   async invalidate() {
