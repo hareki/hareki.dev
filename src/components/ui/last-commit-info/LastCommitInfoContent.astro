@@ -10,8 +10,8 @@ import Layout from './LastCommitInfoLayout.astro';
 import NewTabSrIndicator from '../NewTabSrIndicator.astro';
 
 Astro.cache.set({
-  maxAge: 900, // 15 minutes
-  swr: 60, // serve stale for 1 min while revalidating
+  maxAge: 10, // 15 minutes
+  swr: 5, // serve stale for 1 min while revalidating
 });
 
 const lastCommitInfo = await getLastCommitInfo();

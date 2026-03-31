@@ -9,7 +9,7 @@ interface CloudflareCacheStorage extends CacheStorage {
 const factory: CacheProviderFactory = () => ({
   name: 'cloudflare-cdn',
 
-  // For CDN Providers
+  // https://docs.astro.build/en/reference/experimental-flags/route-caching/#writing-a-custom-cache-provider
   setHeaders(options) {
     const headers = new Headers();
     if (options.maxAge !== undefined) {
@@ -25,12 +25,18 @@ const factory: CacheProviderFactory = () => ({
     return headers;
   },
 
-  // For Runtime Providers
   async onRequest(context, next) {
     if (context.request.method !== 'GET') {
       return next();
     }
 
+    // Right way to access the cloudflare global cache:
+    // https://developers.cloudflare.com/workers/runtime-apis/cache/#accessing-cache
+    // https://developers.cloudflare.com/workers/reference/how-the-cache-works/
+
+    // Can't use the built in Astro `memoryCache` since different cloudflare workers do not share the same global state
+    // https://developers.cloudflare.com/workers/reference/how-workers-works/#distributed-execution
+    // https://developers.cloudflare.com/workers/reference/how-workers-works/#isolates
     const cache = (caches as CloudflareCacheStorage).default;
     const url = new URL(context.url);
     url.searchParams.set('__v', __CACHE_BUILD_ID__);
@@ -38,6 +44,7 @@ const factory: CacheProviderFactory = () => ({
 
     const cached = await cache.match(cacheKey);
     if (cached) {
+      // WORKER CACHE HIT: return cached response we previously created below
       return new Response(cached.body, cached);
     }
 
@@ -52,33 +59,41 @@ const factory: CacheProviderFactory = () => ({
       return response;
     }
 
+    // WORKER CACHE MISS: create a cached response entry for future requests
     const headers = new Headers(response.headers);
+    // Control how long the data live in Worker cache
+    // https://developers.cloudflare.com/workers/examples/cache-api/
+    // https://developers.cloudflare.com/workers/runtime-apis/cache/#headers
     headers.set('Cache-Control', cdnCacheControl);
-    headers.delete('CDN-Cache-Control');
 
-    const responseToCache = new Response(response.clone().body, {
+    // Normally this would get cleaned up by Astro because it's set in `setHeaders`
+    // https://docs.astro.build/en/reference/experimental-flags/route-caching/#setheaders
+    // But since we're returning a cached response, the server island components don't re-run => no `setHeaders` is called
+    // headers.delete('CDN-Cache-Control');
+
+    const cachedResponseEntry = new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
       headers,
     });
 
-    const waitUntil = (
-      context as typeof context & {
-        waitUntil?: (promise: Promise<unknown>) => void;
-      }
-    ).waitUntil;
+    // waitUntil should be there when using Cloudflare Workers
+    // But there's a bug making it unavailable in both type and runtime levels
+    // https://github.com/withastro/astro/issues/16145
+    const waitUntil = (context as any).waitUntil;
 
     if (waitUntil) {
-      waitUntil(cache.put(cacheKey, responseToCache));
+      waitUntil(cache.put(cacheKey, cachedResponseEntry));
     } else {
-      await cache.put(cacheKey, responseToCache);
+      await cache.put(cacheKey, cachedResponseEntry);
     }
 
-    return response;
+    return cachedResponseEntry;
   },
 
   async invalidate() {
     // No-op. Could use Cloudflare's purge API in the future.
+    // https://developers.cloudflare.com/workers/reference/how-the-cache-works/#purge-assets-stored-with-the-cache-api
   },
 });
 

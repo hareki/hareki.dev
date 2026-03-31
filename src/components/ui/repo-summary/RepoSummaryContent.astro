@@ -19,8 +19,8 @@ interface Props {
 }
 
 Astro.cache.set({
-  maxAge: 900,
-  swr: 60,
+  maxAge: 10,
+  swr: 5,
 });
 
 const { repoFullName, commitLimit } = Astro.props;
