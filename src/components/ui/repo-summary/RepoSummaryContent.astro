@@ -5,6 +5,7 @@ import {
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
 import { getLanguageStats, getRecentCommitDetails } from '@/lib/github';
+import { CachingPolicy } from '@/lib/github/constants';
 import { parseConventionalCommit } from '@/lib/github/utils';
 import { getDateDistance, getFormattedDateTime } from '@/utils/date';
 
@@ -18,10 +19,9 @@ interface Props {
   commitLimit: number;
 }
 
-console.log('[Worker]: Astro.cache.set called for RepoSummaryContent');
 Astro.cache.set({
-  maxAge: 10,
-  swr: 5,
+  maxAge: CachingPolicy.MAX_AGE,
+  swr: CachingPolicy.SWR,
 });
 
 const { repoFullName, commitLimit } = Astro.props;

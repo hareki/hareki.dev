@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, envField, fontProviders } from 'astro/config';
 import playformCompress from '@playform/compress';
 import cloudflare from '@astrojs/cloudflare';
-import { cloudflareCdnCache } from './src/lib/cache/config';
+import { cloudflareWorkerCache } from './src/lib/cache/config';
 import react from '@astrojs/react';
 
 // https://astro.build/config
@@ -108,7 +108,7 @@ export default defineConfig({
   experimental: {
     svgo: true,
     cache: {
-      provider: cloudflareCdnCache(),
+      provider: cloudflareWorkerCache(),
     },
   },
 });

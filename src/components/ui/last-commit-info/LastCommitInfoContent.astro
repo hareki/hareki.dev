@@ -4,15 +4,15 @@ import GitMergeIcon from '@tabler/icons/outline/git-merge.svg';
 import Button from '@/components/starwind/button';
 import NewTabIndicator from '@/components/ui/NewTabIndicator.astro';
 import { getLastCommitInfo, getShortenCommitHash } from '@/lib/github';
+import { CachingPolicy } from '@/lib/github/constants';
 import { getFormattedDate } from '@/utils/date';
 
 import Layout from './LastCommitInfoLayout.astro';
 import NewTabSrIndicator from '../NewTabSrIndicator.astro';
 
-console.log('[Worker]: Astro.cache.set called for LastCommitInfo');
 Astro.cache.set({
-  maxAge: 10, // 15 minutes
-  swr: 5, // serve stale for 1 min while revalidating
+  maxAge: CachingPolicy.MAX_AGE,
+  swr: CachingPolicy.SWR,
 });
 
 const lastCommitInfo = await getLastCommitInfo();
