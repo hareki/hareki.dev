@@ -18,6 +18,7 @@ interface Props {
   commitLimit: number;
 }
 
+console.log('[Worker]: Astro.cache.set called for RepoSummaryContent');
 Astro.cache.set({
   maxAge: 10,
   swr: 5,

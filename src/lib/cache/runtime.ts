@@ -11,6 +11,7 @@ const factory: CacheProviderFactory = () => ({
 
   // https://docs.astro.build/en/reference/experimental-flags/route-caching/#writing-a-custom-cache-provider
   setHeaders(options) {
+    console.log('[Worker]: setHeaders called');
     const headers = new Headers();
     if (options.maxAge !== undefined) {
       let value = `max-age=${options.maxAge}`;
@@ -26,7 +27,9 @@ const factory: CacheProviderFactory = () => ({
   },
 
   async onRequest(context, next) {
+    console.log('[Worker] Invoking onRequest', context.url);
     if (context.request.method !== 'GET') {
+      console.log('[Worker] Skipping non-GET request', context.request.method);
       return next();
     }
 
@@ -45,17 +48,20 @@ const factory: CacheProviderFactory = () => ({
     const cached = await cache.match(cacheKey);
     if (cached) {
       // WORKER CACHE HIT: return cached response we previously created below
+      console.log('[Worker] Cache hit', context.url);
       return new Response(cached.body, cached);
     }
 
     const response = await next();
 
     if (response.status !== 200) {
+      console.log('[Worker] Skipping non-200 response', response.status);
       return response;
     }
 
     const cdnCacheControl = response.headers.get('CDN-Cache-Control');
     if (!cdnCacheControl) {
+      console.log('[Worker] Skipping missing CDN-Cache-Control header');
       return response;
     }
 
@@ -88,6 +94,7 @@ const factory: CacheProviderFactory = () => ({
       await cache.put(cacheKey, cachedResponseEntry);
     }
 
+    console.log('[Worker] Cache miss, entry generated', context.url);
     return cachedResponseEntry;
   },
 

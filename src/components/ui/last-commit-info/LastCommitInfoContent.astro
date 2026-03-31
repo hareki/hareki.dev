@@ -9,6 +9,7 @@ import { getFormattedDate } from '@/utils/date';
 import Layout from './LastCommitInfoLayout.astro';
 import NewTabSrIndicator from '../NewTabSrIndicator.astro';
 
+console.log('[Worker]: Astro.cache.set called for LastCommitInfo');
 Astro.cache.set({
   maxAge: 10, // 15 minutes
   swr: 5, // serve stale for 1 min while revalidating
