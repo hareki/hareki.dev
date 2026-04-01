@@ -24,6 +24,7 @@ export const getRepoCommits = async (
   if (!res.ok) {
     console.warn(
       `GitHub API error (${res.status}) fetching commits for ${owner}/${repo}`,
+      res,
     );
     return null;
   }
