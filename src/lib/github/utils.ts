@@ -19,7 +19,7 @@ export const githubFetch = async (url: string): Promise<Response> => {
 export const parseConventionalCommit = (
   message: string,
 ): { prefix: string | null; message: string } => {
-  const match = message.match(/^(\w+(?:\([^)]*\))?!?:)\s+(.+)$/);
+  const match = message.trim().match(/^(\w+(?:\([^)]*\))?!?:)\s+(.+)$/);
   if (!match) {
     return { prefix: null, message };
   }

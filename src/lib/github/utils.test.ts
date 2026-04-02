@@ -74,4 +74,49 @@ describe('parseConventionalCommit', () => {
       message: 'feat:no space',
     });
   });
+
+  it('parses scope with slash (e.g. nvim/deps)', () => {
+    expect(
+      parseConventionalCommit(
+        'chore(nvim/deps): update lazy.nvim, remove sidekick.nvim\n',
+      ),
+    ).toEqual({
+      prefix: 'chore(nvim/deps):',
+      message: 'update lazy.nvim, remove sidekick.nvim',
+    });
+  });
+
+  it('parses scope with slash and hyphen (e.g. nvim/nvim-treesitter)', () => {
+    expect(
+      parseConventionalCommit(
+        'chore(nvim/nvim-treesitter): update plugin lock and auto-install missing parsers\n',
+      ),
+    ).toEqual({
+      prefix: 'chore(nvim/nvim-treesitter):',
+      message: 'update plugin lock and auto-install missing parsers',
+    });
+  });
+
+  it('handles trailing newline on standard messages', () => {
+    expect(parseConventionalCommit('feat: add login\n')).toEqual({
+      prefix: 'feat:',
+      message: 'add login',
+    });
+  });
+
+  it('parses scope with multiple entries separated by comma', () => {
+    expect(parseConventionalCommit('feat(nvim, zsh): add plugins')).toEqual({
+      prefix: 'feat(nvim, zsh):',
+      message: 'add plugins',
+    });
+  });
+
+  it('parses scope with slash and multiple entries', () => {
+    expect(
+      parseConventionalCommit('feat(nvim/deps, zsh): update dependencies'),
+    ).toEqual({
+      prefix: 'feat(nvim/deps, zsh):',
+      message: 'update dependencies',
+    });
+  });
 });
