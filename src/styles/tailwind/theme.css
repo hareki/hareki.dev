@@ -12,7 +12,7 @@
 
 :root {
   --default-transition-duration: 0.35s;
-  --radius: 0.625rem;
+  --radius: 0.75rem;
 
   --background: var(--ctp-base);
   --foreground: var(--ctp-text);
