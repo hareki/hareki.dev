@@ -122,8 +122,13 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
             <Tooltip>
               <TooltipTrigger>
                 <button
-                  class='flex-center dot-7 bouncy-click transition-all'
-                  style={`background-color: var(--ctp-${value})`}
+                  class='
+                    flex-center dot-7 bouncy-click transition-all outline-none
+                    focus-visible:ring-2 focus-visible:ring-offset-1
+                    focus-visible:ring-offset-background
+                    motion-safe:not-disabled:hocus:scale-[107%]
+                  '
+                  style={`background-color: var(--ctp-${value});--tw-ring-color: var(--ctp-${value});`}
                   data-accent={value}
                   aria-label={`Select ${label} accent`}
                   role='radio'

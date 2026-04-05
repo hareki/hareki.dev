@@ -147,6 +147,7 @@ const MonkeytypeAtHome = () => {
     >
       <input
         ref={inputRef}
+        type='text'
         className='absolute size-0 opacity-0'
         aria-label='Typing test input — click the typing area or tab here to begin'
         onKeyDown={handleKeyDown}

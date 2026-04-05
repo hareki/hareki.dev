@@ -3,6 +3,7 @@ import { cn } from 'tailwind-variants';
 
 import ItemButton from './ItemButton.astro';
 import NewTabIndicator from './NewTabIndicator.astro';
+import NewTabSrIndicator from './NewTabSrIndicator.astro';
 
 interface Props {
   name: string;
@@ -24,5 +25,6 @@ const { name, description, href, class: className, size = 'md' } = Astro.props;
   class={cn('group relative', className)}
 >
   <slot name='icon' slot='icon' />
+  <NewTabSrIndicator />
   <NewTabIndicator />
 </ItemButton>

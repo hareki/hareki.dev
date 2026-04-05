@@ -13,9 +13,10 @@ const { class: className, ...rest } = Astro.props;
   class={cn(
     `
       group relative inline-flex bouncy-click rounded-xs text-primary underline
-      underline-offset-3
+      underline-offset-3 outline-none
       hover:bg-primary/20 hover:text-primary
-      focus-visible:no-underline
+      focus-visible:no-underline focus-visible:ring-2
+      focus-visible:ring-primary/80
     `,
     className,
   )}
