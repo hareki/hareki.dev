@@ -124,9 +124,10 @@ const [commits, languages] = await Promise.all([
 
                 <span
                   class='
-                    mx-1.5 text-subtext0-foreground
+                    mx-1.5 hidden text-subtext0-foreground
                     @md:hidden
                   '
+                  data-commit-dot
                 >
                   &#8226;
                 </span>
@@ -242,11 +243,17 @@ const [commits, languages] = await Promise.all([
           tooltipContent.textContent = getFormattedDateTime(date);
         }
 
+        // Only reveal the middle dot when we're 100% sure that date distance is there
+        const dot = el.closest('[data-slot="tooltip"]')?.previousElementSibling;
+        if (dot instanceof HTMLElement && 'commitDot' in dot.dataset) {
+          dot.classList.remove('hidden');
+        }
+
         // Live-update date distance
         const update = () => {
           const diff = Date.now() - date.getTime();
           // PERF: Actual seconds get stale every second, updating all of them might be a bottleneck
-          el.textContent = diff < MINUTE ? 'Now' : getDateDistance(date);
+          el.textContent = diff < MINUTE ? 'now' : getDateDistance(date);
           const interval = getUpdateInterval(date);
           if (interval !== null) {
             timeoutIds.push(setTimeout(update, interval));
