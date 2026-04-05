@@ -6,6 +6,7 @@ import cloudflare from '@astrojs/cloudflare';
 import { cloudflareWorkerCache } from './src/lib/cache/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import robotsTxt from 'astro-robots-txt';
 
 // https://astro.build/config
 export default defineConfig({
@@ -60,6 +61,7 @@ export default defineConfig({
 
   integrations: [
     sitemap(),
+    robotsTxt(),
     playformCompress({
       CSS: true,
       HTML: {
