@@ -5,6 +5,7 @@ import playformCompress from '@playform/compress';
 import cloudflare from '@astrojs/cloudflare';
 import { cloudflareWorkerCache } from './src/lib/cache/config';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -58,6 +59,7 @@ export default defineConfig({
   },
 
   integrations: [
+    sitemap(),
     playformCompress({
       CSS: true,
       HTML: {
