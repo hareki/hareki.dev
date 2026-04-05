@@ -46,7 +46,7 @@ const ResultScreen = ({ className }: ResultScreenProps) => {
             aria-label='Your best wpm'
           >
             <IconCrownFilled
-              className='size-3.5 text-inner-box'
+              className='size-3.5 text-sub-section'
               aria-hidden='true'
             />
           </div>

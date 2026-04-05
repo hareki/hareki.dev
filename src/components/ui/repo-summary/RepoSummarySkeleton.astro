@@ -27,14 +27,14 @@ const commitHeight = '2rem';
   <style define:vars={{ commitLimit, commitHeight }}>
     [data-repo-summary-skeleton] {
       --summary-skeleton-height: calc(
-        12.375rem + var(--commitHeight) * var(--commitLimit)
+        13.375rem + var(--commitHeight) * var(--commitLimit)
       );
     }
 
     @container (min-width: 31.875rem) {
       [data-repo-summary-skeleton] {
         --summary-skeleton-height: calc(
-          10.375rem + var(--commitHeight) * var(--commitLimit)
+          11.875rem + var(--commitHeight) * var(--commitLimit)
         );
       }
     }
@@ -42,7 +42,7 @@ const commitHeight = '2rem';
     @container (min-width: 44.813rem) {
       [data-repo-summary-skeleton] {
         --summary-skeleton-height: calc(
-          6.5rem + var(--commitHeight) * var(--commitLimit)
+          7.5rem + var(--commitHeight) * var(--commitLimit)
         );
       }
     }
