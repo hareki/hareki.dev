@@ -199,16 +199,19 @@ const [commits, languages] = await Promise.all([
   const DAY = 24 * HOUR;
   const WEEK = 7 * DAY;
 
-  const getUpdateInterval = (date: Date): number | null => {
+  const getNextUpdateDelay = (date: Date): number | null => {
     const diff = Date.now() - date.getTime();
+    if (diff < MINUTE) {
+      return MINUTE - diff;
+    }
     if (diff < HOUR) {
-      return MINUTE;
+      return MINUTE - (diff % MINUTE);
     }
     if (diff < DAY) {
-      return HOUR;
+      return HOUR - (diff % HOUR);
     }
     if (diff < WEEK) {
-      return DAY;
+      return DAY - (diff % DAY);
     }
     return null;
   };
@@ -254,7 +257,7 @@ const [commits, languages] = await Promise.all([
           const diff = Date.now() - date.getTime();
           // PERF: Actual seconds get stale every second, updating all of them might be a bottleneck
           el.textContent = diff < MINUTE ? 'now' : getDateDistance(date);
-          const interval = getUpdateInterval(date);
+          const interval = getNextUpdateDelay(date);
           if (interval !== null) {
             timeoutIds.push(setTimeout(update, interval));
           }
