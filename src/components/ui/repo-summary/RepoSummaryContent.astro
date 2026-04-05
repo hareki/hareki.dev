@@ -244,7 +244,9 @@ const [commits, languages] = await Promise.all([
 
         // Live-update date distance
         const update = () => {
-          el.textContent = getDateDistance(date);
+          const diff = Date.now() - date.getTime();
+          // PERF: Actual seconds get stale every second, updating all of them might be a bottleneck
+          el.textContent = diff < MINUTE ? 'Now' : getDateDistance(date);
           const interval = getUpdateInterval(date);
           if (interval !== null) {
             timeoutIds.push(setTimeout(update, interval));
