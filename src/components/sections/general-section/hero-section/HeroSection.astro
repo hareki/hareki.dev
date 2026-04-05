@@ -10,6 +10,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/starwind/tooltip';
+import PersonalInfo from '@/data/personal-info';
 
 import LetterTransformer from './LetterTransformer.astro';
 ---
@@ -49,7 +50,7 @@ import LetterTransformer from './LetterTransformer.astro';
         '
       >
         <BriefcaseIcon class='size-5' />
-        <span>Software Engineer</span>
+        <span>{PersonalInfo.JOB_TITLE}</span>
       </div>
 
       <div
@@ -59,7 +60,7 @@ import LetterTransformer from './LetterTransformer.astro';
         '
       >
         <MapPinIcon class='size-5' />
-        <span>HCMC, Vietnam</span>
+        <span>{PersonalInfo.LOCATION_LABEL}</span>
       </div>
     </div>
     <p

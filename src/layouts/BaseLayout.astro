@@ -4,6 +4,8 @@ import { SEO } from 'astro-seo';
 import { Font } from 'astro:assets';
 
 import favicon from '@/assets/favicon.svg';
+import ContactInformation from '@/data/contact-information';
+import PersonalInfo from '@/data/personal-info';
 
 interface Props {
   title?: string;
@@ -74,6 +76,39 @@ const ogAlt = 'Hareki - Software Engineer';
     <Font cssVariable='--font-maple-mono' />
 
     <meta name='generator' content={Astro.generator} />
+
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': `${Astro.site}#website`,
+            url: Astro.site?.href,
+            name: baseTitle,
+            description: description,
+          },
+          {
+            '@type': 'Person',
+            '@id': `${Astro.site}#person`,
+            name: 'Tu Nguyen',
+            alternateName: 'Hareki',
+            url: Astro.site?.href,
+            jobTitle: PersonalInfo.JOB_TITLE,
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: PersonalInfo.ADDRESS_LOCALITY,
+              addressCountry: PersonalInfo.ADDRESS_COUNTRY,
+            },
+            sameAs: [
+              ContactInformation.GITHUB_URL,
+              ContactInformation.LINKEDIN_URL,
+            ],
+          },
+        ],
+      })}
+    />
 
     <!--
       Theme Switching Handler
