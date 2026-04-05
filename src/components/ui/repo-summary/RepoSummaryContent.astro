@@ -7,7 +7,6 @@ import {
 import { getLanguageStats, getRecentCommitDetails } from '@/lib/github';
 import { CachingPolicy } from '@/lib/github/constants';
 import { parseConventionalCommit } from '@/lib/github/utils';
-import { getDateDistance, getFormattedDateTime } from '@/utils/date';
 
 import Badge from '../Badge.astro';
 import StandaloneLink from '../StandaloneLink.astro';
@@ -138,15 +137,12 @@ const [commits, languages] = await Promise.all([
                         whitespace-nowrap
                         group-hover:text-primary/80
                       '
-                    >
-                      {getDateDistance(commit.createdAt)}
-                    </span>
+                      data-commit-date={commit.createdAt.toISOString()}
+                    />
                   </TooltipTrigger>
 
                   <TooltipContent class='text-sm'>
-                    <span data-utc={commit.createdAt.toISOString()}>
-                      {getFormattedDateTime(commit.createdAt)}
-                    </span>
+                    <span />
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -194,14 +190,73 @@ const [commits, languages] = await Promise.all([
 
 <script>
   import { initStarwind } from '@/lib/starwind/event';
-  import { getFormattedDateTime } from '@/utils/date';
+  import { getDateDistance, getFormattedDateTime } from '@/utils/date';
+
+  const SECOND = 1000; // ms
+  const MINUTE = 60 * SECOND;
+  const HOUR = 60 * MINUTE;
+  const DAY = 24 * HOUR;
+  const WEEK = 7 * DAY;
+
+  const getUpdateInterval = (date: Date): number | null => {
+    const diff = Date.now() - date.getTime();
+    if (diff < HOUR) {
+      return MINUTE;
+    }
+    if (diff < DAY) {
+      return HOUR;
+    }
+    if (diff < WEEK) {
+      return DAY;
+    }
+    return null;
+  };
+
+  let timeoutIds: ReturnType<typeof setTimeout>[] = [];
+
+  const destroyLiveCommitDates = () => {
+    timeoutIds.forEach(clearTimeout);
+    timeoutIds = [];
+  };
+
+  const initLiveCommitDates = () => {
+    destroyLiveCommitDates();
+
+    document
+      .querySelectorAll<HTMLSpanElement>('[data-commit-date]')
+      .forEach((el) => {
+        const utc = el.dataset.commitDate;
+        if (!utc) {
+          throw new Error('commit-date data attribute is missing');
+        }
+
+        const date = new Date(utc);
+
+        // Set tooltip content (sibling TooltipContent's inner span)
+        const tooltipContent = el
+          .closest('[data-slot="tooltip"]')
+          ?.querySelector<HTMLSpanElement>(
+            '[data-slot="tooltip-content"] > span',
+          );
+        if (tooltipContent) {
+          tooltipContent.textContent = getFormattedDateTime(date);
+        }
+
+        // Live-update date distance
+        const update = () => {
+          el.textContent = getDateDistance(date);
+          const interval = getUpdateInterval(date);
+          if (interval !== null) {
+            timeoutIds.push(setTimeout(update, interval));
+          }
+        };
+
+        update();
+      });
+  };
 
   initStarwind();
-  document.querySelectorAll<HTMLSpanElement>('[data-utc]').forEach((el) => {
-    if (!el.dataset.utc) {
-      throw new Error('UTC data attribute is missing');
-    }
-
-    el.textContent = getFormattedDateTime(new Date(el.dataset.utc));
-  });
+  initLiveCommitDates();
+  document.addEventListener('astro:before-swap', destroyLiveCommitDates);
+  document.addEventListener('astro:after-swap', initLiveCommitDates);
 </script>
