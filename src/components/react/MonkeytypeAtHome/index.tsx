@@ -135,8 +135,8 @@ const MonkeytypeAtHome = () => {
       ref={containerRef}
       className={cn(
         `
-          relative flex-center min-h-62 rounded-md bg-sub-section px-6 py-4
-          text-sm transition-shadow duration-350
+          relative flex-center min-h-62 rounded-md bg-sub-section p-4 text-sm
+          transition-shadow duration-350
         `,
         screen !== 'result' && 'cursor-text',
         isFocused && screen !== 'result' && 'ring-2 ring-primary/80',
