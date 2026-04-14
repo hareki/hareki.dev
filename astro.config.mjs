@@ -15,6 +15,7 @@ export default defineConfig({
     {
       provider: fontProviders.local(),
       name: 'Maple Mono',
+      optimizedFallbacks: false,
       fallbacks: ['monospace'],
       cssVariable: '--font-maple-mono',
       options: {
