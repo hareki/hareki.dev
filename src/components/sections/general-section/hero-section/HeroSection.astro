@@ -26,7 +26,11 @@ import LetterTransformer from './LetterTransformer.astro';
       <Tooltip openDelay={0} closeDelay={0} disableHoverableContent>
         <TooltipTrigger>
           <span
-            class='group cursor-help text-primary'
+            class='
+              group cursor-help rounded-md text-primary
+              focus-visible:outline-2 focus-visible:outline-offset-4
+              focus-visible:outline-primary/75
+            '
             tabindex='0'
             lang='vi'
             aria-label='Tu "Hareki" Nguyen'
