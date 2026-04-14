@@ -63,7 +63,7 @@ const isOpenInNewTab = rest.href && rest.target === '_blank';
         isOpenInNewTab && (
           <>
             <NewTabSrIndicator />
-            <NewTabIndicator />
+            <NewTabIndicator class='group-focus-visible:bg-header' />
           </>
         )
       }

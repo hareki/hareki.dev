@@ -7,10 +7,10 @@ import Layout from './LastCommitInfoLayout.astro';
 <Layout>
   <BaseSkeleton
     class='
-      h-6 w-52
+      h-6 w-52 rounded-xs
       @max-4xl:mb-2.25
     '
     slot='last-updated-date'
   />
-  <BaseSkeleton class='h-6 w-30.25' slot='commit-hash-button' />
+  <BaseSkeleton class='h-6 w-30.25 rounded-xs' slot='commit-hash-button' />
 </Layout>

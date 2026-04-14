@@ -4,19 +4,28 @@ import { cn } from 'tailwind-variants';
 const { class: className } = Astro.props;
 ---
 
-<svg
+<div
   class={cn(
     `
-      pointer-events-none absolute -top-1.25 -right-1.25 size-4 opacity-0
+      pointer-events-none absolute -top-2 -right-2 rounded-full p-0.75
       transition-all duration-500 ease-overshoot
-      group-hocus:-top-1.25 group-hocus:-right-1.25 group-hocus:opacity-100
-      group-hocus:not-disabled:scale-100
-      motion-safe:top-2.5 motion-safe:right-2.5 motion-safe:scale-0
+      group-focus-visible:bg-background
+      group-hocus:-top-2 group-hocus:-right-2
+      motion-safe:top-2.5 motion-safe:right-2.5
     `,
     className,
   )}
-  viewBox='0 0 24 24'
-  aria-hidden='true'
 >
-  <use href='#icon-external-link'></use>
-</svg>
+  <svg
+    class={`
+      size-4 text-primary opacity-0 transition-all duration-500 ease-overshoot
+      group-hocus:opacity-100
+      group-hocus:not-disabled:scale-100
+      motion-safe:scale-0
+    `}
+    viewBox='0 0 24 24'
+    aria-hidden='true'
+  >
+    <use href='#icon-external-link'></use>
+  </svg>
+</div>

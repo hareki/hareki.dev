@@ -22,7 +22,7 @@ export const button = tv({
     '[&_svg]:pointer-events-none [&_svg]:shrink-0',
     `
       outline-none
-      focus-visible:ring-3
+      focus-visible:ring-2
     `,
     `disabled:cursor-not-allowed disabled:opacity-50`,
     `
@@ -35,7 +35,7 @@ export const button = tv({
       default: `
         bg-foreground text-background
         hover:bg-foreground/90
-        focus-visible:ring-outline/80
+        focus-visible:ring-outline/75
       `,
       secondary: `
         bg-secondary text-secondary-foreground
@@ -51,7 +51,7 @@ export const button = tv({
         group-data-[state=open]:bg-primary/10
         group-data-[state=open]:text-primary
         hover:bg-primary/10 hover:text-primary
-        focus-visible:ring-primary/80
+        focus-visible:ring-primary/75
       `,
     },
     size: {
