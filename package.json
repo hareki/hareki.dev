@@ -92,7 +92,8 @@
           "build",
           "ci",
           "chore",
-          "revert"
+          "revert",
+          "enhance"
         ]
       ],
       "type-case": [

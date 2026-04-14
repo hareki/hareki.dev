@@ -39,8 +39,8 @@ const ShortcutHintButton = ({
       ref={ref}
       className={cn(
         `
-          group -mx-1.5 flex bouncy-click cursor-pointer items-center gap-1.5
-          rounded-sm p-1.5 text-subtext1-foreground transition-all outline-none
+          group flex h-9 bouncy-click cursor-pointer items-center gap-1.5
+          rounded-sm px-2.5 text-subtext1-foreground transition-all outline-none
           select-none
           hover:bg-primary/10 hover:text-primary
           focus-visible:ring-2 focus-visible:ring-primary/75

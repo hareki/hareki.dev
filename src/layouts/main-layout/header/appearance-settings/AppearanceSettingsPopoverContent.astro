@@ -55,7 +55,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
       <Switch id='match-system' label='System' size='sm' />
     </div>
     <div
-      class='grid grid-cols-2 gap-2'
+      class='grid grid-cols-2 gap-2.5'
       role='radiogroup'
       aria-label='Theme flavor'
     >
@@ -65,8 +65,7 @@ const accentMiddleIndex = Math.floor(ACCENTS.length / 2);
             variant='secondary'
             size='sm'
             class='
-              justify-start rounded-sm px-4! text-sm text-foreground
-              transition-all
+              justify-start rounded-sm text-sm text-foreground transition-all
             '
             data-flavor={value}
             data-flavor-mode={mode}
