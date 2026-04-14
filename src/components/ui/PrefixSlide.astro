@@ -16,7 +16,7 @@ const { prefix, class: className } = Astro.props;
     class='
       inline-grid grid-cols-[0fr]
       group-data-[transformed="true"]/prefix:grid-cols-[1fr]
-      motion-safe:transition-[grid-template-columns] motion-safe:duration-350
+      motion-safe:transition-[grid-template-columns] motion-safe:duration-250
     '
     data-prefix-slide-prefix
     aria-hidden='true'
@@ -27,7 +27,7 @@ const { prefix, class: className } = Astro.props;
           inline-block min-w-max opacity-0
           group-data-[transformed="true"]/prefix:opacity-100
           motion-safe:transition-opacity motion-safe:duration-150
-          motion-reduce:transition-opacity motion-reduce:duration-350
+          motion-reduce:transition-opacity motion-reduce:duration-250
         '
       >
         {prefix}&nbsp;
