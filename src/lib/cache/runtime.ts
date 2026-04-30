@@ -87,10 +87,7 @@ const cloudflareCacheFactory: CacheProviderFactory = () => ({
       headers,
     });
 
-    // waitUntil should be there when using Cloudflare Workers
-    // But there's a bug making it unavailable in both type and runtime levels
-    // https://github.com/withastro/astro/issues/16145
-    const waitUntil = (context as any).waitUntil;
+    const waitUntil = context.waitUntil;
     const responseToCache = transformedResponse.clone();
 
     if (waitUntil) {

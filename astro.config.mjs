@@ -111,7 +111,6 @@ export default defineConfig({
   adapter: cloudflare(),
 
   experimental: {
-    svgo: true,
     cache: {
       provider: cloudflareWorkerCache(),
     },
