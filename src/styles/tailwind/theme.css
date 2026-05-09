@@ -25,7 +25,7 @@
   --secondary: var(--ctp-surface1);
   --secondary-foreground: var(--ctp-text);
   --secondary-accent: var(--ctp-text);
-  --secondary-focus: var(--ctp-overlay2);
+  --secondary-focus: var(--ctp-text);
   --subtext0-foreground: var(--ctp-subtext0);
   --subtext1-foreground: var(--ctp-subtext1);
   --sub-section: var(--ctp-surface0);
