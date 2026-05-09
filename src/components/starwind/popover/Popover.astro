@@ -19,6 +19,13 @@ type Props = HTMLAttributes<'div'> & {
    * @default false
    */
   defaultOpen?: boolean;
+  /**
+   * When true, pressing the ArrowUp key on the trigger will also open the
+   * popover (in addition to the default ArrowDown handling). Useful when
+   * the popover content opens above the trigger.
+   * @default false
+   */
+  openOnArrowUp?: boolean;
 };
 
 export const popover = tv({ base: 'starwind-popover' });
@@ -28,6 +35,7 @@ const {
   openOnHover = false,
   closeDelay = 200,
   defaultOpen = false,
+  openOnArrowUp = false,
   ...rest
 } = Astro.props;
 ---
@@ -38,6 +46,7 @@ const {
   data-close-delay={closeDelay}
   data-state={defaultOpen ? 'open' : 'closed'}
   data-default-open={defaultOpen ? 'true' : undefined}
+  data-open-on-arrow-up={openOnArrowUp ? 'true' : undefined}
   {...rest}
   data-slot='popover'
 >
@@ -110,6 +119,7 @@ const {
     private abortController: AbortController;
     private closeTimeoutRef: number | null = null;
     private openOnHover = false;
+    private openOnArrowUp = false;
     private hoverCloseDelay = 200;
     private hoverCloseTimerRef: number | null = null;
     private openChildCount = 0;
@@ -138,6 +148,9 @@ const {
       if (Number.isFinite(closeDelay) && closeDelay >= 0) {
         this.hoverCloseDelay = closeDelay;
       }
+
+      this.openOnArrowUp =
+        this.popover.getAttribute('data-open-on-arrow-up') === 'true';
 
       this.parentHandler = this.resolveParentHandler();
 
@@ -284,6 +297,13 @@ const {
             this.focusFirstFocusableInContent();
           }
         } else if (e.key === 'ArrowDown' && !this.isOpen) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.openPopover();
+          if (this.isOpen) {
+            this.focusFirstFocusableInContent();
+          }
+        } else if (e.key === 'ArrowUp' && this.openOnArrowUp && !this.isOpen) {
           e.preventDefault();
           e.stopPropagation();
           this.openPopover();
