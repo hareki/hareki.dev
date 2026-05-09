@@ -14,15 +14,15 @@ const { title } = Astro.props;
 
 <BaseLayout {title}>
   <SvgSprite />
-  <a
-    href='#main-content'
+  <button
     class='
       sr-only rounded-sm bg-primary/10 px-3! py-1.5! font-bold text-primary
       focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50
     '
+    onclick="document.getElementById('hero-name')?.focus()"
   >
-    Skip to main content
-  </a>
+    Skip navigation
+  </button>
   <Header />
   <main
     id='main-content'
