@@ -1,18 +1,26 @@
 ---
 import figma from '@/assets/technologies/figma.svg';
-import go from '@/assets/technologies/go2.svg';
+import nestjs from '@/assets/technologies/nestjs.svg';
+// import go from '@/assets/technologies/go2.svg';
 import SectionTitle from '@/components/ui/SectionTitle.astro';
 
 import TechItem, { type TechItemProps } from '../TechItem.astro';
 
 const techs: TechItemProps[] = [
   {
-    name: 'Go',
-    description: 'Backend Language',
-    href: 'https://go.dev',
-    icon: go,
+    name: 'NestJS',
+    description: 'Node.js Framework',
+    href: 'https://nestjs.com/',
+    icon: nestjs,
     iconClass: 'size-11',
   },
+  // {
+  //   name: 'Go',
+  //   description: 'Backend Language',
+  //   href: 'https://go.dev',
+  //   icon: go,
+  //   iconClass: 'size-11',
+  // },
   {
     name: 'Figma',
     description: 'Design Tool',
