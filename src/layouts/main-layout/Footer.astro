@@ -2,6 +2,8 @@
 import Separator from '@/components/starwind/separator';
 import Credits from '@/components/ui/credits';
 import LastCommitInfo from '@/components/ui/last-commit-info';
+
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class='@container rounded-lg bg-footer'>
@@ -18,7 +20,7 @@ import LastCommitInfo from '@/components/ui/last-commit-info';
         @4xl:flex-row
       '
     >
-      <p class='mx-3.5 text-subtext0-foreground'>&copy; 2026 Hareki</p>
+      <p class='mx-3.5 text-subtext0-foreground'>&copy; {currentYear} Hareki</p>
       <Separator
         orientation='vertical'
         class='
