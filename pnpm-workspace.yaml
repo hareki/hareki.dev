@@ -4,10 +4,7 @@ allowBuilds:
   unrs-resolver: true
   workerd: true
 
-minimumReleaseAgeExclude:
-  - '@types/react@19.2.15'
-  - miniflare@4.20260518.0
-  - wrangler@4.93.0
+minimumReleaseAgeStrict: true
 
 onlyBuiltDependencies:
   - unrs-resolver
