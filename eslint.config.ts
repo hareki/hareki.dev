@@ -1,7 +1,6 @@
 import { fileURLToPath } from 'node:url';
 
-import { includeIgnoreFile } from '@eslint/compat';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, includeIgnoreFile } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
